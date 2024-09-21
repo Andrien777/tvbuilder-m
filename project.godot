@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 NetConstants="*res://netlist/net_constants.gd"
+WireManager="*res://netlist/wire_manager.gd"
 
 [dotnet]
 

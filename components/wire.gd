@@ -1,5 +1,5 @@
 extends StaticBody2D
-
+class_name Wire
 
 var first_object
 var second_object

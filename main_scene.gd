@@ -17,3 +17,4 @@ func _input(event):
 		comp.initialize(spec)
 		comp.position = get_global_mouse_position()
 		add_child(comp)
+	

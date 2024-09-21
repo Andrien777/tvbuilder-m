@@ -42,6 +42,8 @@ func _process(delta: float) -> void:
 func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton:
 		is_dragged = event.pressed
+	if event is InputEventMouseButton and event.pressed and Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
+		WireManager.register_wire_point(self)
 
 
 func _process_signal():
