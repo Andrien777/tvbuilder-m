@@ -10,6 +10,40 @@
 			"position": "TOP",
 			"readable_name": "John",
 			"description": ""
+		},{
+			"index": 1,
+			"direction": "DIRECTION_INPUT_OUTPUT",
+			"position": "TOP",
+			"readable_name": "John",
+			"description": ""
+		}
+		,{
+			"index": 1,
+			"direction": "DIRECTION_INPUT_OUTPUT",
+			"position": "TOP",
+			"readable_name": "John",
+			"description": ""
+		}
+		,{
+			"index": 1,
+			"direction": "DIRECTION_INPUT_OUTPUT",
+			"position": "TOP",
+			"readable_name": "John",
+			"description": ""
+		}
+		,{
+			"index": 1,
+			"direction": "DIRECTION_INPUT_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "John",
+			"description": ""
+		},
+		{
+			"index": 1,
+			"direction": "DIRECTION_INPUT_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "John",
+			"description": ""
 		}
 	]
 }
