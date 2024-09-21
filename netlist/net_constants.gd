@@ -1,0 +1,7 @@
+extends Object
+#class_name NetConstants
+enum LEVEL {LEVEL_LOW=0, LEVEL_HIGH=1, LEVEL_Z}
+enum DIRECTION {DIRECTION_INPUT, DIRECTION_OUTPUT, DIRECTION_INPUT_OUTPUT, DIRECTION_DISABLED}
+
+static func parse_direction(value: String) -> DIRECTION:
+	return DIRECTION.DIRECTION_INPUT
