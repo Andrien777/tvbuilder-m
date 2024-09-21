@@ -11,7 +11,7 @@ func initialize_from_json(path: String) -> void:
 	var json = JSON.new()
 	var file = FileAccess.open(path, FileAccess.READ).get_as_text()
 	var parsed = json.parse_string(file)
-	if parsed:
+	if parsed != null:
 		self.num_pins = parsed.num_pins
 		self.width = parsed.width
 		self.height = parsed.height
