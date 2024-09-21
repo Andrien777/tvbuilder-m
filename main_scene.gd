@@ -12,7 +12,7 @@ func _process(delta: float) -> void:
 func _input(event):
 	if event.is_action_pressed("create_debug_object"):
 		var spec = ComponentSpecification.new()
-		spec.initialize(0,50,50,"",Array())
+		spec.initialize_from_json("res://sample.json")
 		var comp = CircuitComponent.new()
 		comp.initialize(spec)
 		comp.position = get_global_mouse_position()

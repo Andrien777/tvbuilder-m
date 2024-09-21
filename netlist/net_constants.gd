@@ -1,7 +1,22 @@
-extends Object
+extends Node
 #class_name NetConstants
 enum LEVEL {LEVEL_LOW=0, LEVEL_HIGH=1, LEVEL_Z}
 enum DIRECTION {DIRECTION_INPUT, DIRECTION_OUTPUT, DIRECTION_INPUT_OUTPUT, DIRECTION_DISABLED}
 
-static func parse_direction(value: String) -> DIRECTION:
-	return DIRECTION.DIRECTION_INPUT
+func parse_direction(value: String) -> DIRECTION:
+	if value == "DIRECTION_INPUT":
+		return DIRECTION.DIRECTION_INPUT
+	elif value == "DIRECTION_OUTPUT":
+		return DIRECTION.DIRECTION_OUTPUT
+	elif value == "DIRECTION_INPUT_OUTPUT":
+		return DIRECTION.DIRECTION_INPUT_OUTPUT
+	else:
+		return DIRECTION.DIRECTION_DISABLED
+
+func parse_level(value: String) -> LEVEL:
+	if value == "LEVEL_HIGH":
+		return LEVEL.LEVEL_HIGH
+	elif value == "LEVEL_LOW":
+		return LEVEL.LEVEL_LOW
+	else:
+		return LEVEL.LEVEL_Z

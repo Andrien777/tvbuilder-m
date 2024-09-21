@@ -26,7 +26,7 @@ func initialize(spec: ComponentSpecification)->void:
 func initialize_pins(spec: Array)->void:
 	for pin_spec in spec:
 		var pin = Pin.new()
-		pin.initialize(NetConstants.LEVEL.LEVEL_Z, pin_spec.direction, self)
+		pin.initialize(pin_spec, NetConstants.LEVEL.LEVEL_Z, self)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

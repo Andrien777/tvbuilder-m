@@ -7,12 +7,17 @@ var index: int # Index on a chip
 var state: NetConstants.LEVEL # Current state (low/high/z)
 var direction: NetConstants.DIRECTION  # Input/output/io/disabled
 var parent:Node2D
+var ic_position: String
 var readable_name: String
 var description: String
 
-func initialize(state: NetConstants.LEVEL, direction: NetConstants.DIRECTION, parent: Node2D)->void:
+func initialize(spec: PinSpecification, state: NetConstants.LEVEL, parent: Node2D)->void:
 	self.state = state
-	self.direction = direction
+	self.direction = spec.direction
+	self.index = spec.index
+	self.ic_position = spec.position
+	self.readable_name = spec.readable_name
+	self.description = spec.description
 	self.parent = parent
 	var sprite = Sprite2D.new()
 	var hitbox = CollisionShape2D.new()
@@ -22,6 +27,7 @@ func initialize(state: NetConstants.LEVEL, direction: NetConstants.DIRECTION, pa
 	hitbox.shape = shape
 	add_child(sprite)
 	add_child(hitbox)
+	
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
