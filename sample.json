@@ -1,0 +1,15 @@
+{
+	"num_pins": 1,
+	"height": 50,
+	"width": 50,
+	"texture": "",
+	"pinSpecifications": [
+		{
+			"index": 1,
+			"direction": "DIRECTION_INPUT_OUTPUT",
+			"position": "TOP",
+			"readable_name": "John",
+			"description": ""
+		}
+	]
+}
