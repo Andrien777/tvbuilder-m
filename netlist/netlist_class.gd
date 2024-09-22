@@ -28,7 +28,8 @@ func propagate_signal() -> void:
 		if current in resolved:
 			stack.pop_back()
 			continue
-		visited.append(current)
+		if current not in visited:
+			visited.append(current)
 		match current.pin.direction:
 				NetConstants.DIRECTION.DIRECTION_OUTPUT:
 					if not current.pin.dependencies.is_empty():
