@@ -26,4 +26,11 @@ func _input(event):
 		led.initialize(spec)
 		led.position = get_global_mouse_position() + Vector2.ONE * 300
 		add_child(led)
+	elif event.is_action_pressed("create_and2"):
+		var spec = ComponentSpecification.new()
+		spec.initialize_from_json("res://and2.json")
+		var comp = And2.new()
+		comp.initialize(spec)
+		comp.position = get_global_mouse_position()
+		add_child(comp)
 	

@@ -1,0 +1,27 @@
+{
+	"num_pins": 3,
+	"height": 25,
+	"width": 25,
+	"texture": "",
+	"pinSpecifications": [
+		{
+			"index": 1,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "Вход A",
+			"description": ""
+		},{
+			"index": 2,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "Вход B",
+			"description": ""
+		},{
+			"index": 3,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "Выход A&B",
+			"description": "Описание"
+		}
+	]
+}
