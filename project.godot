@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 NetConstants="*res://netlist/net_constants.gd"
 WireManager="*res://netlist/wire_manager.gd"
 PopupManager="*res://ui/popup/popup_manager.gd"
+NetlistClass="*res://netlist/netlist_class.gd"
 
 [dotnet]
 

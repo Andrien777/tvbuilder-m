@@ -15,6 +15,7 @@ func register_wire_point(object:Node2D):
 func _create_wire(first_object:Node2D, second_object:Node2D):
 	var wire = Wire.new()
 	wire.initialize(first_object,second_object)
+	NetlistClass.add_connection(first_object as Pin, second_object as Pin)
 	add_child(wire)
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

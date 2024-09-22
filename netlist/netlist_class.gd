@@ -39,13 +39,13 @@ func propagate_signal() -> void:
 									dependencies_resolved = false
 									stack.push_back(nodes[dep])
 						if dependencies_resolved:
-							current.pin.parent_ic._process_signal()
+							current.pin.parent._process_signal()
 							stack.pop_back()
 							resolved.append(current)
 							for neighbour in current.neighbours:
 								stack.push_back(neighbour)
 					else:
-						current.pin.parent_ic._process_signal()
+						current.pin.parent._process_signal()
 						stack.pop_back()
 						resolved.append(current)
 						for neighbour in current.neighbours:
