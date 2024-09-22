@@ -15,6 +15,10 @@ func register_wire_point(object:Node2D):
 func _delete_wire(wire):
 	if wire in wires:
 		NetlistClass.delete_connection(wire.first_object, wire.second_object)
+		if is_instance_valid(wire.first_object):
+			(wire.first_object as Pin).state = NetConstants.LEVEL.LEVEL_Z
+		if is_instance_valid(wire.second_object):
+			(wire.second_object as Pin).state = NetConstants.LEVEL.LEVEL_Z
 		wires.erase(wire)
 		wire.queue_free()
 
