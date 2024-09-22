@@ -10,3 +10,4 @@ func _ready() -> void:
 
 func _process_signal():
 	pins[2].state = pins[1].state & pins[0].state
+	pins[5].state = pins[4].state & pins[3].state

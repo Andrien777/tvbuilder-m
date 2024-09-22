@@ -1,5 +1,5 @@
 {
-	"num_pins": 3,
+	"num_pins": 6,
 	"height": 25,
 	"width": 25,
 	"texture": "",
@@ -21,6 +21,24 @@
 			"direction": "DIRECTION_OUTPUT",
 			"position": "TOP",
 			"readable_name": "Выход A&B",
+			"description": "Описание"
+		},{
+			"index": 4,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "Вход C",
+			"description": ""
+		},{
+			"index": 5,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "Вход D",
+			"description": ""
+		},{
+			"index": 6,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "Выход C&D",
 			"description": "Описание"
 		}
 	]
