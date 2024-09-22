@@ -12,6 +12,11 @@ func _process(delta: float) -> void:
 func _input(event):
 	if event.is_action_pressed("create_debug_object"):
 		var spec = ComponentSpecification.new()
+		spec.initialize_from_json("res://led.json")
+		var led = LED.new()
+		led.initialize(spec)
+		led.position = get_global_mouse_position() + Vector2.ONE * 300
+		add_child(led)
 		spec.initialize_from_json("res://switch.json")
 		#var comp = CircuitComponent.new()
 		#comp.initialize(spec)
@@ -21,11 +26,7 @@ func _input(event):
 		switch.initialize(spec)
 		switch.position = get_global_mouse_position()
 		add_child(switch)
-		spec.initialize_from_json("res://led.json")
-		var led = LED.new()
-		led.initialize(spec)
-		led.position = get_global_mouse_position() + Vector2.ONE * 300
-		add_child(led)
+		
 	elif event.is_action_pressed("create_and2"):
 		var spec = ComponentSpecification.new()
 		spec.initialize_from_json("res://and2.json")
