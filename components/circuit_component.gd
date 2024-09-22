@@ -22,7 +22,7 @@ func initialize(spec: ComponentSpecification)->void:
 	add_child(hitbox)
 	add_child(sprite)
 	initialize_pins(spec.pinSpecifications, test_texture.get_size())
-	self.rotation_degrees=90
+
 
 func initialize_pins(spec: Array, ic_shape:Vector2)->void:
 	var side_count = {"TOP":0, "BOTTOM":0, "LEFT":0, "RIGHT":0}
