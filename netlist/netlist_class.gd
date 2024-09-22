@@ -4,6 +4,8 @@ extends Node
 var nodes: Dictionary # Pin -> NetlistNode
 
 func add_connection(pin1: Pin, pin2: Pin) -> void:
+	if pin1 == pin2:
+		return
 	if pin1 not in nodes.keys():
 		var node = NetlistNode.new()
 		node.initialize(pin1)
@@ -18,7 +20,7 @@ func add_connection(pin1: Pin, pin2: Pin) -> void:
 func propagate_signal() -> void:
 	if nodes.is_empty():
 		return
-	var visited: Array[NetlistNode]
+	var visited: Dictionary
 	var resolved: Array[NetlistNode]
 	var late_propagation: Array[NetlistNode]
 	var stack: Array[NetlistNode]
@@ -32,8 +34,13 @@ func propagate_signal() -> void:
 			if current in resolved:
 				stack.pop_back()
 				continue
-			if current not in visited:
-				visited.append(current)
+			if current not in visited.keys():
+				visited[current] = 1
+			else:
+				visited[current] += 1
+			if visited[current] >= 5:
+				stack.pop_back()
+				continue # TODO: add notification
 			match current.pin.direction:
 					NetConstants.DIRECTION.DIRECTION_OUTPUT:
 						if not current.pin.dependencies.is_empty():
@@ -48,12 +55,20 @@ func propagate_signal() -> void:
 								stack.pop_back()
 								resolved.append(current)
 								for neighbour in current.neighbours:
-									stack.push_back(neighbour)
+									if neighbour.pin.direction == NetConstants.DIRECTION.DIRECTION_OUTPUT:
+										if neighbour in resolved and neighbour.pin.state != current.pin.state:
+											print("wtf is going on")
+									if neighbour != current:
+										stack.push_back(neighbour)
 						else:
 							current.pin.parent._process_signal()
 							stack.pop_back()
 							resolved.append(current)
 							for neighbour in current.neighbours:
+								if neighbour.pin.direction == NetConstants.DIRECTION.DIRECTION_OUTPUT:
+									if neighbour in resolved and neighbour.pin.state != current.pin.state:
+										print("wtf is going on")
+								if neighbour != current:
 									stack.push_back(neighbour)
 					NetConstants.DIRECTION.DIRECTION_INPUT:
 						var counter = 0
@@ -69,7 +84,8 @@ func propagate_signal() -> void:
 							late_propagation.append(current)
 							stack.pop_back()
 							for neighbour in current.neighbours:
-								stack.push_back(neighbour)
+								if neighbour != current:
+									stack.push_back(neighbour)
 							continue
 						for neighbour in current.neighbours:
 							if neighbour.pin.direction == NetConstants.DIRECTION.DIRECTION_OUTPUT:
@@ -85,6 +101,21 @@ func propagate_signal() -> void:
 						if current in resolved:
 							stack.pop_back()
 						for neighbour in current.neighbours:
-							stack.push_back(neighbour)
+							if neighbour != current:
+								stack.push_back(neighbour)
 	if not late_propagation.is_empty():
-		print("need late propagation")
+		for pin in late_propagation:
+			var state = pin.neighbours[0].pin.state
+			var ok = true
+			for neighbour in pin.neighbours:
+				if neighbour not in resolved:
+					continue
+				if neighbour.pin.state != state:
+					if state == NetConstants.LEVEL.LEVEL_Z:
+						state = neighbour.pin.state
+					else:
+						ok = false
+			if ok:
+				pin.pin.state = state
+			else:
+				print("late prop error")

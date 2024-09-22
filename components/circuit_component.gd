@@ -41,12 +41,12 @@ func initialize_pins(spec: Array, ic_shape:Vector2)->void:
 			if side_count[k] != 1:
 				side_margin[k] = (ic_shape.x-2*side_padding)/(side_count[k]-1)
 			else:
-				side_margin[k] = 0
+				side_margin[k] = ic_shape.x/2
 		else: # or vertically
 			if side_count[k] != 1:
 				side_margin[k] = (ic_shape.y-2*side_padding)/(side_count[k]-1)
 			else:
-				side_margin[k] = 0
+				side_margin[k] = ic_shape.y/2
 
 
 	var side_index = {"TOP":0, "BOTTOM":0, "LEFT":0, "RIGHT":0}
