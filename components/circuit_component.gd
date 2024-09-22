@@ -79,6 +79,8 @@ func initialize_pins(spec: Array, ic_shape:Vector2)->void:
 		
 		pins.append(pin)
 		add_child(pin)
+	for pin in pins:
+		pin.initialize_dependencies()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

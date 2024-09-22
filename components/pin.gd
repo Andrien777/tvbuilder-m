@@ -34,14 +34,17 @@ func initialize(spec: PinSpecification, state: NetConstants.LEVEL, parent: Node2
 func _ready() -> void:
 	pass # Replace with function body.
 
-
+func initialize_dependencies()->void:
+	if self.direction == NetConstants.DIRECTION.DIRECTION_OUTPUT:
+		for pin in self.parent.pins:
+			if pin.direction == NetConstants.DIRECTION.DIRECTION_INPUT:
+				dependencies.append(pin)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
 func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.pressed and Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
 		WireManager.register_wire_point(self)
-
 func _mouse_enter() -> void:
 	PopupManager.display_hint(readable_name,description,self.global_position)
 func _mouse_exit()->void:
