@@ -17,7 +17,7 @@ func add_connection(pin1: Pin, pin2: Pin) -> void:
 	nodes[pin1].neighbours.append(nodes[pin2])
 	nodes[pin2].neighbours.append(nodes[pin1])
 	
-func delete_connection(pin1: Pin, pin2: Pin)->void:
+func delete_connection(pin1, pin2)->void:
 	nodes[pin1].neighbours.erase(nodes[pin2])
 	nodes[pin2].neighbours.erase(nodes[pin1])
 	if nodes[pin1].neighbours.is_empty():
