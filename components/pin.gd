@@ -11,6 +11,7 @@ var ic_position: String
 var readable_name: String
 var description: String
 var sprite_shape: Vector2
+var dependencies: Array[Pin]
 func initialize(spec: PinSpecification, state: NetConstants.LEVEL, parent: Node2D)->void:
 	self.input_pickable = true
 	self.state = state
