@@ -9,12 +9,12 @@
 					"subelements": [
 						{
 							"ic_name": "2 ИЛИ",
-							"config_path": "res://and2.json",
+							"config_path": "res://components/ic/configs/and2.json",
 							"logic_class_path": "res://components/ic/logic/And2.gd"
 						},
 						{
 							"ic_name": "2 ИЛИ",
-							"config_path": "res://and2.json",
+							"config_path": "res://components/ic/configs/and2.json",
 							"logic_class_path": "res://components/ic/logic/And2.gd"
 						}
 					]
@@ -24,14 +24,14 @@
 					"subelements": [
 						{
 							"ic_name": "2 ИЛИ",
-							"config_path": "res://and2.json",
+							"config_path": "res://components/ic/configs/and2.json",
 							"logic_class_path": "res://components/ic/logic/And2.gd"
-						},
+						}
 					]
 				},
 				{
 					"ic_name": "2 ИЛИ",
-					"config_path": "res://and2.json",
+					"config_path": "res://components/ic/configs/and2.json",
 					"logic_class_path": "res://components/ic/logic/And2.gd"
 				}
 			]
@@ -41,15 +41,15 @@
 			"subelements": [
 				{
 					"ic_name": "Переключатель",
-					"config_path": "res://switch.json",
+					"config_path": "res://components/ic/configs/switch.json",
 					"logic_class_path": "res://components/ic/logic/switch.gd"
 				},
 				{
 					"ic_name": "Светодиод",
-					"config_path": "res://led.json",
+					"config_path": "res://components/ic/configs/led.json",
 					"logic_class_path": "res://components/ic/logic/led.gd"
 				}
-			],
+			]
 		}
-	],
+	]
 }

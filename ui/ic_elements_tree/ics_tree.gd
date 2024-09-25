@@ -7,7 +7,7 @@ func _ready() -> void:
 
 func _initialize_from_json() -> void:
 	var json = JSON.new()
-	var file = FileAccess.open("res://tree_config.json", FileAccess.READ).get_as_text()
+	var file = FileAccess.open("res://ui/ic_elements_tree/tree_config.json", FileAccess.READ).get_as_text()
 	var parsed = json.parse_string(file)
 	
 	if "group_name" in parsed:
