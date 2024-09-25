@@ -20,6 +20,7 @@ func _parse_group(group, tree_node):
 		var new_child = tree.create_item(tree_node)
 		if "group_name" in element:
 			new_child.set_text(0, element.group_name)
+			new_child.set_selectable(0, false)
 			_parse_group(element, new_child)
 		elif "ic_name" in element:
 			new_child.set_text(0, element.ic_name)
