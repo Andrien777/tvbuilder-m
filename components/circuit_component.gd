@@ -17,12 +17,11 @@ func initialize(spec: ComponentSpecification)->void:
 	#var texture = load(spec.texture)
 	sprite.texture = test_texture
 	
-	sprite.modulate = Color(0.0, 100.0, 0.0, 1.0)
+	sprite.modulate = Color(0.0, 0.0, 0.0, 1.0)
 	# Render texture and set height-width
 	add_child(hitbox)
 	add_child(sprite)
 	initialize_pins(spec.pinSpecifications, test_texture.get_size())
-	self.rotation_degrees=90
 
 func initialize_pins(spec: Array, ic_shape:Vector2)->void:
 	var side_count = {"TOP":0, "BOTTOM":0, "LEFT":0, "RIGHT":0}
@@ -39,9 +38,15 @@ func initialize_pins(spec: Array, ic_shape:Vector2)->void:
 				side_count["BOTTOM"]+=1
 	for k in side_count:
 		if k=="TOP" or k=="BOTTOM": #if pins are spaced horizontally
-			side_margin[k] = (ic_shape.x-2*side_padding)/(side_count[k]-1)
+			if side_count[k] != 1:
+				side_margin[k] = (ic_shape.x-2*side_padding)/(side_count[k]-1)
+			else:
+				side_margin[k] = ic_shape.x/2
 		else: # or vertically
-			side_margin[k] = (ic_shape.y-2*side_padding)/(side_count[k]-1)
+			if side_count[k] != 1:
+				side_margin[k] = (ic_shape.y-2*side_padding)/(side_count[k]-1)
+			else:
+				side_margin[k] = ic_shape.y/2
 
 
 	var side_index = {"TOP":0, "BOTTOM":0, "LEFT":0, "RIGHT":0}
@@ -74,6 +79,8 @@ func initialize_pins(spec: Array, ic_shape:Vector2)->void:
 		
 		pins.append(pin)
 		add_child(pin)
+	for pin in pins:
+		pin.initialize_dependencies()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

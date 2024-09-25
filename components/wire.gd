@@ -8,7 +8,6 @@ var line
 func initialize(first_object:Node2D, second_object:Node2D)->void:
 	line.add_point(first_object.global_position)
 	#line.add_point(Vector2(first_object.global_position.x,second_object.global_position.y))
-
 	line.add_point(second_object.global_position)
 	self.first_object = first_object
 	self.second_object = second_object
@@ -32,5 +31,6 @@ func _process(delta: float) -> void:
 	if first_object!=null and second_object!=null: # TODO: Notify WireManager about missing object
 		line.set_point_position(0, first_object.global_position)
 		#line.set_point_position(1,Vector2(first_object.global_position.x,second_object.global_position.y))
-
 		line.set_point_position(line.get_point_count()-1,second_object.global_position)
+	else:
+		WireManager._delete_wire(self)

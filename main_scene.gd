@@ -7,13 +7,30 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	NetlistClass.propagate_signal()
 
 func _input(event):
 	if event.is_action_pressed("create_debug_object"):
 		var spec = ComponentSpecification.new()
-		spec.initialize_from_json("res://sample.json")
-		var comp = CircuitComponent.new()
+		spec.initialize_from_json("res://led.json")
+		var led = LED.new()
+		led.initialize(spec)
+		led.position = get_global_mouse_position() + Vector2.ONE * 300
+		add_child(led)
+		spec.initialize_from_json("res://switch.json")
+		#var comp = CircuitComponent.new()
+		#comp.initialize(spec)
+		#comp.position = get_global_mouse_position()
+		#add_child(comp)
+		var switch = Switch.new()
+		switch.initialize(spec)
+		switch.position = get_global_mouse_position()
+		add_child(switch)
+		
+	elif event.is_action_pressed("create_and2"):
+		var spec = ComponentSpecification.new()
+		spec.initialize_from_json("res://and2.json")
+		var comp = And2.new()
 		comp.initialize(spec)
 		comp.position = get_global_mouse_position()
 		add_child(comp)

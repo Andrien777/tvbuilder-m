@@ -9,13 +9,13 @@
 			"direction": "DIRECTION_INPUT_OUTPUT",
 			"position": "TOP",
 			"readable_name": "John",
-			"description": ""
+			"description": "Я пин"
 		},{
 			"index": 1,
 			"direction": "DIRECTION_INPUT_OUTPUT",
 			"position": "TOP",
 			"readable_name": "John",
-			"description": ""
+			"description": "Я другой пин"
 		}
 		,{
 			"index": 1,
@@ -27,7 +27,7 @@
 		,{
 			"index": 1,
 			"direction": "DIRECTION_INPUT_OUTPUT",
-			"position": "TOP",
+			"position": "TOP",   
 			"readable_name": "John",
 			"description": ""
 		}
@@ -43,7 +43,7 @@
 			"direction": "DIRECTION_INPUT_OUTPUT",
 			"position": "BOTTOM",
 			"readable_name": "John",
-			"description": ""
+			"description": "А я пин с очень длинным и сложным описанием"
 		}
 	]
 }

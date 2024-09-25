@@ -1,5 +1,5 @@
 extends Node
-
+var wires: Array[Wire]
 var first_wire_point = null
 var second_wire_point = null
 func register_wire_point(object:Node2D):
@@ -12,9 +12,21 @@ func register_wire_point(object:Node2D):
 		first_wire_point = null
 		second_wire_point = null
 
+func _delete_wire(wire):
+	if wire in wires:
+		NetlistClass.delete_connection(wire.first_object, wire.second_object)
+		if is_instance_valid(wire.first_object):
+			(wire.first_object as Pin).state = NetConstants.LEVEL.LEVEL_Z
+		if is_instance_valid(wire.second_object):
+			(wire.second_object as Pin).state = NetConstants.LEVEL.LEVEL_Z
+		wires.erase(wire)
+		wire.queue_free()
+
 func _create_wire(first_object:Node2D, second_object:Node2D):
 	var wire = Wire.new()
 	wire.initialize(first_object,second_object)
+	NetlistClass.add_connection(first_object as Pin, second_object as Pin)
+	wires.append(wire)
 	add_child(wire)
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
