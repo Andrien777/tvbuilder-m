@@ -1,0 +1,55 @@
+{
+	"group_name": "root",
+	"subelements": [
+		{
+			"group_name": "Микросхемы",
+			"subelements": [
+				{
+					"group_name": "Логические микросхемы",
+					"subelements": [
+						{
+							"ic_name": "2 ИЛИ",
+							"config_path": "res://and2.json",
+							"logic_class_path": "res://components/ic/logic/And2.gd"
+						},
+						{
+							"ic_name": "2 ИЛИ",
+							"config_path": "res://and2.json",
+							"logic_class_path": "res://components/ic/logic/And2.gd"
+						}
+					]
+				},
+				{
+					"group_name": "Логические микросхемы",
+					"subelements": [
+						{
+							"ic_name": "2 ИЛИ",
+							"config_path": "res://and2.json",
+							"logic_class_path": "res://components/ic/logic/And2.gd"
+						},
+					]
+				},
+				{
+					"ic_name": "2 ИЛИ",
+					"config_path": "res://and2.json",
+					"logic_class_path": "res://components/ic/logic/And2.gd"
+				}
+			]
+		},
+		{
+			"group_name": "Дополнительно",
+			"subelements": [
+				{
+					"ic_name": "Переключатель",
+					"config_path": "res://switch.json",
+					"logic_class_path": "res://components/ic/logic/switch.gd"
+				},
+				{
+					"ic_name": "Светодиод",
+					"config_path": "res://led.json",
+					"logic_class_path": "res://components/ic/logic/led.gd"
+				}
+			],
+		}
+	],
+}

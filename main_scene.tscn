@@ -1,10 +1,37 @@
-[gd_scene load_steps=3 format=3 uid="uid://donyllnb277wd"]
+[gd_scene load_steps=4 format=3 uid="uid://df5br6oh56ejc"]
 
 [ext_resource type="Script" path="res://main_scene.gd" id="1_8vqs3"]
 [ext_resource type="Script" path="res://camera_2d.gd" id="2_pmywl"]
+[ext_resource type="Script" path="res://ui/ic_elements_tree/ics_tree.gd" id="3_q10ex"]
 
 [node name="RootNode" type="Node2D"]
 script = ExtResource("1_8vqs3")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(576, 320)
 script = ExtResource("2_pmywl")
+
+[node name="UiCanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UiCanvasLayer"]
+anchors_preset = -1
+anchor_right = 0.277611
+anchor_bottom = 1.0
+offset_right = 0.191986
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Button" type="Button" parent="UiCanvasLayer/VBoxContainer"]
+layout_mode = 2
+text = "Button_text"
+metadata/_edit_use_anchors_ = true
+
+[node name="Tree" type="Tree" parent="UiCanvasLayer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+tooltip_text = "Tooltip"
+hide_root = true
+script = ExtResource("3_q10ex")
+
+[connection signal="item_mouse_selected" from="UiCanvasLayer/VBoxContainer/Tree" to="UiCanvasLayer/VBoxContainer/Tree" method="_on_item_mouse_selected"]
+[connection signal="nothing_selected" from="UiCanvasLayer/VBoxContainer/Tree" to="UiCanvasLayer/VBoxContainer/Tree" method="_on_nothing_selected"]
