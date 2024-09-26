@@ -6,9 +6,15 @@ func register_wire_point(object:Node2D):
 	if first_wire_point == null:
 		first_wire_point =object
 	elif second_wire_point==null:
-		# TODO: Check if creation is possible
 		second_wire_point = object
-		_create_wire(first_wire_point, second_wire_point)
+		if Input.is_key_pressed(KEY_SHIFT):
+			for wire in wires:
+				print(wire)
+				if(wire.first_object==first_wire_point and wire.second_object==second_wire_point) or (wire.first_object==second_wire_point and wire.second_object==first_wire_point):
+					_delete_wire(wire)
+		else:
+			# TODO: Check if creation is possible
+			_create_wire(first_wire_point, second_wire_point)
 		first_wire_point = null
 		second_wire_point = null
 

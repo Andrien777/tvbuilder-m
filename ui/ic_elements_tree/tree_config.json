@@ -8,31 +8,21 @@
 					"group_name": "Логические микросхемы",
 					"subelements": [
 						{
-							"ic_name": "2 ИЛИ",
-							"config_path": "res://components/ic/configs/and2.json",
-							"logic_class_path": "res://components/ic/logic/And2.gd"
-						},
-						{
-							"ic_name": "2 ИЛИ",
+							"ic_name": "Абстрактное 2И",
 							"config_path": "res://components/ic/configs/and2.json",
 							"logic_class_path": "res://components/ic/logic/And2.gd"
 						}
 					]
 				},
 				{
-					"group_name": "Логические микросхемы",
+					"group_name": "Дешифраторы",
 					"subelements": [
 						{
-							"ic_name": "2 ИЛИ",
-							"config_path": "res://components/ic/configs/and2.json",
-							"logic_class_path": "res://components/ic/logic/And2.gd"
+							"ic_name": "К1533ИД4",
+							"config_path": "res://components/ic/configs/K1533ID4.json",
+							"logic_class_path": "res://components/ic/demux/K1533ID4.gd"
 						}
 					]
-				},
-				{
-					"ic_name": "2 ИЛИ",
-					"config_path": "res://components/ic/configs/and2.json",
-					"logic_class_path": "res://components/ic/logic/And2.gd"
 				}
 			]
 		},
