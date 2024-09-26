@@ -48,7 +48,8 @@ func propagate_signal() -> void:
 				visited[current] += 1
 			if visited[current] >= 5:
 				stack.pop_back()
-				print("cycle")
+				print("Could not resolve component:")
+				print(current)
 				continue # TODO: add notification
 			match current.pin.direction:
 					NetConstants.DIRECTION.DIRECTION_OUTPUT:
@@ -66,7 +67,7 @@ func propagate_signal() -> void:
 								for neighbour in current.neighbours:
 									if neighbour.pin.direction == NetConstants.DIRECTION.DIRECTION_OUTPUT:
 										if neighbour in resolved and neighbour.pin.state != current.pin.state:
-											print("wtf is going on")
+											print("Two outputs short circuited")
 									if neighbour != current:
 										stack.push_back(neighbour)
 						else:
@@ -76,7 +77,7 @@ func propagate_signal() -> void:
 							for neighbour in current.neighbours:
 								if neighbour.pin.direction == NetConstants.DIRECTION.DIRECTION_OUTPUT:
 									if neighbour in resolved and neighbour.pin.state != current.pin.state:
-										print("wtf is going on")
+										print("Two outputs short circuited")
 								if neighbour != current:
 									stack.push_back(neighbour)
 					NetConstants.DIRECTION.DIRECTION_INPUT:
@@ -127,4 +128,4 @@ func propagate_signal() -> void:
 			if ok:
 				pin.pin.state = state
 			else:
-				print("late prop error")
+				print("Short circuit")
