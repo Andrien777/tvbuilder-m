@@ -14,6 +14,12 @@ func save() -> void:
 	}, "\t"))
 	file.close()
 
+func get_component_by_id(id: int) -> CircuitComponent: #null if not found
+	for ic in ic_list:
+		if ic.id == id:
+			return ic
+	return null
+
 func load(scene: Node2D):
 	var json = JSON.new()
 	var file = FileAccess.open("res://save.json", FileAccess.READ).get_as_text()
@@ -47,6 +53,24 @@ func load(scene: Node2D):
 		var y = float(pos[1].replace(")", ""))
 		component.position = Vector2(x, y)
 		ic_list.append(component)
+	for edge in parsed.netlist:
+		var from_ic = get_component_by_id(edge.from.ic)
+		var from_pin: Pin
+		for pin in from_ic.pins:
+			if pin.index == edge.from.pin:
+				from_pin = pin
+		if from_pin == null:
+			print("error")
+			continue
+		var to_ic = get_component_by_id(edge.to.ic)
+		var to_pin: Pin
+		for pin in to_ic.pins:
+			if pin.index == edge.to.pin:
+				to_pin = pin
+		if to_pin == null:
+			print("error")
+			continue
+		WireManager._create_wire(from_pin, to_pin)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

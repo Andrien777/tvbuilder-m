@@ -3,59 +3,6 @@
 		{
 			"height": 25,
 			"id": 0,
-			"name": "and2",
-			"num_pins": 6,
-			"pins": [
-				{
-					"description": "",
-					"direction": "DIRECTION_INPUT",
-					"index": 1,
-					"position": "TOP",
-					"readable_name": "Вход A"
-				},
-				{
-					"description": "",
-					"direction": "DIRECTION_INPUT",
-					"index": 2,
-					"position": "TOP",
-					"readable_name": "Вход B"
-				},
-				{
-					"description": "Описание",
-					"direction": "DIRECTION_OUTPUT",
-					"index": 3,
-					"position": "TOP",
-					"readable_name": "Выход A&B"
-				},
-				{
-					"description": "",
-					"direction": "DIRECTION_INPUT",
-					"index": 4,
-					"position": "BOTTOM",
-					"readable_name": "Вход C"
-				},
-				{
-					"description": "",
-					"direction": "DIRECTION_INPUT",
-					"index": 5,
-					"position": "BOTTOM",
-					"readable_name": "Вход D"
-				},
-				{
-					"description": "Описание",
-					"direction": "DIRECTION_OUTPUT",
-					"index": 6,
-					"position": "BOTTOM",
-					"readable_name": "Выход C&D"
-				}
-			],
-			"position": "(516, 223)",
-			"texture": "",
-			"width": 25
-		},
-		{
-			"height": 25,
-			"id": 1,
 			"name": "switch",
 			"num_pins": 1,
 			"pins": [
@@ -67,13 +14,13 @@
 					"readable_name": ""
 				}
 			],
-			"position": "(530, 467)",
+			"position": "(603, 285)",
 			"texture": "",
 			"width": 25
 		},
 		{
 			"height": 25,
-			"id": 2,
+			"id": 1,
 			"name": "led",
 			"num_pins": 1,
 			"pins": [
@@ -85,10 +32,21 @@
 					"readable_name": ""
 				}
 			],
-			"position": "(847, 266)",
+			"position": "(871, 126)",
 			"texture": "",
 			"width": 25
 		}
 	],
-	"netlist": []
+	"netlist": [
+		{
+			"from": {
+				"ic": 0,
+				"pin": 1
+			},
+			"to": {
+				"ic": 1,
+				"pin": 1
+			}
+		}
+	]
 }
