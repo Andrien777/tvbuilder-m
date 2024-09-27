@@ -4,7 +4,7 @@ class_name CircuitComponent
 var is_dragged = false
 
 
-var test_texture = preload("res://icon.svg")
+var test_texture = preload("res://components/ic/ic.svg")
 const side_padding = 20 # TODO: Move side_padding to spec?
 var pins: Array
 func initialize(spec: ComponentSpecification)->void:
@@ -16,7 +16,6 @@ func initialize(spec: ComponentSpecification)->void:
 	hitbox.shape = shape
 	#var texture = load(spec.texture)
 	sprite.texture = test_texture
-	
 	sprite.modulate = Color(0.0, 0.0, 0.0, 1.0)
 	# Render texture and set height-width
 	add_child(hitbox)
@@ -52,7 +51,7 @@ func initialize_pins(spec: Array, ic_shape:Vector2)->void:
 	var side_index = {"TOP":0, "BOTTOM":0, "LEFT":0, "RIGHT":0}
 	for pin_spec in spec:
 		var pin = Pin.new()
-		pin.scale=Vector2(0.2,0.2)
+		pin.scale=Vector2(0.4,0.4)
 		match pin_spec.position:
 			"TOP":
 				pin.position = Vector2(side_padding-ic_shape.x/2 + 

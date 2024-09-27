@@ -3,6 +3,7 @@ class_name LED
 var sprite: Sprite2D
 func initialize(spec: ComponentSpecification)->void:
 	super.initialize(spec)
+	self.scale = Vector2(0.5,1)
 	sprite = Sprite2D.new()
 	sprite.texture = test_texture
 	sprite.modulate = Color(0, 100, 0, 0.2)

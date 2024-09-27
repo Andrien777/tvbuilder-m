@@ -9,6 +9,7 @@ func _ready() -> void:
 	
 func initialize(spec: ComponentSpecification)->void:
 	super.initialize(spec)
+	self.scale = Vector2(0.5,1)
 	var button = SwitchButton.new()
 	button.initialize(self)
 	add_child(button)
