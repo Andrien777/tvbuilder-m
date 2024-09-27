@@ -11,11 +11,13 @@ var width: float
 var texture: String
 const side_padding = 20 # TODO: Move side_padding to spec?
 var pins: Array
-func initialize(spec: ComponentSpecification)->void:
+var comp_name: String
+func initialize(spec: ComponentSpecification, comp_name: String)->void:
 	self.input_pickable = true
 	var sprite = Sprite2D.new()
 	var hitbox = CollisionShape2D.new()
 	var shape = RectangleShape2D.new()
+	self.comp_name = comp_name
 	shape.size = test_texture.get_size()
 	hitbox.shape = shape
 	height = spec.height
@@ -125,7 +127,11 @@ func to_json_object() -> Dictionary:
 		})
 	return {
 		"id": id,
-		"name": "ic", #TODO: Add name
+		"name": comp_name,
+		"num_pins": pinsArray.size(),
 		"pins": pinsArray,
+		"width": width,
+		"height": height,
+		"texture": texture,
 		"position": position
 	}

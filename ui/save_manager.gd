@@ -15,7 +15,38 @@ func save() -> void:
 	file.close()
 
 func load(scene: Node2D):
-	pass
+	var json = JSON.new()
+	var file = FileAccess.open("res://save.json", FileAccess.READ).get_as_text()
+	var parsed = json.parse_string(file)
+	if parsed == null:
+		print("error")
+		return
+	for ic in parsed.components:
+		var component: CircuitComponent
+		match(ic.name):
+			"K1533ID4":
+				component = K1533ID4.new()
+			"and2":
+				component = And2.new()
+			"led":
+				component = LED.new()
+			"switch":
+				component = Switch.new()
+		var spec = ComponentSpecification.new()
+		var pinSpecArray: Array[PinSpecification]
+		for pin in ic.pins:
+			var pinSpec = PinSpecification.new()
+			pinSpec.initialize(pin.index, NetConstants.parse_direction(pin.direction), pin.position, pin.readable_name, pin.description)
+			pinSpecArray.append(pinSpec)
+		spec.initialize(ic.num_pins, ic.height, ic.width, ic.texture, pinSpecArray)
+		component.initialize(spec, ic.name)
+		component.id = ic.id
+		scene.add_child(component)
+		var pos = ic.position.split(",")
+		var x = float(pos[0].replace("(", ""))
+		var y = float(pos[1].replace(")", ""))
+		component.position = Vector2(x, y)
+		ic_list.append(component)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
