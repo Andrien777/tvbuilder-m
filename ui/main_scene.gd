@@ -20,4 +20,7 @@ func _input(event):
 		element.initialize(spec)
 		element.position = get_global_mouse_position()
 		add_child(element)
-		
+	elif event.is_action_pressed("save_scheme"):
+		SaveManager.save()
+	elif event.is_action_pressed("load_scheme"):
+		SaveManager.load(self)

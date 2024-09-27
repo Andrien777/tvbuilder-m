@@ -129,3 +129,23 @@ func propagate_signal() -> void:
 				pin.pin.state = state
 			else:
 				print("Short circuit")
+
+func get_json_adjacency():
+	var visited: Array[Pin]
+	var edges: Array[Dictionary]
+	for node in nodes:
+		visited.append(node)
+		for neighbour in nodes[node].neighbours:
+			if neighbour.pin in visited:
+				continue
+			edges.append({
+				"from": {
+					"ic": node.parent.id,
+					"pin": node.index
+				},
+				"to": {
+					"ic": neighbour.pin.parent.id,
+					"pin": neighbour.pin.index
+				}
+			})
+	return edges

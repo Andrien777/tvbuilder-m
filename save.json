@@ -1,0 +1,44 @@
+{
+	"components": [
+		{
+			"id": 0,
+			"name": "ic",
+			"pins": [
+				{
+					"description": "",
+					"direction": "DIRECTION_OUTPUT",
+					"index": 1,
+					"position": "TOP",
+					"readable_name": ""
+				}
+			],
+			"position": "(516, 357)"
+		},
+		{
+			"id": 1,
+			"name": "ic",
+			"pins": [
+				{
+					"description": "",
+					"direction": "DIRECTION_INPUT",
+					"index": 1,
+					"position": "BOTTOM",
+					"readable_name": ""
+				}
+			],
+			"position": "(567, 120)"
+		}
+	],
+	"netlist": [
+		{
+			"from": {
+				"ic": 0,
+				"pin": 1
+			},
+			"to": {
+				"ic": 1,
+				"pin": 1
+			}
+		}
+	]
+}

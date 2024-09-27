@@ -3,8 +3,12 @@ class_name CircuitComponent
 
 var is_dragged = false
 
-
+static var last_id = 0
+var id
 var test_texture = preload("res://components/ic/ic.svg")
+var height: float
+var width: float
+var texture: String
 const side_padding = 20 # TODO: Move side_padding to spec?
 var pins: Array
 func initialize(spec: ComponentSpecification)->void:
@@ -14,6 +18,9 @@ func initialize(spec: ComponentSpecification)->void:
 	var shape = RectangleShape2D.new()
 	shape.size = test_texture.get_size()
 	hitbox.shape = shape
+	height = spec.height
+	width = spec.width
+	texture = spec.texture
 	#var texture = load(spec.texture)
 	sprite.texture = test_texture
 	sprite.modulate = Color(0.0, 0.0, 0.0, 1.0)
@@ -21,6 +28,9 @@ func initialize(spec: ComponentSpecification)->void:
 	add_child(hitbox)
 	add_child(sprite)
 	initialize_pins(spec.pinSpecifications, test_texture.get_size())
+	id = last_id
+	last_id += 1
+	SaveManager.ic_list.append(self)
 
 func initialize_pins(spec: Array, ic_shape:Vector2)->void:
 	var side_count = {"TOP":0, "BOTTOM":0, "LEFT":0, "RIGHT":0}
@@ -96,8 +106,26 @@ func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void
 	if event is InputEventMouseButton:
 		is_dragged = event.pressed
 	if event is InputEventMouseButton and event.pressed and Input.is_mouse_button_pressed(MOUSE_BUTTON_MIDDLE):
+		SaveManager.ic_list.erase(self)
 		queue_free()
 
 
 func _process_signal():
 	pass
+
+func to_json_object() -> Dictionary:
+	var pinsArray: Array
+	for pin in pins:
+		pinsArray.append({
+			"index": pin.index,
+			"direction": NetConstants.direction_to_string(pin.direction),
+			"position": pin.ic_position,
+			"readable_name": pin.readable_name,
+			"description": pin.description
+		})
+	return {
+		"id": id,
+		"name": "ic", #TODO: Add name
+		"pins": pinsArray,
+		"position": position
+	}
