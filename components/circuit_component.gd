@@ -51,7 +51,11 @@ func initialize_pins(spec: Array, ic_shape:Vector2)->void:
 
 	var side_index = {"TOP":0, "BOTTOM":0, "LEFT":0, "RIGHT":0}
 	for pin_spec in spec:
-		var pin = Pin.new()
+		var pin
+		if pin_spec.direction == NetConstants.DIRECTION.DIRECTION_INPUT_OUTPUT:
+			pin = IO_Pin.new()
+		else:
+			pin = Pin.new()
 		pin.scale=Vector2(0.4,0.4)
 		match pin_spec.position:
 			"TOP":
@@ -80,8 +84,13 @@ func initialize_pins(spec: Array, ic_shape:Vector2)->void:
 		pins.append(pin)
 		add_child(pin)
 	pins.sort_custom(pin_comparator)
-	for pin in pins:
-		pin.initialize_dependencies()
+	for pin_spec in spec:
+		if pin_spec.dependencies.is_empty():
+			continue
+		if pin_spec.dependencies[0] == -1:
+			pins[pin_spec.index - 1].initialize_dependencies()
+		for dep in pin_spec.dependencies:
+			pins[pin_spec.index - 1].dependencies.append(pins[dep - 1])
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

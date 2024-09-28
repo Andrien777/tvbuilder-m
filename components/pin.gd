@@ -36,10 +36,9 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 func initialize_dependencies()->void:
-	if self.direction == NetConstants.DIRECTION.DIRECTION_OUTPUT:
-		for pin in self.parent.pins:
-			if pin.direction == NetConstants.DIRECTION.DIRECTION_INPUT:
-				dependencies.append(pin)
+	for pin in self.parent.pins:
+		if pin.direction == NetConstants.DIRECTION.DIRECTION_INPUT:
+			dependencies.append(pin)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
@@ -76,3 +75,8 @@ func set_low():
 func set_z():
 	self.state = NetConstants.LEVEL.LEVEL_Z
 	
+
+func output():
+	return self.direction == NetConstants.DIRECTION.DIRECTION_OUTPUT
+func input():
+	return self.direction == NetConstants.DIRECTION.DIRECTION_INPUT

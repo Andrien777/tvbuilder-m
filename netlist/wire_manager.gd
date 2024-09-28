@@ -48,7 +48,9 @@ func _create_wire(first_object:Node2D, second_object:Node2D):
 		return
 	var wire = Wire.new()
 	wire.initialize(first_object,second_object)
-	NetlistClass.add_connection(first_object as Pin, second_object as Pin)
+	var first_pin = first_object as IO_Pin if first_object is IO_Pin else first_object as Pin
+	var second_pin = second_object as IO_Pin if second_object is IO_Pin else second_object as Pin
+	NetlistClass.add_connection(first_pin, second_pin)
 	wires.append(wire)
 	add_child(wire)
 # Called when the node enters the scene tree for the first time.

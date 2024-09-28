@@ -10,37 +10,43 @@
 			"direction": "DIRECTION_INPUT",
 			"position": "TOP",
 			"readable_name": "Вход A",
-			"description": ""
+			"description": "",
+			"dependencies": []
 		},{
 			"index": 2,
 			"direction": "DIRECTION_INPUT",
 			"position": "TOP",
 			"readable_name": "Вход B",
-			"description": ""
+			"description": "",
+			"dependencies": []
 		},{
 			"index": 3,
 			"direction": "DIRECTION_OUTPUT",
 			"position": "TOP",
 			"readable_name": "Выход A&B",
-			"description": "Описание"
+			"description": "Описание",
+			"dependencies": [1, 2]
 		},{
 			"index": 4,
 			"direction": "DIRECTION_INPUT",
 			"position": "BOTTOM",
 			"readable_name": "Вход C",
-			"description": ""
+			"description": "",
+			"dependencies": []
 		},{
 			"index": 5,
 			"direction": "DIRECTION_INPUT",
 			"position": "BOTTOM",
 			"readable_name": "Вход D",
-			"description": ""
+			"description": "",
+			"dependencies": []
 		},{
 			"index": 6,
 			"direction": "DIRECTION_OUTPUT",
 			"position": "BOTTOM",
 			"readable_name": "Выход C&D",
-			"description": "Описание"
+			"description": "Описание",
+			"dependencies": [4, 5]
 		}
 	]
 }

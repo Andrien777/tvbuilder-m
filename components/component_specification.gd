@@ -22,7 +22,7 @@ func initialize_from_json(path: String) -> void:
 		var pins = parsed.pinSpecifications
 		for pin in pins:
 			var spec = PinSpecification.new()
-			spec.initialize(pin.index, NetConstants.parse_direction(pin.direction), pin.position, pin.readable_name, pin.description)
+			spec.initialize(pin.index, NetConstants.parse_direction(pin.direction), pin.position, pin.readable_name, pin.description, pin.dependencies)
 			self.pinSpecifications.append(spec)
 	else:
 		print("error")

@@ -10,104 +10,120 @@
 			"direction": "DIRECTION_INPUT",
 			"position": "BOTTOM",
 			"readable_name": "Ea",
-			"description": "Сигнал включения A"
+			"description": "Сигнал включения A",
+			"dependencies": []
 		},{
 			"index": 2,
 			"direction": "DIRECTION_INPUT",
 			"position": "BOTTOM",
 			"readable_name": "Sa",
-			"description": "Сигнал строба А"
+			"description": "Сигнал строба А",
+			"dependencies": []
 		},{
 			"index": 3,
 			"direction": "DIRECTION_INPUT",
 			"position": "BOTTOM",
 			"readable_name": "А1",
-			"description": ""
+			"description": "",
+			"dependencies": []
 		}
 		,{
 			"index": 4,
 			"direction": "DIRECTION_OUTPUT",
 			"position": "BOTTOM",
 			"readable_name": "Y4",
-			"description": "Сигнал инвертирован"
+			"description": "Сигнал инвертирован",
+			"dependencies": [-1]
 		},{
 			"index": 5,
 			"direction": "DIRECTION_OUTPUT",
 			"position": "BOTTOM",
 			"readable_name": "Y3",
-			"description": "Сигнал инвертирован"
+			"description": "Сигнал инвертирован",
+			"dependencies": [-1]
 		},{
 			"index": 6,
 			"direction": "DIRECTION_OUTPUT",
 			"position": "BOTTOM",
 			"readable_name": "Y2",
-			"description": "Сигнал инвертирован"
+			"description": "Сигнал инвертирован",
+			"dependencies": [-1]
 		}
 		,{
 			"index": 7,
 			"direction": "DIRECTION_OUTPUT",
 			"position": "BOTTOM",
 			"readable_name": "Y1",
-			"description": "Сигнал инвертирован"
+			"description": "Сигнал инвертирован",
+			"dependencies": [-1]
 		}
 		,{
 			"index": 8,
 			"direction": "DIRECTION_OUTPUT",
 			"position": "BOTTOM",
 			"readable_name": "GND",
-			"description": "Земля"
+			"description": "Земля",
+			"dependencies": []
 		}
 		,{
 			"index": 16,
 			"direction": "DIRECTION_OUTPUT",
 			"position": "TOP",
 			"readable_name": "VCC",
-			"description": "Питание"
+			"description": "Питание",
+			"dependencies": []
 		}
 		,{
 			"index": 15,
 			"direction": "DIRECTION_INPUT",
 			"position": "TOP",
 			"readable_name": "Eb",
-			"description": "Сигнал включения B"
+			"description": "Сигнал включения B",
+			"dependencies": []
 		}
 		,{
 			"index": 14,
 			"direction": "DIRECTION_INPUT",
 			"position": "TOP",
 			"readable_name": "Sb",
-			"description": "Сигнал строба B"
+			"description": "Сигнал строба B",
+			"dependencies": []
 		},{
 			"index": 13,
 			"direction": "DIRECTION_INPUT",
 			"position": "TOP",
 			"readable_name": "A0",
-			"description": "Сигнал А0"
+			"description": "Сигнал А0",
+			"dependencies": []
 		},{
 			"index": 12,
 			"direction": "DIRECTION_OUTPUT",
 			"position": "TOP",
 			"readable_name": "Y8",
-			"description": "Сигнал инвертирован"
+			"description": "Сигнал инвертирован",
+			"dependencies": [-1]
 		}
 		,{
 			"index": 11,
 			"direction": "DIRECTION_OUTPUT",
 			"position": "TOP",
 			"readable_name": "Y7",
-			"description": "Сигнал инвертирован"
+			"description": "Сигнал инвертирован",
+			"dependencies": [-1]
 		},{
 			"index": 10,
 			"direction": "DIRECTION_OUTPUT",
 			"position": "TOP",
 			"readable_name": "Y6",
-			"description": "Сигнал инвертирован"
+			"description": "Сигнал инвертирован",
+			"dependencies": [-1]
 		},{
 			"index": 9,
 			"direction": "DIRECTION_OUTPUT",
 			"position": "TOP",
 			"readable_name": "Y5",
-			"description": "Сигнал инвертирован"
+			"description": "Сигнал инвертирован",
+			"dependencies": [-1]
 		}
 	]
 }

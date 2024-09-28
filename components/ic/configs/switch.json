@@ -10,7 +10,8 @@
 			"direction": "DIRECTION_OUTPUT",
 			"position": "TOP",
 			"readable_name": "",
-			"description": ""
+			"description": "",
+			"dependencies": []
 		}
 	]
 }

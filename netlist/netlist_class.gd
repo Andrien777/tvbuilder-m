@@ -47,16 +47,16 @@ func propagate_signal() -> void:
 			else:
 				visited[current] += 1
 			if visited[current] >= 5:
-				if current.pin.direction == NetConstants.DIRECTION.DIRECTION_INPUT:
+				if current.pin.input():
 					var i = stack.size() - 2
 					var found_out = false
 					while stack[i] != current:
-						if stack[i].pin.direction != NetConstants.DIRECTION.DIRECTION_INPUT:
+						if stack[i].pin.output():
 							found_out = true
 							break
 						i -= 1
 					if not found_out:
-						current.pin.z()
+						current.pin.set_z()
 						resolved.append(current)
 						stack.pop_back()
 						continue
@@ -64,78 +64,79 @@ func propagate_signal() -> void:
 				print("Could not resolve component:")
 				print(current)
 				continue # TODO: add notification
-			match current.pin.direction:
-					NetConstants.DIRECTION.DIRECTION_OUTPUT:
-						if not current.pin.dependencies.is_empty():
-							var dependencies_resolved = true
-							for dep in current.pin.dependencies:
-								if dep in nodes.keys():
-									if nodes[dep] not in resolved:
-										dependencies_resolved = false
-										stack.push_back(nodes[dep])
-									if nodes[dep] in late_propagation:
-										late_propagation.append(current)
-										stack.pop_back()
-										break
-							if dependencies_resolved:
-								current.pin.parent._process_signal()
-								stack.pop_back()
-								resolved.append(current)
-								for neighbour in current.neighbours:
-									if neighbour.pin.direction == NetConstants.DIRECTION.DIRECTION_OUTPUT:
-										if neighbour in resolved and neighbour.pin.state != current.pin.state:
-											print("Two outputs short circuited")
-									if neighbour != current:
-										stack.push_back(neighbour)
-						else:
-							current.pin.parent._process_signal()
-							stack.pop_back()
-							resolved.append(current)
-							for neighbour in current.neighbours:
-								if neighbour.pin.direction == NetConstants.DIRECTION.DIRECTION_OUTPUT:
-									if neighbour in resolved and neighbour.pin.state != current.pin.state:
-										print("Two outputs short circuited")
-								if neighbour != current:
-									stack.push_back(neighbour)
-					NetConstants.DIRECTION.DIRECTION_INPUT:
-						var counter = 0
-						for neighbour in current.neighbours:
-							if neighbour.pin.direction == NetConstants.DIRECTION.DIRECTION_OUTPUT:
-								counter += 1
-							elif neighbour.pin.direction == NetConstants.DIRECTION.DIRECTION_INPUT:
-								if neighbour in resolved:
-									counter += 1
-							if counter >= 2:
-								break
-						if counter >= 2:
-							late_propagation.append(current)
-							stack.pop_back()
-							for neighbour in current.neighbours:
-								if neighbour != current:
-									stack.push_back(neighbour)
-							continue
-						for neighbour in current.neighbours:
-							if neighbour in late_propagation:
+			if current.pin.output():
+				if not current.pin.dependencies.is_empty():
+					var dependencies_resolved = true
+					for dep in current.pin.dependencies:
+						if dep in nodes.keys():
+							if nodes[dep] not in resolved:
+								dependencies_resolved = false
+								stack.push_back(nodes[dep])
+							if nodes[dep] in late_propagation:
 								late_propagation.append(current)
+								stack.pop_back()
 								break
-							if neighbour.pin.direction == NetConstants.DIRECTION.DIRECTION_OUTPUT:
-								if neighbour in resolved:
-									current.pin.state = neighbour.pin.state
-									resolved.append(current)
-									break
-							elif neighbour.pin.direction == NetConstants.DIRECTION.DIRECTION_INPUT:
-								if neighbour in resolved:
-									current.pin.state = neighbour.pin.state
-									resolved.append(current)
-									break
-						if current in resolved or current in late_propagation:
-							stack.pop_back()
+					if dependencies_resolved:
+						current.pin.parent._process_signal()
+						stack.pop_back()
+						resolved.append(current)
 						for neighbour in current.neighbours:
+							if neighbour.pin.output():
+								if neighbour in resolved and neighbour.pin.state != current.pin.state:
+									if not neighbour.pin.z() and not current.pin.z():
+										print("Two outputs short circuited")
 							if neighbour != current:
 								stack.push_back(neighbour)
+				else:
+					current.pin.parent._process_signal()
+					stack.pop_back()
+					resolved.append(current)
+					for neighbour in current.neighbours:
+						if neighbour.pin.output():
+							if neighbour in resolved and neighbour.pin.state != current.pin.state:
+								if not neighbour.pin.z() and not current.pin.z():
+									print("Two outputs short circuited")
+						if neighbour != current:
+							stack.push_back(neighbour)
+			elif current.pin.input():
+				var counter = 0
+				for neighbour in current.neighbours:
+					if neighbour.pin.output():
+						counter += 1
+					elif neighbour.pin.input():
+						if neighbour in resolved:
+							counter += 1
+					if counter >= 2:
+						break
+				if counter >= 2:
+					late_propagation.append(current)
+					stack.pop_back()
+					for neighbour in current.neighbours:
+						if neighbour != current:
+							stack.push_back(neighbour)
+					continue
+				for neighbour in current.neighbours:
+					if neighbour in late_propagation:
+						late_propagation.append(current)
+						break
+					if neighbour.pin.output():
+						if neighbour in resolved:
+							current.pin.state = neighbour.pin.state
+							resolved.append(current)
+							break
+					elif neighbour.pin.input():
+						if neighbour in resolved:
+							current.pin.state = neighbour.pin.state
+							resolved.append(current)
+							break
+				if current in resolved or current in late_propagation:
+					stack.pop_back()
+				for neighbour in current.neighbours:
+					if neighbour != current:
+						stack.push_back(neighbour)
 	if not late_propagation.is_empty():
 		for pin in late_propagation:
-			if pin.pin.direction == NetConstants.DIRECTION.DIRECTION_OUTPUT:
+			if pin.pin.output():
 				pin.pin.parent._process_signal()
 			else:
 				var state = pin.neighbours[0].pin.state
@@ -152,3 +153,6 @@ func propagate_signal() -> void:
 					pin.pin.state = state
 				else:
 					print("Short circuit")
+	for key in nodes.keys():
+		if key.direction == NetConstants.DIRECTION.DIRECTION_INPUT_OUTPUT:
+			key.parent._process_signal()

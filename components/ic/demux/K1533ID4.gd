@@ -3,6 +3,8 @@ class_name K1533ID4
 
 
 func _process_signal():
+	pins[7].set_low()
+	pins[15].set_high()
 	if pins[0].low():
 		if (pins[2].high_or_z() and pins[12].high_or_z()):
 			pins[6].set_high()

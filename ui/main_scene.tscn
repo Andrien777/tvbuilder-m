@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://df5br6oh56ejc"]
+[gd_scene load_steps=8 format=3 uid="uid://df5br6oh56ejc"]
 
 [ext_resource type="Script" path="res://ui/main_scene.gd" id="1_8vqs3"]
 [ext_resource type="Shader" path="res://shaders/grid.gdshader" id="2_7ckc8"]
 [ext_resource type="Script" path="res://ui/camera_2d.gd" id="2_pmywl"]
+[ext_resource type="Script" path="res://ui/button.gd" id="3_7hkas"]
 [ext_resource type="Texture2D" uid="uid://xbhxywpvacu6" path="res://icon.svg" id="3_ade1w"]
 [ext_resource type="Script" path="res://ui/ic_elements_tree/ics_tree.gd" id="3_q10ex"]
 
@@ -33,6 +34,7 @@ metadata/_edit_use_anchors_ = true
 [node name="Button" type="Button" parent="UiCanvasLayer/VBoxContainer"]
 layout_mode = 2
 text = "Button_text"
+script = ExtResource("3_7hkas")
 metadata/_edit_use_anchors_ = true
 
 [node name="Tree" type="Tree" parent="UiCanvasLayer/VBoxContainer"]
