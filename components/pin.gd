@@ -47,6 +47,32 @@ func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void
 	if event is InputEventMouseButton and event.pressed and Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
 		WireManager.register_wire_point(self)
 func _mouse_enter() -> void:
-	PopupManager.display_hint(readable_name,description,self.global_position)
+	self.modulate=Color(0.7,0.7,0.7,1)
+	PopupManager.display_hint(readable_name+" " + str(index),description,self.global_position)
 func _mouse_exit()->void:
+	self.modulate=Color(1,1,1,1)
 	PopupManager.hide_hint()
+
+func low():
+	return self.state==NetConstants.LEVEL.LEVEL_LOW
+
+func high():
+	return self.state==NetConstants.LEVEL.LEVEL_HIGH
+	
+func z():
+	return self.state==NetConstants.LEVEL.LEVEL_Z
+	
+func high_or_z():
+	return self.state==NetConstants.LEVEL.LEVEL_HIGH or self.state==NetConstants.LEVEL.LEVEL_Z
+	
+func low_or_z():
+	return self.state==NetConstants.LEVEL.LEVEL_LOW or self.state==NetConstants.LEVEL.LEVEL_Z
+	
+	
+func set_high():
+	self.state = NetConstants.LEVEL.LEVEL_HIGH
+func set_low():
+	self.state = NetConstants.LEVEL.LEVEL_LOW
+func set_z():
+	self.state = NetConstants.LEVEL.LEVEL_Z
+	

@@ -1,11 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://df5br6oh56ejc"]
+[gd_scene load_steps=7 format=3 uid="uid://df5br6oh56ejc"]
 
 [ext_resource type="Script" path="res://ui/main_scene.gd" id="1_8vqs3"]
+[ext_resource type="Shader" path="res://shaders/grid.gdshader" id="2_7ckc8"]
 [ext_resource type="Script" path="res://ui/camera_2d.gd" id="2_pmywl"]
+[ext_resource type="Texture2D" uid="uid://xbhxywpvacu6" path="res://icon.svg" id="3_ade1w"]
 [ext_resource type="Script" path="res://ui/ic_elements_tree/ics_tree.gd" id="3_q10ex"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ye3df"]
+shader = ExtResource("2_7ckc8")
 
 [node name="RootNode" type="Node2D"]
 script = ExtResource("1_8vqs3")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(576, 320)
@@ -32,6 +40,14 @@ size_flags_vertical = 3
 tooltip_text = "Tooltip"
 hide_root = true
 script = ExtResource("3_q10ex")
+
+[node name="Grid" type="Sprite2D" parent="."]
+visible = false
+z_index = -1
+material = SubResource("ShaderMaterial_ye3df")
+position = Vector2(576, 324)
+scale = Vector2(9, 5.0625)
+texture = ExtResource("3_ade1w")
 
 [connection signal="item_mouse_selected" from="UiCanvasLayer/VBoxContainer/Tree" to="UiCanvasLayer/VBoxContainer/Tree" method="_on_item_mouse_selected"]
 [connection signal="nothing_selected" from="UiCanvasLayer/VBoxContainer/Tree" to="UiCanvasLayer/VBoxContainer/Tree" method="_on_nothing_selected"]
