@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://xbhxywpvacu6" path="res://icon.svg" id="3_ade1w"]
 [ext_resource type="Script" path="res://ui/ic_elements_tree/ics_tree.gd" id="3_q10ex"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ye3df"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7n0h1"]
 shader = ExtResource("2_7ckc8")
 
 [node name="RootNode" type="Node2D"]
@@ -45,7 +45,7 @@ script = ExtResource("3_q10ex")
 [node name="Grid" type="Sprite2D" parent="."]
 visible = false
 z_index = -1
-material = SubResource("ShaderMaterial_ye3df")
+material = SubResource("ShaderMaterial_7n0h1")
 position = Vector2(576, 324)
 scale = Vector2(9, 5.0625)
 texture = ExtResource("3_ade1w")
