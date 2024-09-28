@@ -1,7 +1,8 @@
 extends RefCounted
 
 class_name ComponentSpecification
-func initialize(num_pins:int, height:float, width:float, texture:String, pinSpecifications:Array)->void:
+func initialize(name:String, num_pins:int, height:float, width:float, texture:String, pinSpecifications:Array)->void:
+	self.name = name
 	self.num_pins = num_pins
 	self.width = width
 	self.height = height
@@ -16,6 +17,7 @@ func initialize_from_json(path: String) -> void:
 		self.width = parsed.width
 		self.height = parsed.height
 		self.texture = parsed.texture
+		self.name = parsed.name
 		self.pinSpecifications = Array()
 		var pins = parsed.pinSpecifications
 		for pin in pins:
@@ -24,7 +26,8 @@ func initialize_from_json(path: String) -> void:
 			self.pinSpecifications.append(spec)
 	else:
 		print("error")
-	
+		
+var name: String
 var num_pins: int
 var width: float
 var height: float
