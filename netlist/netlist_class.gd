@@ -39,7 +39,7 @@ func propagate_signal() -> void:
 				break
 		while not stack.is_empty():
 			var current = stack.back()
-			if current in resolved:
+			if current in resolved or current in late_propagation:
 				stack.pop_back()
 				continue
 			if current not in visited.keys():
@@ -47,6 +47,19 @@ func propagate_signal() -> void:
 			else:
 				visited[current] += 1
 			if visited[current] >= 5:
+				if current.pin.direction == NetConstants.DIRECTION.DIRECTION_INPUT:
+					var i = stack.size() - 2
+					var found_out = false
+					while stack[i] != current:
+						if stack[i].pin.direction != NetConstants.DIRECTION.DIRECTION_INPUT:
+							found_out = true
+							break
+						i -= 1
+					if not found_out:
+						current.pin.z()
+						resolved.append(current)
+						stack.pop_back()
+						continue
 				stack.pop_back()
 				print("Could not resolve component:")
 				print(current)
@@ -60,6 +73,10 @@ func propagate_signal() -> void:
 									if nodes[dep] not in resolved:
 										dependencies_resolved = false
 										stack.push_back(nodes[dep])
+									if nodes[dep] in late_propagation:
+										late_propagation.append(current)
+										stack.pop_back()
+										break
 							if dependencies_resolved:
 								current.pin.parent._process_signal()
 								stack.pop_back()
@@ -98,6 +115,9 @@ func propagate_signal() -> void:
 									stack.push_back(neighbour)
 							continue
 						for neighbour in current.neighbours:
+							if neighbour in late_propagation:
+								late_propagation.append(current)
+								break
 							if neighbour.pin.direction == NetConstants.DIRECTION.DIRECTION_OUTPUT:
 								if neighbour in resolved:
 									current.pin.state = neighbour.pin.state
@@ -108,24 +128,27 @@ func propagate_signal() -> void:
 									current.pin.state = neighbour.pin.state
 									resolved.append(current)
 									break
-						if current in resolved:
+						if current in resolved or current in late_propagation:
 							stack.pop_back()
 						for neighbour in current.neighbours:
 							if neighbour != current:
 								stack.push_back(neighbour)
 	if not late_propagation.is_empty():
 		for pin in late_propagation:
-			var state = pin.neighbours[0].pin.state
-			var ok = true
-			for neighbour in pin.neighbours:
-				if neighbour not in resolved:
-					continue
-				if neighbour.pin.state != state:
-					if state == NetConstants.LEVEL.LEVEL_Z:
-						state = neighbour.pin.state
-					else:
-						ok = false
-			if ok:
-				pin.pin.state = state
+			if pin.pin.direction == NetConstants.DIRECTION.DIRECTION_OUTPUT:
+				pin.pin.parent._process_signal()
 			else:
-				print("Short circuit")
+				var state = pin.neighbours[0].pin.state
+				var ok = true
+				for neighbour in pin.neighbours:
+					if neighbour not in resolved:
+						continue
+					if neighbour.pin.state != state:
+						if state == NetConstants.LEVEL.LEVEL_Z:
+							state = neighbour.pin.state
+						else:
+							ok = false
+				if ok:
+					pin.pin.state = state
+				else:
+					print("Short circuit")

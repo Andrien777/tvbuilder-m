@@ -12,7 +12,8 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("ZoomUp"):
 		change_zoom(Vector2(0.1,0.1))
 	elif Input.is_action_just_pressed("ZoomDown"):
-		change_zoom(Vector2(-0.1,-0.1))
+		if zoom.x > 0.1 and zoom.y > 0.1:
+			change_zoom(Vector2(-0.1,-0.1))
 
 func change_zoom(delta: Vector2) -> void:
 	var mouse_pos := get_global_mouse_position()

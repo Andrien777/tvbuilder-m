@@ -1,7 +1,7 @@
 extends CircuitComponent
 class_name Switch
 
-var on = false
+var on = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
