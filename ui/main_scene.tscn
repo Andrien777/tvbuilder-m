@@ -27,6 +27,7 @@ anchor_right = 0.277611
 anchor_bottom = 1.0
 offset_right = 0.191986
 grow_vertical = 2
+mouse_filter = 0
 metadata/_edit_use_anchors_ = true
 
 [node name="Button" type="Button" parent="UiCanvasLayer/VBoxContainer"]
