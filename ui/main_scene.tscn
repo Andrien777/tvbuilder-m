@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://df5br6oh56ejc"]
+[gd_scene load_steps=6 format=3 uid="uid://df5br6oh56ejc"]
 
 [ext_resource type="Script" path="res://ui/main_scene.gd" id="1_8vqs3"]
 [ext_resource type="Script" path="res://ui/camera_2d.gd" id="2_pmywl"]
 [ext_resource type="Script" path="res://ui/ic_elements_tree/ics_tree.gd" id="3_q10ex"]
+[ext_resource type="Script" path="res://ui/save_file_dialog.gd" id="4_5cvoo"]
+[ext_resource type="Script" path="res://ui/load_file_dialog.gd" id="5_656tm"]
 
 [node name="RootNode" type="Node2D"]
 script = ExtResource("1_8vqs3")
@@ -13,7 +15,7 @@ script = ExtResource("2_pmywl")
 
 [node name="UiCanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UiCanvasLayer"]
+[node name="FunctionalUIContainer" type="VBoxContainer" parent="UiCanvasLayer"]
 anchors_preset = -1
 anchor_right = 0.277611
 anchor_bottom = 1.0
@@ -21,17 +23,47 @@ offset_right = 0.191986
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="Button" type="Button" parent="UiCanvasLayer/VBoxContainer"]
+[node name="ButtonsContainer" type="HBoxContainer" parent="UiCanvasLayer/FunctionalUIContainer"]
 layout_mode = 2
-text = "Button_text"
+
+[node name="SaveAsButton" type="Button" parent="UiCanvasLayer/FunctionalUIContainer/ButtonsContainer"]
+layout_mode = 2
+text = "SaveAsButton"
 metadata/_edit_use_anchors_ = true
 
-[node name="Tree" type="Tree" parent="UiCanvasLayer/VBoxContainer"]
+[node name="LoadButton" type="Button" parent="UiCanvasLayer/FunctionalUIContainer/ButtonsContainer"]
+layout_mode = 2
+text = "LoadButton"
+metadata/_edit_use_anchors_ = true
+
+[node name="ComponentTree" type="Tree" parent="UiCanvasLayer/FunctionalUIContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 tooltip_text = "Tooltip"
 hide_root = true
 script = ExtResource("3_q10ex")
 
-[connection signal="item_mouse_selected" from="UiCanvasLayer/VBoxContainer/Tree" to="UiCanvasLayer/VBoxContainer/Tree" method="_on_item_mouse_selected"]
-[connection signal="nothing_selected" from="UiCanvasLayer/VBoxContainer/Tree" to="UiCanvasLayer/VBoxContainer/Tree" method="_on_nothing_selected"]
+[node name="SaveAsFileDialog" type="FileDialog" parent="."]
+initial_position = 4
+size = Vector2i(500, 400)
+show_hidden_files = true
+use_native_dialog = true
+script = ExtResource("4_5cvoo")
+
+[node name="LoadFileDialog" type="FileDialog" parent="."]
+title = "Load from a File"
+initial_position = 4
+size = Vector2i(500, 400)
+ok_button_text = "Load"
+file_mode = 0
+access = 2
+show_hidden_files = true
+use_native_dialog = true
+script = ExtResource("5_656tm")
+
+[connection signal="pressed" from="UiCanvasLayer/FunctionalUIContainer/ButtonsContainer/SaveAsButton" to="SaveAsFileDialog" method="_on_save_as_button_pressed"]
+[connection signal="pressed" from="UiCanvasLayer/FunctionalUIContainer/ButtonsContainer/LoadButton" to="LoadFileDialog" method="_on_load_button_pressed"]
+[connection signal="item_mouse_selected" from="UiCanvasLayer/FunctionalUIContainer/ComponentTree" to="UiCanvasLayer/FunctionalUIContainer/ComponentTree" method="_on_item_mouse_selected"]
+[connection signal="nothing_selected" from="UiCanvasLayer/FunctionalUIContainer/ComponentTree" to="UiCanvasLayer/FunctionalUIContainer/ComponentTree" method="_on_nothing_selected"]
+[connection signal="file_selected" from="SaveAsFileDialog" to="SaveAsFileDialog" method="_on_file_selected"]
+[connection signal="file_selected" from="LoadFileDialog" to="LoadFileDialog" method="_on_file_selected"]

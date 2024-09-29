@@ -21,6 +21,6 @@ func _input(event):
 		element.position = get_global_mouse_position()
 		add_child(element)
 	elif event.is_action_pressed("save_scheme"):
-		SaveManager.save()
+		SaveManager.save("res://save.json")
 	elif event.is_action_pressed("load_scheme"):
-		SaveManager.load(self)
+		SaveManager.load(self, "res://save.json")

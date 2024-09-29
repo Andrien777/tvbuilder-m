@@ -2,12 +2,12 @@ extends Node
 
 static var ic_list: Array[CircuitComponent]
 
-func save() -> void:
+func save(path: String) -> void:
 	var json_list_ic: Array
 	for ic in ic_list:
 		json_list_ic.append(ic.to_json_object())
 	var json = JSON.new()
-	var file = FileAccess.open("res://save.json", FileAccess.WRITE)
+	var file = FileAccess.open(path, FileAccess.WRITE)
 	file.store_string(json.stringify({
 		"components": json_list_ic,
 		"netlist": NetlistClass.get_json_adjacency()
@@ -20,9 +20,9 @@ func get_component_by_id(id: int) -> CircuitComponent: #null if not found
 			return ic
 	return null
 
-func load(scene: Node2D):
+func load(scene: Node2D, path: String):
 	var json = JSON.new()
-	var file = FileAccess.open("res://save.json", FileAccess.READ).get_as_text()
+	var file = FileAccess.open(path, FileAccess.READ).get_as_text()
 	var parsed = json.parse_string(file)
 	if parsed == null:
 		print("error")
