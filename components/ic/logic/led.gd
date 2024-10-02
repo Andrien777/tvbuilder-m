@@ -1,8 +1,8 @@
 extends CircuitComponent
 class_name LED
 var sprite: Sprite2D
-func initialize(spec: ComponentSpecification)->void:
-	super.initialize(spec)
+func initialize(spec: ComponentSpecification, comp_name: String)->void:
+	super.initialize(spec, comp_name)
 	self.scale = Vector2(0.5,1)
 	sprite = Sprite2D.new()
 	sprite.texture = test_texture

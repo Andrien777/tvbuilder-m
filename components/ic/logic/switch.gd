@@ -7,8 +7,8 @@ var on = false
 func _ready() -> void:
 	pass
 	
-func initialize(spec: ComponentSpecification)->void:
-	super.initialize(spec)
+func initialize(spec: ComponentSpecification, comp_name: String)->void:
+	super.initialize(spec, comp_name)
 	self.scale = Vector2(0.5,1)
 	var button = SwitchButton.new()
 	button.initialize(self)

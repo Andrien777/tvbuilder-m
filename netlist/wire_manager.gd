@@ -60,6 +60,11 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+
 	if(wire_ghost.visible):
 		wire_ghost_pointer.position = get_global_mouse_position()
 	
+
+func get_json_list():
+	pass
+

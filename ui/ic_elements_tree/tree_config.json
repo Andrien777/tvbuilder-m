@@ -8,7 +8,7 @@
 					"group_name": "Логические микросхемы",
 					"subelements": [
 						{
-							"ic_name": "Абстрактное 2И",
+							"ic_name": "and2",
 							"config_path": "res://components/ic/configs/and2.json",
 							"logic_class_path": "res://components/ic/logic/And2.gd"
 						}
@@ -18,7 +18,7 @@
 					"group_name": "Дешифраторы",
 					"subelements": [
 						{
-							"ic_name": "К1533ИД4",
+							"ic_name": "K1533ID4",
 							"config_path": "res://components/ic/configs/K1533ID4.json",
 							"logic_class_path": "res://components/ic/demux/K1533ID4.gd"
 						}
@@ -30,12 +30,12 @@
 			"group_name": "Дополнительно",
 			"subelements": [
 				{
-					"ic_name": "Переключатель",
+					"ic_name": "switch",
 					"config_path": "res://components/ic/configs/switch.json",
 					"logic_class_path": "res://components/ic/logic/switch.gd"
 				},
 				{
-					"ic_name": "Светодиод",
+					"ic_name": "led",
 					"config_path": "res://components/ic/configs/led.json",
 					"logic_class_path": "res://components/ic/logic/led.gd"
 				},

@@ -17,7 +17,10 @@ func _input(event):
 		spec.initialize_from_json( ICsTreeManager.get_config_path(element_name) )
 		
 		var element: CircuitComponent = load( ICsTreeManager.get_class_path(element_name) ).new()
-		element.initialize(spec)
+		element.initialize(spec, element_name)
 		element.position = get_global_mouse_position()
 		add_child(element)
-		
+	elif event.is_action_pressed("save_scheme"):
+		SaveManager.save("res://save.json")
+	elif event.is_action_pressed("load_scheme"):
+		SaveManager.load(self, "res://save.json")
