@@ -30,22 +30,26 @@ func load(scene: Node2D, path: String):
 	for ic in parsed.components:
 		var component: CircuitComponent
 		match(ic.name):
-			"K1533ID4":
+			"К1533ИД4":
 				component = K1533ID4.new()
-			"and2":
+			"2И":
 				component = And2.new()
-			"led":
+			"Светодиод":
 				component = LED.new()
-			"switch":
+			"Переключатель":
 				component = Switch.new()
+			"Буфер с 3-м состоянием":
+				component = Tristate.new()
+			"Ячейка памяти":
+				component = Memory.new()
 		var spec = ComponentSpecification.new()
 		var pinSpecArray: Array[PinSpecification]
 		for pin in ic.pins:
 			var pinSpec = PinSpecification.new()
-			pinSpec.initialize(pin.index, NetConstants.parse_direction(pin.direction), pin.position, pin.readable_name, pin.description)
+			pinSpec.initialize(pin.index, NetConstants.parse_direction(pin.direction), pin.position, pin.readable_name, pin.description,[])
 			pinSpecArray.append(pinSpec)
-		spec.initialize(ic.num_pins, ic.height, ic.width, ic.texture, pinSpecArray)
-		component.initialize(spec, ic.name)
+		spec.initialize(ic.name, ic.num_pins, ic.height, ic.width, ic.texture, pinSpecArray)
+		component.initialize(spec)
 		component.id = ic.id
 		scene.add_child(component)
 		var pos = ic.position.split(",")

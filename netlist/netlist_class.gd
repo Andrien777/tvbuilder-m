@@ -156,8 +156,7 @@ func propagate_signal() -> void:
 	for key in nodes.keys():
 		if key.direction == NetConstants.DIRECTION.DIRECTION_INPUT_OUTPUT:
 			key.parent._process_signal()
-
-				print("Short circuit")
+			print("Short circuit")
 
 func get_json_adjacency():
 	var visited: Array[Pin]

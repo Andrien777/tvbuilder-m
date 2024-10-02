@@ -22,7 +22,6 @@ func initialize(spec: ComponentSpecification)->void:
 	var sprite = Sprite2D.new()
 	var hitbox = CollisionShape2D.new()
 	var shape = RectangleShape2D.new()
-	self.comp_name = comp_name
 	shape.size = test_texture.get_size()
 	hitbox.shape = shape
 	height = spec.height
@@ -160,7 +159,7 @@ func to_json_object() -> Dictionary:
 		})
 	return {
 		"id": id,
-		"name": comp_name,
+		"name": readable_name,
 		"num_pins": pinsArray.size(),
 		"pins": pinsArray,
 		"width": width,
@@ -168,4 +167,3 @@ func to_json_object() -> Dictionary:
 		"texture": texture,
 		"position": position
 	}
-
