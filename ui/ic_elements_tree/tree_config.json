@@ -38,6 +38,16 @@
 					"ic_name": "led",
 					"config_path": "res://components/ic/configs/led.json",
 					"logic_class_path": "res://components/ic/logic/led.gd"
+				},
+				{
+					"ic_name": "Буфер с 3-м состоянием",
+					"config_path": "res://components/ic/configs/tristate.json",
+					"logic_class_path": "res://components/ic/logic/tristate.gd"
+				},
+				{
+					"ic_name": "Ячейка памяти",
+					"config_path": "res://components/ic/configs/memory.json",
+					"logic_class_path": "res://components/ic/logic/memory.gd"
 				}
 			]
 		}

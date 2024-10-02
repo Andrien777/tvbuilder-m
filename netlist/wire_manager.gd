@@ -1,11 +1,25 @@
-extends Node
+extends Node2D
 var wires: Array[Wire]
 var first_wire_point = null
 var second_wire_point = null
+
+var wire_ghost_pointer = Node2D.new()
+var wire_ghost = Wire.new()
+
+func _init():
+	wire_ghost.visible = false
+	wire_ghost.line.modulate =Color(0.8,0.8,0.8,1)
+	add_child(wire_ghost)
+
 func register_wire_point(object:Node2D):
 	if first_wire_point == null:
 		first_wire_point =object
+		wire_ghost_pointer.position = get_global_mouse_position()
+		wire_ghost.initialize(object, wire_ghost_pointer)
+		wire_ghost.visible = true
 	elif second_wire_point==null:
+		wire_ghost.visible = false
+
 		second_wire_point = object
 		if Input.is_key_pressed(KEY_SHIFT):
 			for wire in wires:
@@ -29,9 +43,14 @@ func _delete_wire(wire):
 		wire.queue_free()
 
 func _create_wire(first_object:Node2D, second_object:Node2D):
+	if first_object==second_object:
+		print("Соединение с самим собой")
+		return
 	var wire = Wire.new()
 	wire.initialize(first_object,second_object)
-	NetlistClass.add_connection(first_object as Pin, second_object as Pin)
+	var first_pin = first_object as IO_Pin if first_object is IO_Pin else first_object as Pin
+	var second_pin = second_object as IO_Pin if second_object is IO_Pin else second_object as Pin
+	NetlistClass.add_connection(first_pin, second_pin)
 	wires.append(wire)
 	add_child(wire)
 # Called when the node enters the scene tree for the first time.
@@ -41,7 +60,11 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+
+	if(wire_ghost.visible):
+		wire_ghost_pointer.position = get_global_mouse_position()
+	
 
 func get_json_list():
 	pass
+

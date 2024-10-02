@@ -1,4 +1,5 @@
 {
+	"name":"Переключатель",
 	"num_pins": 1,
 	"height": 25,
 	"width": 25,
@@ -9,7 +10,8 @@
 			"direction": "DIRECTION_OUTPUT",
 			"position": "TOP",
 			"readable_name": "",
-			"description": ""
+			"description": "",
+			"dependencies": []
 		}
 	]
 }

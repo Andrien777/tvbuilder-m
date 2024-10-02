@@ -4,6 +4,7 @@ var heading
 var description
 
 func _init()->void:
+	self.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	self.size = Vector2(150,100)
 	heading = Label.new()
 	heading.position = Vector2(20,20)
@@ -41,7 +42,6 @@ func display(heading:String, description:String, position:Vector2):
 	else:
 		tween.tween_property(self,"position", position + Vector2(40,0),0.3).set_trans(Tween.TRANS_CIRC)
 
-	
 func hide_popup():
 	pass
 	if tween:

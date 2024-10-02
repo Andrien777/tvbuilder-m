@@ -30,6 +30,7 @@ func _process(delta: float) -> void:
 
 func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.is_pressed():
+		viewport.set_input_as_handled()
 		parent.on = not parent.on
 		if parent.on:
 			sprite.modulate = Color(0, 100, 0, 1)

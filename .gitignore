@@ -2,6 +2,7 @@
 .godot/
 /android/
 .idea/
-
+.build/
 # Most likely should even exist anyway
 save.json 
+
