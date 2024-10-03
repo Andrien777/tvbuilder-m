@@ -21,6 +21,7 @@ func initialize(spec: PinSpecification, state: NetConstants.LEVEL, parent: Node2
 	self.readable_name = spec.readable_name
 	self.description = spec.description
 	self.parent = parent
+	
 	var sprite = Sprite2D.new()
 	var hitbox = CollisionShape2D.new()
 	sprite.texture = pin_texture
@@ -31,6 +32,7 @@ func initialize(spec: PinSpecification, state: NetConstants.LEVEL, parent: Node2
 	hitbox.shape = shape
 	add_child(sprite)
 	add_child(hitbox)
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -41,7 +43,12 @@ func initialize_dependencies()->void:
 			dependencies.append(pin)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	if (GlobalSettings.LevelHighlight):
+		if(self.high):
+			self.modulate = Color(0.3,1,1,1)
+		else:
+			self.modulate = Color(1,0.3,1,1)
+
 func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.pressed and Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
 		WireManager.register_wire_point(self)
@@ -52,20 +59,21 @@ func _mouse_exit()->void:
 	self.modulate=Color(1,1,1,1)
 	PopupManager.hide_hint()
 
-func low():
-	return self.state==NetConstants.LEVEL.LEVEL_LOW
 
-func high():
-	return self.state==NetConstants.LEVEL.LEVEL_HIGH
+var low:
+	get: return self.state==NetConstants.LEVEL.LEVEL_LOW
 	
-func z():
-	return self.state==NetConstants.LEVEL.LEVEL_Z
+var high:
+	get: return self.state==NetConstants.LEVEL.LEVEL_HIGH
 	
-func high_or_z():
-	return self.state==NetConstants.LEVEL.LEVEL_HIGH or self.state==NetConstants.LEVEL.LEVEL_Z
+var z:
+	get: return self.state==NetConstants.LEVEL.LEVEL_Z
 	
-func low_or_z():
-	return self.state==NetConstants.LEVEL.LEVEL_LOW or self.state==NetConstants.LEVEL.LEVEL_Z
+var high_or_z:
+	get: return self.state==NetConstants.LEVEL.LEVEL_HIGH or self.state==NetConstants.LEVEL.LEVEL_Z
+	
+var low_or_z:
+	get: return self.state==NetConstants.LEVEL.LEVEL_LOW or self.state==NetConstants.LEVEL.LEVEL_Z
 	
 	
 func set_high():

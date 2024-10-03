@@ -9,7 +9,7 @@ func _ready() -> void:
 var memory: NetConstants.LEVEL
 
 func _process_signal():
-	if pins[1].high():
+	if pins[1].high:
 		pins[0].current_direction = NetConstants.DIRECTION.DIRECTION_INPUT
 		memory = pins[0].state
 	else:

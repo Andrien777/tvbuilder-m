@@ -13,7 +13,11 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-func output():
+func output(): # TODO: Make member field
 	return self.current_direction == NetConstants.DIRECTION.DIRECTION_OUTPUT
 func input():
 	return self.current_direction == NetConstants.DIRECTION.DIRECTION_INPUT
+func set_input():
+	self.current_direction = NetConstants.DIRECTION.DIRECTION_INPUT
+func set_output():
+	self.current_direction = NetConstants.DIRECTION.DIRECTION_OUTPUT

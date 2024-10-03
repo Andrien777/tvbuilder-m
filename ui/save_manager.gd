@@ -19,7 +19,6 @@ func get_component_by_id(id: int) -> CircuitComponent: #null if not found
 		if ic.id == id:
 			return ic
 	return null
-
 func load(scene: Node2D, path: String):
 	var json = JSON.new()
 	var file = FileAccess.open(path, FileAccess.READ).get_as_text()
@@ -42,6 +41,11 @@ func load(scene: Node2D, path: String):
 				component = Tristate.new()
 			"Ячейка памяти":
 				component = Memory.new()
+			"КР132РУ9А":
+				component = KR132RU9A.new()
+			"1531ИР22":
+				component = K1531IR22.new()
+				
 		var spec = ComponentSpecification.new()
 		var pinSpecArray: Array[PinSpecification]
 		for pin in ic.pins:

@@ -23,6 +23,25 @@
 							"logic_class_path": "res://components/ic/demux/K1533ID4.gd"
 						}
 					]
+				},
+				{
+					"group_name": "Память",
+					"subelements": [
+						{
+							"ic_name": "КР132РУ9А",
+							"config_path": "res://components/ic/configs/KR132RU9A.json",
+							"logic_class_path": "res://components/ic/memory/KR132RU9A.gd"
+						}
+					]
+				},{
+					"group_name": "Регистры",
+					"subelements": [
+						{
+							"ic_name": "1531ИР22",
+							"config_path": "res://components/ic/configs/K1531IR22.json",
+							"logic_class_path": "res://components/ic/registers/K1531IR22.gd"
+						}
+					]
 				}
 			]
 		},

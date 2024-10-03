@@ -9,7 +9,7 @@ func _ready() -> void:
 
 
 func _process_signal():
-	if pins[1].high():
+	if pins[1].high:
 		pins[2].state = pins[0].state
 	else:
 		pins[2].set_z()

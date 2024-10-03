@@ -71,7 +71,7 @@ func initialize_pins(spec: Array, ic_shape:Vector2)->void:
 			pin = IO_Pin.new()
 		else:
 			pin = Pin.new()
-		pin.scale=Vector2(0.4,0.4)
+		pin.scale=Vector2(0.2,0.4)
 		match pin_spec.position:
 			"TOP":
 				pin.position = Vector2(side_padding-ic_shape.x/2 + 
@@ -167,3 +167,5 @@ func to_json_object() -> Dictionary:
 		"texture": texture,
 		"position": position
 	}
+func pin(i:int):
+	return self.pins[i-1]

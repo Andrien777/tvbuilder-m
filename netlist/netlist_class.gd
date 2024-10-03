@@ -83,7 +83,7 @@ func propagate_signal() -> void:
 						for neighbour in current.neighbours:
 							if neighbour.pin.output():
 								if neighbour in resolved and neighbour.pin.state != current.pin.state:
-									if not neighbour.pin.z() and not current.pin.z():
+									if not neighbour.pin.z and not current.pin.z:
 										print("Two outputs short circuited")
 							if neighbour != current:
 								stack.push_back(neighbour)
@@ -94,7 +94,7 @@ func propagate_signal() -> void:
 					for neighbour in current.neighbours:
 						if neighbour.pin.output():
 							if neighbour in resolved and neighbour.pin.state != current.pin.state:
-								if not neighbour.pin.z() and not current.pin.z():
+								if not neighbour.pin.z and not current.pin.z:
 									print("Two outputs short circuited")
 						if neighbour != current:
 							stack.push_back(neighbour)
@@ -156,7 +156,6 @@ func propagate_signal() -> void:
 	for key in nodes.keys():
 		if key.direction == NetConstants.DIRECTION.DIRECTION_INPUT_OUTPUT:
 			key.parent._process_signal()
-			print("Short circuit")
 
 func get_json_adjacency():
 	var visited: Array[Pin]

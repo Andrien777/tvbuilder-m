@@ -24,3 +24,5 @@ func _input(event):
 		SaveManager.save("res://save.json")
 	elif event.is_action_pressed("load_scheme"):
 		SaveManager.load(self, "res://save.json")
+	elif event.is_action_pressed("highlight_level"):
+		GlobalSettings.LevelHighlight = not GlobalSettings.LevelHighlight

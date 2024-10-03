@@ -67,4 +67,3 @@ func _process(delta: float) -> void:
 
 func get_json_list():
 	pass
-

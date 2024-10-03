@@ -1,0 +1,185 @@
+{
+	"name":"513ИП3",
+	"num_pins": 24,
+	"height": 25,
+	"width": 25,
+	"texture": "",
+	"pinSpecifications": [
+		{
+			"index": 1,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "B0",
+			"description": "Число B: Разряд 0",
+			"dependencies": []
+		},{
+			"index": 2,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "A0",
+			"description": "Число А: Разряд 0",
+			"dependencies": []
+		},{
+			"index": 3,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "S3",
+			"description": "Управляющий вход",
+			"dependencies": []
+		}
+		,{
+			"index": 4,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "S2",
+			"description": "Управляющий вход",
+			"dependencies": []
+		},{
+			"index": 5,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "S1",
+			"description": "Управляющий вход",
+			"dependencies": []
+		},{
+			"index": 6,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "S0",
+			"description": "Управляющий вход",
+			"dependencies": []
+		}
+		,{
+			"index": 7,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "C",
+			"description": "Вход переноса (инвертированный)",
+			"dependencies": []
+		}
+		,{
+			"index": 8,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "Да кто его знает что это",
+			"description": "Ничего не написали в доках",
+			"dependencies": []
+		},{
+			"index": 9,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "F0",
+			"description": "Результат операции",
+			"dependencies": [-1]
+		},{
+			"index": 10,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "F1",
+			"description": "Результат операции",
+			"dependencies": [-1]
+		},{
+			"index": 11,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "F2",
+			"description": "Результат операции",
+			"dependencies": [-1]
+		},{
+			"index": 12,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "GND",
+			"description": "Земля",
+			"dependencies": []
+
+		},{
+			"index": 24,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "VCC",
+			"description": "Выход 5В",
+			"dependencies": []
+		},{
+			"index": 23,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "A1",
+			"description": "Вход числа B",
+			"dependencies": []
+		},{
+			"index": 22,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "B1",
+			"description": "Вход числа B",
+			"dependencies": []
+		},{
+			"index": 21,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "A2",
+			"description": "Вход числа B",
+			"dependencies": []
+		},{
+			"index": 20,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "B2",
+			"description": "Вход числа B",
+			"dependencies": []
+		},{
+			"index": 19,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "А3",
+			"description": "Вход числа А",
+			"dependencies": []
+		},{
+			"index": 18,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "B3",
+			"description": "Вход числа B",
+			"dependencies": []
+		},{
+			"index": 17,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "G",
+			"description": "Выход генерации переноса(инвертирован)",
+			"dependencies": [-1]
+		}
+		,{
+			"index": 16,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "Сн",
+			"description": "Сигнал переноса",
+			"dependencies": [-1]
+		}
+		,{
+			"index": 15,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "P",
+			"description": "Выход распространения переноса (инвертирован)",
+			"dependencies": []
+		}
+		,{
+			"index": 14,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "K",
+			"description": "Выход компаратора",
+			"dependencies": []
+		},{
+			"index": 13,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "F3",
+			"description": "Результат операции0",
+			"dependencies": [-1]
+		}
+	]
+}
