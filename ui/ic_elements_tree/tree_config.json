@@ -56,7 +56,7 @@
 					"group_name": "АЛУ",
 					"subelements": [
 						{
-							"ic_name": "1531ИР3",
+							"ic_name": "1531ИП3",
 							"config_path": "res://components/ic/configs/513IP3.json",
 							"logic_class_path": "res://components/ic/alu/K513IP3.gd"
 						}

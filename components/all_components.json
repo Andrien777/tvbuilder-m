@@ -30,5 +30,21 @@
 	"Память": {
 		"config_path": "res://components/ic/configs/memory.json",
 		"logic_class_path": "res://components/ic/logic/memory.gd"
+	},
+	"74485":{
+		"config_path": "res://components/ic/configs/74485.json",
+		"logic_class_path": "res://components/ic/demux/74485.gd"
+	},
+	"7448":{
+		"config_path": "res://components/ic/configs/7448.json",
+		"logic_class_path": "res://components/ic/demux/7448.gd"
+	},
+	"513ИП3":{
+		"config_path": "res://components/ic/configs/513IP3.json",
+		"logic_class_path": "res://components/ic/alu/K513IP3.gd"
+	},
+	"АЛС324А":{
+		"config_path": "res://components/ic/configs/ALS324A.json",
+		"logic_class_path": "res://components/ic/indicators/ALS324A.gd"
 	}
 }
