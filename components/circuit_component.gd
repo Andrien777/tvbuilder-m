@@ -154,23 +154,9 @@ static func pin_comparator(a,b):
 		return false
 
 func to_json_object() -> Dictionary:
-	var pinsArray: Array
-	for pin in pins:
-		pinsArray.append({
-			"index": pin.index,
-			"direction": NetConstants.direction_to_string(pin.direction),
-			"position": pin.ic_position,
-			"readable_name": pin.readable_name,
-			"description": pin.description
-		})
 	return {
 		"id": id,
 		"name": readable_name,
-		"num_pins": pinsArray.size(),
-		"pins": pinsArray,
-		"width": width,
-		"height": height,
-		"texture": texture,
 		"position": position
 	}
 func pin(i:int):
