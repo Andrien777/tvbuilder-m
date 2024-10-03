@@ -59,10 +59,10 @@
 		}
 		,{
 			"index": 8,
-			"direction": "DIRECTION_OUTPUT",
+			"direction": "DIRECTION_INPUT",
 			"position": "BOTTOM",
-			"readable_name": "Да кто его знает что это",
-			"description": "Ничего не написали в доках",
+			"readable_name": "M",
+			"description": "Включение переносов внутри схемы",
 			"dependencies": []
 		},{
 			"index": 9,

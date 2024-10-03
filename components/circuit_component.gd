@@ -31,6 +31,12 @@ func initialize(spec: ComponentSpecification)->void:
 	sprite.texture = test_texture
 	sprite.modulate = Color(0.0, 0.0, 0.0, 1.0)
 	# Render texture and set height-width
+	#Label
+	var label = Label.new()
+	label.position = self.position
+	label.z_index = 2
+	label.text = self.readable_name
+	add_child(label)
 	add_child(hitbox)
 	add_child(sprite)
 	initialize_pins(spec.pinSpecifications, test_texture.get_size())

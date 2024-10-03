@@ -21,6 +21,16 @@
 							"ic_name": "К1533ИД4",
 							"config_path": "res://components/ic/configs/K1533ID4.json",
 							"logic_class_path": "res://components/ic/demux/K1533ID4.gd"
+						},
+						{
+							"ic_name": "74485",
+							"config_path": "res://components/ic/configs/74485.json",
+							"logic_class_path": "res://components/ic/demux/74485.gd"
+						},
+						{
+							"ic_name": "7448",
+							"config_path": "res://components/ic/configs/7448.json",
+							"logic_class_path": "res://components/ic/demux/7448.gd"
 						}
 					]
 				},
@@ -40,6 +50,24 @@
 							"ic_name": "1531ИР22",
 							"config_path": "res://components/ic/configs/K1531IR22.json",
 							"logic_class_path": "res://components/ic/registers/K1531IR22.gd"
+						}
+					]
+				},{
+					"group_name": "АЛУ",
+					"subelements": [
+						{
+							"ic_name": "1531ИР3",
+							"config_path": "res://components/ic/configs/513IP3.json",
+							"logic_class_path": "res://components/ic/alu/K513IP3.gd"
+						}
+					]
+				},{
+					"group_name": "Индикаторы",
+					"subelements": [
+						{
+							"ic_name": "АЛС342А",
+							"config_path": "res://components/ic/configs/ALS324A.json",
+							"logic_class_path": "res://components/ic/indicators/ALS324A.gd"
 						}
 					]
 				}

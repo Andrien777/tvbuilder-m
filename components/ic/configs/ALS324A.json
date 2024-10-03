@@ -21,7 +21,7 @@
 			"dependencies": []
 		},{
 			"index": 3,
-			"direction": "DIRECTION_INPUT",
+			"direction": "DIRECTION_INPUT_OUTPUT",
 			"position": "BOTTOM",
 			"readable_name": "??",
 			"description": "",
@@ -77,8 +77,8 @@
 			"index": 15,
 			"direction": "DIRECTION_INPUT",
 			"position": "TOP",
-			"readable_name": "Eb",
-			"description": "Сигнал включения B",
+			"readable_name": "??",
+			"description": "??",
 			"dependencies": []
 		}
 		,{
