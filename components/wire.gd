@@ -5,6 +5,7 @@ var first_object
 var second_object
 var line
 const pin_offset = 30
+var hitbox: Array
 func initialize(first_object:Node2D, second_object:Node2D)->void:
 	line.clear_points()
 
@@ -13,6 +14,17 @@ func initialize(first_object:Node2D, second_object:Node2D)->void:
 	line.add_point(Vector2((first_object.global_position+get_pin_offset(first_object)).x,(second_object.global_position+get_pin_offset(second_object)).y))
 	line.add_point(second_object.global_position+get_pin_offset(second_object))
 	line.add_point(second_object.global_position)
+	for i in range(0, line.points.size() - 1):
+		var shape = RectangleShape2D.new()
+		shape.size = Vector2(3 if line.points[i].x == line.points[i + 1].x else abs(line.points[i + 1].x - line.points[i].x),\
+			3 if line.points[i].y == line.points[i + 1].y else abs(line.points[i + 1].y - line.points[i].y))
+		var hitbox_part = CollisionShape2D.new()
+		hitbox_part.shape = shape
+		add_child(hitbox_part)
+		hitbox_part.position = Vector2(0.5 * (line.points[i].x + line.points[i + 1].x),
+			0.5 * (line.points[i].y + line.points[i + 1].y))
+		hitbox.append(hitbox_part)
+	
 	self.first_object = first_object
 	self.second_object = second_object
 
@@ -23,13 +35,22 @@ func _init()->void:
 	line.width = 2
 	line.antialiased = true
 	add_child(line)
+	self.input_pickable = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
 
 func _mouse_enter() -> void:
-	print("mouse on ", self)
+	self.modulate=Color(0.7,0.7,0.7,1)
+	first_object.modulate=Color(0.7,0.7,0.7,1)
+	second_object.modulate=Color(0.7,0.7,0.7,1)
+
+func _mouse_exit() -> void:
+	self.modulate=Color(1,1,1,1)
+	first_object.modulate=Color(1,1,1,1)
+	second_object.modulate=Color(1,1,1,1)
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	# TODO: Render only if position of start|end nodes changed
@@ -39,6 +60,23 @@ func _process(delta: float) -> void:
 		line.set_point_position(2,Vector2(line.get_point_position(1).x,line.get_point_position(3).y))
 		line.set_point_position(line.get_point_count()-2,second_object.global_position+get_pin_offset(second_object))
 		line.set_point_position(line.get_point_count()-1,second_object.global_position)
+		for i in range(0, line.points.size() - 1):
+			var shape = RectangleShape2D.new()
+			shape.size = Vector2(3 if line.points[i].x == line.points[i + 1].x else abs(line.points[i + 1].x - line.points[i].x),\
+				3 if line.points[i].y == line.points[i + 1].y else abs(line.points[i + 1].y - line.points[i].y))
+			var hitbox_part
+			if i < hitbox.size():
+				hitbox_part = hitbox[i]
+				hitbox_part.shape = shape
+				hitbox_part.position = Vector2(0.5 * (line.points[i].x + line.points[i + 1].x),
+					0.5 * (line.points[i].y + line.points[i + 1].y))
+			else:
+				hitbox_part = CollisionShape2D.new()
+				hitbox_part.shape = shape
+				add_child(hitbox_part)
+				hitbox_part.position = Vector2(0.5 * (line.points[i].x + line.points[i + 1].x),
+					0.5 * (line.points[i].y + line.points[i + 1].y))
+				hitbox.append(hitbox_part)
 	else:
 		WireManager._delete_wire(self)
 		

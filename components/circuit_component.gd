@@ -125,10 +125,10 @@ func _process(delta: float) -> void:
 		
 var tween
 func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void:
-	if event is InputEventMouseButton:
+	if event is InputEventMouseButton and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		if(event.pressed):
 			drag_offset = global_position - get_global_mouse_position()
-		viewport.set_input_as_handled()
+			viewport.set_input_as_handled()
 		is_dragged = event.pressed
 		if (is_dragged==false):
 			if tween:
@@ -140,7 +140,6 @@ func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void
 		viewport.set_input_as_handled()
 		SaveManager.ic_list.erase(self)
 		queue_free()
-
 
 func _process_signal():
 	pass
