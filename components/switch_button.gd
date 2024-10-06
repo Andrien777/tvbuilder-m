@@ -29,7 +29,7 @@ func _process(delta: float) -> void:
 	pass
 
 func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void:
-	if event is InputEventMouseButton and event.is_pressed() and Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
+	if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_RIGHT:
 		viewport.set_input_as_handled()
 		parent.on = not parent.on
 		if parent.on:

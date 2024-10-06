@@ -6,6 +6,9 @@ var second_object
 var line
 const pin_offset = 30
 var hitbox: Array
+
+var is_mouse_over = false
+
 func initialize(first_object:Node2D, second_object:Node2D)->void:
 	line.clear_points()
 
@@ -45,11 +48,13 @@ func _mouse_enter() -> void:
 	self.modulate=Color(0.7,0.7,0.7,1)
 	first_object.modulate=Color(0.7,0.7,0.7,1)
 	second_object.modulate=Color(0.7,0.7,0.7,1)
+	is_mouse_over = true
 
 func _mouse_exit() -> void:
 	self.modulate=Color(1,1,1,1)
 	first_object.modulate=Color(1,1,1,1)
 	second_object.modulate=Color(1,1,1,1)
+	is_mouse_over = false
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -78,6 +83,11 @@ func _process(delta: float) -> void:
 					0.5 * (line.points[i].y + line.points[i + 1].y))
 				hitbox.append(hitbox_part)
 	else:
+		WireManager._delete_wire(self)
+	if Input.is_action_pressed("delete_component") and self.is_mouse_over:
+		Input.action_release("delete_component")
+		first_object.modulate=Color(1,1,1,1)
+		second_object.modulate=Color(1,1,1,1)
 		WireManager._delete_wire(self)
 		
 		

@@ -2,6 +2,7 @@ extends StaticBody2D
 class_name CircuitComponent
 
 var is_dragged = false
+var is_mouse_over = false
 
 var drag_offset = Vector2(0,0)
 var readable_name:String
@@ -121,11 +122,17 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if is_dragged && Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		self.global_position = get_global_mouse_position()  +drag_offset
+		self.global_position = get_global_mouse_position() + drag_offset
+	else:
+		self.is_dragged = false
+	if Input.is_action_pressed("delete_component") and self.is_mouse_over:
+		Input.action_release("delete_component")
+		SaveManager.ic_list.erase(self)
+		queue_free()
 		
 var tween
 func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void:
-	if event is InputEventMouseButton and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if(event.pressed):
 			drag_offset = global_position - get_global_mouse_position()
 			viewport.set_input_as_handled()
@@ -136,15 +143,15 @@ func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void
 			tween = create_tween()
 			tween.tween_property(self,"position",position - Vector2(int(position.x)%25, int(position.y)%25),0.1).set_trans(Tween.TRANS_ELASTIC)
 			#position = position - Vector2(int(position.x)%25, int(position.y)%25)
-	if event is InputEventMouseButton and event.pressed and Input.is_mouse_button_pressed(MOUSE_BUTTON_MIDDLE):
-		viewport.set_input_as_handled()
-		SaveManager.ic_list.erase(self)
-		queue_free()
 
 func _process_signal():
 	pass
 
-
+func _mouse_enter() -> void:
+	is_mouse_over = true
+	
+func _mouse_exit() -> void:
+	is_mouse_over = false
 
 static func pin_comparator(a,b):
 	if a is Pin and b is Pin:
