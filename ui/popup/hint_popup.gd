@@ -43,7 +43,6 @@ func display(heading:String, description:String, position:Vector2):
 		tween.tween_property(self,"position", position + Vector2(40,0),0.3).set_trans(Tween.TRANS_CIRC)
 
 func hide_popup():
-	pass
 	if tween:
 		tween.kill()
 	tween = create_tween()

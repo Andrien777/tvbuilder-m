@@ -1,7 +1,7 @@
 extends StaticBody2D
 class_name Pin
 
-var pin_texture = preload("res://components/ic/pin.svg")
+var pin_texture = preload("res://components/ic/pin2.png")
 
 var index: int # Index on a chip
 var state: NetConstants.LEVEL # Current state (low/high/z)

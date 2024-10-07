@@ -61,8 +61,9 @@ func propagate_signal() -> void:
 						stack.pop_back()
 						continue
 				stack.pop_back()
-				print("Could not resolve component:")
-				print(current)
+				PopupManager.display_error("Не удалось просчитать данный компонент", "Мы очень пытались. Честно.", current.pin.global_position)
+				#print("Could not resolve component:")
+				#print(current)
 				continue # TODO: add notification
 			if current.pin.output():
 				if not current.pin.dependencies.is_empty():
@@ -84,7 +85,8 @@ func propagate_signal() -> void:
 							if neighbour.pin.output():
 								if neighbour in resolved and neighbour.pin.state != current.pin.state:
 									if not neighbour.pin.z and not current.pin.z:
-										print("Two outputs short circuited")
+										PopupManager.display_error("Соединены два выхода", "Вы делаете что-то странное", current.pin.global_position)
+										#print("Two outputs short circuited")
 							if neighbour != current:
 								stack.push_back(neighbour)
 				else:
@@ -95,7 +97,8 @@ func propagate_signal() -> void:
 						if neighbour.pin.output():
 							if neighbour in resolved and neighbour.pin.state != current.pin.state:
 								if not neighbour.pin.z and not current.pin.z:
-									print("Two outputs short circuited")
+									PopupManager.display_error("Соединены два выхода", "Вы делаете что-то странное", current.pin.global_position)
+									#print("Two outputs short circuited")
 						if neighbour != current:
 							stack.push_back(neighbour)
 			elif current.pin.input():
@@ -152,7 +155,8 @@ func propagate_signal() -> void:
 				if ok:
 					pin.pin.state = state
 				else:
-					print("Short circuit")
+					PopupManager.display_error("Короткое замыкание", "В этом месте произошло КЗ", pin.pin.global_position)
+					#print("Short circuit")
 	for key in nodes.keys():
 		if key.direction == NetConstants.DIRECTION.DIRECTION_INPUT_OUTPUT:
 			key.parent._process_signal()

@@ -3,7 +3,7 @@
 	"num_pins": 1,
 	"height": 25,
 	"width": 25,
-	"texture": "",
+	"texture": "res://components/ic/ic2.svg",
 	"pinSpecifications": [
 		{
 			"index": 1,

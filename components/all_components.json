@@ -39,9 +39,9 @@
 		"config_path": "res://components/ic/configs/7448.json",
 		"logic_class_path": "res://components/ic/demux/7448.gd"
 	},
-	"513ИП3":{
-		"config_path": "res://components/ic/configs/513IP3.json",
-		"logic_class_path": "res://components/ic/alu/K513IP3.gd"
+	"531ИП3":{
+		"config_path": "res://components/ic/configs/531IP3.json",
+		"logic_class_path": "res://components/ic/alu/K531IP3.gd"
 	},
 	"АЛС324А":{
 		"config_path": "res://components/ic/configs/ALS324A.json",
