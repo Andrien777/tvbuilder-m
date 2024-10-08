@@ -35,9 +35,15 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-func display_hint(heading:String, description:String, position:Vector2):
+func display_hint(heading:String, description:String, position:Vector2, direction:NetConstants.DIRECTION):
 	pin_popup.visible=true
-	pin_popup.display(heading, description, position)
+	var popup_color = Color(1,1,1,0.9)
+	match(direction):
+		NetConstants.DIRECTION.DIRECTION_INPUT:
+			popup_color = Color(1,0.8,1,0.9)
+		NetConstants.DIRECTION.DIRECTION_OUTPUT:
+			popup_color = Color(1,1,0.8,0.9)
+	pin_popup.display(heading, description, position, popup_color)
 
 func hide_hint():
 	pin_popup.hide_popup()
@@ -54,5 +60,5 @@ func display_error(heading:String, description:String, position:Vector2):
 		
 		#error_popup.position = position
 		error_popup.visible=true
-		error_popup.display(heading, description, position)
+		error_popup.display(heading, description, position, Color(1,0.8,0.8,0.9))
 		last_error_position = position

@@ -28,7 +28,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 var tween
-func display(heading:String, description:String, position:Vector2):
+func display(heading:String, description:String, position:Vector2, color:Color):
 
 	self.description.text = description
 	self.heading.text = heading
@@ -37,7 +37,7 @@ func display(heading:String, description:String, position:Vector2):
 	if tween:
 		tween.kill()
 	tween = create_tween().set_parallel(true)
-	tween.tween_property(self,"modulate",Color(1,1,1,0.9),0.3).set_trans(Tween.TRANS_CIRC)
+	tween.tween_property(self,"modulate",color,0.3).set_trans(Tween.TRANS_CIRC)
 	if modulate[3]<0.1:
 		self.size = Vector2(max(len(description)*12,len(heading)*12),self.size[1])
 		self.position = position + Vector2(40,0)
