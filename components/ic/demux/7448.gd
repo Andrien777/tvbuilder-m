@@ -1,6 +1,6 @@
 extends CircuitComponent
 class_name D_7448
-var outs:Array[Pin]
+var outs: Array[Pin]
 static var lut = {
 	0:[1,1,1,1,1,1,0],
 	1:[0,1,1,0,0,0,0],
@@ -27,5 +27,5 @@ func _process_signal():
 		pass
 	if(pin(5).low): # Don`t handle RBI for now
 		pass
-	for i in range(0,8):
-		outs[i] = lut[a][i]
+	for i in range(0,7):
+		outs[i].state = lut[a][i]

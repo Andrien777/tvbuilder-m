@@ -118,8 +118,9 @@ func initialize_pins(spec: Array, ic_shape:Vector2)->void:
 			continue
 		if pin_spec.dependencies[0] == -1:
 			pins[pin_spec.index - 1].initialize_dependencies()
-		for dep in pin_spec.dependencies:
-			pins[pin_spec.index - 1].dependencies.append(pins[dep - 1])
+		else:
+			for dep in pin_spec.dependencies:
+				pins[pin_spec.index - 1].dependencies.append(pins[dep - 1])
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

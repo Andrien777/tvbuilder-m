@@ -64,7 +64,7 @@ func propagate_signal() -> void:
 				PopupManager.display_error("Не удалось просчитать данный компонент", "Мы очень пытались. Честно.", current.pin.global_position)
 				#print("Could not resolve component:")
 				#print(current)
-				continue # TODO: add notification
+				continue
 			if current.pin.output():
 				if not current.pin.dependencies.is_empty():
 					var dependencies_resolved = true
