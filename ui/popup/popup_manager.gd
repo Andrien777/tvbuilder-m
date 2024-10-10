@@ -52,7 +52,7 @@ var last_error_position = Vector2(0,0)
 
 func display_error(heading:String, description:String, position:Vector2):
 	timer.stop()
-	timer.wait_time = 1.0 
+	timer.wait_time = 0.6 
 	timer.one_shot = false
 	timer.start() 
 	
