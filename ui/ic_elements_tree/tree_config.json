@@ -11,6 +11,10 @@
 							"ic_name": "2И",
 							"config_path": "res://components/ic/configs/and2.json",
 							"logic_class_path": "res://components/ic/logic/And2.gd"
+						},{
+							"ic_name": "2НЕ",
+							"config_path": "res://components/ic/configs/not2.json",
+							"logic_class_path": "res://components/ic/logic/Not2.gd"
 						}
 					]
 				},
