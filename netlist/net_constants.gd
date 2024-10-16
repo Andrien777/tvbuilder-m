@@ -23,7 +23,7 @@ func direction_to_string(value: DIRECTION) -> String:
 			return "DIRECTION_INPUT_OUTPUT"
 		DIRECTION.DIRECTION_DISABLED:
 			return "DIRECTION_DISABLED"
-	return "WTF happened???????"
+	return "UNKNOWN_DIRECTION"
 
 func parse_level(value: String) -> LEVEL:
 	if value == "LEVEL_HIGH":

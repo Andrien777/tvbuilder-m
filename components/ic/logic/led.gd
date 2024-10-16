@@ -2,10 +2,11 @@ extends CircuitComponent
 class_name LED
 var sprite: Sprite2D
 func initialize(spec: ComponentSpecification)->void:
+	self.display_name_label = false
 	super.initialize(spec)
-	self.scale = Vector2(0.5,1)
+	#self.scale = Vector2(0.5,0.5)
 	sprite = Sprite2D.new()
-	sprite.texture = test_texture
+	sprite.texture = ic_texture
 	sprite.modulate = Color(0, 100, 0, 0.2)
 	add_child(sprite)
 

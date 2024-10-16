@@ -1,7 +1,7 @@
 extends StaticBody2D
 class_name Pin
 
-var pin_texture = preload("res://components/ic/pin.svg")
+var pin_texture = preload("res://components/ic/pin2.png")
 
 var index: int # Index on a chip
 var state: NetConstants.LEVEL # Current state (low/high/z)
@@ -54,7 +54,7 @@ func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void
 		WireManager.register_wire_point(self)
 func _mouse_enter() -> void:
 	self.modulate=Color(0.7,0.7,0.7,1)
-	PopupManager.display_hint("Пин: "+str(index)+ " | " + readable_name,description,self.global_position)
+	PopupManager.display_hint("Пин: "+str(index)+ " | " + readable_name,description,self.global_position, self.direction)
 func _mouse_exit()->void:
 	self.modulate=Color(1,1,1,1)
 	PopupManager.hide_hint()
