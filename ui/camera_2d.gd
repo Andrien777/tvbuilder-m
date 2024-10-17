@@ -15,13 +15,13 @@ func _process(delta: float) -> void:
 		if zoom.x > 0.1 and zoom.y > 0.1:
 			change_zoom(Vector2(-0.1,-0.1))
 	if Input.is_action_pressed("pan_up"):
-		position += Vector2.DOWN * 10
-	elif Input.is_action_pressed("pan_down"):
 		position += Vector2.UP * 10
-	elif Input.is_action_pressed("pan_left"):
-		position += Vector2.RIGHT * 10
-	elif Input.is_action_pressed("pan_right"):
+	if Input.is_action_pressed("pan_down"):
+		position += Vector2.DOWN * 10
+	if Input.is_action_pressed("pan_left"):
 		position += Vector2.LEFT * 10
+	if Input.is_action_pressed("pan_right"):
+		position += Vector2.RIGHT * 10
 
 func change_zoom(delta: Vector2) -> void:
 	var mouse_pos := get_global_mouse_position()

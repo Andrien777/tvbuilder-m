@@ -46,5 +46,9 @@
 	"АЛС324А":{
 		"config_path": "res://components/ic/configs/ALS324A.json",
 		"logic_class_path": "res://components/ic/indicators/ALS324A.gd"
+	},
+	"2НЕ":{
+		"config_path": "res://components/ic/configs/not2.json",
+		"logic_class_path": "res://components/ic/logic/Not2.gd"
 	}
 }

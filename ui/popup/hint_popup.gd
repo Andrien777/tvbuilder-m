@@ -51,6 +51,6 @@ func hide_popup():
 	if tween:
 		tween.kill()
 	tween = create_tween()
-	tween.tween_property(self,"modulate",Color(1,1,1,0.0),1).set_trans(Tween.TRANS_CIRC)
+	tween.tween_property(self,"modulate",Color(1,1,1,0.0),0.5).set_trans(Tween.TRANS_CIRC)
 
 	

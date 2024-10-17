@@ -69,21 +69,21 @@
 			"direction": "DIRECTION_OUTPUT",
 			"position": "BOTTOM",
 			"readable_name": "F0",
-			"description": "Результат операции",
+			"description": "Результат операции: Разряд 0",
 			"dependencies": [-1]
 		},{
 			"index": 10,
 			"direction": "DIRECTION_OUTPUT",
 			"position": "BOTTOM",
 			"readable_name": "F1",
-			"description": "Результат операции",
+			"description": "Результат операции: Разряд 1",
 			"dependencies": [-1]
 		},{
 			"index": 11,
 			"direction": "DIRECTION_OUTPUT",
 			"position": "BOTTOM",
 			"readable_name": "F2",
-			"description": "Результат операции",
+			"description": "Результат операции: Разряд 2",
 			"dependencies": [-1]
 		},{
 			"index": 12,
@@ -105,42 +105,42 @@
 			"direction": "DIRECTION_INPUT",
 			"position": "TOP",
 			"readable_name": "A1",
-			"description": "Вход числа B",
+			"description": "Число А: Разряд 1",
 			"dependencies": []
 		},{
 			"index": 22,
 			"direction": "DIRECTION_INPUT",
 			"position": "TOP",
 			"readable_name": "B1",
-			"description": "Вход числа B",
+			"description": "Число B: Разряд 1",
 			"dependencies": []
 		},{
 			"index": 21,
 			"direction": "DIRECTION_INPUT",
 			"position": "TOP",
 			"readable_name": "A2",
-			"description": "Вход числа B",
+			"description": "Число А: Разряд 2",
 			"dependencies": []
 		},{
 			"index": 20,
 			"direction": "DIRECTION_INPUT",
 			"position": "TOP",
 			"readable_name": "B2",
-			"description": "Вход числа B",
+			"description": "Число B: Разряд 2",
 			"dependencies": []
 		},{
 			"index": 19,
 			"direction": "DIRECTION_INPUT",
 			"position": "TOP",
 			"readable_name": "А3",
-			"description": "Вход числа А",
+			"description": "Число А: Разряд 3",
 			"dependencies": []
 		},{
 			"index": 18,
 			"direction": "DIRECTION_INPUT",
 			"position": "TOP",
 			"readable_name": "B3",
-			"description": "Вход числа B",
+			"description": "Число B: Разряд 3",
 			"dependencies": []
 		},{
 			"index": 17,
@@ -178,7 +178,7 @@
 			"direction": "DIRECTION_OUTPUT",
 			"position": "TOP",
 			"readable_name": "F3",
-			"description": "Результат операции0",
+			"description": "Результат операции: Разряд 3",
 			"dependencies": [-1]
 		}
 	]
