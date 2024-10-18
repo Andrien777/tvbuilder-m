@@ -6,6 +6,7 @@ extends FileDialog
 func _ready() -> void:
 	# TODO: make it remember last save location; doesn't seem to work with native dialogs
 	save_file_dialog.current_dir = "/" 
+	save_file_dialog.add_filter("*.json")
 
 func _on_save_as_button_pressed() -> void:
 	save_file_dialog.visible = true
