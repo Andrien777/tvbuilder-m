@@ -17,6 +17,15 @@ script = ExtResource("1_8vqs3")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = -1
+follow_viewport_enabled = true
+
+[node name="Grid" type="Sprite2D" parent="CanvasLayer"]
+visible = false
+z_index = -1
+material = SubResource("ShaderMaterial_7n0h1")
+position = Vector2(576, 324)
+scale = Vector2(9, 5.0625)
+texture = ExtResource("3_ade1w")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(576, 320)
@@ -56,14 +65,6 @@ size_flags_vertical = 3
 tooltip_text = "Tooltip"
 hide_root = true
 script = ExtResource("3_q10ex")
-
-[node name="Grid" type="Sprite2D" parent="."]
-visible = false
-z_index = -1
-material = SubResource("ShaderMaterial_7n0h1")
-position = Vector2(576, 324)
-scale = Vector2(9, 5.0625)
-texture = ExtResource("3_ade1w")
 
 [node name="SaveAsFileDialog" type="FileDialog" parent="."]
 initial_position = 4

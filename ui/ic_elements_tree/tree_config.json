@@ -8,6 +8,12 @@
 					"group_name": "Логические микросхемы",
 					"subelements": [
 						{
+							"ic_name": "К1533ЛИ1",
+							"config_path": "res://components/ic/configs/K1533LI1.json",
+							"logic_class_path": "res://components/ic/logic/K1533LI1.gd"
+						},
+	
+						{
 							"ic_name": "2И",
 							"config_path": "res://components/ic/configs/and2.json",
 							"logic_class_path": "res://components/ic/logic/And2.gd"
@@ -48,12 +54,25 @@
 						}
 					]
 				},{
+					"group_name": "Триггеры",
+					"subelements": [
+						{
+							"ic_name": "К1533ТМ2",
+							"config_path": "res://components/ic/configs/K1533TM2.json",
+							"logic_class_path": "res://components/ic/flipflops/K1533TM2.gd"
+						}
+					]
+				},{
 					"group_name": "Регистры",
 					"subelements": [
 						{
 							"ic_name": "1531ИР22",
 							"config_path": "res://components/ic/configs/K1531IR22.json",
 							"logic_class_path": "res://components/ic/registers/K1531IR22.gd"
+						},{
+							"ic_name": "155ИР13",
+							"config_path": "res://components/ic/configs/K155IR13.json",
+							"logic_class_path": "res://components/ic/registers/K155IR13.gd"
 						}
 					]
 				},{

@@ -9,7 +9,7 @@
 			"index": 1,
 			"direction": "DIRECTION_INPUT",
 			"position": "BOTTOM",
-			"readable_name": "",
+			"readable_name": "Вход",
 			"description": "",
 			"dependencies": []
 		}

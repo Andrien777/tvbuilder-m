@@ -50,5 +50,16 @@
 	"2НЕ":{
 		"config_path": "res://components/ic/configs/not2.json",
 		"logic_class_path": "res://components/ic/logic/Not2.gd"
+	},
+	"К155ИР13":{
+		"config_path": "res://components/ic/configs/K155IR13.json",
+		"logic_class_path": "res://components/ic/registers/K155IR13.gd"
+	},
+	"К1533ТМ2":{
+		"config_path": "res://components/ic/configs/K1533TM2.json",
+		"logic_class_path": "res://components/ic/flipflops/K1533TM2.gd"
+	},"К1533ТМ2":{
+		"config_path": "res://components/ic/configs/K1533LI1.json",
+		"logic_class_path": "res://components/ic/logic/K1533LI1.gd"
 	}
 }
