@@ -30,7 +30,7 @@ func clear():
 
 func propagate_signal() -> void:
 	if GlobalSettings.doCycles:
-		for ic in SaveManager.ic_list:
+		for ic in ComponentManager.obj_list.values():
 			ic._process_signal()
 		var resolved: Array[Pin]
 		var late_propagation: Array[Pin]
