@@ -1,12 +1,20 @@
 extends Node
 
-var ic_list: Array[CircuitComponent]
+var last_path: String = ""
 
-static var all_components: Dictionary
+var autosave_timer = Timer.new()
+var autosave_interval = 60 # seconds
+
+func _on_autosave():
+	if last_path != "":
+		save(last_path)
 
 func save(path: String) -> void:
+	last_path = path
+	autosave_timer.stop()
+	autosave_timer.start(autosave_interval)
 	var json_list_ic: Array
-	for ic in ic_list:
+	for ic in ComponentManager.obj_list.values():
 		if(!is_instance_valid(ic)):
 			PopupManager.display_error("Что-то пошло не так", "Да, это тот самый баг.", Vector2(100,100))
 			continue
@@ -19,13 +27,11 @@ func save(path: String) -> void:
 	}, "\t"))
 	file.close()
 
-func get_component_by_id(id: int) -> CircuitComponent: #null if not found
-	for ic in ic_list:
-		if ic.id == id:
-			return ic
-	return null
-
 func load(scene: Node2D, path: String):
+	last_path = path
+	autosave_timer.stop()
+	autosave_timer.start(autosave_interval)
+	ComponentManager.clear()
 	var json = JSON.new()
 	var file = FileAccess.open(path, FileAccess.READ).get_as_text()
 	var parsed = json.parse_string(file)
@@ -40,11 +46,12 @@ func load(scene: Node2D, path: String):
 		else:
 			parsed_ids.append(ic.id)
 		var component: CircuitComponent
-		component = load(all_components[ic.name].logic_class_path).new()
+		component = load(ComponentManager.ALL_COMPONENTS_LIST[ic.name].logic_class_path).new()
 		var spec = ComponentSpecification.new()
-		spec.initialize_from_json(all_components[ic.name].config_path)
+		spec.initialize_from_json(ComponentManager.ALL_COMPONENTS_LIST[ic.name].config_path)
 		component.initialize(spec)
 		component.id = ic.id
+		CircuitComponent.last_id = max(CircuitComponent.last_id, ic.id) + 1
 		scene.add_child(component)
 		var pos = ic.position.split(",")
 		var x = float(pos[0].replace("(", ""))
@@ -52,7 +59,7 @@ func load(scene: Node2D, path: String):
 		component.position = Vector2(x, y)
 		#ic_list.append(component) # Component already appends itself during initialization
 	for edge in parsed.netlist:
-		var from_ic = get_component_by_id(edge.from.ic)
+		var from_ic = ComponentManager.get_by_id(edge.from.ic)
 		var from_pin: Pin
 		for pin in from_ic.pins:
 			if pin.index == edge.from.pin:
@@ -60,7 +67,7 @@ func load(scene: Node2D, path: String):
 		if from_pin == null:
 			print("error")
 			continue
-		var to_ic = get_component_by_id(edge.to.ic)
+		var to_ic = ComponentManager.get_by_id(edge.to.ic)
 		var to_pin: Pin
 		for pin in to_ic.pins:
 			if pin.index == edge.to.pin:
@@ -69,14 +76,6 @@ func load(scene: Node2D, path: String):
 			print("error")
 			continue
 		WireManager._create_wire(from_pin, to_pin)
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	var json = JSON.new()
-	var file = FileAccess.open("res://components/all_components.json", FileAccess.READ).get_as_text()
-	all_components = json.parse_string(file)
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+		
+func _init():
+	autosave_timer.timeout.connect(_on_autosave)

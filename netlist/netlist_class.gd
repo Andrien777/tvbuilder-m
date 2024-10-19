@@ -24,7 +24,10 @@ func delete_connection(pin1, pin2)->void:
 		nodes.erase(pin1)
 	if nodes[pin2].neighbours.is_empty():
 		nodes.erase(pin2)
-	
+
+func clear():
+	nodes.clear()
+
 func propagate_signal() -> void:
 	if GlobalSettings.doCycles:
 		for ic in SaveManager.ic_list:

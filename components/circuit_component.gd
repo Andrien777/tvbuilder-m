@@ -50,7 +50,7 @@ func initialize(spec: ComponentSpecification)->void:
 	initialize_pins(spec.pinSpecifications, shape.size)
 	id = last_id
 	last_id += 1
-	SaveManager.ic_list.append(self)
+	ComponentManager.register_object(self)
 
 func initialize_pins(spec: Array, ic_shape:Vector2)->void:
 	var side_count = {"TOP":0, "BOTTOM":0, "LEFT":0, "RIGHT":0}
@@ -135,7 +135,7 @@ func _process(delta: float) -> void:
 		self.is_dragged = false
 	if Input.is_action_pressed("delete_component") and self.is_mouse_over:
 		Input.action_release("delete_component")
-		SaveManager.ic_list.erase(self)
+		ComponentManager.remove_object(self)
 		queue_free()
 		
 var tween
