@@ -2,6 +2,7 @@ extends StaticBody2D
 class_name Pin
 
 var pin_texture = preload("res://components/ic/pin2.png")
+var legacy_pin_texture = preload("res://graphics/legacy/pins/legacy_pin.png")
 
 var index: int # Index on a chip
 var state: NetConstants.LEVEL # Current state (low/high/z)
@@ -24,7 +25,10 @@ func initialize(spec: PinSpecification, state: NetConstants.LEVEL, parent: Node2
 	
 	var sprite = Sprite2D.new()
 	var hitbox = CollisionShape2D.new()
-	sprite.texture = pin_texture
+	if(GlobalSettings.LegacyGraphics):
+		sprite.texture = legacy_pin_texture
+	else:
+		sprite.texture = pin_texture
 	var shape = RectangleShape2D.new()
 	shape.size = pin_texture.get_size()
 	#shape.size = Vector2(100,100) # TODO: Scale to sprite

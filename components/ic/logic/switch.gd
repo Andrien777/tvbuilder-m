@@ -10,6 +10,7 @@ func initialize(spec: ComponentSpecification)->void:
 	self.display_name_label = false # TODO: Move to spec?
 	super.initialize(spec)
 	#self.sprite.texture = switch_texture
+	#self.sprite.modulate = Color(0.5,0.5,0.5,1)
 	self.scale = Vector2(1,1)
 	var button = SwitchButton.new()
 	button.initialize(self)

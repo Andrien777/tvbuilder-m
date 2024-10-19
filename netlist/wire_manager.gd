@@ -9,6 +9,7 @@ var wire_ghost = Wire.new()
 func _init():
 	wire_ghost.visible = false
 	wire_ghost.line.modulate =Color(0.8,0.8,0.8,1)
+	wire_ghost.has_hitbox = false
 	add_child(wire_ghost)
 
 func register_wire_point(object:Node2D):

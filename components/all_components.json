@@ -58,7 +58,7 @@
 	"К1533ТМ2":{
 		"config_path": "res://components/ic/configs/K1533TM2.json",
 		"logic_class_path": "res://components/ic/flipflops/K1533TM2.gd"
-	},"К1533ТМ2":{
+	},"К1533ЛИ1":{
 		"config_path": "res://components/ic/configs/K1533LI1.json",
 		"logic_class_path": "res://components/ic/logic/K1533LI1.gd"
 	}

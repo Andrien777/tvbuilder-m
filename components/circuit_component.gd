@@ -17,10 +17,11 @@ var texture: String
 const side_padding = 20 # TODO: Move side_padding to spec?
 var pins: Array
 var ic_texture = null
+var sprite = null
 func initialize(spec: ComponentSpecification)->void:
 	self.readable_name = spec.name
 	self.input_pickable = true
-	var sprite = Sprite2D.new()
+	sprite = Sprite2D.new()
 	var hitbox = CollisionShape2D.new()
 	var shape = RectangleShape2D.new()
 
@@ -85,7 +86,11 @@ func initialize_pins(spec: Array, ic_shape:Vector2)->void:
 			pin = IO_Pin.new()
 		else:
 			pin = Pin.new()
-		pin.scale=Vector2(0.2,0.4)
+		if(GlobalSettings.LegacyGraphics):
+			pin.scale=Vector2(0.2,0.2)
+		else:
+			pin.scale=Vector2(0.2,0.4)
+
 		match pin_spec.position:
 			"TOP":
 				pin.position = Vector2(side_padding-ic_shape.x/2 + 
@@ -93,6 +98,7 @@ func initialize_pins(spec: Array, ic_shape:Vector2)->void:
 				0-ic_shape.y/2)
 				side_index[pin_spec.position]+=1
 			"BOTTOM":
+				pin.rotation_degrees =180
 				pin.position = Vector2(side_padding-ic_shape.x/2 + 
 				side_margin[pin_spec.position]*side_index[pin_spec.position], 
 				0+ic_shape.y/2)

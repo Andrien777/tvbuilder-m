@@ -1,8 +1,8 @@
 extends Node2D
-
+var grid_rect
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass
+	grid_rect = get_node("GridLayer/GridRect")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -25,4 +25,13 @@ func _input(event):
 	elif event.is_action_pressed("load_scheme"):
 		SaveManager.load(self, "res://save.json")
 	elif event.is_action_pressed("highlight_level"):
-		GlobalSettings.LevelHighlight = not GlobalSettings.LevelHighlight
+		#GlobalSettings.LevelHighlight = not GlobalSettings.LevelHighlight
+		GlobalSettings.LegacyGraphics = not GlobalSettings.LegacyGraphics
+		if(!GlobalSettings.LegacyGraphics):
+			grid_rect.material.set_shader_parameter("grid_color",Vector4(0.2, 0.2, 0.2, 1.0))
+			grid_rect.material.set_shader_parameter("background_color",Vector4(0.4, 0.6, 0.9, 1.0))
+		else:
+			grid_rect.material.set_shader_parameter("grid_color",Vector4(128.0/256.0, 129.0/256.0, 1/256.0, 1.0))
+			grid_rect.material.set_shader_parameter("background_color",Vector4(41.0/256.0, 33.0/256.0, 4/256.0, 1.0))
+	elif event.is_action_pressed("toggle_grid"):
+			get_node("./GridLayer/GridRect").visible = not get_node("./GridLayer/GridRect").visible

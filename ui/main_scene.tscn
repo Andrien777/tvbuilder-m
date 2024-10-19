@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://df5br6oh56ejc"]
+[gd_scene load_steps=11 format=3 uid="uid://df5br6oh56ejc"]
 
 [ext_resource type="Script" path="res://ui/main_scene.gd" id="1_8vqs3"]
 [ext_resource type="Shader" path="res://shaders/grid.gdshader" id="2_7ckc8"]
@@ -11,20 +11,40 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7n0h1"]
 shader = ExtResource("2_7ckc8")
+shader_parameter/position = null
+shader_parameter/scale = Vector2(1, 1)
+shader_parameter/background_color = Vector4(0.4, 0.6, 0.9, 1)
+shader_parameter/grid_color = Vector4(0.2, 0.2, 0.2, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1mdxg"]
+shader = ExtResource("2_7ckc8")
+shader_parameter/position = null
+shader_parameter/scale = Vector2(1, 1)
+shader_parameter/background_color = Vector4(0.4, 0.6, 0.9, 1)
+shader_parameter/grid_color = Vector4(0.2, 0.2, 0.2, 1)
 
 [node name="RootNode" type="Node2D"]
 script = ExtResource("1_8vqs3")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="GridLayer" type="CanvasLayer" parent="."]
 layer = -1
-follow_viewport_enabled = true
 
-[node name="Grid" type="Sprite2D" parent="CanvasLayer"]
+[node name="Grid" type="Sprite2D" parent="GridLayer"]
 visible = false
 z_index = -1
 material = SubResource("ShaderMaterial_7n0h1")
 position = Vector2(576, 324)
 scale = Vector2(9, 5.0625)
+texture = ExtResource("3_ade1w")
+
+[node name="GridRect" type="TextureRect" parent="GridLayer"]
+visible = false
+material = SubResource("ShaderMaterial_1mdxg")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("3_ade1w")
 
 [node name="Camera2D" type="Camera2D" parent="."]
