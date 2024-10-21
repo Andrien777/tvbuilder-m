@@ -40,10 +40,15 @@ func propagate_signal() -> void:
 	var late_propagation: Array[NetlistNode]
 	var stack: Array[NetlistNode]
 	while visited.size() != nodes.size():
-		for key in nodes.keys():
-			if nodes[key] not in visited:
+		for key in nodes.keys(): #find first output
+			if nodes[key] not in visited and nodes[key].pin.output():
 				stack.push_back(nodes[key])
 				break
+		if(stack.is_empty()): # If there are no outputs, find anything
+			for key in nodes.keys():
+				if nodes[key] not in visited:
+					stack.push_back(nodes[key])
+					break
 		while not stack.is_empty():
 			var current = stack.back()
 			if current in resolved or current in late_propagation:
