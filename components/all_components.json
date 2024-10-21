@@ -1,0 +1,65 @@
+{
+	"2И": {
+		"config_path": "res://components/ic/configs/and2.json",
+		"logic_class_path": "res://components/ic/logic/And2.gd"
+	},
+	"К1533ИД4": {
+		"config_path": "res://components/ic/configs/K1533ID4.json",
+		"logic_class_path": "res://components/ic/demux/K1533ID4.gd"
+	},
+	"КР132РУ9А": {
+		"config_path": "res://components/ic/configs/KR132RU9A.json",
+		"logic_class_path": "res://components/ic/memory/KR132RU9A.gd"
+	},
+	"1531ИР22": {
+		"config_path": "res://components/ic/configs/K1531IR22.json",
+		"logic_class_path": "res://components/ic/registers/K1531IR22.gd"
+	},
+	"Переключатель": {
+		"config_path": "res://components/ic/configs/switch.json",
+		"logic_class_path": "res://components/ic/logic/switch.gd"
+	},
+	"Светодиод": {
+		"config_path": "res://components/ic/configs/led.json",
+		"logic_class_path": "res://components/ic/logic/led.gd"
+	},
+	"Буфер с 3-м состоянием": {
+		"config_path": "res://components/ic/configs/tristate.json",
+		"logic_class_path": "res://components/ic/logic/tristate.gd"
+	},
+	"Память": {
+		"config_path": "res://components/ic/configs/memory.json",
+		"logic_class_path": "res://components/ic/logic/memory.gd"
+	},
+	"74485":{
+		"config_path": "res://components/ic/configs/74485.json",
+		"logic_class_path": "res://components/ic/demux/74485.gd"
+	},
+	"7448":{
+		"config_path": "res://components/ic/configs/7448.json",
+		"logic_class_path": "res://components/ic/demux/7448.gd"
+	},
+	"531ИП3":{
+		"config_path": "res://components/ic/configs/531IP3.json",
+		"logic_class_path": "res://components/ic/alu/K531IP3.gd"
+	},
+	"АЛС324А":{
+		"config_path": "res://components/ic/configs/ALS324A.json",
+		"logic_class_path": "res://components/ic/indicators/ALS324A.gd"
+	},
+	"2НЕ":{
+		"config_path": "res://components/ic/configs/not2.json",
+		"logic_class_path": "res://components/ic/logic/Not2.gd"
+	},
+	"К155ИР13":{
+		"config_path": "res://components/ic/configs/K155IR13.json",
+		"logic_class_path": "res://components/ic/registers/K155IR13.gd"
+	},
+	"К1533ТМ2":{
+		"config_path": "res://components/ic/configs/K1533TM2.json",
+		"logic_class_path": "res://components/ic/flipflops/K1533TM2.gd"
+	},"К1533ЛИ1":{
+		"config_path": "res://components/ic/configs/K1533LI1.json",
+		"logic_class_path": "res://components/ic/logic/K1533LI1.gd"
+	}
+}

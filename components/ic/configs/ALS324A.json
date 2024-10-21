@@ -3,7 +3,7 @@
 	"num_pins": 14,
 	"height": 25,
 	"width": 25,
-	"texture": "",
+	"texture": "res://graphics/legacy/ic/14leg_2x.png",
 	"pinSpecifications": [
 		{
 			"index": 1,
@@ -23,16 +23,16 @@
 			"index": 3,
 			"direction": "DIRECTION_INPUT_OUTPUT",
 			"position": "BOTTOM",
-			"readable_name": "??",
-			"description": "",
+			"readable_name": "Подключение земли",
+			"description": "Сюда необходимо подключить 0, иначе микросхема не заработает",
 			"dependencies": []
 		}
 		,{
 			"index": 4,
 			"direction": "DIRECTION_INPUT",
 			"position": "BOTTOM",
-			"readable_name": "Сюда подключать 0",
-			"description": "",
+			"readable_name": "??",
+			"description": "??",
 			"dependencies": []
 		},{
 			"index": 5,
@@ -99,7 +99,7 @@
 			"index": 12,
 			"direction": "DIRECTION_INPUT",
 			"position": "TOP",
-			"readable_name": "Сюда подать 0",
+			"readable_name": "??",
 			"description": "",
 			"dependencies": []
 		}

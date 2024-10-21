@@ -9,6 +9,7 @@ var wire_ghost = Wire.new()
 func _init():
 	wire_ghost.visible = false
 	wire_ghost.line.modulate =Color(0.8,0.8,0.8,1)
+	wire_ghost.has_hitbox = false
 	add_child(wire_ghost)
 
 func register_wire_point(object:Node2D):
@@ -19,7 +20,6 @@ func register_wire_point(object:Node2D):
 		wire_ghost.visible = true
 	elif second_wire_point==null:
 		wire_ghost.visible = false
-
 		second_wire_point = object
 		if Input.is_key_pressed(KEY_SHIFT):
 			for wire in wires:
@@ -43,6 +43,9 @@ func _delete_wire(wire):
 		wire.queue_free()
 
 func _create_wire(first_object:Node2D, second_object:Node2D):
+	if(first_object.parent is Switch):
+		first_object.parent.label.text = second_object.readable_name # TODO: Delete this...
+	
 	if first_object==second_object:
 		print("Соединение с самим собой")
 		return
@@ -67,3 +70,7 @@ func _process(delta: float) -> void:
 
 func get_json_list():
 	pass
+
+func force_update_wires():
+	for wire in wires:
+		wire._process(0.0,true)

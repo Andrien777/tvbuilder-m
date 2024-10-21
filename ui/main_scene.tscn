@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://df5br6oh56ejc"]
+[gd_scene load_steps=11 format=3 uid="uid://df5br6oh56ejc"]
 
 [ext_resource type="Script" path="res://ui/main_scene.gd" id="1_8vqs3"]
 [ext_resource type="Shader" path="res://shaders/grid.gdshader" id="2_7ckc8"]
@@ -7,15 +7,45 @@
 [ext_resource type="Script" path="res://ui/ic_elements_tree/ics_tree.gd" id="3_q10ex"]
 [ext_resource type="Script" path="res://ui/save_file_dialog.gd" id="4_5cvoo"]
 [ext_resource type="Script" path="res://ui/load_file_dialog.gd" id="5_656tm"]
+[ext_resource type="Script" path="res://ui/help_dialog.gd" id="8_s7pmm"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7n0h1"]
 shader = ExtResource("2_7ckc8")
+shader_parameter/position = null
+shader_parameter/scale = Vector2(1, 1)
+shader_parameter/background_color = Vector4(0.4, 0.6, 0.9, 1)
+shader_parameter/grid_color = Vector4(0.2, 0.2, 0.2, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1mdxg"]
+shader = ExtResource("2_7ckc8")
+shader_parameter/position = null
+shader_parameter/scale = Vector2(1, 1)
+shader_parameter/background_color = Vector4(0.4, 0.6, 0.9, 1)
+shader_parameter/grid_color = Vector4(0.2, 0.2, 0.2, 1)
 
 [node name="RootNode" type="Node2D"]
 script = ExtResource("1_8vqs3")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="GridLayer" type="CanvasLayer" parent="."]
 layer = -1
+
+[node name="Grid" type="Sprite2D" parent="GridLayer"]
+visible = false
+z_index = -1
+material = SubResource("ShaderMaterial_7n0h1")
+position = Vector2(576, 324)
+scale = Vector2(9, 5.0625)
+texture = ExtResource("3_ade1w")
+
+[node name="GridRect" type="TextureRect" parent="GridLayer"]
+visible = false
+material = SubResource("ShaderMaterial_1mdxg")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_ade1w")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(576, 320)
@@ -37,13 +67,17 @@ layout_mode = 2
 
 [node name="SaveAsButton" type="Button" parent="UiCanvasLayer/FunctionalUIContainer/ButtonsContainer"]
 layout_mode = 2
-text = "SaveAsButton"
+text = "Сохранить"
 metadata/_edit_use_anchors_ = true
 
 [node name="LoadButton" type="Button" parent="UiCanvasLayer/FunctionalUIContainer/ButtonsContainer"]
 layout_mode = 2
-text = "LoadButton"
+text = "Загрузить"
 metadata/_edit_use_anchors_ = true
+
+[node name="HelpButton" type="Button" parent="UiCanvasLayer/FunctionalUIContainer/ButtonsContainer"]
+layout_mode = 2
+text = "Помогите"
 
 [node name="ComponentTree" type="Tree" parent="UiCanvasLayer/FunctionalUIContainer"]
 layout_mode = 2
@@ -52,15 +86,8 @@ tooltip_text = "Tooltip"
 hide_root = true
 script = ExtResource("3_q10ex")
 
-[node name="Grid" type="Sprite2D" parent="."]
-visible = false
-z_index = -1
-material = SubResource("ShaderMaterial_7n0h1")
-position = Vector2(576, 324)
-scale = Vector2(9, 5.0625)
-texture = ExtResource("3_ade1w")
-
 [node name="SaveAsFileDialog" type="FileDialog" parent="."]
+auto_translate_mode = 1
 initial_position = 4
 size = Vector2i(500, 400)
 show_hidden_files = true
@@ -68,6 +95,7 @@ use_native_dialog = true
 script = ExtResource("4_5cvoo")
 
 [node name="LoadFileDialog" type="FileDialog" parent="."]
+auto_translate_mode = 1
 title = "Open a File"
 initial_position = 4
 size = Vector2i(500, 400)
@@ -78,8 +106,24 @@ show_hidden_files = true
 use_native_dialog = true
 script = ExtResource("5_656tm")
 
+[node name="HelpDialog" type="AcceptDialog" parent="."]
+auto_translate_mode = 1
+title = "Управление"
+initial_position = 1
+size = Vector2i(760, 262)
+dialog_text = "Масштаб - колесико мыши или клавиши +/-
+Перемещение рабочей области - wasd
+Выбор элемента в дереве слева
+При выбранном элементе Alt + ЛКМ размещает элемент под курсором
+При наведении на элемент перетаскивание мыши с зажатой ЛКМ перемещает элемент
+ПКМ при наведении на кнопку переключателя ментяет его состояние
+Создание провода: ПКМ сначала по одной ножке, затем по второй
+Удаление элемента/провода: навести указатель мыши на элемент/провод и нажать Delete"
+script = ExtResource("8_s7pmm")
+
 [connection signal="pressed" from="UiCanvasLayer/FunctionalUIContainer/ButtonsContainer/SaveAsButton" to="SaveAsFileDialog" method="_on_save_as_button_pressed"]
 [connection signal="pressed" from="UiCanvasLayer/FunctionalUIContainer/ButtonsContainer/LoadButton" to="LoadFileDialog" method="_on_load_button_pressed"]
+[connection signal="pressed" from="UiCanvasLayer/FunctionalUIContainer/ButtonsContainer/HelpButton" to="HelpDialog" method="_on_help_button_pressed"]
 [connection signal="item_mouse_selected" from="UiCanvasLayer/FunctionalUIContainer/ComponentTree" to="UiCanvasLayer/FunctionalUIContainer/ComponentTree" method="_on_item_mouse_selected"]
 [connection signal="nothing_selected" from="UiCanvasLayer/FunctionalUIContainer/ComponentTree" to="UiCanvasLayer/FunctionalUIContainer/ComponentTree" method="_on_nothing_selected"]
 [connection signal="file_selected" from="SaveAsFileDialog" to="SaveAsFileDialog" method="_on_file_selected"]

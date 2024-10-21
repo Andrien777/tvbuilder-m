@@ -1,10 +1,15 @@
 extends Node
 
-static var ic_list: Array[CircuitComponent]
+var ic_list: Array[CircuitComponent]
+
+static var all_components: Dictionary
 
 func save(path: String) -> void:
 	var json_list_ic: Array
 	for ic in ic_list:
+		if(!is_instance_valid(ic)):
+			PopupManager.display_error("Что-то пошло не так", "Да, это тот самый баг.", Vector2(100,100))
+			continue
 		json_list_ic.append(ic.to_json_object())
 	var json = JSON.new()
 	var file = FileAccess.open(path, FileAccess.WRITE)
@@ -19,40 +24,25 @@ func get_component_by_id(id: int) -> CircuitComponent: #null if not found
 		if ic.id == id:
 			return ic
 	return null
+
 func load(scene: Node2D, path: String):
 	var json = JSON.new()
 	var file = FileAccess.open(path, FileAccess.READ).get_as_text()
 	var parsed = json.parse_string(file)
+	var parsed_ids = []
 	if parsed == null:
 		print("error")
 		return
 	for ic in parsed.components:
+		if(ic.id in parsed_ids):
+			PopupManager.display_error("Во время открытия произошла ошибка, но файл все равно откроется", "В файле найдены дублированные сохранения. Это известный баг, который мы решаем.", Vector2(100,100))
+			continue # TODO: Throw an error
+		else:
+			parsed_ids.append(ic.id)
 		var component: CircuitComponent
-		match(ic.name):
-			"К1533ИД4":
-				component = K1533ID4.new()
-			"2И":
-				component = And2.new()
-			"Светодиод":
-				component = LED.new()
-			"Переключатель":
-				component = Switch.new()
-			"Буфер с 3-м состоянием":
-				component = Tristate.new()
-			"Ячейка памяти":
-				component = Memory.new()
-			"КР132РУ9А":
-				component = KR132RU9A.new()
-			"1531ИР22":
-				component = K1531IR22.new()
-				
+		component = load(all_components[ic.name].logic_class_path).new()
 		var spec = ComponentSpecification.new()
-		var pinSpecArray: Array[PinSpecification]
-		for pin in ic.pins:
-			var pinSpec = PinSpecification.new()
-			pinSpec.initialize(pin.index, NetConstants.parse_direction(pin.direction), pin.position, pin.readable_name, pin.description,[])
-			pinSpecArray.append(pinSpec)
-		spec.initialize(ic.name, ic.num_pins, ic.height, ic.width, ic.texture, pinSpecArray)
+		spec.initialize_from_json(all_components[ic.name].config_path)
 		component.initialize(spec)
 		component.id = ic.id
 		scene.add_child(component)
@@ -60,7 +50,7 @@ func load(scene: Node2D, path: String):
 		var x = float(pos[0].replace("(", ""))
 		var y = float(pos[1].replace(")", ""))
 		component.position = Vector2(x, y)
-		ic_list.append(component)
+		#ic_list.append(component) # Component already appends itself during initialization
 	for edge in parsed.netlist:
 		var from_ic = get_component_by_id(edge.from.ic)
 		var from_pin: Pin
@@ -82,7 +72,9 @@ func load(scene: Node2D, path: String):
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	var json = JSON.new()
+	var file = FileAccess.open("res://components/all_components.json", FileAccess.READ).get_as_text()
+	all_components = json.parse_string(file)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

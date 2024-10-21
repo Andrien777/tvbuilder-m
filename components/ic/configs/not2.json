@@ -1,0 +1,24 @@
+{
+	"name":"2НЕ",
+	"num_pins": 2,
+	"height": 25,
+	"width": 25,
+	"texture": "",
+	"pinSpecifications": [
+		{
+			"index": 1,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "Вход A",
+			"description": "",
+			"dependencies":[]
+		},{
+			"index": 2,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "Выход ~A",
+			"description": "Инверсия А",
+			"dependencies":[-1]
+		}
+	]
+}
