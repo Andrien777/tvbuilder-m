@@ -87,6 +87,7 @@ hide_root = true
 script = ExtResource("3_q10ex")
 
 [node name="SaveAsFileDialog" type="FileDialog" parent="."]
+auto_translate_mode = 1
 initial_position = 4
 size = Vector2i(500, 400)
 show_hidden_files = true
@@ -94,6 +95,7 @@ use_native_dialog = true
 script = ExtResource("4_5cvoo")
 
 [node name="LoadFileDialog" type="FileDialog" parent="."]
+auto_translate_mode = 1
 title = "Open a File"
 initial_position = 4
 size = Vector2i(500, 400)
@@ -105,8 +107,10 @@ use_native_dialog = true
 script = ExtResource("5_656tm")
 
 [node name="HelpDialog" type="AcceptDialog" parent="."]
+auto_translate_mode = 1
 title = "Управление"
 initial_position = 1
+size = Vector2i(760, 262)
 dialog_text = "Масштаб - колесико мыши или клавиши +/-
 Перемещение рабочей области - wasd
 Выбор элемента в дереве слева

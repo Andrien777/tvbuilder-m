@@ -36,8 +36,8 @@ func initialize(spec: ComponentSpecification)->void:
 	width = spec.width
 	texture = spec.texture
 	#var texture = load(spec.texture)
-	
-	sprite.modulate = Color(0.0, 0.0, 0.0, 1.0)
+	#sprite.scale = Vector2(0.1,0.1)
+	#sprite.modulate = Color(0.0, 0.0, 0.0, 1.0)
 	# Render texture and set height-width
 	#Label
 	if(display_name_label):
