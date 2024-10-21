@@ -1,0 +1,31 @@
+extends CircuitComponent
+class_name D_7448
+var outs:Array[Pin]
+static var lut = {
+	0:[1,1,1,1,1,1,0],
+	1:[0,1,1,0,0,0,0],
+	2:[1,1,0,1,1,0,1],
+	3:[1,1,1,1,0,0,1],
+	4:[0,1,1,0,0,1,1],
+	5:[0,1,1,1,0,1,1],
+	6:[0,0,1,1,1,1,1],
+	7:[1,1,1,0,0,0,0],
+	8:[1,1,1,1,1,1,1],
+	9:[1,1,1,0,0,1,1],
+	10:[0,0,0,1,1,0,1],
+	11:[0,0,1,1,0,0,1],
+	12:[0,1,0,0,0,1,1],
+	13:[1,0,0,1,0,1,1],
+	14:[0,0,0,1,1,1,1],
+	15:[0,0,0,0,0,0,0]
+	}
+func _ready():
+	outs  = [pin(13),pin(12),pin(11),pin(10),pin(9),pin(15),pin(14)]
+func _process_signal():
+	var a = ((pin(7).high as int)) | ((pin(1).high as int)<<1) | ((pin(2).high as int)<<2) | ((pin(6).high as int)<<3) 
+	if(pin(3).high): # LT
+		pass
+	if(pin(5).low): # Don`t handle RBI for now
+		pass
+	for i in range(0,8):
+		outs[i] = lut[a][i]

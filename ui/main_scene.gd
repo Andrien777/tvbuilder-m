@@ -20,4 +20,9 @@ func _input(event):
 		element.initialize(spec)
 		element.position = get_global_mouse_position()
 		add_child(element)
-		
+	elif event.is_action_pressed("save_scheme"):
+		SaveManager.save("res://save.json")
+	elif event.is_action_pressed("load_scheme"):
+		SaveManager.load(self, "res://save.json")
+	elif event.is_action_pressed("highlight_level"):
+		GlobalSettings.LevelHighlight = not GlobalSettings.LevelHighlight

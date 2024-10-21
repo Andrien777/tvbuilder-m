@@ -13,6 +13,18 @@ func parse_direction(value: String) -> DIRECTION:
 	else:
 		return DIRECTION.DIRECTION_DISABLED
 
+func direction_to_string(value: DIRECTION) -> String:
+	match(value):
+		DIRECTION.DIRECTION_INPUT:
+			return "DIRECTION_INPUT"
+		DIRECTION.DIRECTION_OUTPUT:
+			return "DIRECTION_OUTPUT"
+		DIRECTION.DIRECTION_INPUT_OUTPUT:
+			return "DIRECTION_INPUT_OUTPUT"
+		DIRECTION.DIRECTION_DISABLED:
+			return "DIRECTION_DISABLED"
+	return "WTF happened???????"
+
 func parse_level(value: String) -> LEVEL:
 	if value == "LEVEL_HIGH":
 		return LEVEL.LEVEL_HIGH

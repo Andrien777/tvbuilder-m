@@ -8,7 +8,7 @@
 					"group_name": "Логические микросхемы",
 					"subelements": [
 						{
-							"ic_name": "Абстрактное 2И",
+							"ic_name": "2И",
 							"config_path": "res://components/ic/configs/and2.json",
 							"logic_class_path": "res://components/ic/logic/And2.gd"
 						}
@@ -21,6 +21,53 @@
 							"ic_name": "К1533ИД4",
 							"config_path": "res://components/ic/configs/K1533ID4.json",
 							"logic_class_path": "res://components/ic/demux/K1533ID4.gd"
+						},
+						{
+							"ic_name": "74485",
+							"config_path": "res://components/ic/configs/74485.json",
+							"logic_class_path": "res://components/ic/demux/74485.gd"
+						},
+						{
+							"ic_name": "7448",
+							"config_path": "res://components/ic/configs/7448.json",
+							"logic_class_path": "res://components/ic/demux/7448.gd"
+						}
+					]
+				},
+				{
+					"group_name": "Память",
+					"subelements": [
+						{
+							"ic_name": "КР132РУ9А",
+							"config_path": "res://components/ic/configs/KR132RU9A.json",
+							"logic_class_path": "res://components/ic/memory/KR132RU9A.gd"
+						}
+					]
+				},{
+					"group_name": "Регистры",
+					"subelements": [
+						{
+							"ic_name": "1531ИР22",
+							"config_path": "res://components/ic/configs/K1531IR22.json",
+							"logic_class_path": "res://components/ic/registers/K1531IR22.gd"
+						}
+					]
+				},{
+					"group_name": "АЛУ",
+					"subelements": [
+						{
+							"ic_name": "1531ИР3",
+							"config_path": "res://components/ic/configs/513IP3.json",
+							"logic_class_path": "res://components/ic/alu/K513IP3.gd"
+						}
+					]
+				},{
+					"group_name": "Индикаторы",
+					"subelements": [
+						{
+							"ic_name": "АЛС342А",
+							"config_path": "res://components/ic/configs/ALS324A.json",
+							"logic_class_path": "res://components/ic/indicators/ALS324A.gd"
 						}
 					]
 				}
@@ -38,6 +85,16 @@
 					"ic_name": "Светодиод",
 					"config_path": "res://components/ic/configs/led.json",
 					"logic_class_path": "res://components/ic/logic/led.gd"
+				},
+				{
+					"ic_name": "Буфер с 3-м состоянием",
+					"config_path": "res://components/ic/configs/tristate.json",
+					"logic_class_path": "res://components/ic/logic/tristate.gd"
+				},
+				{
+					"ic_name": "Ячейка памяти",
+					"config_path": "res://components/ic/configs/memory.json",
+					"logic_class_path": "res://components/ic/logic/memory.gd"
 				}
 			]
 		}

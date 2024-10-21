@@ -1,0 +1,185 @@
+{
+	"components": [
+		{
+			"height": 25,
+			"id": 0,
+			"name": "К1533ИД4",
+			"num_pins": 16,
+			"pins": [
+				{
+					"description": "Сигнал включения A",
+					"direction": "DIRECTION_INPUT",
+					"index": 1,
+					"position": "BOTTOM",
+					"readable_name": "Ea"
+				},
+				{
+					"description": "Сигнал строба А",
+					"direction": "DIRECTION_INPUT",
+					"index": 2,
+					"position": "BOTTOM",
+					"readable_name": "Sa"
+				},
+				{
+					"description": "",
+					"direction": "DIRECTION_INPUT",
+					"index": 3,
+					"position": "BOTTOM",
+					"readable_name": "А1"
+				},
+				{
+					"description": "Сигнал инвертирован",
+					"direction": "DIRECTION_OUTPUT",
+					"index": 4,
+					"position": "BOTTOM",
+					"readable_name": "Y4"
+				},
+				{
+					"description": "Сигнал инвертирован",
+					"direction": "DIRECTION_OUTPUT",
+					"index": 5,
+					"position": "BOTTOM",
+					"readable_name": "Y3"
+				},
+				{
+					"description": "Сигнал инвертирован",
+					"direction": "DIRECTION_OUTPUT",
+					"index": 6,
+					"position": "BOTTOM",
+					"readable_name": "Y2"
+				},
+				{
+					"description": "Сигнал инвертирован",
+					"direction": "DIRECTION_OUTPUT",
+					"index": 7,
+					"position": "BOTTOM",
+					"readable_name": "Y1"
+				},
+				{
+					"description": "Земля",
+					"direction": "DIRECTION_OUTPUT",
+					"index": 8,
+					"position": "BOTTOM",
+					"readable_name": "GND"
+				},
+				{
+					"description": "Сигнал инвертирован",
+					"direction": "DIRECTION_OUTPUT",
+					"index": 9,
+					"position": "TOP",
+					"readable_name": "Y5"
+				},
+				{
+					"description": "Сигнал инвертирован",
+					"direction": "DIRECTION_OUTPUT",
+					"index": 10,
+					"position": "TOP",
+					"readable_name": "Y6"
+				},
+				{
+					"description": "Сигнал инвертирован",
+					"direction": "DIRECTION_OUTPUT",
+					"index": 11,
+					"position": "TOP",
+					"readable_name": "Y7"
+				},
+				{
+					"description": "Сигнал инвертирован",
+					"direction": "DIRECTION_OUTPUT",
+					"index": 12,
+					"position": "TOP",
+					"readable_name": "Y8"
+				},
+				{
+					"description": "Сигнал А0",
+					"direction": "DIRECTION_INPUT",
+					"index": 13,
+					"position": "TOP",
+					"readable_name": "A0"
+				},
+				{
+					"description": "Сигнал строба B",
+					"direction": "DIRECTION_INPUT",
+					"index": 14,
+					"position": "TOP",
+					"readable_name": "Sb"
+				},
+				{
+					"description": "Сигнал включения B",
+					"direction": "DIRECTION_INPUT",
+					"index": 15,
+					"position": "TOP",
+					"readable_name": "Eb"
+				},
+				{
+					"description": "Питание",
+					"direction": "DIRECTION_OUTPUT",
+					"index": 16,
+					"position": "TOP",
+					"readable_name": "VCC"
+				}
+			],
+			"position": "(500, 150)",
+			"texture": "",
+			"width": 25
+		},
+		{
+			"height": 25,
+			"id": 2,
+			"name": "Светодиод",
+			"num_pins": 1,
+			"pins": [
+				{
+					"description": "",
+					"direction": "DIRECTION_INPUT",
+					"index": 1,
+					"position": "BOTTOM",
+					"readable_name": ""
+				}
+			],
+			"position": "(875, 200)",
+			"texture": "",
+			"width": 25
+		},
+		{
+			"height": 25,
+			"id": 3,
+			"name": "Переключатель",
+			"num_pins": 1,
+			"pins": [
+				{
+					"description": "",
+					"direction": "DIRECTION_OUTPUT",
+					"index": 1,
+					"position": "TOP",
+					"readable_name": ""
+				}
+			],
+			"position": "(450, 375)",
+			"texture": "",
+			"width": 25
+		}
+	],
+	"netlist": [
+		{
+			"from": {
+				"ic": 0,
+				"pin": 6
+			},
+			"to": {
+				"ic": 2,
+				"pin": 1
+			}
+		},
+		{
+			"from": {
+				"ic": 3,
+				"pin": 1
+			},
+			"to": {
+				"ic": 0,
+				"pin": 1
+			}
+		}
+	]
+}

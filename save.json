@@ -1,0 +1,227 @@
+{
+	"components": [
+		{
+			"height": 25,
+			"id": 0,
+			"name": "КР132РУ9А",
+			"num_pins": 18,
+			"pins": [
+				{
+					"description": "Вход А",
+					"direction": "DIRECTION_INPUT",
+					"index": 1,
+					"position": "BOTTOM",
+					"readable_name": "А6"
+				},
+				{
+					"description": "Вход А",
+					"direction": "DIRECTION_INPUT",
+					"index": 2,
+					"position": "BOTTOM",
+					"readable_name": "А5"
+				},
+				{
+					"description": "Вход А",
+					"direction": "DIRECTION_INPUT",
+					"index": 3,
+					"position": "BOTTOM",
+					"readable_name": "А4"
+				},
+				{
+					"description": "Вход А",
+					"direction": "DIRECTION_INPUT",
+					"index": 4,
+					"position": "BOTTOM",
+					"readable_name": "A3"
+				},
+				{
+					"description": "Вход A",
+					"direction": "DIRECTION_INPUT",
+					"index": 5,
+					"position": "BOTTOM",
+					"readable_name": "A0"
+				},
+				{
+					"description": "Вход А",
+					"direction": "DIRECTION_INPUT",
+					"index": 6,
+					"position": "BOTTOM",
+					"readable_name": "A1"
+				},
+				{
+					"description": "Вход A",
+					"direction": "DIRECTION_INPUT",
+					"index": 7,
+					"position": "BOTTOM",
+					"readable_name": "A2"
+				},
+				{
+					"description": "Выбор микросхемы",
+					"direction": "DIRECTION_INPUT",
+					"index": 8,
+					"position": "BOTTOM",
+					"readable_name": "~CS"
+				},
+				{
+					"description": "Земля",
+					"direction": "DIRECTION_OUTPUT",
+					"index": 9,
+					"position": "BOTTOM",
+					"readable_name": "GND"
+				},
+				{
+					"description": "0-W / 1-R",
+					"direction": "DIRECTION_INPUT",
+					"index": 10,
+					"position": "TOP",
+					"readable_name": "W/R"
+				},
+				{
+					"description": "Двунаправленная шина данных",
+					"direction": "DIRECTION_INPUT_OUTPUT",
+					"index": 11,
+					"position": "TOP",
+					"readable_name": "D3"
+				},
+				{
+					"description": "Двунаправленная шина данных",
+					"direction": "DIRECTION_INPUT_OUTPUT",
+					"index": 12,
+					"position": "TOP",
+					"readable_name": "D2"
+				},
+				{
+					"description": "Двунаправленная шина данных",
+					"direction": "DIRECTION_INPUT_OUTPUT",
+					"index": 13,
+					"position": "TOP",
+					"readable_name": "D1"
+				},
+				{
+					"description": "Двунаправленная шина данных",
+					"direction": "DIRECTION_INPUT_OUTPUT",
+					"index": 14,
+					"position": "TOP",
+					"readable_name": "D0"
+				},
+				{
+					"description": "Вход А",
+					"direction": "DIRECTION_INPUT",
+					"index": 15,
+					"position": "TOP",
+					"readable_name": "A9"
+				},
+				{
+					"description": "Вход А",
+					"direction": "DIRECTION_INPUT",
+					"index": 16,
+					"position": "TOP",
+					"readable_name": "A8"
+				},
+				{
+					"description": "Вход А",
+					"direction": "DIRECTION_INPUT",
+					"index": 17,
+					"position": "TOP",
+					"readable_name": "A7"
+				},
+				{
+					"description": "Питание 5В",
+					"direction": "DIRECTION_OUTPUT",
+					"index": 18,
+					"position": "TOP",
+					"readable_name": "VCC"
+				}
+			],
+			"position": "(350.8889, 275.2222)",
+			"texture": "",
+			"width": 25
+		},
+		{
+			"height": 25,
+			"id": 1,
+			"name": "Переключатель",
+			"num_pins": 1,
+			"pins": [
+				{
+					"description": "",
+					"direction": "DIRECTION_OUTPUT",
+					"index": 1,
+					"position": "TOP",
+					"readable_name": ""
+				}
+			],
+			"position": "(725, 475)",
+			"texture": "",
+			"width": 25
+		},
+		{
+			"height": 25,
+			"id": 2,
+			"name": "Переключатель",
+			"num_pins": 1,
+			"pins": [
+				{
+					"description": "",
+					"direction": "DIRECTION_OUTPUT",
+					"index": 1,
+					"position": "TOP",
+					"readable_name": ""
+				}
+			],
+			"position": "(925, 225)",
+			"texture": "",
+			"width": 25
+		},
+		{
+			"height": 25,
+			"id": 4,
+			"name": "Светодиод",
+			"num_pins": 1,
+			"pins": [
+				{
+					"description": "",
+					"direction": "DIRECTION_INPUT",
+					"index": 1,
+					"position": "BOTTOM",
+					"readable_name": ""
+				}
+			],
+			"position": "(400.222, 550.1111)",
+			"texture": "",
+			"width": 25
+		}
+	],
+	"netlist": [
+		{
+			"from": {
+				"ic": 1,
+				"pin": 1
+			},
+			"to": {
+				"ic": 0,
+				"pin": 8
+			}
+		},
+		{
+			"from": {
+				"ic": 2,
+				"pin": 1
+			},
+			"to": {
+				"ic": 0,
+				"pin": 10
+			}
+		},
+		{
+			"from": {
+				"ic": 0,
+				"pin": 11
+			},
+			"to": {
+				"ic": 4,
+				"pin": 1
+			}
+		}
+	]
+}
