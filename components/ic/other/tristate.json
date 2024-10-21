@@ -1,0 +1,31 @@
+{
+	"name":"Буфер с 3-м состоянием",
+	"num_pins": 3,
+	"height": 25,
+	"width": 25,
+	"texture": "",
+	"pinSpecifications": [
+		{
+			"index": 1,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "Вход A",
+			"description": "",
+			"dependencies": []
+		},{
+			"index": 2,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "Вход ENA",
+			"description": "",
+			"dependencies": []
+		},{
+			"index": 3,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "Выход",
+			"description": "Описание",
+			"dependencies": [1, 2]
+		}
+	]
+}

@@ -1,0 +1,185 @@
+{
+	"name":"К155ИР13",
+	"num_pins": 24,
+	"height": 25,
+	"width": 25,
+	"texture": "",
+	"pinSpecifications": [
+		{
+			"index": 1,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "S0",
+			"description": "Тип операции",
+			"dependencies": []
+		},{
+			"index": 2,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "DSR",
+			"description": "Вход сдвига вправо",
+			"dependencies": []
+		},{
+			"index": 3,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "D0",
+			"description": "Вход синхронной загрузки",
+			"dependencies": []
+		}
+		,{
+			"index": 4,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "Q0",
+			"description": "Выход данных",
+			"dependencies": [-1]
+		},{
+			"index": 5,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "D1",
+			"description": "Вход синхронной загрузки",
+			"dependencies": []
+		},{
+			"index": 6,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "Q1",
+			"description": "Выход данных",
+			"dependencies": [-1]
+		}
+		,{
+			"index": 7,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "D2",
+			"description": "Вход синхронной загрузки",
+			"dependencies": []
+		}
+		,{
+			"index": 8,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "Q2",
+			"description": "Выход данных",
+			"dependencies": [-1]
+		},{
+			"index": 9,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "D3",
+			"description": "Вход параллельной загрузки",
+			"dependencies": []
+		},{
+			"index": 10,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "Q3",
+			"description": "Выход данных",
+			"dependencies": [-1]
+		},{
+			"index": 11,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "C",
+			"description": "Вход синхронизации",
+			"dependencies": []
+		},{
+			"index": 12,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "GND",
+			"description": "Земля",
+			"dependencies": []
+
+		},{
+			"index": 24,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "VCC",
+			"description": "5В",
+			"dependencies": []
+		},{
+			"index": 23,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "S1",
+			"description": "Тип операции",
+			"dependencies": []
+		},{
+			"index": 22,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "DSL",
+			"description": "Вход сдвига влево",
+			"dependencies": []
+		},{
+			"index": 21,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "D7",
+			"description": "Вход параллельной загрузки",
+			"dependencies": []
+		},{
+			"index": 20,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "Q7",
+			"description": "Выход данных",
+			"dependencies": [-1]
+		},{
+			"index": 19,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "D6",
+			"description": "Вход параллельной загрузки",
+			"dependencies": []
+		},{
+			"index": 18,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "Q6",
+			"description": "Выход данных",
+			"dependencies": [-1]
+		},{
+			"index": 17,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "D5",
+			"description": "Вход параллельной загрузки",
+			"dependencies": []
+		}
+		,{
+			"index": 16,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "Q5",
+			"description": "Выход данных",
+			"dependencies": [-1]
+		}
+		,{
+			"index": 15,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "D4",
+			"description": "Вход параллельной загрузки",
+			"dependencies": []
+		}
+		,{
+			"index": 14,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "Q4",
+			"description": "Выход данных",
+			"dependencies": [-1]
+		},{
+			"index": 13,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "~R",
+			"description": "Вход асинхронного сброса",
+			"dependencies": []
+		}
+	]
+}

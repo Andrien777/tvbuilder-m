@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://df5br6oh56ejc"]
+[gd_scene load_steps=13 format=3 uid="uid://cc3tb05ie70il"]
 
 [ext_resource type="Script" path="res://ui/main_scene.gd" id="1_8vqs3"]
 [ext_resource type="Shader" path="res://shaders/grid.gdshader" id="2_7ckc8"]
@@ -7,6 +7,8 @@
 [ext_resource type="Script" path="res://ui/ic_elements_tree/ics_tree.gd" id="3_q10ex"]
 [ext_resource type="Script" path="res://ui/save_file_dialog.gd" id="4_5cvoo"]
 [ext_resource type="Script" path="res://ui/load_file_dialog.gd" id="5_656tm"]
+[ext_resource type="Script" path="res://ui/clear_button.gd" id="5_pxoya"]
+[ext_resource type="Script" path="res://ui/do_cycles_button.gd" id="5_qlik5"]
 [ext_resource type="Script" path="res://ui/help_dialog.gd" id="8_s7pmm"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7n0h1"]
@@ -65,6 +67,11 @@ metadata/_edit_use_anchors_ = true
 [node name="ButtonsContainer" type="HBoxContainer" parent="UiCanvasLayer/FunctionalUIContainer"]
 layout_mode = 2
 
+[node name="ClearButton" type="Button" parent="UiCanvasLayer/FunctionalUIContainer/ButtonsContainer"]
+layout_mode = 2
+text = "Очистить"
+script = ExtResource("5_pxoya")
+
 [node name="SaveAsButton" type="Button" parent="UiCanvasLayer/FunctionalUIContainer/ButtonsContainer"]
 layout_mode = 2
 text = "Сохранить"
@@ -78,6 +85,11 @@ metadata/_edit_use_anchors_ = true
 [node name="HelpButton" type="Button" parent="UiCanvasLayer/FunctionalUIContainer/ButtonsContainer"]
 layout_mode = 2
 text = "Помогите"
+
+[node name="DoCyclesButton" type="CheckButton" parent="UiCanvasLayer/FunctionalUIContainer/ButtonsContainer"]
+layout_mode = 2
+text = "Пытаться обрабатывать циклы"
+script = ExtResource("5_qlik5")
 
 [node name="ComponentTree" type="Tree" parent="UiCanvasLayer/FunctionalUIContainer"]
 layout_mode = 2
@@ -117,9 +129,11 @@ dialog_text = "Масштаб - колесико мыши или клавиши 
 Удаление элемента/провода: навести указатель мыши на элемент/провод и нажать Delete"
 script = ExtResource("8_s7pmm")
 
+[connection signal="pressed" from="UiCanvasLayer/FunctionalUIContainer/ButtonsContainer/ClearButton" to="UiCanvasLayer/FunctionalUIContainer/ButtonsContainer/ClearButton" method="_on_pressed"]
 [connection signal="pressed" from="UiCanvasLayer/FunctionalUIContainer/ButtonsContainer/SaveAsButton" to="SaveAsFileDialog" method="_on_save_as_button_pressed"]
 [connection signal="pressed" from="UiCanvasLayer/FunctionalUIContainer/ButtonsContainer/LoadButton" to="LoadFileDialog" method="_on_load_button_pressed"]
 [connection signal="pressed" from="UiCanvasLayer/FunctionalUIContainer/ButtonsContainer/HelpButton" to="HelpDialog" method="_on_help_button_pressed"]
+[connection signal="toggled" from="UiCanvasLayer/FunctionalUIContainer/ButtonsContainer/DoCyclesButton" to="UiCanvasLayer/FunctionalUIContainer/ButtonsContainer/DoCyclesButton" method="_on_toggled"]
 [connection signal="item_mouse_selected" from="UiCanvasLayer/FunctionalUIContainer/ComponentTree" to="UiCanvasLayer/FunctionalUIContainer/ComponentTree" method="_on_item_mouse_selected"]
 [connection signal="nothing_selected" from="UiCanvasLayer/FunctionalUIContainer/ComponentTree" to="UiCanvasLayer/FunctionalUIContainer/ComponentTree" method="_on_nothing_selected"]
 [connection signal="file_selected" from="SaveAsFileDialog" to="SaveAsFileDialog" method="_on_file_selected"]

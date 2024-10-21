@@ -1,0 +1,129 @@
+{
+	"name":"АЛС324А",
+	"num_pins": 14,
+	"height": 25,
+	"width": 25,
+	"texture": "",
+	"pinSpecifications": [
+		{
+			"index": 1,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "F",
+			"description": "Вход сегмента F",
+			"dependencies": []
+		},{
+			"index": 2,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "G",
+			"description": "Вход сегмента G",
+			"dependencies": []
+		},{
+			"index": 3,
+			"direction": "DIRECTION_INPUT_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "Подключение земли",
+			"description": "Сюда необходимо подключить 0, иначе микросхема не заработает",
+			"dependencies": []
+		}
+		,{
+			"index": 4,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "??",
+			"description": "??",
+			"dependencies": []
+		},{
+			"index": 5,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "??",
+			"description": "",
+			"dependencies": [-1]
+		},{
+			"index": 6,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "E",
+			"description": "Сегмент Е",
+			"dependencies": []
+		}
+		,{
+			"index": 7,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "D",
+			"description": "Сегмент D",
+			"dependencies": []
+		}
+		,{
+			"index": 8,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "C",
+			"description": "Сегмент С",
+			"dependencies": []
+		}
+		,{
+			"index": 16,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "VCC",
+			"description": "Питание",
+			"dependencies": []
+		}
+		,{
+			"index": 15,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "??",
+			"description": "??",
+			"dependencies": []
+		}
+		,{
+			"index": 14,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "A",
+			"description": "Сегмент А",
+			"dependencies": []
+		},{
+			"index": 13,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "B",
+			"description": "Сегмент В",
+			"dependencies": []
+		},{
+			"index": 12,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "??",
+			"description": "",
+			"dependencies": []
+		}
+		,{
+			"index": 11,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "??",
+			"description": "",
+			"dependencies": [-1]
+		},{
+			"index": 10,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "??",
+			"description": "",
+			"dependencies": [-1]
+		},{
+			"index": 9,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "??",
+			"description": "",
+			"dependencies": [-1]
+		}
+	]
+}

@@ -21,9 +21,12 @@ func _input(event):
 		element.position = get_global_mouse_position()
 		add_child(element)
 	elif event.is_action_pressed("save_scheme"):
-		SaveManager.save("res://save.json")
+		if SaveManager.last_path == "":
+			get_node("SaveAsFileDialog").visible = true
+		else:
+			SaveManager._on_autosave()
 	elif event.is_action_pressed("load_scheme"):
-		SaveManager.load(self, "res://save.json")
+		get_node("LoadFileDialog").visible = true
 	elif event.is_action_pressed("highlight_level"):
 		#GlobalSettings.LevelHighlight = not GlobalSettings.LevelHighlight
 		GlobalSettings.LegacyGraphics = not GlobalSettings.LegacyGraphics

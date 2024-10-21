@@ -24,12 +24,19 @@ func delete_connection(pin1, pin2)->void:
 		nodes.erase(pin1)
 	if nodes[pin2].neighbours.is_empty():
 		nodes.erase(pin2)
-	
+
+func clear():
+	nodes.clear()
+
 func propagate_signal() -> void:
+	if GlobalSettings.doCycles:
+		for ic in ComponentManager.obj_list.values():
+			ic._process_signal()
 	if nodes.is_empty():
 		return
 	var visited: Dictionary
 	var resolved: Array[NetlistNode]
+	var processed_ics: Array[CircuitComponent]
 	var late_propagation: Array[NetlistNode]
 	var stack: Array[NetlistNode]
 	while visited.size() != nodes.size():
@@ -66,7 +73,7 @@ func propagate_signal() -> void:
 				#print(current)
 				continue
 			if current.pin.output():
-				if not current.pin.dependencies.is_empty():
+				if not current.pin.dependencies.is_empty() and not GlobalSettings.doCycles:
 					var dependencies_resolved = true
 					for dep in current.pin.dependencies:
 						if dep in nodes.keys():
@@ -90,7 +97,8 @@ func propagate_signal() -> void:
 							if neighbour != current:
 								stack.push_back(neighbour)
 				else:
-					current.pin.parent._process_signal()
+					if not GlobalSettings.doCycles:
+						current.pin.parent._process_signal()
 					stack.pop_back()
 					resolved.append(current)
 					for neighbour in current.neighbours:
@@ -147,7 +155,7 @@ func propagate_signal() -> void:
 				for neighbour in pin.neighbours:
 					if neighbour not in resolved:
 						continue
-					if neighbour.pin.state != state:
+					if neighbour.pin.state != state and neighbour.pin.state != NetConstants.LEVEL.LEVEL_Z:
 						if state == NetConstants.LEVEL.LEVEL_Z:
 							state = neighbour.pin.state
 						else:

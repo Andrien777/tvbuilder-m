@@ -1,0 +1,24 @@
+{
+	"name":"Память",
+	"num_pins": 3,
+	"height": 25,
+	"width": 25,
+	"texture": "",
+	"pinSpecifications": [
+		{
+			"index": 1,
+			"direction": "DIRECTION_INPUT_OUTPUT",
+			"position": "TOP",
+			"readable_name": "Вход/выход DATA",
+			"description": "",
+			"dependencies": [2]
+		},{
+			"index": 2,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "Вход R/W",
+			"description": "",
+			"dependencies": []
+		}
+	]
+}

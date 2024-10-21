@@ -56,6 +56,12 @@ func _create_wire(first_object:Node2D, second_object:Node2D):
 	NetlistClass.add_connection(first_pin, second_pin)
 	wires.append(wire)
 	add_child(wire)
+
+func clear():
+	for wire in wires:
+		wire.queue_free()
+	wires.clear()
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
