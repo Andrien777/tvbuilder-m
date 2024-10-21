@@ -27,21 +27,24 @@ func _input(event):
 		element.position = get_global_mouse_position()
 		add_child(element)
 	elif event.is_action_pressed("save_scheme"):
-		SaveManager.save("res://save.json")
+		if SaveManager.last_path == "":
+			get_node("SaveAsFileDialog").visible = true
+		else:
+			SaveManager._on_autosave()
 	elif event.is_action_pressed("load_scheme"):
-		SaveManager.load(self, "res://save.json")
+		get_node("LoadFileDialog").visible = true
 	elif event.is_action_pressed("highlight_level"):
 		#GlobalSettings.LevelHighlight = not GlobalSettings.LevelHighlight
 		GlobalSettings.LegacyGraphics = not GlobalSettings.LegacyGraphics
 		if(!GlobalSettings.LegacyGraphics):
 			grid_rect.material.set_shader_parameter("grid_color",Vector4(0.2, 0.2, 0.2, 1.0))
 			grid_rect.material.set_shader_parameter("background_color",Vector4(0.4, 0.6, 0.9, 1.0))
-			for ic in SaveManager.ic_list:
-				ic.change_graphics_mode(GlobalSettings.GraphicsMode.Default)
+			for ic in ComponentManager.obj_list.values():
+				ic.change_graphics_mode(GlobalSettings.GraphicsMode.Default) # TODO: Move to componenet manager
 		else:
 			grid_rect.material.set_shader_parameter("grid_color",Vector4(128.0/256.0, 129.0/256.0, 1/256.0, 1.0))
 			grid_rect.material.set_shader_parameter("background_color",Vector4(41.0/256.0, 33.0/256.0, 4/256.0, 1.0))
-			for ic in SaveManager.ic_list:
+			for ic in ComponentManager.obj_list.values():
 				ic.change_graphics_mode(GlobalSettings.GraphicsMode.Legacy)
 		timer.start()
 	elif event.is_action_pressed("toggle_grid"):

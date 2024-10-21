@@ -30,8 +30,8 @@ func initialize(spec: ComponentSpecification)->void:
 	if (spec.texture!=""): 
 		ic_texture = load(spec.texture)
 	else:
-		ic_texture = test_texture
-	var current_texture = ic_texture if GlobalSettings.LegacyGraphics else test_texture
+		ic_texture = test_texture # TODO: Remove hardcoded names ASAP. We really need multiple textures. Its bad, i know
+	var current_texture = ic_texture if (GlobalSettings.LegacyGraphics or spec.name=="Переключатель" or spec.name=="Светодиод") else test_texture
 	shape.size = current_texture.get_size()
 	sprite.texture = current_texture
 	hitbox.shape = shape
@@ -54,7 +54,7 @@ func initialize(spec: ComponentSpecification)->void:
 	initialize_pins(spec.pinSpecifications, shape.size)
 	id = last_id
 	last_id += 1
-	SaveManager.ic_list.append(self)
+	ComponentManager.register_object(self)
 
 func initialize_pins(spec: Array, ic_shape:Vector2)->void:
 	var side_count = {"TOP":0, "BOTTOM":0, "LEFT":0, "RIGHT":0}
@@ -144,7 +144,7 @@ func _process(delta: float) -> void:
 		self.is_dragged = false
 	if Input.is_action_pressed("delete_component") and self.is_mouse_over:
 		Input.action_release("delete_component")
-		SaveManager.ic_list.erase(self)
+		ComponentManager.remove_object(self)
 		queue_free()
 		
 var tween
@@ -183,7 +183,7 @@ func to_json_object() -> Dictionary:
 		"position": position
 	}
 func pin(i:int):
-	return self.pins[i-1]
+	return self.pins[i-1] 
 
 func change_graphics_mode(mode:GlobalSettings.GraphicsMode):
 	if (mode==GlobalSettings.GraphicsMode.Legacy): # TODO: Enum

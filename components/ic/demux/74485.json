@@ -1,0 +1,160 @@
+{
+	"name":"74485",
+	"num_pins": 20,
+	"height": 25,
+	"width": 25,
+	"texture": "res://graphics/legacy/ic/20leg_2x.png",
+	"pinSpecifications": [
+		{
+			"index": 1,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "E",
+			"description": "Вход E",
+			"dependencies": []
+		},{
+			"index": 2,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "D",
+			"description": "Вход D",
+			"dependencies": []
+		},{
+			"index": 3,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "C",
+			"description": "Вход C",
+			"dependencies": []
+		}
+		,{
+			"index": 4,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "B",
+			"description": "Вход B",
+			"dependencies": []
+		},{
+			"index": 5,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name":"A",
+			"description": "Вход A",
+			"dependencies": []
+		},{
+			"index": 6,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "Q1",
+			"description": "Выход А",
+			"dependencies": [-1]
+		}
+		,{
+			"index": 7,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "Q2",
+			"description": "Выход Q2",
+			"dependencies": [-1]
+		}
+		,{
+			"index": 8,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "Q3",
+			"description": "Выход Q3",
+			"dependencies": [-1]
+		},{
+			"index": 9,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "Q4",
+			"description": "Выход Q4",
+			"dependencies": [-1]
+		}
+		,{
+			"index": 20,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "GND",
+			"description": "Земля",
+			"dependencies": []
+		}
+		,{
+			"index": 10,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "VCC",
+			"description": "Питание 5В",
+			"dependencies": []
+		}
+		,{
+			"index": 19,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "F",
+			"description": "Вход F",
+			"dependencies": []
+		},{
+			"index": 18,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "G",
+			"description": "Вход G",
+			"dependencies": []
+		},{
+			"index": 17,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "H",
+			"description": "Вход H",
+			"dependencies": []
+		}
+		,{
+			"index": 16,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "~E2",
+			"description": "Сигнал включения 2",
+			"dependencies": []
+		}
+		,{
+			"index": 15,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "~E1",
+			"description": "Сигнал включения 1",
+			"dependencies": []
+		}
+		,{
+			"index": 14,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "Q8",
+			"description": "Вывод Q8",
+			"dependencies": [-1]
+		},{
+			"index": 13,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "Q7",
+			"description": "Вывод Q7",
+			"dependencies": [-1]
+		},{
+			"index": 12,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "Q6",
+			"description": "Вывод Q6",
+			"dependencies": [-1]
+		}
+		,{
+			"index": 11,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "Q5",
+			"description": "Вывод Q5",
+			"dependencies": [-1]
+		}
+	]
+}

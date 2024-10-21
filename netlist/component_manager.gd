@@ -1,0 +1,36 @@
+extends Node
+# Component Manager
+
+var obj_list: Dictionary # CircuitComponent -> ""
+
+var ALL_COMPONENTS_LIST
+
+func register_object(object: CircuitComponent):
+	if not obj_list.is_empty() and get_by_id(object.id) != null:
+		PopupManager.display_error("Попытка добавить дубликат id", "Объект не добавлен", Vector2(100, 100))
+	else:
+		obj_list[object.id] = object
+
+func remove_object(object: CircuitComponent):
+	obj_list.erase(object.id)
+	
+func get_by_id(id: int) -> CircuitComponent:
+	return obj_list.get(id)
+	
+func change_id(component: CircuitComponent, new_id: int):
+	remove_object(component)
+	component.id = new_id
+	obj_list[new_id] = component
+	
+func clear():
+	for comp in obj_list.values():
+		comp.queue_free()
+	obj_list.clear()
+	WireManager.clear()
+	NetlistClass.clear()
+	CircuitComponent.last_id = 0
+	
+func _ready() -> void:
+	var json = JSON.new()
+	var file = FileAccess.open("res://components/all_components.json", FileAccess.READ).get_as_text()
+	ALL_COMPONENTS_LIST = json.parse_string(file)

@@ -1,0 +1,145 @@
+{
+	"name":"КР132РУ9А",
+	"num_pins": 18,
+	"height": 25,
+	"width": 25,
+	"texture": "res://graphics/legacy/ic/20leg_2x.png",
+	"pinSpecifications": [
+		{
+			"index": 1,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "А6",
+			"description": "Вход А",
+			"dependencies": []
+		},{
+			"index": 2,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "А5",
+			"description": "Вход А",
+			"dependencies": []
+		},{
+			"index": 3,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "А4",
+			"description": "Вход А",
+			"dependencies": []
+		}
+		,{
+			"index": 4,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "A3",
+			"description": "Вход А",
+			"dependencies": []
+		},{
+			"index": 5,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name":"A0",
+			"description": "Вход A",
+			"dependencies": []
+		},{
+			"index": 6,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "A1",
+			"description": "Вход А",
+			"dependencies": []
+		}
+		,{
+			"index": 7,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "A2",
+			"description": "Вход A",
+			"dependencies": []
+		}
+		,{
+			"index": 8,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "~CS",
+			"description": "Выбор микросхемы",
+			"dependencies": []
+		},{
+			"index": 9,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "GND",
+			"description": "Земля",
+			"dependencies": []
+		}
+		,{
+			"index": 18,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "VCC",
+			"description": "Питание 5В",
+			"dependencies": []
+		}
+		,{
+			"index": 17,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "A7",
+			"description": "Вход А",
+			"dependencies": []
+		}
+		,{
+			"index": 16,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "A8",
+			"description": "Вход А",
+			"dependencies": []
+		}
+		,{
+			"index": 15,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "A9",
+			"description": "Вход А",
+			"dependencies": []
+		}
+		,{
+			"index": 14,
+			"direction": "DIRECTION_INPUT_OUTPUT",
+			"position": "TOP",
+			"readable_name": "D0",
+			"description": "Двунаправленная шина данных",
+			"dependencies": [-1]
+		},{
+			"index": 13,
+			"direction": "DIRECTION_INPUT_OUTPUT",
+			"position": "TOP",
+			"readable_name": "D1",
+			"description": "Двунаправленная шина данных",
+			"dependencies": [-1]
+		},{
+			"index": 12,
+			"direction": "DIRECTION_INPUT_OUTPUT",
+			"position": "TOP",
+			"readable_name": "D2",
+			"description": "Двунаправленная шина данных",
+			"dependencies": [-1]
+		}
+		,{
+			"index": 11,
+			"direction": "DIRECTION_INPUT_OUTPUT",
+			"position": "TOP",
+			"readable_name": "D3",
+			"description": "Двунаправленная шина данных",
+			"dependencies": [-1]
+		},{
+			"index": 10,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "W/R",
+			"description": "0-W / 1-R",
+			"dependencies": []
+		}
+	]
+}
