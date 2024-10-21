@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c5fh64ynros1q"
-path="res://.godot/imported/16leg_2x.png-6449b0d55c640a0e6a55db6098f13e5b.ctex"
+uid="uid://drouvinmvpx6t"
+path="res://.godot/imported/ld_down_green.png-d8e04ffc5ff259fada52882924f388b4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://graphics/legacy/ic/16leg_2x.png"
-dest_files=["res://.godot/imported/16leg_2x.png-6449b0d55c640a0e6a55db6098f13e5b.ctex"]
+source_file="res://graphics/legacy/led/ld_down_green.png"
+dest_files=["res://.godot/imported/ld_down_green.png-d8e04ffc5ff259fada52882924f388b4.ctex"]
 
 [params]
 
