@@ -17,6 +17,11 @@ func remove_object(object: CircuitComponent):
 func get_by_id(id: int) -> CircuitComponent:
 	return obj_list.get(id)
 	
+func change_id(component: CircuitComponent, new_id: int):
+	remove_object(component)
+	component.id = new_id
+	obj_list[new_id] = component
+	
 func clear():
 	for comp in obj_list.values():
 		comp.queue_free()
