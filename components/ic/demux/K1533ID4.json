@@ -1,9 +1,10 @@
+
 {
 	"name":"К1533ИД4",
 	"num_pins": 16,
 	"height": 25,
 	"width": 25,
-	"texture": "",
+	"texture": "res://graphics/legacy/ic/16leg_2x.png",
 	"pinSpecifications": [
 		{
 			"index": 1,

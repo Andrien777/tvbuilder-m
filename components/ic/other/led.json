@@ -1,9 +1,10 @@
+
 {
 	"name":"Светодиод",
 	"num_pins": 1,
 	"height": 25,
 	"width": 25,
-	"texture": "res://components/ic/ic2.svg",
+	"texture": "res://graphics/legacy/ic/sw_background_2x.png",
 	"pinSpecifications": [
 		{
 			"index": 1,

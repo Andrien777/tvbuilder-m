@@ -10,7 +10,7 @@ var readable_name:String
 var display_name_label = true
 static var last_id = 0
 var id
-var test_texture = preload("res://components/ic/ic.svg")
+var test_texture = preload("res://components/ic/ic.png")
 var height: float
 var width: float
 var texture: String
@@ -18,34 +18,37 @@ const side_padding = 20 # TODO: Move side_padding to spec?
 var pins: Array
 var ic_texture = null
 var sprite = null
+var hitbox
+var name_label
 func initialize(spec: ComponentSpecification)->void:
 	self.readable_name = spec.name
 	self.input_pickable = true
 	sprite = Sprite2D.new()
-	var hitbox = CollisionShape2D.new()
+	hitbox = CollisionShape2D.new()
 	var shape = RectangleShape2D.new()
-
-	if (spec.texture!=""):
+	
+	if (spec.texture!=""): 
 		ic_texture = load(spec.texture)
 	else:
-		ic_texture = test_texture
-	shape.size = ic_texture.get_size()
-	sprite.texture = ic_texture
+		ic_texture = test_texture # TODO: Remove hardcoded names ASAP. We really need multiple textures. Its bad, i know
+	var current_texture = ic_texture if (GlobalSettings.LegacyGraphics or spec.name=="Переключатель" or spec.name=="Светодиод") else test_texture
+	shape.size = current_texture.get_size()
+	sprite.texture = current_texture
 	hitbox.shape = shape
 	height = spec.height
 	width = spec.width
 	texture = spec.texture
 	#var texture = load(spec.texture)
-	
-	sprite.modulate = Color(0.0, 0.0, 0.0, 1.0)
+	#sprite.scale = Vector2(0.1,0.1)
+	#sprite.modulate = Color(0.0, 0.0, 0.0, 1.0)
 	# Render texture and set height-width
 	#Label
 	if(display_name_label):
-		var label = Label.new()
-		label.position = self.position
-		label.z_index = 2
-		label.text = self.readable_name
-		add_child(label)
+		name_label = Label.new()
+		name_label.position = Vector2(-50,-10) if  GlobalSettings.LegacyGraphics else Vector2(0,0)
+		name_label.z_index = 2
+		name_label.text = self.readable_name
+		add_child(name_label)
 	add_child(hitbox)
 	add_child(sprite)
 	initialize_pins(spec.pinSpecifications, shape.size)
@@ -180,4 +183,77 @@ func to_json_object() -> Dictionary:
 		"position": position
 	}
 func pin(i:int):
-	return self.pins[i-1]
+	return self.pins[i-1] 
+
+func change_graphics_mode(mode:GlobalSettings.GraphicsMode):
+	if (mode==GlobalSettings.GraphicsMode.Legacy): # TODO: Enum
+		if(display_name_label):
+			name_label.position = Vector2(-50,-10)
+		sprite.texture = ic_texture
+	else:
+		if(display_name_label):
+			name_label.position = Vector2(0,0)
+		sprite.texture = test_texture
+	var shape = RectangleShape2D.new()
+	shape.size = sprite.texture.get_size()
+	hitbox.shape = shape
+	update_pins(self.pins, shape.size)
+
+func update_pins(pins:Array, ic_shape:Vector2): 
+	var side_count = {"TOP":0, "BOTTOM":0, "LEFT":0, "RIGHT":0}
+	var side_margin = {"TOP":0, "BOTTOM":0, "LEFT":0, "RIGHT":0}
+	for _pin in pins:
+		match _pin.ic_position: # Could be just side_count[pin_spec]+=1
+			"TOP":
+				side_count["TOP"]+=1
+			"BOTTOM":
+				side_count["BOTTOM"]+=1
+			"LEFT":
+				side_count["BOTTOM"]+=1
+			"RIGHT":
+				side_count["BOTTOM"]+=1
+	for k in side_count:
+		if k=="TOP" or k=="BOTTOM": #if pins are spaced horizontally
+			if side_count[k] != 1:
+				side_margin[k] = (ic_shape.x-2*side_padding)/(side_count[k]-1)
+			else:
+				side_margin[k] = ic_shape.x/2
+		else: # or vertically
+			if side_count[k] != 1:
+				side_margin[k] = (ic_shape.y-2*side_padding)/(side_count[k]-1)
+			else:
+				side_margin[k] = ic_shape.y/2
+
+
+	var side_index = {"TOP":0, "BOTTOM":0, "LEFT":0, "RIGHT":0}
+	for _pin in pins:
+		_pin.change_graphics_mode(GlobalSettings.GraphicsMode.Legacy if GlobalSettings.LegacyGraphics else GlobalSettings.GraphicsMode.Default)
+		var pin = _pin
+		if(GlobalSettings.LegacyGraphics):
+			pin.scale=Vector2(0.2,0.2)
+		else:
+			pin.scale=Vector2(0.2,0.4)
+
+		match _pin.ic_position:
+			
+			"TOP":
+				pin.position = Vector2(side_padding-ic_shape.x/2 + 
+				side_margin[_pin.ic_position]*side_index[_pin.ic_position], 
+				0-ic_shape.y/2)
+				side_index[_pin.ic_position]+=1
+			"BOTTOM":
+				pin.rotation_degrees =180
+				pin.position = Vector2(side_padding-ic_shape.x/2 + 
+				side_margin[_pin.ic_position]*side_index[_pin.ic_position], 
+				0+ic_shape.y/2)
+				side_index[_pin.ic_position]+=1
+			"LEFT":
+				pin.position = Vector2(0-ic_shape.x/2 , 
+				side_padding-ic_shape.y/2- 
+				side_margin[_pin.ic_position]*side_index[_pin.ic_position])
+				side_index[_pin.ic_position]+=1	
+			"RIGHT":
+				pin.position = Vector2(0+ic_shape.x/2 , 
+				side_padding-ic_shape.y/2-
+				side_margin[_pin.ic_position]*side_index[_pin.ic_position])
+				side_index[_pin.ic_position]+=1

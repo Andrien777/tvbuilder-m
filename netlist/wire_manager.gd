@@ -76,3 +76,7 @@ func _process(delta: float) -> void:
 
 func get_json_list():
 	pass
+
+func force_update_wires():
+	for wire in wires:
+		wire._process(0.0,true)

@@ -13,6 +13,7 @@ var readable_name: String
 var description: String
 var sprite_shape: Vector2
 var dependencies: Array[Pin]
+var sprite
 func initialize(spec: PinSpecification, state: NetConstants.LEVEL, parent: Node2D)->void:
 	self.input_pickable = true
 	self.state = state
@@ -23,7 +24,7 @@ func initialize(spec: PinSpecification, state: NetConstants.LEVEL, parent: Node2
 	self.description = spec.description
 	self.parent = parent
 	
-	var sprite = Sprite2D.new()
+	sprite = Sprite2D.new()
 	var hitbox = CollisionShape2D.new()
 	if(GlobalSettings.LegacyGraphics):
 		sprite.texture = legacy_pin_texture
@@ -92,3 +93,9 @@ func output():
 	return self.direction == NetConstants.DIRECTION.DIRECTION_OUTPUT
 func input():
 	return self.direction == NetConstants.DIRECTION.DIRECTION_INPUT
+
+func change_graphics_mode(mode:GlobalSettings.GraphicsMode):
+	if(GlobalSettings.LegacyGraphics):
+		sprite.texture = legacy_pin_texture
+	else:
+		sprite.texture = pin_texture

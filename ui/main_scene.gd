@@ -1,8 +1,14 @@
 extends Node2D
 var grid_rect
+var timer
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	grid_rect = get_node("GridLayer/GridRect")
+	timer = Timer.new() # TODO: This is not good
+	timer.one_shot = true
+	timer.wait_time = 0.1
+	timer.timeout.connect(WireManager.force_update_wires)
+	add_child(timer)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -33,8 +39,13 @@ func _input(event):
 		if(!GlobalSettings.LegacyGraphics):
 			grid_rect.material.set_shader_parameter("grid_color",Vector4(0.2, 0.2, 0.2, 1.0))
 			grid_rect.material.set_shader_parameter("background_color",Vector4(0.4, 0.6, 0.9, 1.0))
+			for ic in ComponentManager.obj_list.values():
+				ic.change_graphics_mode(GlobalSettings.GraphicsMode.Default) # TODO: Move to componenet manager
 		else:
 			grid_rect.material.set_shader_parameter("grid_color",Vector4(128.0/256.0, 129.0/256.0, 1/256.0, 1.0))
 			grid_rect.material.set_shader_parameter("background_color",Vector4(41.0/256.0, 33.0/256.0, 4/256.0, 1.0))
+			for ic in ComponentManager.obj_list.values():
+				ic.change_graphics_mode(GlobalSettings.GraphicsMode.Legacy)
+		timer.start()
 	elif event.is_action_pressed("toggle_grid"):
 			get_node("./GridLayer/GridRect").visible = not get_node("./GridLayer/GridRect").visible

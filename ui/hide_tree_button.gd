@@ -13,7 +13,7 @@ func _process(delta: float) -> void:
 var tree_visible = true
 var tween
 func _button_pressed():
-	var tree = get_parent().get_node("Tree")
+	var tree = get_node("/root/RootNode/UiCanvasLayer/FunctionalUIContainer/ComponentTree")
 	if tree_visible:
 		if tween:
 			tween.kill()
