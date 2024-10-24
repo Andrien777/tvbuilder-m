@@ -11,8 +11,12 @@ func _process_signal():
 		counter = pin(15).high as int + (pin(1).high as int << 1) + (pin(10).high as int <<2) + (pin(9).high as int <<3)
 	elif (pin(5).high and pin(4).high and prev_up == NetConstants.LEVEL.LEVEL_LOW): # Rise edge on +1
 		counter+=1
+		if(counter>15):
+			counter = 0
 	elif (pin(5).high and pin(4).high and prev_down == NetConstants.LEVEL.LEVEL_LOW): # Rise edge on -1
 		counter-=1
+		if(counter<0):
+			counter = 15
 	
 
 	
@@ -25,7 +29,7 @@ func _process_signal():
 		pin(13).set_low()
 	else:
 		pin(13).set_high()
-
+	
 	# Output the value
 	if(counter & (1)):
 		pin(3).set_high()
