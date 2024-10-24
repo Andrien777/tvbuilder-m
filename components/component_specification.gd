@@ -13,6 +13,8 @@ func initialize_from_json(path: String) -> void:
 	var file = FileAccess.open(path, FileAccess.READ).get_as_text()
 	var parsed = json.parse_string(file)
 	if parsed != null:
+		if("content" in parsed):
+			self.content = parsed
 		self.num_pins = parsed.num_pins
 		self.width = parsed.width
 		self.height = parsed.height
@@ -33,3 +35,4 @@ var width: float
 var height: float
 var texture: String
 var pinSpecifications: Array
+var content:String # Only used for labels. TODO: Think about this decision

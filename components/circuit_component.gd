@@ -20,7 +20,7 @@ var ic_texture = null
 var sprite = null
 var hitbox
 var name_label
-func initialize(spec: ComponentSpecification)->void:
+func initialize(spec: ComponentSpecification, ic = null)->void: # Ic field holds saved state and is component-specific
 	self.readable_name = spec.name
 	self.input_pickable = true
 	sprite = Sprite2D.new()
@@ -233,12 +233,10 @@ func update_pins(pins:Array, ic_shape:Vector2):
 			pin.scale=Vector2(0.2,0.2)
 		else:
 			pin.scale=Vector2(0.2,0.4)
-
 		match _pin.ic_position:
-			
 			"TOP":
 				pin.position = Vector2(side_padding-ic_shape.x/2 + 
-				side_margin[_pin.ic_position]*side_index[_pin.ic_position], 
+				side_margin[_pin.ic_position]*(side_count[_pin.ic_position] - side_index[_pin.ic_position]-1), # TODO: Please think of something better
 				0-ic_shape.y/2)
 				side_index[_pin.ic_position]+=1
 			"BOTTOM":

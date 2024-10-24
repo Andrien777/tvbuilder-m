@@ -1,0 +1,129 @@
+{
+	"name":"К1533ИЕ7",
+	"num_pins": 16,
+	"height": 25,
+	"width": 25,
+	"texture": "res://graphics/legacy/ic/16leg_2x.png",
+	"pinSpecifications": [
+		{
+			"index": 1,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "D1",
+			"description": "Вход D1",
+			"dependencies": []
+		},{
+			"index": 2,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "Q1",
+			"description": "Выход Q1",
+			"dependencies": [-1]
+		},{
+			"index": 3,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "Q0",
+			"description": "Выход Q0",
+			"dependencies": [-1]
+		}
+		,{
+			"index": 4,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "-1",
+			"description": "Сигнал обратного счёта",
+			"dependencies": []
+		},{
+			"index": 5,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "+1",
+			"description": "Вход прямого счёта",
+			"dependencies": []
+		},{
+			"index": 6,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "Q2",
+			"description": "Выход Q2",
+			"dependencies": [-1]
+		}
+		,{
+			"index": 7,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "Q3",
+			"description": "Выход Q3",
+			"dependencies": [-1]
+		}
+		,{
+			"index": 8,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "GND",
+			"description": "Земля",
+			"dependencies": []
+		}
+		,{
+			"index": 16,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "VCC",
+			"description": "Питание",
+			"dependencies": []
+		}
+		,{
+			"index": 15,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "D0",
+			"description": "Вход D0",
+			"dependencies": []
+		}
+		,{
+			"index": 14,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "R",
+			"description": "Вход асинхронной установки в 0",
+			"dependencies": []
+		},{
+			"index": 13,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "~BR",
+			"description": "Выход обратного переноса",
+			"dependencies": [-1]
+		},{
+			"index": 12,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "~CR",
+			"description": "Выход прямого переноса",
+			"dependencies": [-1]
+		}
+		,{
+			"index": 11,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "~PE",
+			"description": "Вход PE (строб записи)",
+			"dependencies": []
+		},{
+			"index": 10,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "D2",
+			"description": "Вход D2",
+			"dependencies": [-1]
+		},{
+			"index": 9,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "D3",
+			"description": "Вход D3",
+			"dependencies": [-1]
+		}
+	]
+}

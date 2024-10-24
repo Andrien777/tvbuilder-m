@@ -9,8 +9,8 @@
 			"index": 1,
 			"direction": "DIRECTION_OUTPUT",
 			"position": "TOP",
-			"readable_name": "",
-			"description": "",
+			"readable_name": "SW",
+			"description": "Выход переключателя",
 			"dependencies": []
 		}
 	]

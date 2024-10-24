@@ -49,7 +49,7 @@ func load(scene: Node2D, path: String):
 		component = load(ComponentManager.ALL_COMPONENTS_LIST[ic.name].logic_class_path).new()
 		var spec = ComponentSpecification.new()
 		spec.initialize_from_json(ComponentManager.ALL_COMPONENTS_LIST[ic.name].config_path)
-		component.initialize(spec)
+		component.initialize(spec, ic)
 		ComponentManager.change_id(component, ic.id)
 		CircuitComponent.last_id = max(CircuitComponent.last_id, ic.id) + 1
 		scene.add_child(component)

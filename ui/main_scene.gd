@@ -15,6 +15,8 @@ func _process(delta: float) -> void:
 	NetlistClass.propagate_signal()
 
 func _input(event):
+	if (GlobalSettings.disableGlobalInput):
+		return
 	if event.is_action_pressed("add_new_ic_element"):
 		var element_name = ICsTreeManager.get_selected_element_name()
 		if element_name == null: return
@@ -49,3 +51,5 @@ func _input(event):
 		timer.start()
 	elif event.is_action_pressed("toggle_grid"):
 			get_node("./GridLayer/GridRect").visible = not get_node("./GridLayer/GridRect").visible
+
+		

@@ -8,7 +8,8 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-
+	if(GlobalSettings.disableGlobalInput):
+		return
 	if Input.is_action_just_pressed("ZoomUp"):
 		change_zoom(Vector2(0.1,0.1))
 		grid_rect.material.set_shader_parameter("scale", Vector2.ONE/zoom)

@@ -1,6 +1,6 @@
 
 {
-	"name":"Светодиод",
+	"name":"Генератор частоты",
 	"num_pins": 1,
 	"height": 25,
 	"width": 25,
@@ -8,10 +8,10 @@
 	"pinSpecifications": [
 		{
 			"index": 1,
-			"direction": "DIRECTION_INPUT",
+			"direction": "DIRECTION_OUTPUT",
 			"position": "BOTTOM",
-			"readable_name": "LED",
-			"description": "Вход светодиода",
+			"readable_name": "f",
+			"description": "Выход генератора",
 			"dependencies": []
 		}
 	]

@@ -4,7 +4,7 @@ var led_sprite: Sprite2D
 var texture_on = preload("res://graphics/legacy/led/ld_up_green.png")
 var texture_off = preload("res://graphics/legacy/led/ld_down_green.png")
 var default_texture  = preload("res://components/ic/ic2.svg")
-func initialize(spec: ComponentSpecification)->void:
+func initialize(spec: ComponentSpecification, ic = null)->void:
 	self.display_name_label = false
 	super.initialize(spec)
 	

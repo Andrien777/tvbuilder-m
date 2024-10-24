@@ -59,6 +59,7 @@ script = ExtResource("2_pmywl")
 [node name="ButtonsContainer" type="HBoxContainer" parent="UiCanvasLayer"]
 offset_right = 679.0
 offset_bottom = 31.0
+mouse_filter = 0
 
 [node name="CheckButton" type="CheckButton" parent="UiCanvasLayer/ButtonsContainer"]
 layout_mode = 2

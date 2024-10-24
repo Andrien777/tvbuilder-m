@@ -7,7 +7,7 @@ func _ready() -> void:
 	pass
 var label # TODO: Delete this...
 var button
-func initialize(spec: ComponentSpecification)->void:
+func initialize(spec: ComponentSpecification, ic = null)->void:
 	self.display_name_label = false # TODO: Move to spec?
 	super.initialize(spec)
 	#self.sprite.texture = switch_texture

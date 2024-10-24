@@ -84,6 +84,15 @@
 						}
 					]
 				},{
+					"group_name": "Счётчики",
+					"subelements": [
+						{
+							"ic_name": "К1533ИЕ7",
+							"config_path": "res://components/ic/counters/K1533IE7.json",
+							"logic_class_path": "res://components/ic/counters/K1533IE7.gd"
+						}
+					]
+				},{
 					"group_name": "Индикаторы",
 					"subelements": [
 						{
@@ -117,7 +126,17 @@
 					"ic_name": "Ячейка памяти",
 					"config_path": "res://components/ic/other/memory.json",
 					"logic_class_path": "res://components/ic/other/memory.gd"
+				},
+				{
+					"ic_name": "Генератор частоты",
+					"config_path": "res://components/ic/other/frequency_generator.json",
+					"logic_class_path": "res://components/ic/other/frequency_generator.gd"
+				},{
+					"ic_name": "Метка",
+					"config_path": "res://components/misc/Labels/TextLabel.json",
+					"logic_class_path": "res://components/misc/Labels/TextLabel.gd"
 				}
+				
 			]
 		}
 	]

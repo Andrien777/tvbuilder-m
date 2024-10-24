@@ -1,0 +1,17 @@
+{
+	"name":"Метка",
+	"num_pins": 0,
+	"height": 25,
+	"width": 25,
+	"texture": "",
+	"pinSpecifications": [
+		{
+			"index": 1,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "Надпись",
+			"description": "Метка",
+			"dependencies": []
+		}
+	]
+}

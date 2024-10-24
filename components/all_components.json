@@ -62,5 +62,17 @@
 	"К1533ЛИ1":{
 		"config_path": "res://components/ic/logic/K1533LI1.json",
 		"logic_class_path": "res://components/ic/logic/K1533LI1.gd"
+	},
+	"К1533ИЕ7": {
+		"config_path": "res://components/ic/counters/K1533IE7.json",
+		"logic_class_path": "res://components/ic/counters/K1533IE7.gd"
+	},
+	"Генератор частоты" :{
+		"config_path": "res://components/ic/other/frequency_generator.json",
+		"logic_class_path": "res://components/ic/other/frequency_generator.gd"
+	},
+	"Метка":{
+		"config_path": "res://components/misc/Labels/TextLabel.json",
+		"logic_class_path": "res://components/misc/Labels/TextLabel.gd"
 	}
 }
