@@ -111,6 +111,7 @@ script = ExtResource("3_q10ex")
 auto_translate_mode = 1
 initial_position = 4
 size = Vector2i(500, 400)
+access = 2
 show_hidden_files = true
 use_native_dialog = true
 script = ExtResource("4_5cvoo")
