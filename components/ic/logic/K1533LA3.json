@@ -1,0 +1,121 @@
+{
+  "name": "К1533ЛА3",
+  "num_pins": 14,
+  "height": 25,
+  "width": 25,
+  "texture": "res://graphics/legacy/ic/14leg_2x.png",
+  "pinSpecifications": [
+	{
+	  "index": 1,
+	  "readable_name": "A1",
+	  "description": "Первый входной сигнал для первого элемента И-НЕ",
+	  "direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+	  "dependencies": []
+	},
+	{
+	  "index": 2,
+	  "readable_name": "B1",
+	  "description": "Второй входной сигнал для первого элемента И-НЕ",
+	  "direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+	  "dependencies": []
+	},
+	{
+	  "index": 3,
+	  "readable_name": "Y1",
+	  "description": "Выходной сигнал первого элемента И-НЕ",
+	  "direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+	  "dependencies": [-1]
+	},
+	{
+	  "index": 4,
+	  "readable_name": "A2",
+	  "description": "Первый входной сигнал для второго элемента И-НЕ",
+	  "direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+	  "dependencies": []
+	},
+	{
+	  "index": 5,
+	  "readable_name": "B2",
+	  "description": "Второй входной сигнал для второго элемента И-НЕ",
+	  "direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+	  "dependencies": []
+	},
+	{
+	  "index": 6,
+	  "readable_name": "Y2",
+	  "description": "Выходной сигнал второго элемента И-НЕ",
+	  "direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+	  "dependencies": [-1]
+	},
+	{
+	  "index": 7,
+	  "readable_name": "GND",
+	  "description": "Общий провод (земля)",
+	  "direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+	  "dependencies": []
+	},
+	{
+	  "index": 9,
+	  "readable_name": "A3",
+	  "description": "Первый входной сигнал для третьего элемента И-НЕ",
+	  "direction": "DIRECTION_INPUT",
+			"position": "TOP",
+	  "dependencies": []
+	},
+	{
+	  "index": 10,
+	  "readable_name": "B3",
+	  "description": "Второй входной сигнал для третьего элемента И-НЕ",
+	  "direction": "DIRECTION_INPUT",
+			"position": "TOP",
+	  "dependencies": []
+	},
+	{
+	  "index": 8,
+	  "readable_name": "Y3",
+	  "description": "Выходной сигнал третьего элемента И-НЕ",
+	  "direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+	  "dependencies": [-1]
+	},
+	{
+	  "index": 12,
+	  "readable_name": "A4",
+	  "description": "Первый входной сигнал для четвертого элемента И-НЕ",
+	  "direction": "DIRECTION_INPUT",
+			"position": "TOP",
+	  "dependencies": []
+	},
+	{
+	  "index": 13,
+	  "readable_name": "B4",
+	  "description": "Второй входной сигнал для четвертого элемента И-НЕ",
+	  "direction": "DIRECTION_INPUT",
+			"position": "TOP",
+	  "dependencies": []
+	},
+	{
+	  "index": 11,
+	  "readable_name": "Y4",
+	  "description": "Выходной сигнал четвертого элемента И-НЕ",
+	  "direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+	  "dependencies": [-1]
+	},
+	{
+	  "index": 14,
+	  "readable_name": "VCC",
+	  "description": "Напряжение питания",
+	  "direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+	  "dependencies": []
+	}
+  ]
+}

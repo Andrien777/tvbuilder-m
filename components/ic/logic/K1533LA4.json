@@ -1,0 +1,121 @@
+{
+  "name": "К1533ЛА4",
+  "num_pins": 14,
+  "height": 25,
+  "width": 25,
+  "texture": "res://graphics/legacy/ic/14leg_2x.png",
+  "pinSpecifications": [
+	{
+	  "index": 1,
+	  "readable_name": "A1",
+	  "description": "Первый вход первого элемента НЕ-И",
+	  "direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+	  "dependencies": []
+	},
+	{
+	  "index": 2,
+	  "readable_name": "B1",
+	  "description": "Второй вход первого элемента НЕ-И",
+	  "direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+	  "dependencies": []
+	},
+	{
+	  "index": 3,
+	  "readable_name": "A2",
+	  "description": "Первый вход второго элемента НЕ-И",
+	  "direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+	  "dependencies": []
+	},
+	{
+	  "index": 4,
+	  "readable_name": "B2",
+	  "description": "Второй вход второго элемента НЕ-И",
+	  "direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+	  "dependencies": []
+	},
+	{
+	  "index": 5,
+	  "readable_name": "C2",
+	  "description": "Третий вход второго элемента НЕ-И",
+	  "direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+	  "dependencies": []
+	},
+	{
+	  "index": 6,
+	  "readable_name": "Y2",
+	  "description": "Выход второго элемента НЕ-И",
+	  "direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+	  "dependencies": [-1]
+	},
+	{
+	  "index": 7,
+	  "readable_name": "GND",
+	  "description": "Общий провод (земля)",
+	  "direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+	  "dependencies": []
+	},
+	{
+	  "index": 8,
+	  "readable_name": "Y3",
+	  "description": "Выход третьего элемента НЕ-И",
+	  "direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+	  "dependencies": [-1]
+	},
+	{
+	  "index": 9,
+	  "readable_name": "A3",
+	  "description": "Первый вход третьего элемента НЕ-И",
+	  "direction": "DIRECTION_INPUT",
+			"position": "TOP",
+	  "dependencies": []
+	},
+	{
+	  "index": 10,
+	  "readable_name": "B3",
+	  "description": "Второй вход третьего элемента НЕ-И",
+	  "direction": "DIRECTION_INPUT",
+			"position": "TOP",
+	  "dependencies": []
+	},
+	{
+	  "index": 11,
+	  "readable_name": "C3",
+	  "description": "Третий вход третьего элемента НЕ-И",
+	  "direction": "DIRECTION_INPUT",
+			"position": "TOP",
+	  "dependencies": []
+	},
+	{
+	  "index": 12,
+	  "readable_name": "Y1",
+	  "description": "Выход первого элемента НЕ-И",
+	  "direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+	  "dependencies": [-1]
+	},
+	{
+	  "index": 13,
+	  "readable_name": "C1",
+	  "description": "Третий вход первого элемента НЕ-И",
+	  "direction": "DIRECTION_INPUT",
+			"position": "TOP",
+	  "dependencies": []
+	},
+	{
+	  "index": 14,
+	  "readable_name": "VCC",
+	  "description": "Напряжение питания",
+	  "direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+	  "dependencies": []
+	}
+  ]
+}

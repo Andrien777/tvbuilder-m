@@ -53,7 +53,10 @@ func _mouse_enter() -> void:
 	is_mouse_over = true
 func _mouse_exit() -> void:
 	self.line.width = 2
-	self.modulate=Color(1,1,1,1)
+	if (GlobalSettings.LegacyGraphics):
+		self.modulate=Color(1,0,0,1)
+	else:
+		self.modulate=Color(1,1,1,1)
 	first_object.modulate=Color(1,1,1,1)
 	second_object.modulate=Color(1,1,1,1)
 	is_mouse_over = false
@@ -114,3 +117,8 @@ func get_pin_offset(pin:Node2D):
 		"RIGHT":
 			return Vector2.RIGHT*pin_offset
 		
+func change_color():
+	if (GlobalSettings.LegacyGraphics):
+		self.modulate=Color(1,0,0,1)
+	else:
+		self.modulate=Color(1,1,1,1)

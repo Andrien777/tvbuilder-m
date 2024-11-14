@@ -1,0 +1,121 @@
+{
+  "name": "К1533ЛЛ1",
+  "num_pins": 14,
+  "height": 25,
+  "width": 25,
+  "texture": "res://graphics/legacy/ic/14leg_2x.png",
+  "pinSpecifications": [
+	{
+	  "index": 1,
+	  "readable_name": "A1",
+	  "description": "Входной сигнал A для первого элемента ИЛИ-НЕ",
+	  "direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+	  "dependencies": []
+	},
+	{
+	  "index": 2,
+	  "readable_name": "B1",
+	  "description": "Входной сигнал B для первого элемента ИЛИ-НЕ",
+	  "direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+	  "dependencies": []
+	},
+	{
+	  "index": 3,
+	  "readable_name": "Y1",
+	  "description": "Выходной сигнал первого элемента ИЛИ-НЕ",
+	  "direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+	  "dependencies": [-1]
+	},
+	{
+	  "index": 4,
+	  "readable_name": "A2",
+	  "description": "Входной сигнал A для второго элемента ИЛИ-НЕ",
+	  "direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+	  "dependencies": []
+	},
+	{
+	  "index": 5,
+	  "readable_name": "B2",
+	  "description": "Входной сигнал B для второго элемента ИЛИ-НЕ",
+	  "direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+	  "dependencies": []
+	},
+	{
+	  "index": 6,
+	  "readable_name": "Y2",
+	  "description": "Выходной сигнал второго элемента ИЛИ-НЕ",
+	  "direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+	  "dependencies": [-1]
+	},
+	{
+	  "index": 7,
+	  "readable_name": "GND",
+	  "description": "Общий провод (земля)",
+	  "direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+	  "dependencies": []
+	},
+	{
+	  "index": 14,
+	  "readable_name": "VCC",
+	  "description": "Питание",
+	  "direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+	  "dependencies": []
+	},
+	{
+	  "index": 13,
+	  "readable_name": "B4",
+	  "description": "Входной сигнал B для четвертого элемента ИЛИ-НЕ",
+	  "direction": "DIRECTION_INPUT",
+			"position": "TOP",
+	  "dependencies": []
+	},
+	{
+	  "index": 12,
+	  "readable_name": "A4",
+	  "description": "Входной сигнал A для четвертого элемента ИЛИ-НЕ",
+	  "direction": "DIRECTION_INPUT",
+			"position": "TOP",
+	  "dependencies": []
+	},
+	{
+	  "index": 11,
+	  "readable_name": "Y4",
+	  "description": "Выходной сигнал четвертого элемента ИЛИ-НЕ",
+	  "direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+	  "dependencies": [-1]
+	},
+	{
+	  "index": 10,
+	  "readable_name": "B3",
+	  "description": "Входной сигнал B для третьего элемента ИЛИ-НЕ",
+	  "direction": "DIRECTION_INPUT",
+			"position": "TOP",
+	  "dependencies": []
+	},
+	{
+	  "index": 9,
+	  "readable_name": "A3",
+	  "description": "Входной сигнал A для третьего элемента ИЛИ-НЕ",
+	  "direction": "DIRECTION_INPUT",
+			"position": "TOP",
+	  "dependencies": []
+	},
+	{
+	  "index": 8,
+	  "readable_name": "Y3",
+	  "description": "Выходной сигнал третьего элемента ИЛИ-НЕ",
+	  "direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+	  "dependencies": [-1]
+	}
+  ]
+}

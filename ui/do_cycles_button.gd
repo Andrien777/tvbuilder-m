@@ -12,4 +12,4 @@ func _process(delta: float) -> void:
 
 
 func _on_toggled(toggled_on: bool) -> void:
-	GlobalSettings.doCycles = toggled_on
+	GlobalSettings.doCycles = not toggled_on

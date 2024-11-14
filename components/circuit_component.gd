@@ -94,34 +94,35 @@ func initialize_pins(spec: Array, ic_shape:Vector2)->void:
 		else:
 			pin.scale=Vector2(0.2,0.4)
 
-		match pin_spec.position:
-			"TOP":
-				pin.position = Vector2(side_padding-ic_shape.x/2 + 
-				side_margin[pin_spec.position]*side_index[pin_spec.position], 
-				0-ic_shape.y/2)
-				side_index[pin_spec.position]+=1
-			"BOTTOM":
-				pin.rotation_degrees =180
-				pin.position = Vector2(side_padding-ic_shape.x/2 + 
-				side_margin[pin_spec.position]*side_index[pin_spec.position], 
-				0+ic_shape.y/2)
-				side_index[pin_spec.position]+=1
-			"LEFT":
-				pin.position = Vector2(0-ic_shape.x/2 , 
-				side_padding-ic_shape.y/2- 
-				side_margin[pin_spec.position]*side_index[pin_spec.position])
-				side_index[pin_spec.position]+=1	
-			"RIGHT":
-				pin.position = Vector2(0+ic_shape.x/2 , 
-				side_padding-ic_shape.y/2-
-				side_margin[pin_spec.position]*side_index[pin_spec.position])
-				side_index[pin_spec.position]+=1	
 		#pin.global_position = Vector2(200,200)
 		pin.initialize(pin_spec, NetConstants.LEVEL.LEVEL_Z, self)
 		
 		pins.append(pin)
 		add_child(pin)
 	pins.sort_custom(pin_comparator)
+	for pin in pins:
+		match pin.ic_position:
+			"TOP":
+				pin.position = Vector2(side_padding-ic_shape.x/2 + 
+				side_margin[pin.ic_position]*(side_count[pin.ic_position] - side_index[pin.ic_position]-1), # TODO: Please think of something better
+				0-ic_shape.y/2)
+				side_index[pin.ic_position]+=1
+			"BOTTOM":
+				pin.rotation_degrees =180
+				pin.position = Vector2(side_padding-ic_shape.x/2 + 
+				side_margin[pin.ic_position]*side_index[pin.ic_position], 
+				0+ic_shape.y/2)
+				side_index[pin.ic_position]+=1
+			"LEFT":
+				pin.position = Vector2(0-ic_shape.x/2 , 
+				side_padding-ic_shape.y/2- 
+				side_margin[pin.ic_position]*side_index[pin.ic_position])
+				side_index[pin.ic_position]+=1	
+			"RIGHT":
+				pin.position = Vector2(0+ic_shape.x/2 , 
+				side_padding-ic_shape.y/2-
+				side_margin[pin.ic_position]*side_index[pin.ic_position])
+				side_index[pin.ic_position]+=1
 	for pin_spec in spec:
 		if pin_spec.dependencies.is_empty():
 			continue

@@ -2,7 +2,7 @@ extends Node
 
 var LevelHighlight  = false
 var LegacyGraphics = false
-var doCycles = false
+var doCycles = true
 var disableGlobalInput = false
 enum GraphicsMode  {Default, Legacy}
 # Called when the node enters the scene tree for the first time.

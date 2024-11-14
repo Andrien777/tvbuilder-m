@@ -1,0 +1,121 @@
+{
+  "name": "К155ИЕ5",
+  "num_pins": 14,
+  "height": 25,
+  "width": 25,
+  "texture": "res://graphics/legacy/ic/14leg_2x.png",
+  "pinSpecifications": [
+	{
+	  "index": 1,
+	  "readable_name": "~C1",
+	  "description": "Вход тактирования делителя на 8",
+	  "direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+	  "dependencies": []
+	},
+	{
+	  "index": 2,
+	  "readable_name": "R1",
+	  "description": "Вход сброса 1",
+	  "direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+	  "dependencies": []
+	},
+	{
+	  "index": 3,
+	  "readable_name": "R2",
+	  "description": "Вход сброса 2",
+	  "direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+	  "dependencies": []
+	},
+	{
+	  "index": 4,
+	  "readable_name": "NC",
+	  "description": "Неиспользуемый вывод",
+	  "direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+	  "dependencies": []
+	},
+	{
+	  "index": 5,
+	  "readable_name": "VCC",
+	  "description": "Напряжение питания",
+	  "direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+	  "dependencies": []
+	},
+	{
+	  "index": 6,
+	  "readable_name": "NC",
+	  "description": "Неиспользуемый вывод",
+	  "direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+	  "dependencies": []
+	},
+	{
+	  "index": 7,
+	  "readable_name": "NC",
+	  "description": "Неиспользуемый вывод",
+	  "direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+	  "dependencies": []
+	},
+	{
+	  "index": 8,
+	  "readable_name": "Q2",
+	  "description": "Выход третьего разряда",
+	  "direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+	  "dependencies": [-1]
+	},
+	{
+	  "index": 9,
+	  "readable_name": "Q1",
+	  "description": "Выход второго разряда",
+	  "direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+	  "dependencies": [-1]
+	},
+	{
+	  "index": 10,
+	  "readable_name": "GND",
+	  "description": "Общий провод (земля)",
+	  "direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+	  "dependencies": []
+	},
+	{
+	  "index": 11,
+	  "readable_name": "Q3",
+	  "description": "Выход третьего разряда",
+	  "direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+	  "dependencies": [-1]
+	},
+	{
+	  "index": 12,
+	  "readable_name": "Q0",
+	  "description": "Выход первого разряда",
+	  "direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+	  "dependencies": [-1]
+	},
+	{
+	  "index": 13,
+	  "readable_name": "NC",
+	  "description": "Неиспользуемый вывод",
+	  "direction": "DIRECTION_INPUT",
+			"position": "TOP",
+	  "dependencies": []
+	},
+	{
+	  "index": 14,
+	  "readable_name": "~C0",
+	  "description": "Вход тактирования делителя на 2",
+	  "direction": "DIRECTION_INPUT",
+			"position": "TOP",
+	  "dependencies": []
+	}
+  ]
+}

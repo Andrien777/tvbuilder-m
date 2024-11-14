@@ -48,6 +48,8 @@ func _input(event):
 			grid_rect.material.set_shader_parameter("background_color",Vector4(41.0/256.0, 33.0/256.0, 4/256.0, 1.0))
 			for ic in ComponentManager.obj_list.values():
 				ic.change_graphics_mode(GlobalSettings.GraphicsMode.Legacy)
+		for wire in WireManager.wires:
+			wire.change_color()
 		timer.start()
 	elif event.is_action_pressed("toggle_grid"):
 			get_node("./GridLayer/GridRect").visible = not get_node("./GridLayer/GridRect").visible

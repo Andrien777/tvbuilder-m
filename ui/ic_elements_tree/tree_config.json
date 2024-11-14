@@ -13,13 +13,44 @@
 							"logic_class_path": "res://components/ic/logic/K1533LI1.gd"
 						},
 						{
-							"ic_name": "2И",
-							"config_path": "res://components/ic/logic/and2.json",
-							"logic_class_path": "res://components/ic/logic/And2.gd"
-						},{
-							"ic_name": "2НЕ",
-							"config_path": "res://components/ic/logic/not2.json",
-							"logic_class_path": "res://components/ic/logic/Not2.gd"
+							"ic_name": "К1533ЛИ3",
+							"config_path": "res://components/ic/logic/K1533LI3.json",
+							"logic_class_path": "res://components/ic/logic/K1533LI3.gd"
+						},
+						{
+							"ic_name": "К1533ЛИ6",
+							"config_path": "res://components/ic/logic/K1533LI6.json",
+							"logic_class_path": "res://components/ic/logic/K1533LI6.gd"
+						},
+						{
+							"ic_name": "К1533ЛА1",
+							"config_path": "res://components/ic/logic/K1533LA1.json",
+							"logic_class_path": "res://components/ic/logic/K1533LA1.gd"
+						},
+						{
+							"ic_name": "К1533ЛА3",
+							"config_path": "res://components/ic/logic/K1533LA3.json",
+							"logic_class_path": "res://components/ic/logic/K1533LA3.gd"
+						},
+						{
+							"ic_name": "К1533ЛА4",
+							"config_path": "res://components/ic/logic/K1533LA4.json",
+							"logic_class_path": "res://components/ic/logic/K1533LA4.gd"
+						},
+						{
+							"ic_name": "К1533ЛЕ4",
+							"config_path": "res://components/ic/logic/K1533LE4.json",
+							"logic_class_path": "res://components/ic/logic/K1533LE4.gd"
+						},
+						{
+							"ic_name": "К1533ЛЛ1",
+							"config_path": "res://components/ic/logic/K1533LL1.json",
+							"logic_class_path": "res://components/ic/logic/K1533LL1.gd"
+						},
+						{
+							"ic_name": "К1533ЛН1",
+							"config_path": "res://components/ic/logic/K1533LN1.json",
+							"logic_class_path": "res://components/ic/logic/K1533LN1.gd"
 						}
 					]
 				},
@@ -86,6 +117,11 @@
 				},{
 					"group_name": "Счётчики",
 					"subelements": [
+						{
+							"ic_name": "К155ИЕ5",
+							"config_path": "res://components/ic/counters/K155IE5.json",
+							"logic_class_path": "res://components/ic/counters/K155IE5.gd"
+						},
 						{
 							"ic_name": "К1533ИЕ7",
 							"config_path": "res://components/ic/counters/K1533IE7.json",

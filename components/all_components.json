@@ -74,5 +74,41 @@
 	"Метка":{
 		"config_path": "res://components/misc/Labels/TextLabel.json",
 		"logic_class_path": "res://components/misc/Labels/TextLabel.gd"
+	},
+	"К1533ЛА3": {
+		"config_path": "res://components/ic/logic/K1533LA3.json",
+		"logic_class_path": "res://components/ic/logic/K1533LA3.gd"
+	},
+	"К1533ЛА4": {
+		"config_path": "res://components/ic/logic/K1533LA4.json",
+		"logic_class_path": "res://components/ic/logic/K1533LA4.gd"
+	},
+	"К1533ЛЕ4": {
+		"config_path": "res://components/ic/logic/K1533LE4.json",
+		"logic_class_path": "res://components/ic/logic/K1533LE4.gd"
+	},
+	"К1533ЛИ3": {
+		"config_path": "res://components/ic/logic/K1533LI3.json",
+		"logic_class_path": "res://components/ic/logic/K1533LI3.gd"
+	},
+	"К1533ЛИ6": {
+		"config_path": "res://components/ic/logic/K1533LI6.json",
+		"logic_class_path": "res://components/ic/logic/K1533LI6.gd"
+	},
+	"К1533ЛЛ1": {
+		"config_path": "res://components/ic/logic/K1533LL1.json",
+		"logic_class_path": "res://components/ic/logic/K1533LL1.gd"
+	},
+	"К1533ЛА1": {
+		"config_path": "res://components/ic/logic/K1533LA1.json",
+		"logic_class_path": "res://components/ic/logic/K1533LA1.gd"
+	},
+	"К1533ЛН1": {
+		"config_path": "res://components/ic/logic/K1533LN1.json",
+		"logic_class_path": "res://components/ic/logic/K1533LN1.gd"
+	},
+	"К155ИЕ5": {
+		"config_path": "res://components/ic/counters/K155IE5.json",
+		"logic_class_path": "res://components/ic/counters/K155IE5.gd"
 	}
 }
