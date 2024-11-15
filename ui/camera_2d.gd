@@ -1,5 +1,7 @@
 extends Camera2D
 
+var pressed_mmb = false
+var prev_pos
 var grid_rect 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -31,6 +33,14 @@ func _process(delta: float) -> void:
 	if Input.is_action_pressed("pan_right"):
 		position += Vector2.RIGHT * 10
 		grid_rect.material.set_shader_parameter("position",position)
+	
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_MIDDLE):
+		if pressed_mmb:
+			position -= Input.get_last_mouse_velocity() * delta
+			Input.action_release("delete_component")
+		prev_pos = get_global_mouse_position()
+	
+	pressed_mmb = Input.is_mouse_button_pressed(MOUSE_BUTTON_MIDDLE)
 
 
 func change_zoom(delta: Vector2) -> void:

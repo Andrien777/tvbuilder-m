@@ -110,5 +110,8 @@
 	"К155ИЕ5": {
 		"config_path": "res://components/ic/counters/K155IE5.json",
 		"logic_class_path": "res://components/ic/counters/K155IE5.gd"
-	}
+	},"К1810ВА86": {
+		"config_path": "res://components/ic/buffer/K1810VA86.json",
+		"logic_class_path": "res://components/ic/buffer/K1810VA86.gd"
+	},
 }

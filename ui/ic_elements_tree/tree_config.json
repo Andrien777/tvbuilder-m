@@ -83,6 +83,16 @@
 							"logic_class_path": "res://components/ic/memory/KR132RU9A.gd"
 						}
 					]
+				},
+				{
+					"group_name": "Буферные микросхемы",
+					"subelements": [
+						{
+							"ic_name": "К1810ВА86",
+							"config_path": "res://components/ic/buffer/K1810VA86.json",
+							"logic_class_path": "res://components/ic/buffer/K1810VA86.gd"
+						}
+					]
 				},{
 					"group_name": "Триггеры",
 					"subelements": [
