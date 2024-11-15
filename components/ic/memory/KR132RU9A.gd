@@ -67,3 +67,13 @@ func set_value(addr:int, q:int, index:int):
 func get_values(addr:int):
 	var value = memory_content[addr]
 	return [value & (1)!=0,value & (1<<1)!=0,value & (1<<2)!=0,value & (1<<3)!=0]
+
+func change_graphics_mode(mode):
+	super.change_graphics_mode(mode)
+
+	if(mode == GlobalSettings.GraphicsMode.Default):
+		self.display_name_label = true
+		name_label.visible = true
+	elif (mode==GlobalSettings.GraphicsMode.Legacy):
+		self.display_name_label = false
+		name_label.visible = false

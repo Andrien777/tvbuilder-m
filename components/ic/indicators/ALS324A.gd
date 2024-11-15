@@ -19,12 +19,27 @@ static var lut = {
 	[0,0,0,0,0,0,0]:15
 	}
 var label
+var bottom_left_sprite = null
+var bottom_left_texture = preload("res://graphics/legacy/ic/7segment/BOTTOM_LEFT.png")
+var bottom_right_texture = preload("res://graphics/legacy/ic/7segment/BOTTOM_RIGHT.png")
+var bottom_center_texture = preload("res://graphics/legacy/ic/7segment/BOTTOM_CENTER.png")
+var top_right_texture = preload("res://graphics/legacy/ic/7segment/TOP_RIGHT.png")
+var top_left_texture = preload("res://graphics/legacy/ic/7segment/TOP_LEFT.png")
+var top_center_texture = preload("res://graphics/legacy/ic/7segment/TOP_CENTER.png")
+var mid_center_texture = preload("res://graphics/legacy/ic/7segment/MID_CENTER.png")
+
+
 func _init():
 	label = Label.new()
 	label.position = self.position + Vector2(-20,-20)
 	label.z_index = 2
-	label.text = "test"
+	label.text = "Z"
 	add_child(label)
+	bottom_left_sprite = Sprite2D.new()
+	bottom_left_sprite.texture = bottom_left_texture
+	bottom_left_sprite.z_index = 1
+	#bottom_left_sprite.global_position = Vector2(50,50)
+	add_child(bottom_left_sprite)
 	
 func _process_signal():
 	var inputs = [pin(14).high as int,pin(13).high as int,pin(8).high as int,pin(7).high as int,pin(6).high as int ,pin(1).high as int ,pin(2).high as int]

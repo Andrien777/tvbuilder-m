@@ -1,5 +1,5 @@
 extends CircuitComponent
-class_name LED
+# TODO: Delete this file. Duplicate
 var led_sprite: Sprite2D
 var texture_on = preload("res://graphics/legacy/led/ld_up_green.png")
 var texture_off = preload("res://graphics/legacy/led/ld_down_green.png")
