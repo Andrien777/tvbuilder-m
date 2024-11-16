@@ -8,6 +8,8 @@ func _ready() -> void:
 
 
 func _process_signal():
+	pin(7).set_low()
+	pin(14).set_high()
 	pin(2).state = (not pin(1).high) as int
 	pin(4).state = (not pin(3).high) as int
 	pin(6).state = (not pin(5).high) as int

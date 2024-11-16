@@ -9,6 +9,8 @@ func _init():
 	
 	
 func _process_signal():
+	pin(9).set_low()
+	pin(18).set_high()
 	if (pin(8).low):
 		var addr = get_addr()
 		if((not previous_state) and pin(10).high):

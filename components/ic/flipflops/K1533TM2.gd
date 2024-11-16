@@ -14,7 +14,8 @@ func _ready() -> void:
 
 
 func _process_signal():
-	
+	pin(7).set_low()
+	pin(14).set_high()
 	if(pin(1).low): # D1 RST
 		pin(5).set_low()
 		pin(6).set_high()

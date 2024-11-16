@@ -22,6 +22,8 @@ static var lut = {
 func _ready():
 	outs  = [pin(13),pin(12),pin(11),pin(10),pin(9),pin(15),pin(14)]
 func _process_signal():
+	pin(8).set_low()
+	pin(16).set_high()
 	var a = ((pin(7).high as int)) | ((pin(1).high as int)<<1) | ((pin(2).high as int)<<2) | ((pin(6).high as int)<<3) 
 	if(pin(3).high): # LT
 		pass

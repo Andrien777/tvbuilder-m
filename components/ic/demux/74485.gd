@@ -7,6 +7,8 @@ func _ready():
 	res_pins_2 = [pin(9),pin(11),pin(12),pin(13)]
 
 func _process_signal():
+	pin(10).set_low()
+	pin(20).set_high()
 	if(pin(16).low and pin(15).low):
 		var a = ((pin(5).high as int)) | ((pin(4).high as int)<<1) | ((pin(3).high as int)<<2) | ((pin(2).high as int)<<3) | ((pin(1).high as int)<<4)| ((pin(19).high as int)<<5) | ((pin(18).high as int)<<6) | ((pin(17).high as int)<<7)
 		var t1 =0 

@@ -4,12 +4,12 @@
 	"num_pins": 1,
 	"height": 25,
 	"width": 25,
-	"texture": "res://graphics/legacy/ic/sw_background_2x.png",
+	"texture": "res://graphics/legacy/gen_texture.png",
 	"pinSpecifications": [
 		{
 			"index": 1,
 			"direction": "DIRECTION_OUTPUT",
-			"position": "BOTTOM",
+			"position": "TOP",
 			"readable_name": "f",
 			"description": "Выход генератора",
 			"dependencies": []

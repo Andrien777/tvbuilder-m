@@ -5,6 +5,8 @@ var counter=0
 var prev_up
 var prev_down
 func _process_signal():
+	pin(8).set_low()
+	pin(16).set_high()
 	if(pin(14).high): # Reset
 		counter = 0
 	elif (pin(11).low): # Load signal is low(active)

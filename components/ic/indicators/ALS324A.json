@@ -23,23 +23,23 @@
 			"index": 3,
 			"direction": "DIRECTION_INPUT_OUTPUT",
 			"position": "BOTTOM",
-			"readable_name": "Подключение земли",
-			"description": "Сюда необходимо подключить 0, иначе микросхема не заработает",
+			"readable_name": "NC",
+			"description": "Неиспользуемый вывод",
 			"dependencies": []
 		}
 		,{
 			"index": 4,
 			"direction": "DIRECTION_INPUT",
 			"position": "BOTTOM",
-			"readable_name": "??",
-			"description": "??",
+			"readable_name": "Общий катод",
+			"description": "Катод светодиодов, который необходимо подключить на общий провод",
 			"dependencies": []
 		},{
 			"index": 5,
 			"direction": "DIRECTION_OUTPUT",
 			"position": "BOTTOM",
-			"readable_name": "??",
-			"description": "",
+			"readable_name": "NC",
+			"description": "Неиспользуемый вывод",
 			"dependencies": [-1]
 		},{
 			"index": 6,
@@ -77,8 +77,8 @@
 			"index": 15,
 			"direction": "DIRECTION_INPUT",
 			"position": "TOP",
-			"readable_name": "??",
-			"description": "??",
+			"readable_name": "NC",
+			"description": "Неиспользуемый вывод",
 			"dependencies": []
 		}
 		,{
@@ -99,30 +99,30 @@
 			"index": 12,
 			"direction": "DIRECTION_INPUT",
 			"position": "TOP",
-			"readable_name": "??",
-			"description": "",
+			"readable_name": "Общий катод",
+			"description": "Катод светодиодов, который необходимо подключить на общий провод",
 			"dependencies": []
 		}
 		,{
 			"index": 11,
 			"direction": "DIRECTION_OUTPUT",
 			"position": "TOP",
-			"readable_name": "??",
-			"description": "",
+			"readable_name": "NC",
+			"description": "Неиспользуемый вывод",
 			"dependencies": [-1]
 		},{
 			"index": 10,
 			"direction": "DIRECTION_OUTPUT",
 			"position": "TOP",
-			"readable_name": "??",
-			"description": "",
+			"readable_name": "NC",
+			"description": "Неиспользуемый вывод",
 			"dependencies": [-1]
 		},{
 			"index": 9,
 			"direction": "DIRECTION_OUTPUT",
 			"position": "TOP",
-			"readable_name": "??",
-			"description": "",
+			"readable_name": "NC",
+			"description": "Неиспользуемый вывод",
 			"dependencies": [-1]
 		}
 	]

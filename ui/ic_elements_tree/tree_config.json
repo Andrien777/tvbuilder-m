@@ -164,16 +164,6 @@
 					"logic_class_path": "res://components/ic/other/led.gd"
 				},
 				{
-					"ic_name": "Буфер с 3-м состоянием",
-					"config_path": "res://components/ic/other/tristate.json",
-					"logic_class_path": "res://components/ic/other/tristate.gd"
-				},
-				{
-					"ic_name": "Ячейка памяти",
-					"config_path": "res://components/ic/other/memory.json",
-					"logic_class_path": "res://components/ic/other/memory.gd"
-				},
-				{
 					"ic_name": "Генератор частоты",
 					"config_path": "res://components/ic/other/frequency_generator.json",
 					"logic_class_path": "res://components/ic/other/frequency_generator.gd"

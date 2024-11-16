@@ -27,9 +27,10 @@ func _init():
 	add_child(label)
 	
 func _process_signal():
+	pin(16).set_high()
 	var inputs = [pin(14).high as int,pin(13).high as int,pin(8).high as int,pin(7).high as int,pin(6).high as int ,pin(1).high as int ,pin(2).high as int]
-
-	if inputs in lut.keys():
-		label.text = str(lut[inputs])
-	else:
-		label.text = "?"
+	if (pin(4).low() && pin(12).low()):
+		if inputs in lut.keys():
+			label.text = str(lut[inputs])
+		else:
+			label.text = "?"

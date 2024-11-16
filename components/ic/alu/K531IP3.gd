@@ -2,6 +2,8 @@ extends CircuitComponent
 class_name K513IP3
 
 func _process_signal():
+	pin(12).set_low()
+	pin(24).set_high()
 	var a = ((pin(2).high as int)) | ((pin(23).high as int)<<1) | ((pin(21).high as int)<<2) | ((pin(19).high as int)<<3) 
 	var b  = ((pin(1).high as int)) | ((pin(22).high as int)<<1) | ((pin(20).high as int)<<2) | ((pin(18).high as int)<<3)
 	var s =	((pin(6).high as int)) | ((pin(5).high as int)<<1) | ((pin(4).high as int)<<2) | ((pin(3).high as int)<<3)

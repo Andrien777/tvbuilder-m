@@ -8,6 +8,8 @@ func _ready() -> void:
 var inputs
 var outputs
 func _process_signal():
+	pin(10).set_low()
+	pin(20).set_high()
 	outputs = Array()
 	inputs = Array()
 	if (pin(11).high):

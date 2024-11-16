@@ -89,6 +89,8 @@ func propagate_signal() -> void:
 								late_propagation.append(current)
 								stack.pop_back()
 								break
+						else:
+							dep.set_high()
 					if dependencies_resolved:
 						current.pin.parent._process_signal()
 						stack.pop_back()
@@ -104,6 +106,10 @@ func propagate_signal() -> void:
 				else:
 					if not GlobalSettings.doCycles:
 						current.pin.parent._process_signal()
+					else:
+						for dep in current.pin.dependencies:
+							if dep not in nodes.keys():
+								dep.set_high()
 					stack.pop_back()
 					resolved.append(current)
 					for neighbour in current.neighbours:

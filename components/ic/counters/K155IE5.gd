@@ -7,6 +7,8 @@ var prev_c0=NetConstants.LEVEL.LEVEL_Z
 var prev_c1=NetConstants.LEVEL.LEVEL_Z
 
 func _process_signal():
+	pin(5).set_high()
+	pin(10).set_low()
 	if(pin(2).high && pin(3).high): # Reset
 		counter = 0	
 		div_2 = 0
