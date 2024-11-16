@@ -31,6 +31,7 @@ func initialize(first_object:Node2D, second_object:Node2D)->void:
 	
 	self.first_object = first_object
 	self.second_object = second_object
+	change_color()
 
 func _init()->void:
 	line = Line2D.new()

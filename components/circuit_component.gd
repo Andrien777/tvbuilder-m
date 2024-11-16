@@ -14,7 +14,7 @@ var test_texture = preload("res://components/ic/ic.png")
 var height: float
 var width: float
 var texture: String
-const side_padding = 20 # TODO: Move side_padding to spec?
+const side_padding = 10 # TODO: Move side_padding to spec?
 var pins: Array
 var ic_texture = null
 var sprite = null
@@ -66,9 +66,9 @@ func initialize_pins(spec: Array, ic_shape:Vector2)->void:
 			"BOTTOM":
 				side_count["BOTTOM"]+=1
 			"LEFT":
-				side_count["BOTTOM"]+=1
+				side_count["LEFT"]+=1
 			"RIGHT":
-				side_count["BOTTOM"]+=1
+				side_count["RIGHT"]+=1
 	for k in side_count:
 		if k=="TOP" or k=="BOTTOM": #if pins are spaced horizontally
 			if side_count[k] != 1:
@@ -114,14 +114,16 @@ func initialize_pins(spec: Array, ic_shape:Vector2)->void:
 				0+ic_shape.y/2)
 				side_index[pin.ic_position]+=1
 			"LEFT":
+				pin.rotation_degrees =270
 				pin.position = Vector2(0-ic_shape.x/2 , 
-				side_padding-ic_shape.y/2- 
+				side_padding-ic_shape.y/2+
 				side_margin[pin.ic_position]*side_index[pin.ic_position])
 				side_index[pin.ic_position]+=1	
 			"RIGHT":
+				pin.rotation_degrees =90
 				pin.position = Vector2(0+ic_shape.x/2 , 
-				side_padding-ic_shape.y/2-
-				side_margin[pin.ic_position]*side_index[pin.ic_position])
+				side_padding-ic_shape.y/2+
+				side_margin[pin.ic_position]*(side_count[pin.ic_position] - side_index[pin.ic_position]-1))
 				side_index[pin.ic_position]+=1
 	for pin_spec in spec:
 		if pin_spec.dependencies.is_empty():
@@ -210,9 +212,9 @@ func update_pins(pins:Array, ic_shape:Vector2):
 			"BOTTOM":
 				side_count["BOTTOM"]+=1
 			"LEFT":
-				side_count["BOTTOM"]+=1
+				side_count["LEFT"]+=1
 			"RIGHT":
-				side_count["BOTTOM"]+=1
+				side_count["RIGHT"]+=1
 	for k in side_count:
 		if k=="TOP" or k=="BOTTOM": #if pins are spaced horizontally
 			if side_count[k] != 1:
@@ -247,12 +249,14 @@ func update_pins(pins:Array, ic_shape:Vector2):
 				0+ic_shape.y/2)
 				side_index[_pin.ic_position]+=1
 			"LEFT":
+				pin.rotation_degrees =270
 				pin.position = Vector2(0-ic_shape.x/2 , 
-				side_padding-ic_shape.y/2- 
-				side_margin[_pin.ic_position]*side_index[_pin.ic_position])
-				side_index[_pin.ic_position]+=1	
+				side_padding-ic_shape.y/2+
+				side_margin[pin.ic_position]*side_index[pin.ic_position])
+				side_index[pin.ic_position]+=1	
 			"RIGHT":
+				pin.rotation_degrees =90
 				pin.position = Vector2(0+ic_shape.x/2 , 
-				side_padding-ic_shape.y/2-
-				side_margin[_pin.ic_position]*side_index[_pin.ic_position])
-				side_index[_pin.ic_position]+=1
+				side_padding-ic_shape.y/2+
+				side_margin[pin.ic_position]*(side_count[pin.ic_position] - side_index[pin.ic_position]-1))
+				side_index[pin.ic_position]+=1

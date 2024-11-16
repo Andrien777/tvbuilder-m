@@ -24,10 +24,14 @@ func _ready():
 func _process_signal():
 	pin(8).set_low()
 	pin(16).set_high()
+	pin(4).set_high()
 	var a = ((pin(7).high as int)) | ((pin(1).high as int)<<1) | ((pin(2).high as int)<<2) | ((pin(6).high as int)<<3) 
 	if(pin(3).high): # LT
-		pass
-	if(pin(5).low): # Don`t handle RBI for now
-		pass
+		for i in range(0,7):
+			outs[i].state = lut[8][i]
+	if(pin(5).low): # RBI
+		if a == 0:
+			a = 15
+			pin(4).set_low()
 	for i in range(0,7):
 		outs[i].state = lut[a][i]

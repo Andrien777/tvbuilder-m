@@ -32,14 +32,14 @@
 			"direction": "DIRECTION_OUTPUT",
 			"position": "BOTTOM",
 			"readable_name": "BI/RBO",
-			"description": "Сигнал стирания незначащих нулей",
+			"description": "Сигнал стирания",
 			"dependencies": [-1]
 		},{
 			"index": 5,
 			"direction": "DIRECTION_INPUT",
 			"position": "BOTTOM",
 			"readable_name": "~RBI",
-			"description": "Сигнал RBI",
+			"description": "Сигнал стирания незначащих нулей",
 			"dependencies": []
 		},{
 			"index": 6,

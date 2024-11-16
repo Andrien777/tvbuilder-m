@@ -8,21 +8,21 @@
 		{
 			"index": 1,
 			"direction": "DIRECTION_INPUT",
-			"position": "BOTTOM",
+			"position": "LEFT",
 			"readable_name": "F",
 			"description": "Вход сегмента F",
 			"dependencies": []
 		},{
 			"index": 2,
 			"direction": "DIRECTION_INPUT",
-			"position": "BOTTOM",
+			"position": "LEFT",
 			"readable_name": "G",
 			"description": "Вход сегмента G",
 			"dependencies": []
 		},{
 			"index": 3,
 			"direction": "DIRECTION_INPUT_OUTPUT",
-			"position": "BOTTOM",
+			"position": "LEFT",
 			"readable_name": "NC",
 			"description": "Неиспользуемый вывод",
 			"dependencies": []
@@ -30,21 +30,21 @@
 		,{
 			"index": 4,
 			"direction": "DIRECTION_INPUT",
-			"position": "BOTTOM",
+			"position": "LEFT",
 			"readable_name": "Общий катод",
 			"description": "Катод светодиодов, который необходимо подключить на общий провод",
 			"dependencies": []
 		},{
 			"index": 5,
 			"direction": "DIRECTION_OUTPUT",
-			"position": "BOTTOM",
+			"position": "LEFT",
 			"readable_name": "NC",
 			"description": "Неиспользуемый вывод",
 			"dependencies": [-1]
 		},{
 			"index": 6,
 			"direction": "DIRECTION_INPUT",
-			"position": "BOTTOM",
+			"position": "LEFT",
 			"readable_name": "E",
 			"description": "Сегмент Е",
 			"dependencies": []
@@ -52,7 +52,7 @@
 		,{
 			"index": 7,
 			"direction": "DIRECTION_INPUT",
-			"position": "BOTTOM",
+			"position": "LEFT",
 			"readable_name": "D",
 			"description": "Сегмент D",
 			"dependencies": []
@@ -60,7 +60,7 @@
 		,{
 			"index": 8,
 			"direction": "DIRECTION_INPUT",
-			"position": "BOTTOM",
+			"position": "LEFT",
 			"readable_name": "C",
 			"description": "Сегмент С",
 			"dependencies": []
@@ -68,7 +68,7 @@
 		,{
 			"index": 16,
 			"direction": "DIRECTION_OUTPUT",
-			"position": "TOP",
+			"position": "RIGHT",
 			"readable_name": "VCC",
 			"description": "Питание",
 			"dependencies": []
@@ -76,7 +76,7 @@
 		,{
 			"index": 15,
 			"direction": "DIRECTION_INPUT",
-			"position": "TOP",
+			"position": "RIGHT",
 			"readable_name": "NC",
 			"description": "Неиспользуемый вывод",
 			"dependencies": []
@@ -84,21 +84,21 @@
 		,{
 			"index": 14,
 			"direction": "DIRECTION_INPUT",
-			"position": "TOP",
+			"position": "RIGHT",
 			"readable_name": "A",
 			"description": "Сегмент А",
 			"dependencies": []
 		},{
 			"index": 13,
 			"direction": "DIRECTION_INPUT",
-			"position": "TOP",
+			"position": "RIGHT",
 			"readable_name": "B",
 			"description": "Сегмент В",
 			"dependencies": []
 		},{
 			"index": 12,
 			"direction": "DIRECTION_INPUT",
-			"position": "TOP",
+			"position": "RIGHT",
 			"readable_name": "Общий катод",
 			"description": "Катод светодиодов, который необходимо подключить на общий провод",
 			"dependencies": []
@@ -106,21 +106,21 @@
 		,{
 			"index": 11,
 			"direction": "DIRECTION_OUTPUT",
-			"position": "TOP",
+			"position": "RIGHT",
 			"readable_name": "NC",
 			"description": "Неиспользуемый вывод",
 			"dependencies": [-1]
 		},{
 			"index": 10,
 			"direction": "DIRECTION_OUTPUT",
-			"position": "TOP",
+			"position": "RIGHT",
 			"readable_name": "NC",
 			"description": "Неиспользуемый вывод",
 			"dependencies": [-1]
 		},{
 			"index": 9,
 			"direction": "DIRECTION_OUTPUT",
-			"position": "TOP",
+			"position": "RIGHT",
 			"readable_name": "NC",
 			"description": "Неиспользуемый вывод",
 			"dependencies": [-1]
