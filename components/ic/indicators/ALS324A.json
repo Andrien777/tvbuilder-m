@@ -3,7 +3,7 @@
 	"num_pins": 14,
 	"height": 25,
 	"width": 25,
-	"texture": "res://graphics/legacy/ic/14leg_2x.png",
+	"texture": "res://graphics/legacy/ic/7segment/7seg_x2.png",
 	"pinSpecifications": [
 		{
 			"index": 1,
