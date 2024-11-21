@@ -60,14 +60,14 @@ func _mouse_exit() -> void:
 	first_object.modulate=Color(1,1,1,1)
 	second_object.modulate=Color(1,1,1,1)
 	is_mouse_over = false
-var first_object_last_position
-var second_object_last_position
+var first_object_last_position = Vector2(0,0)
+var second_object_last_position = Vector2(0,0)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float, force_update = false) -> void:
 	# TODO: Render only if position of start|end nodes changed
 	
 	if first_object!=null and second_object!=null : # TODO: Notify WireManager about missing object
-		if  (first_object.global_position != first_object_last_position or second_object.global_position!=second_object_last_position or force_update):
+		if  (abs(first_object.global_position - first_object_last_position) <= Vector2.ONE * 1e-6 or abs(second_object.global_position - second_object_last_position) <= Vector2.ONE * 1e-6 or force_update):
 
 			line.set_point_position(0, first_object.global_position)
 			line.set_point_position(1, first_object.global_position+get_pin_offset(first_object))

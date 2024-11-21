@@ -43,8 +43,8 @@ func _delete_wire(wire):
 		wire.queue_free()
 
 func _create_wire(first_object:Node2D, second_object:Node2D):
-	if(first_object.parent is Switch):
-		first_object.parent.label.text = second_object.readable_name # TODO: Delete this...
+	#if(first_object.parent is Switch):
+		#first_object.parent.label.text = second_object.readable_name # TODO: Delete this...
 	
 	if first_object==second_object:
 		print("Соединение с самим собой")
