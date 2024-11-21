@@ -1,4 +1,5 @@
 extends CircuitComponent
+
 class_name Switch
 
 var on = false

@@ -161,7 +161,11 @@ func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void
 			if tween:
 				tween.kill()
 			tween = create_tween()
-			tween.tween_property(self,"position",position - Vector2(int(position.x)%25, int(position.y)%25),0.1).set_trans(Tween.TRANS_ELASTIC)
+			var dx = int(position.x) % 25 if int(position.x) % 25 < (25 - int(position.x) % 25) else int(position.x) % 25 - 25
+			var dy = int(position.y) % 25 if int(position.y) % 25 < (25 - int(position.y) % 25) else int(position.y) % 25 - 25
+			dx += position.x - int(position.x)
+			dy += position.y - int(position.y)
+			tween.tween_property(self,"position",position - Vector2(dx, dy),0.1).set_trans(Tween.TRANS_ELASTIC)
 			#position = position - Vector2(int(position.x)%25, int(position.y)%25)
 
 func _process_signal():
