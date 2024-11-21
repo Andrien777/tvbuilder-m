@@ -9,6 +9,8 @@ func _ready() -> void:
 
 	
 func _process_signal():
+	pin(10).set_low()
+	pin(20).set_high()
 	if (pin(1).low):
 		if pin(13).high:
 			pin(2).state = pin(3).state

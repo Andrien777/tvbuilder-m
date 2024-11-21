@@ -11,6 +11,8 @@ func _ready() -> void:
 	s1 = pin(23)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process_signal() -> void:
+	pin(12).set_low()
+	pin(24).set_high()
 	if(pin(13).low):
 		for out in outputs: # reset all outputs to low
 			out.set_low()

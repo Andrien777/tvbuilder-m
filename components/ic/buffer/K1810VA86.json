@@ -10,21 +10,21 @@
 			"direction": "DIRECTION_INPUT_OUTPUT",
 			"position": "BOTTOM",
 			"readable_name": "А0",
-			"description": "Вход А",
+			"description": "Шина А",
 			"dependencies": []
 		},{
 			"index": 2,
 			"direction": "DIRECTION_INPUT_OUTPUT",
 			"position": "BOTTOM",
 			"readable_name": "А1",
-			"description": "Вход А",
+			"description": "Шина А",
 			"dependencies": []
 		},{
 			"index": 3,
 			"direction": "DIRECTION_INPUT_OUTPUT",
 			"position": "BOTTOM",
 			"readable_name": "А2",
-			"description": "Вход А",
+			"description": "Шина А",
 			"dependencies": []
 		}
 		,{
@@ -32,21 +32,21 @@
 			"direction": "DIRECTION_INPUT_OUTPUT",
 			"position": "BOTTOM",
 			"readable_name": "A3",
-			"description": "Вход А",
+			"description": "Шина А",
 			"dependencies": []
 		},{
 			"index": 5,
 			"direction": "DIRECTION_INPUT_OUTPUT",
 			"position": "BOTTOM",
 			"readable_name":"A4",
-			"description": "Вход A",
+			"description": "Шина A",
 			"dependencies": []
 		},{
 			"index": 6,
 			"direction": "DIRECTION_INPUT_OUTPUT",
 			"position": "BOTTOM",
 			"readable_name": "A5",
-			"description": "Вход А",
+			"description": "Шина А",
 			"dependencies": []
 		}
 		,{
@@ -54,7 +54,7 @@
 			"direction": "DIRECTION_INPUT_OUTPUT",
 			"position": "BOTTOM",
 			"readable_name": "A6",
-			"description": "Вход A",
+			"description": "Шина A",
 			"dependencies": []
 		}
 		,{
@@ -62,7 +62,7 @@
 			"direction": "DIRECTION_INPUT_OUTPUT",
 			"position": "BOTTOM",
 			"readable_name": "A7",
-			"description": "Вход А",
+			"description": "Шина А",
 			"dependencies": []
 		},{
 			"index": 9,
@@ -92,7 +92,7 @@
 			"direction": "DIRECTION_INPUT_OUTPUT",
 			"position": "TOP",
 			"readable_name": "B0",
-			"description": "Выход B",
+			"description": "Шина B",
 			"dependencies": [-1]
 		}
 		,{
@@ -100,7 +100,7 @@
 			"direction": "DIRECTION_INPUT_OUTPUT",
 			"position": "TOP",
 			"readable_name": "B1",
-			"description": "Выход B",
+			"description": "Шина B",
 			"dependencies": [-1]
 		}
 		,{
@@ -108,7 +108,7 @@
 			"direction": "DIRECTION_INPUT_OUTPUT",
 			"position": "TOP",
 			"readable_name": "B2",
-			"description": "Выход В",
+			"description": "Шина В",
 			"dependencies": [-1]
 		}
 		,{
@@ -116,21 +116,21 @@
 			"direction": "DIRECTION_INPUT_OUTPUT",
 			"position": "TOP",
 			"readable_name": "B3",
-			"description": "Выход В",
+			"description": "Шина В",
 			"dependencies": [-1]
 		},{
 			"index": 15,
 			"direction": "DIRECTION_INPUT_OUTPUT",
 			"position": "TOP",
 			"readable_name": "B4",
-			"description": "Выход В",
+			"description": "Шина В",
 			"dependencies": [-1]
 		},{
 			"index": 14,
 			"direction": "DIRECTION_INPUT_OUTPUT",
 			"position": "TOP",
 			"readable_name": "В5",
-			"description": "Выход В",
+			"description": "Шина В",
 			"dependencies": [-1]
 		}
 		,{
@@ -138,14 +138,14 @@
 			"direction": "DIRECTION_INPUT_OUTPUT",
 			"position": "TOP",
 			"readable_name": "B6",
-			"description": "Выход В",
+			"description": "Шина В",
 			"dependencies": [-1]
 		},{
 			"index": 12,
 			"direction": "DIRECTION_INPUT_OUTPUT",
 			"position": "TOP",
 			"readable_name": "B7",
-			"description": "Выход В",
+			"description": "Шина В",
 			"dependencies": [-1]
 		},
 		{

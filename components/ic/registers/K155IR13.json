@@ -4,7 +4,7 @@
 	"num_pins": 24,
 	"height": 25,
 	"width": 25,
-	"texture": "res://graphics/legacy/ic/20leg_2x.png",
+	"texture": "res://graphics/legacy/ic/24leg_2x.png",
 	"pinSpecifications": [
 		{
 			"index": 1,

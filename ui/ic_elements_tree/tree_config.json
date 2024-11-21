@@ -61,6 +61,10 @@
 							"ic_name": "К1533ИД4",
 							"config_path": "res://components/ic/demux/K1533ID4.json",
 							"logic_class_path": "res://components/ic/demux/K1533ID4.gd"
+						},{
+							"ic_name": "КР1533ИД3",
+							"config_path": "res://components/ic/demux/KR1533ID3.json",
+							"logic_class_path": "res://components/ic/demux/KR1533ID3.gd"
 						},
 						{
 							"ic_name": "74485",
@@ -100,6 +104,10 @@
 							"ic_name": "К1533ТМ2",
 							"config_path": "res://components/ic/flipflops/K1533TM2.json",
 							"logic_class_path": "res://components/ic/flipflops/K1533TM2.gd"
+						},{
+							"ic_name": "К1531ТВ9",
+							"config_path": "res://components/ic/flipflops/K1531TV9.json",
+							"logic_class_path": "res://components/ic/flipflops/K1531TV9.gd"
 						}
 					]
 				},{
@@ -139,6 +147,15 @@
 						}
 					]
 				},{
+					"group_name": "Компараторы",
+					"subelements": [
+						{
+							"ic_name": "КР1533СП1",
+							"config_path": "res://components/ic/comparators/KR1533SP1.json",
+							"logic_class_path": "res://components/ic/comparators/KR1533SP1.gd"
+						}
+					]
+				},{
 					"group_name": "Индикаторы",
 					"subelements": [
 						{
@@ -171,6 +188,14 @@
 					"ic_name": "Метка",
 					"config_path": "res://components/misc/Labels/TextLabel.json",
 					"logic_class_path": "res://components/misc/Labels/TextLabel.gd"
+				},{
+					"ic_name": "Логическая единица (VCC)",
+					"config_path": "res://components/ic/other/constant1.json",
+					"logic_class_path": "res://components/ic/other/constant1.gd"
+				},{
+					"ic_name": "Логический ноль (GND)",
+					"config_path": "res://components/ic/other/constant0.json",
+					"logic_class_path": "res://components/ic/other/constant0.gd"
 				}
 				
 			]

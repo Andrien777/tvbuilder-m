@@ -113,5 +113,20 @@
 	},"К1810ВА86": {
 		"config_path": "res://components/ic/buffer/K1810VA86.json",
 		"logic_class_path": "res://components/ic/buffer/K1810VA86.gd"
-	},
+	},"К1531ТВ9":{
+		"config_path": "res://components/ic/flipflops/K1531TV9.json",
+		"logic_class_path": "res://components/ic/flipflops/K1531TV9.gd"
+	},"КР1533ИД3":{
+		"config_path": "res://components/ic/demux/KR1533ID3.json",
+		"logic_class_path": "res://components/ic/demux/KR1533ID3.gd"
+	},"КР1533СП1":{
+		"config_path": "res://components/ic/comparators/KR1533SP1.json",
+		"logic_class_path": "res://components/ic/comparators/KR1533SP1.gd"
+	},"VCC":{
+		"config_path": "res://components/ic/other/constant1.json",
+		"logic_class_path": "res://components/ic/other/constant1.gd"
+	},"GND":{
+		"config_path": "res://components/ic/other/constant0.json",
+		"logic_class_path": "res://components/ic/other/constant0.gd"
+	}
 }

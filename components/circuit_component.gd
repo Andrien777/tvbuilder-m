@@ -126,7 +126,7 @@ func initialize_pins(spec: Array, ic_shape:Vector2)->void:
 				side_margin[pin.ic_position]*(side_count[pin.ic_position] - side_index[pin.ic_position]-1))
 				side_index[pin.ic_position]+=1
 	for pin_spec in spec:
-		if pin_spec.dependencies.is_empty():
+		if pin_spec.dependencies.is_empty() or pin_spec.direction == NetConstants.DIRECTION.DIRECTION_INPUT:
 			continue
 		if pin_spec.dependencies[0] == -1:
 			pins[pin_spec.index - 1].initialize_dependencies()
