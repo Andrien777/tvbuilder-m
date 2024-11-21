@@ -1,0 +1,129 @@
+{
+	"name":"КР1533СП1",
+	"num_pins": 16,
+	"height": 25,
+	"width": 25,
+	"texture": "res://graphics/legacy/ic/16leg_2x.png",
+	"pinSpecifications": [
+		{
+			"index": 1,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "B2",
+			"description": "Вход B2",
+			"dependencies": []
+		},{
+			"index": 2,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "A2",
+			"description": "Вход A2",
+			"dependencies": []
+		},{
+			"index": 3,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "A=B",
+			"description": "Выход равенства",
+			"dependencies": [-1]
+		}
+		,{
+			"index": 4,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "A>B",
+			"description": "Каскадный вход",
+			"dependencies": []
+		},{
+			"index": 5,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "A<B",
+			"description": "Каскадный вход",
+			"dependencies": []
+		},{
+			"index": 6,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "A=B",
+			"description": "Каскадный вход",
+			"dependencies": []
+		}
+		,{
+			"index": 7,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "A1",
+			"description": "Вход A1",
+			"dependencies": []
+		}
+		,{
+			"index": 8,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "GND",
+			"description": "Земля",
+			"dependencies": []
+		}
+		,{
+			"index": 16,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "VCC",
+			"description": "Питание",
+			"dependencies": []
+		}
+		,{
+			"index": 15,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "A3",
+			"description": "Вход A3",
+			"dependencies": []
+		}
+		,{
+			"index": 14,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "B3",
+			"description": "Вход B3",
+			"dependencies": []
+		},{
+			"index": 13,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "A>B",
+			"description": "Выход результата сравнения A>B",
+			"dependencies": [-1]
+		},{
+			"index": 12,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "A<B",
+			"description": "Выход результата сравнения A<B",
+			"dependencies": [-1]
+		}
+		,{
+			"index": 11,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "B0",
+			"description": "B0",
+			"dependencies": []
+		},{
+			"index": 10,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "A0",
+			"description": "Вход A0",
+			"dependencies": []
+		},{
+			"index": 9,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "B1",
+			"description": "Вход B1",
+			"dependencies": []
+		}
+	]
+}

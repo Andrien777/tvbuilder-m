@@ -1,0 +1,17 @@
+{
+	"name":"GND",
+	"num_pins": 1,
+	"height": 25,
+	"width": 25,
+	"texture": "res://graphics/legacy/const0_2x.png",
+	"pinSpecifications": [
+		{
+			"index": 1,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "RIGHT",
+			"readable_name": "GND",
+			"description": "Земля",
+			"dependencies": []
+		}
+	]
+}

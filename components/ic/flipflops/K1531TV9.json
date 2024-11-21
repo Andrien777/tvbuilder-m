@@ -1,0 +1,129 @@
+{
+	"name":"К1531ТВ9",
+	"num_pins": 16,
+	"height": 25,
+	"width": 25,
+	"texture": "res://graphics/legacy/ic/16leg_2x.png",
+	"pinSpecifications": [
+		{
+			"index": 1,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "~C1",
+			"description": "Сигнал тактирования триггера 1",
+			"dependencies": []
+		},{
+			"index": 2,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "K1",
+			"description": "Вход K триггера 1",
+			"dependencies": []
+		},{
+			"index": 3,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "J1",
+			"description": "Вход J триггера 1",
+			"dependencies": []
+		}
+		,{
+			"index": 4,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "~S1",
+			"description": "Сигнал асинхронной установки триггера 1",
+			"dependencies": []
+		},{
+			"index": 5,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "Q1",
+			"description": "Выход триггера 1",
+			"dependencies": [-1]
+		},{
+			"index": 6,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "~Q1",
+			"description": "Инверсный выход триггера 1",
+			"dependencies": [-1]
+		}
+		,{
+			"index": 7,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "~Q2",
+			"description": "Инверсный выход триггера 2",
+			"dependencies": [-1]
+		}
+		,{
+			"index": 8,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "GND",
+			"description": "Земля",
+			"dependencies": []
+		}
+		,{
+			"index": 16,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "VCC",
+			"description": "Питание",
+			"dependencies": []
+		}
+		,{
+			"index": 15,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "~R1",
+			"description": "Сигнал асинхронного сброса триггера 1",
+			"dependencies": []
+		}
+		,{
+			"index": 14,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "~R2",
+			"description": "Сигнал асинхронного сброса триггера 2",
+			"dependencies": []
+		},{
+			"index": 13,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "~C2",
+			"description": "Сигнал тактирования триггера 2",
+			"dependencies": []
+		},{
+			"index": 12,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "K2",
+			"description": "Вход K триггера 2",
+			"dependencies": []
+		}
+		,{
+			"index": 11,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "J2",
+			"description": "Вход J триггера 2",
+			"dependencies": []
+		},{
+			"index": 10,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "~S2",
+			"description": "Сигнал асинхронной установки триггера 2",
+			"dependencies": []
+		},{
+			"index": 9,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "Q2",
+			"description": "Выход триггера 2",
+			"dependencies": [-1]
+		}
+	]
+}

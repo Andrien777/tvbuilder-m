@@ -1,0 +1,185 @@
+{
+	"name":"КР1533ИД3",
+	"num_pins": 24,
+	"height": 25,
+	"width": 25,
+	"texture": "res://graphics/legacy/ic/24leg_2x.png",
+	"pinSpecifications": [
+		{
+			"index": 1,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "Y0",
+			"description": "Выход Y0",
+			"dependencies": [-1]
+		},{
+			"index": 2,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "Y1",
+			"description": "Выход Y1",
+			"dependencies": [-1]
+		},{
+			"index": 3,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "Y2",
+			"description": "Выход Y2",
+			"dependencies": [-1]
+		}
+		,{
+			"index": 4,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "Y3",
+			"description": "Выход Y3",
+			"dependencies": [-1]
+		},{
+			"index": 5,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "Y4",
+			"description": "Выход Y4",
+			"dependencies": [-1]
+		},{
+			"index": 6,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "Y5",
+			"description": "Выход Y5",
+			"dependencies": [-1]
+		}
+		,{
+			"index": 7,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "Y6",
+			"description": "Выход Y6",
+			"dependencies": [-1]
+		}
+		,{
+			"index": 8,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "Y7",
+			"description": "Выход Y7",
+			"dependencies": [-1]
+		},{
+			"index": 9,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "Y8",
+			"description": "Выход Y8",
+			"dependencies": [-1]
+		},{
+			"index": 10,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "Y9",
+			"description": "Выход Y9",
+			"dependencies": [-1]
+		},{
+			"index": 11,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "Y10",
+			"description": "Выход Y10",
+			"dependencies": [-1]
+		},{
+			"index": 12,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "GND",
+			"description": "Земля",
+			"dependencies": []
+
+		},{
+			"index": 24,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "VCC",
+			"description": "5В",
+			"dependencies": []
+		},{
+			"index": 23,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "A0",
+			"description": "Адресный вход 0",
+			"dependencies": []
+		},{
+			"index": 22,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "A1",
+			"description": "Адресный вход 1",
+			"dependencies": []
+		},{
+			"index": 21,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "A2",
+			"description": "Адресный вход 2",
+			"dependencies": []
+		},{
+			"index": 20,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "A3",
+			"description": "Адресный вход 3",
+			"dependencies": []
+		},{
+			"index": 19,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "CS2",
+			"description": "Стробирующий вход 2",
+			"dependencies": []
+		},{
+			"index": 18,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "CS1",
+			"description": "Стробирующий вход 1",
+			"dependencies": []
+		},{
+			"index": 17,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "Y15",
+			"description": "Выход Y15",
+			"dependencies": [-1]
+		}
+		,{
+			"index": 16,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "Y14",
+			"description": "Выход Y14",
+			"dependencies": [-1]
+		}
+		,{
+			"index": 15,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "Y13",
+			"description": "Выход Y13",
+			"dependencies": [-1]
+		}
+		,{
+			"index": 14,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "Y12",
+			"description": "Выход Y12",
+			"dependencies": [-1]
+		},{
+			"index": 13,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "Y11",
+			"description": "Выход Y11",
+			"dependencies": [-1]
+		}
+	]
+}

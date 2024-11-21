@@ -1,0 +1,17 @@
+{
+	"name":"VCC",
+	"num_pins": 1,
+	"height": 25,
+	"width": 25,
+	"texture": "res://graphics/legacy/const1_2x.png",
+	"pinSpecifications": [
+		{
+			"index": 1,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "RIGHT",
+			"readable_name": "VCC",
+			"description": "Питание",
+			"dependencies": []
+		}
+	]
+}
