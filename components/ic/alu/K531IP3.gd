@@ -117,7 +117,7 @@ func _process_signal():
 			15:
 				f = a;
 	pin(14).state = a==b# Write comparator output
-	if((not cc) and (f & 16)) or carry_out:
+	if((not cc) and (f & 16)) and not carry_out or carry_out and not ((not cc) and (f & 16)):
 		pin(16).set_high() # Set the carry output
 	else:
 		pin(16).set_low()
