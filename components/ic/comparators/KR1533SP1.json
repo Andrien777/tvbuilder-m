@@ -6,21 +6,21 @@
 	"texture": "res://graphics/legacy/ic/16leg_2x.png",
 	"pinSpecifications": [
 		{
-			"index": 1,
+			"index": 14,
 			"direction": "DIRECTION_INPUT",
-			"position": "BOTTOM",
+			"position": "TOP",
 			"readable_name": "B2",
 			"description": "Вход B2",
 			"dependencies": []
 		},{
-			"index": 2,
+			"index": 13,
 			"direction": "DIRECTION_INPUT",
-			"position": "BOTTOM",
+			"position": "TOP",
 			"readable_name": "A2",
 			"description": "Вход A2",
 			"dependencies": []
 		},{
-			"index": 3,
+			"index": 6,
 			"direction": "DIRECTION_OUTPUT",
 			"position": "BOTTOM",
 			"readable_name": "A=B",
@@ -35,14 +35,14 @@
 			"description": "Каскадный вход",
 			"dependencies": []
 		},{
-			"index": 5,
+			"index": 2,
 			"direction": "DIRECTION_INPUT",
 			"position": "BOTTOM",
 			"readable_name": "A<B",
 			"description": "Каскадный вход",
 			"dependencies": []
 		},{
-			"index": 6,
+			"index": 3,
 			"direction": "DIRECTION_INPUT",
 			"position": "BOTTOM",
 			"readable_name": "A=B",
@@ -50,9 +50,9 @@
 			"dependencies": []
 		}
 		,{
-			"index": 7,
+			"index": 12,
 			"direction": "DIRECTION_INPUT",
-			"position": "BOTTOM",
+			"position": "TOP",
 			"readable_name": "A1",
 			"description": "Вход A1",
 			"dependencies": []
@@ -82,29 +82,29 @@
 			"dependencies": []
 		}
 		,{
-			"index": 14,
+			"index": 1,
 			"direction": "DIRECTION_INPUT",
-			"position": "TOP",
+			"position": "BOTTOM",
 			"readable_name": "B3",
 			"description": "Вход B3",
 			"dependencies": []
 		},{
-			"index": 13,
+			"index": 5,
 			"direction": "DIRECTION_OUTPUT",
-			"position": "TOP",
+			"position": "BOTTOM",
 			"readable_name": "A>B",
 			"description": "Выход результата сравнения A>B",
 			"dependencies": [-1]
 		},{
-			"index": 12,
+			"index": 7,
 			"direction": "DIRECTION_OUTPUT",
-			"position": "TOP",
+			"position": "BOTTOM",
 			"readable_name": "A<B",
 			"description": "Выход результата сравнения A<B",
 			"dependencies": [-1]
 		}
 		,{
-			"index": 11,
+			"index": 9,
 			"direction": "DIRECTION_INPUT",
 			"position": "TOP",
 			"readable_name": "B0",
@@ -118,7 +118,7 @@
 			"description": "Вход A0",
 			"dependencies": []
 		},{
-			"index": 9,
+			"index": 11,
 			"direction": "DIRECTION_INPUT",
 			"position": "TOP",
 			"readable_name": "B1",

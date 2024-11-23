@@ -46,7 +46,7 @@
 			"direction": "DIRECTION_OUTPUT",
 			"position": "BOTTOM",
 			"readable_name": "Q1",
-			"description": "Выход А",
+			"description": "Выход Q1",
 			"dependencies": [-1]
 		}
 		,{
