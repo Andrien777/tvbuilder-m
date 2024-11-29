@@ -47,6 +47,8 @@ func _ready() -> void:
 	add_child(settings_popup)
 	add_child(freq_label)
 	start_timer()
+	pin(1).set_low()
+	pin(2).set_high()
 
 
 
@@ -72,8 +74,10 @@ func on_timer_timeout():
 	if(enabled):
 		if(pin(1).high):
 			pin(1).set_low()
+			pin(2).set_high()
 		else:
 			pin(1).set_high()
+			pin(2).set_low()
 func on_text_update(new_text:String):
 	if(new_text.is_valid_float()):
 		var freq = float(new_text)

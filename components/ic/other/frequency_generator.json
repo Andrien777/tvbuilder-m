@@ -13,6 +13,14 @@
 			"readable_name": "f",
 			"description": "Выход генератора",
 			"dependencies": []
+		},
+		{
+			"index": 2,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "~f",
+			"description": "Выход второй фазы генератора",
+			"dependencies": []
 		}
 	]
 }
