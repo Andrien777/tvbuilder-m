@@ -132,5 +132,8 @@
 	},"GND":{
 		"config_path": "res://components/ic/other/constant0.json",
 		"logic_class_path": "res://components/ic/other/constant0.gd"
+	},"8284A":{
+		"config_path": "res://components/ic/other/8284A.json",
+		"logic_class_path": "res://components/ic/other/8284A.gd"
 	}
 }

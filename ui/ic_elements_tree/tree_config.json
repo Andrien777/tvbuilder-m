@@ -189,6 +189,11 @@
 					"ic_name": "Генератор частоты",
 					"config_path": "res://components/ic/other/frequency_generator.json",
 					"logic_class_path": "res://components/ic/other/frequency_generator.gd"
+				},
+				{
+					"ic_name": "8284A",
+					"config_path": "res://components/ic/other/8284A.json",
+					"logic_class_path": "res://components/ic/other/8284A.gd"
 				},{
 					"ic_name": "Метка",
 					"config_path": "res://components/misc/Labels/TextLabel.json",
