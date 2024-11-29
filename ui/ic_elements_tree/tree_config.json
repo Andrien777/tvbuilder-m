@@ -38,6 +38,11 @@
 							"logic_class_path": "res://components/ic/logic/K1533LA4.gd"
 						},
 						{
+							"ic_name": "К1533ЛЕ1",
+							"config_path": "res://components/ic/logic/K1533LE1.json",
+							"logic_class_path": "res://components/ic/logic/K1533LE1.gd"
+						},
+						{
 							"ic_name": "К1533ЛЕ4",
 							"config_path": "res://components/ic/logic/K1533LE4.json",
 							"logic_class_path": "res://components/ic/logic/K1533LE4.gd"
