@@ -4,6 +4,8 @@
 //#include <Dialogs.hpp>
 #include <set>
 
+using namespace godot;
+
 void IProc_8088::Perform_work() {
 
     // wait clk front/back to change mpu states

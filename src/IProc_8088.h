@@ -7,47 +7,14 @@
 #include <cstdint>
 #include <stdexcept>
 #include <string>
+#include <godot_cpp/classes/ref_counted.hpp>
+
+namespace godot {
 
 #define PREFETCH_QUEUE_8086_MAX_SIZE 4
 
 using word = unsigned __int16;
 typedef uint8_t byte;
-
-/**
- * true, if the bit with index [bitIdx] == 1 in number [n], else false
- */
-bool isActiveBitByIdx(int n, int bitIdx)
-{
-    return ((n >> bitIdx) & 1U) == 1;
-}
-
-/**
- * set [bitIdx]'th bit of [n] with [value] (0, 1)
- */
-void setBitByIdx(int* n, int bitIdx, int value)
-{
-    if (value) {
-        // set to 1
-        *n |= 1UL << bitIdx;
-    } else {
-        // reset to 0
-        *n &= ~(1UL << bitIdx);
-    }
-}
-
-/**
- * set [bitIdx]'th bit of [n] with [value] (0, 1)
- */
-void setBitByIdx(word* n, int bitIdx, int value)
-{
-    if (value) {
-        // set to 1
-        *n |= 1UL << bitIdx;
-    } else {
-        // reset to 0
-        *n &= ~(1UL << bitIdx);
-    }
-}
 
 // TW is T Wait - possibly not used in emu
 enum class TState {
@@ -186,7 +153,49 @@ private:
  *     38 | Out (A15)             |           |     28
  *     39 | VCC                   |           |
 */
-class IProc_8088 {
+class IProc_8088 : public RefCounted {
+	GDCLASS(IProc_8088, RefCounted)
+	
+protected:
+    static void _bind_methods() {};
+	
+private:
+/**
+ * true, if the bit with index [bitIdx] == 1 in number [n], else false
+ */
+bool isActiveBitByIdx(int n, int bitIdx)
+{
+    return ((n >> bitIdx) & 1U) == 1;
+}
+
+/**
+ * set [bitIdx]'th bit of [n] with [value] (0, 1)
+ */
+void setBitByIdx(int* n, int bitIdx, int value)
+{
+    if (value) {
+        // set to 1
+        *n |= 1UL << bitIdx;
+    } else {
+        // reset to 0
+        *n &= ~(1UL << bitIdx);
+    }
+}
+
+/**
+ * set [bitIdx]'th bit of [n] with [value] (0, 1)
+ */
+void setBitByIdx_s(word* n, int bitIdx, int value)
+{
+    if (value) {
+        // set to 1
+        *n |= 1UL << bitIdx;
+    } else {
+        // reset to 0
+        *n &= ~(1UL << bitIdx);
+    }
+}
+	
 public:
     bool prevClock; // Clock at previous state
 
@@ -217,43 +226,43 @@ public:
 
     // CF (Carry flag)
     bool getFlagCarry() { return isActiveBitByIdx(flags, 0); }
-	void setFlagCarry(bool value) { setBitByIdx(&flags, 0, value); }
+	void setFlagCarry(bool value) { setBitByIdx_s(&flags, 0, value); }
 
     // PF (Parity flag)
     bool getFlagParity() { return isActiveBitByIdx(flags, 2); }
-	void setFlagParity(bool value) { setBitByIdx(&flags, 2, value); }
+	void setFlagParity(bool value) { setBitByIdx_s(&flags, 2, value); }
 
     // AF (Auxiliary carry flag)
     bool getFlagAuxiliaryCarry() { return isActiveBitByIdx(flags, 4); }
-	void setFlagAuxiliaryCarry(bool value) { setBitByIdx(&flags, 4, value); }
+	void setFlagAuxiliaryCarry(bool value) { setBitByIdx_s(&flags, 4, value); }
 
     // ZF (Zero flag)
     bool getFlagZero() { return isActiveBitByIdx(flags, 6); }
-	void setFlagZero(bool value) { setBitByIdx(&flags, 6, value); }
+	void setFlagZero(bool value) { setBitByIdx_s(&flags, 6, value); }
 
     // SF (Sign flag)
     bool getFlagSign() { return isActiveBitByIdx(flags, 7); }
-	void setFlagSign(bool value) { setBitByIdx(&flags, 7, value); }
+	void setFlagSign(bool value) { setBitByIdx_s(&flags, 7, value); }
 
     // Control flags below
 
     // TF (Trace flag)
 	bool getFlagTrace() { return isActiveBitByIdx(flags, 8); }
-	void setFlagTrace(bool value) { setBitByIdx(&flags, 8, value); }
+	void setFlagTrace(bool value) { setBitByIdx_s(&flags, 8, value); }
 
     // IF (Interrupt enable flag)
     bool getFlagInterrupt() { return isActiveBitByIdx(flags, 9); }
-	void setFlagInterrupt(bool value) { setBitByIdx(&flags, 9, value); }
+	void setFlagInterrupt(bool value) { setBitByIdx_s(&flags, 9, value); }
 
     // DF (Direction flag)
     bool getFlagDirection() { return isActiveBitByIdx(flags, 10); }
-	void setFlagDirection(bool value) { setBitByIdx(&flags, 10, value); }
+	void setFlagDirection(bool value) { setBitByIdx_s(&flags, 10, value); }
 
     // -----
 
     // OF (Overflow flag)
     bool getFlagOverflow() { return isActiveBitByIdx(flags, 11); }
-	void setFlagOverflow(bool value) { setBitByIdx(&flags, 11, value); }
+	void setFlagOverflow(bool value) { setBitByIdx_s(&flags, 11, value); }
 
     void setFlagsByteSZP(byte data) {
         setFlagZero(0);
@@ -1909,6 +1918,7 @@ public:
     }
 
 };
+}
 
 /*
  * Not implemented opcodes:
