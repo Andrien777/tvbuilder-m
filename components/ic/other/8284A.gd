@@ -15,7 +15,7 @@ var final_rdy
 func _process_signal():
 	pin(18).set_high()
 	pin(7).set_low()	
-	osc = pin(17).high && not (pin(16).low_or_z)
+	osc = pin(17).high && pin(16).low_or_z
 	if !osc:
 		pin(12).set_high()
 	else:
