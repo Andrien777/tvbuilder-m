@@ -6,9 +6,12 @@ var previous_state = false
 func _init():
 	memory_content.resize(1024);
 	memory_content.fill(0);
+	
+
+func initialize(spec: ComponentSpecification, ic = null):
+	super.initialize(spec, ic)
 	change_graphics_mode(GlobalSettings.GraphicsMode.Legacy if GlobalSettings.LegacyGraphics else GlobalSettings.GraphicsMode.Default)
-	
-	
+
 func _process_signal():
 	pin(9).set_low()
 	pin(18).set_high()

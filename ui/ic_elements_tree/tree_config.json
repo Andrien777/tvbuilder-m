@@ -90,6 +90,11 @@
 							"ic_name": "КР132РУ9А",
 							"config_path": "res://components/ic/memory/KR132RU9A.json",
 							"logic_class_path": "res://components/ic/memory/KR132RU9A.gd"
+						},
+						{
+							"ic_name": "КР537РУ10",
+							"config_path": "res://components/ic/memory/KR537RU10.json",
+							"logic_class_path": "res://components/ic/memory/KR537RU10.gd"
 						}
 					]
 				},
