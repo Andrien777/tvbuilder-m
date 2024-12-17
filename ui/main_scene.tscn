@@ -164,7 +164,7 @@ script = ExtResource("12_wwdn8")
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Label" type="Label" parent="MemoryViewer/VBoxContainer"]
+[node name="RamNameLabel" type="Label" parent="MemoryViewer/VBoxContainer"]
 layout_mode = 2
 text = "Имя элемента памяти"
 
@@ -205,7 +205,7 @@ layout_mode = 2
 text = "Загрузить из файла"
 
 [node name="FileDialog" type="FileDialog" parent="MemoryViewer/VBoxContainer/HBoxContainer"]
-title = "Загрузить образ памяти"
+title = "Open a File"
 size = Vector2i(322, 350)
 ok_button_text = "Open"
 file_mode = 0

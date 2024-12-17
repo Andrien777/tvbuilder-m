@@ -3,6 +3,12 @@ class_name KR537RU10
 var memory_content = Array()
 var previous_state = false
 
+var mem_viewer	
+func _ready():
+	mem_viewer = get_node("/root/RootNode/MemoryViewer")
+
+func _rmb_action():
+	mem_viewer.set_memory(self)
 func _init():
 	memory_content.resize(2048);
 	memory_content.fill(0);	

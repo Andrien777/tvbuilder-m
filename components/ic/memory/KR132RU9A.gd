@@ -2,15 +2,14 @@ extends CircuitComponent
 class_name KR132RU9A
 var memory_content = Array()
 var previous_state = false
-var mem_viewer
+
 func _init():
 	memory_content.resize(1024);
 	memory_content.fill(0);
 	
-	
+var mem_viewer	
 func _ready():
 	mem_viewer = get_node("/root/RootNode/MemoryViewer")
-	print(mem_viewer)
 
 func _rmb_action():
 	mem_viewer.set_memory(self)
