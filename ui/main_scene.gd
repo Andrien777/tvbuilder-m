@@ -1,6 +1,7 @@
 extends Node2D
 var grid_rect
 var timer
+var memory_viewer
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	grid_rect = get_node("GridLayer/GridRect")
@@ -9,6 +10,9 @@ func _ready() -> void:
 	timer.wait_time = 0.1
 	timer.timeout.connect(WireManager.force_update_wires)
 	add_child(timer)
+	#add_child(I8088.new())
+	memory_viewer = preload("res://tools/memory_viewer.tscn").instantiate()
+	add_child(memory_viewer)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

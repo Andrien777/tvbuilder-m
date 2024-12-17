@@ -154,6 +154,7 @@ var tween
 func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if(event.pressed):
+			_lmb_action()
 			drag_offset = global_position - get_global_mouse_position()
 			viewport.set_input_as_handled()
 		is_dragged = event.pressed
@@ -167,7 +168,13 @@ func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void
 			dy += position.y - int(position.y)
 			tween.tween_property(self,"position",position - Vector2(dx, dy),0.1).set_trans(Tween.TRANS_ELASTIC)
 			#position = position - Vector2(int(position.x)%25, int(position.y)%25)
-
+	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
+		if(event.pressed):
+			_rmb_action()
+func _lmb_action():
+	pass
+func _rmb_action():
+	pass
 func _process_signal():
 	pass
 
