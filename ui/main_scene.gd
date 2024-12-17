@@ -9,6 +9,7 @@ func _ready() -> void:
 	timer.wait_time = 0.1
 	timer.timeout.connect(WireManager.force_update_wires)
 	add_child(timer)
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

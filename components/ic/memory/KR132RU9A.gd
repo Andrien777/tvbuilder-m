@@ -6,6 +6,7 @@ var previous_state = false
 func _init():
 	memory_content.resize(1024);
 	memory_content.fill(0);
+	change_graphics_mode(GlobalSettings.GraphicsMode.Legacy if GlobalSettings.LegacyGraphics else GlobalSettings.GraphicsMode.Default)
 	
 	
 func _process_signal():
