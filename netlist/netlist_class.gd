@@ -177,7 +177,7 @@ func propagate_signal() -> void:
 					PopupManager.display_error("Короткое замыкание", "В этом месте произошло КЗ", pin.pin.global_position)
 					#print("Short circuit")
 	for key in nodes.keys():
-		if key.direction == NetConstants.DIRECTION.DIRECTION_INPUT_OUTPUT:
+		if key.direction == NetConstants.DIRECTION.DIRECTION_INPUT_OUTPUT and not GlobalSettings.doCycles:
 			key.parent._process_signal()
 
 func get_json_adjacency():

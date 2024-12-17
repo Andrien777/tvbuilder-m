@@ -157,7 +157,220 @@ class IProc_8088 : public RefCounted {
 	GDCLASS(IProc_8088, RefCounted)
 	
 protected:
-    static void _bind_methods() {};
+    static void _bind_methods() {
+		
+		ClassDB::bind_method(D_METHOD("Perform_work"), &IProc_8088::Perform_work);
+		ClassDB::bind_method(D_METHOD("setPinOutputDisabled", "index", "value"), &IProc_8088::setPinOutputDisabled);
+		ClassDB::bind_method(D_METHOD("getPinOutputDisabled", "index"), &IProc_8088::getPinOutputDisabled);
+		
+		ClassDB::bind_method(D_METHOD("getClockPin"), &IProc_8088::getClockPin);
+		ClassDB::bind_method(D_METHOD("setClockPin", "value"), &IProc_8088::setClockPin);
+		ADD_PROPERTY(PropertyInfo(Variant::BOOL, "clock_pin"), "setClockPin", "getClockPin");
+		
+		ClassDB::bind_method(D_METHOD("getALEPin"), &IProc_8088::getALEPin);
+		ClassDB::bind_method(D_METHOD("setALEPin", "value"), &IProc_8088::setALEPin);
+		ADD_PROPERTY(PropertyInfo(Variant::BOOL, "ale_pin"), "setALEPin", "getALEPin");
+		
+		ClassDB::bind_method(D_METHOD("getDENPin"), &IProc_8088::getDENPin);
+		ClassDB::bind_method(D_METHOD("setDENPin", "value"), &IProc_8088::setDENPin);
+		ADD_PROPERTY(PropertyInfo(Variant::BOOL, "den_pin"), "setDENPin", "getDENPin");
+		
+		ClassDB::bind_method(D_METHOD("getDT_NRPin"), &IProc_8088::getDT_NRPin);
+		ClassDB::bind_method(D_METHOD("setDT_NRPin", "value"), &IProc_8088::setDT_NRPin);
+		ADD_PROPERTY(PropertyInfo(Variant::BOOL, "dt_nr_pin"), "setDT_NRPin", "getDT_NRPin");
+		
+		ClassDB::bind_method(D_METHOD("getIO_NMPin"), &IProc_8088::getIO_NMPin);
+		ClassDB::bind_method(D_METHOD("setIO_NMPin", "value"), &IProc_8088::setIO_NMPin);
+		ADD_PROPERTY(PropertyInfo(Variant::BOOL, "io_np_pin"), "setIO_NMPin", "getIO_NMPin");
+		
+		ClassDB::bind_method(D_METHOD("getWRPin"), &IProc_8088::getWRPin);
+		ClassDB::bind_method(D_METHOD("setWRPin", "value"), &IProc_8088::setWRPin);
+		ADD_PROPERTY(PropertyInfo(Variant::BOOL, "wr_pin"), "setWRPin", "getWRPin");
+		
+		ClassDB::bind_method(D_METHOD("getRDPin"), &IProc_8088::getRDPin);
+		ClassDB::bind_method(D_METHOD("setRDPin", "value"), &IProc_8088::setRDPin);
+		ADD_PROPERTY(PropertyInfo(Variant::BOOL, "rd_pin"), "setRDPin", "getRDPin");
+		
+		ClassDB::bind_method(D_METHOD("getMN_MXPin"), &IProc_8088::getMN_MXPin);
+		ClassDB::bind_method(D_METHOD("setMN_MXPin", "value"), &IProc_8088::setMN_MXPin);
+		ADD_PROPERTY(PropertyInfo(Variant::BOOL, "mn_mx_pin"), "setMN_MXPin", "getMN_MXPin");
+		
+		ClassDB::bind_method(D_METHOD("getResetPin"), &IProc_8088::getResetPin);
+		ClassDB::bind_method(D_METHOD("setResetPin", "value"), &IProc_8088::setResetPin);
+		ADD_PROPERTY(PropertyInfo(Variant::BOOL, "rst_pin"), "setResetPin", "getResetPin");
+		
+		ClassDB::bind_method(D_METHOD("getReadyPin"), &IProc_8088::getReadyPin);
+		ClassDB::bind_method(D_METHOD("setReadyPin", "value"), &IProc_8088::setReadyPin);
+		ADD_PROPERTY(PropertyInfo(Variant::BOOL, "rdy_pin"), "setReadyPin", "getReadyPin");
+		
+		ClassDB::bind_method(D_METHOD("getA0Pin"), &IProc_8088::getA0Pin);
+		ClassDB::bind_method(D_METHOD("setA0Pin", "value"), &IProc_8088::setA0Pin);
+		ADD_PROPERTY(PropertyInfo(Variant::BOOL, "a0_pin"), "setA0Pin", "getA0Pin");
+		
+		ClassDB::bind_method(D_METHOD("getA1Pin"), &IProc_8088::getA1Pin);
+		ClassDB::bind_method(D_METHOD("setA1Pin", "value"), &IProc_8088::setA1Pin);
+		ADD_PROPERTY(PropertyInfo(Variant::BOOL, "a1_pin"), "setA1Pin", "getA1Pin");
+		
+		ClassDB::bind_method(D_METHOD("getA2Pin"), &IProc_8088::getA2Pin);
+		ClassDB::bind_method(D_METHOD("setA2Pin", "value"), &IProc_8088::setA2Pin);
+		ADD_PROPERTY(PropertyInfo(Variant::BOOL, "a2_pin"), "setA2Pin", "getA2Pin");
+		
+		ClassDB::bind_method(D_METHOD("getA3Pin"), &IProc_8088::getA3Pin);
+		ClassDB::bind_method(D_METHOD("setA3Pin", "value"), &IProc_8088::setA3Pin);
+		ADD_PROPERTY(PropertyInfo(Variant::BOOL, "a3_pin"), "setA3Pin", "getA3Pin");
+		
+		ClassDB::bind_method(D_METHOD("getA4Pin"), &IProc_8088::getA4Pin);
+		ClassDB::bind_method(D_METHOD("setA4Pin", "value"), &IProc_8088::setA4Pin);
+		ADD_PROPERTY(PropertyInfo(Variant::BOOL, "a4_pin"), "setA4Pin", "getA4Pin");
+		
+		ClassDB::bind_method(D_METHOD("getA5Pin"), &IProc_8088::getA5Pin);
+		ClassDB::bind_method(D_METHOD("setA5Pin", "value"), &IProc_8088::setA5Pin);
+		ADD_PROPERTY(PropertyInfo(Variant::BOOL, "a5_pin"), "setA5Pin", "getA5Pin");
+		
+		ClassDB::bind_method(D_METHOD("getA6Pin"), &IProc_8088::getA6Pin);
+		ClassDB::bind_method(D_METHOD("setA6Pin", "value"), &IProc_8088::setA6Pin);
+		ADD_PROPERTY(PropertyInfo(Variant::BOOL, "a6_pin"), "setA6Pin", "getA6Pin");
+		
+		ClassDB::bind_method(D_METHOD("getA7Pin"), &IProc_8088::getA7Pin);
+		ClassDB::bind_method(D_METHOD("setA7Pin", "value"), &IProc_8088::setA7Pin);
+		ADD_PROPERTY(PropertyInfo(Variant::BOOL, "a7_pin"), "setA7Pin", "getA7Pin");
+		
+		ClassDB::bind_method(D_METHOD("getA8Pin"), &IProc_8088::getA8Pin);
+		ClassDB::bind_method(D_METHOD("setA8Pin", "value"), &IProc_8088::setA8Pin);
+		ADD_PROPERTY(PropertyInfo(Variant::BOOL, "a8_pin"), "setA8Pin", "getA8Pin");
+		
+		ClassDB::bind_method(D_METHOD("getA9Pin"), &IProc_8088::getA9Pin);
+		ClassDB::bind_method(D_METHOD("setA9Pin", "value"), &IProc_8088::setA9Pin);
+		ADD_PROPERTY(PropertyInfo(Variant::BOOL, "a9_pin"), "setA9Pin", "getA9Pin");
+		
+		ClassDB::bind_method(D_METHOD("getA10Pin"), &IProc_8088::getA10Pin);
+		ClassDB::bind_method(D_METHOD("setA10Pin", "value"), &IProc_8088::setA10Pin);
+		ADD_PROPERTY(PropertyInfo(Variant::BOOL, "a10_pin"), "setA10Pin", "getA10Pin");
+		
+		ClassDB::bind_method(D_METHOD("getA11Pin"), &IProc_8088::getA11Pin);
+		ClassDB::bind_method(D_METHOD("setA11Pin", "value"), &IProc_8088::setA11Pin);
+		ADD_PROPERTY(PropertyInfo(Variant::BOOL, "a11_pin"), "setA11Pin", "getA11Pin");
+		
+		ClassDB::bind_method(D_METHOD("getA12Pin"), &IProc_8088::getA12Pin);
+		ClassDB::bind_method(D_METHOD("setA12Pin", "value"), &IProc_8088::setA12Pin);
+		ADD_PROPERTY(PropertyInfo(Variant::BOOL, "a12_pin"), "setA12Pin", "getA12Pin");
+		
+		ClassDB::bind_method(D_METHOD("getA13Pin"), &IProc_8088::getA13Pin);
+		ClassDB::bind_method(D_METHOD("setA13Pin", "value"), &IProc_8088::setA13Pin);
+		ADD_PROPERTY(PropertyInfo(Variant::BOOL, "a13_pin"), "setA13Pin", "getA13Pin");
+		
+		ClassDB::bind_method(D_METHOD("getA14Pin"), &IProc_8088::getA14Pin);
+		ClassDB::bind_method(D_METHOD("setA14Pin", "value"), &IProc_8088::setA14Pin);
+		ADD_PROPERTY(PropertyInfo(Variant::BOOL, "a14_pin"), "setA14Pin", "getA14Pin");
+		
+		ClassDB::bind_method(D_METHOD("getA15Pin"), &IProc_8088::getA15Pin);
+		ClassDB::bind_method(D_METHOD("setA15Pin", "value"), &IProc_8088::setA15Pin);
+		ADD_PROPERTY(PropertyInfo(Variant::BOOL, "a15_pin"), "setA15Pin", "getA15Pin");
+		
+		ClassDB::bind_method(D_METHOD("getA16Pin"), &IProc_8088::getA16Pin);
+		ClassDB::bind_method(D_METHOD("setA16Pin", "value"), &IProc_8088::setA16Pin);
+		ADD_PROPERTY(PropertyInfo(Variant::BOOL, "a16_pin"), "setA16Pin", "getA16Pin");
+		
+		ClassDB::bind_method(D_METHOD("getA17Pin"), &IProc_8088::getA17Pin);
+		ClassDB::bind_method(D_METHOD("setA17Pin", "value"), &IProc_8088::setA17Pin);
+		ADD_PROPERTY(PropertyInfo(Variant::BOOL, "a17_pin"), "setA17Pin", "getA17Pin");
+		
+		ClassDB::bind_method(D_METHOD("getA18Pin"), &IProc_8088::getA18Pin);
+		ClassDB::bind_method(D_METHOD("setA18Pin", "value"), &IProc_8088::setA18Pin);
+		ADD_PROPERTY(PropertyInfo(Variant::BOOL, "a18_pin"), "setA18Pin", "getA18Pin");
+		
+		ClassDB::bind_method(D_METHOD("getA19Pin"), &IProc_8088::getA19Pin);
+		ClassDB::bind_method(D_METHOD("setA19Pin", "value"), &IProc_8088::setA19Pin);
+		ADD_PROPERTY(PropertyInfo(Variant::BOOL, "a19_pin"), "setA19Pin", "getA19Pin");
+		
+		ClassDB::bind_method(D_METHOD("getFlagCarry"), &IProc_8088::getFlagCarry);
+		ClassDB::bind_method(D_METHOD("setFlagCarry", "value"), &IProc_8088::setFlagCarry);
+		ADD_PROPERTY(PropertyInfo(Variant::BOOL, "cf"), "setFlagCarry", "getFlagCarry");
+		
+		ClassDB::bind_method(D_METHOD("getFlagParity"), &IProc_8088::getFlagParity);
+		ClassDB::bind_method(D_METHOD("setFlagParity", "value"), &IProc_8088::setFlagParity);
+		ADD_PROPERTY(PropertyInfo(Variant::BOOL, "pf"), "setFlagParity", "getFlagParity");
+		
+		ClassDB::bind_method(D_METHOD("getFlagAuxiliaryCarry"), &IProc_8088::getFlagAuxiliaryCarry);
+		ClassDB::bind_method(D_METHOD("setFlagAuxiliaryCarry", "value"), &IProc_8088::setFlagAuxiliaryCarry);
+		ADD_PROPERTY(PropertyInfo(Variant::BOOL, "acf"), "setFlagAuxiliaryCarry", "getFlagAuxiliaryCarry");
+		
+		ClassDB::bind_method(D_METHOD("getFlagZero"), &IProc_8088::getFlagZero);
+		ClassDB::bind_method(D_METHOD("setFlagZero", "value"), &IProc_8088::setFlagZero);
+		ADD_PROPERTY(PropertyInfo(Variant::BOOL, "zf"), "setFlagZero", "getFlagZero");
+		
+		ClassDB::bind_method(D_METHOD("getFlagSign"), &IProc_8088::getFlagSign);
+		ClassDB::bind_method(D_METHOD("setFlagSign", "value"), &IProc_8088::setFlagSign);
+		ADD_PROPERTY(PropertyInfo(Variant::BOOL, "sf"), "setFlagSign", "getFlagSign");
+		
+		ClassDB::bind_method(D_METHOD("getFlagTrace"), &IProc_8088::getFlagTrace);
+		ClassDB::bind_method(D_METHOD("setFlagTrace", "value"), &IProc_8088::setFlagTrace);
+		ADD_PROPERTY(PropertyInfo(Variant::BOOL, "tf"), "setFlagTrace", "getFlagTrace");
+		
+		ClassDB::bind_method(D_METHOD("getFlagInterrupt"), &IProc_8088::getFlagInterrupt);
+		ClassDB::bind_method(D_METHOD("setFlagInterrupt", "value"), &IProc_8088::setFlagInterrupt);
+		ADD_PROPERTY(PropertyInfo(Variant::BOOL, "if"), "setFlagInterrupt", "getFlagInterrupt");
+		
+		ClassDB::bind_method(D_METHOD("getFlagDirection"), &IProc_8088::getFlagDirection);
+		ClassDB::bind_method(D_METHOD("setFlagDirection", "value"), &IProc_8088::setFlagDirection);
+		ADD_PROPERTY(PropertyInfo(Variant::BOOL, "df"), "setFlagDirection", "getFlagDirection");
+		
+		ClassDB::bind_method(D_METHOD("getFlagOverflow"), &IProc_8088::getFlagOverflow);
+		ClassDB::bind_method(D_METHOD("setFlagOverflow", "value"), &IProc_8088::setFlagOverflow);
+		ADD_PROPERTY(PropertyInfo(Variant::BOOL, "of"), "setFlagOverflow", "getFlagOverflow");
+
+        ClassDB::bind_method(D_METHOD("getAx"), &IProc_8088::getAx);
+		ClassDB::bind_method(D_METHOD("setAx", "value"), &IProc_8088::setAx);
+		ADD_PROPERTY(PropertyInfo(Variant::INT, "ax"), "setAx", "getAx");
+
+        ClassDB::bind_method(D_METHOD("getBx"), &IProc_8088::getBx);
+		ClassDB::bind_method(D_METHOD("setBx", "value"), &IProc_8088::setBx);
+		ADD_PROPERTY(PropertyInfo(Variant::INT, "bx"), "setBx", "getBx");
+
+        ClassDB::bind_method(D_METHOD("getCx"), &IProc_8088::getCx);
+		ClassDB::bind_method(D_METHOD("setCx", "value"), &IProc_8088::setCx);
+		ADD_PROPERTY(PropertyInfo(Variant::INT, "cx"), "setCx", "getCx");
+
+        ClassDB::bind_method(D_METHOD("getDx"), &IProc_8088::getDx);
+		ClassDB::bind_method(D_METHOD("setDx", "value"), &IProc_8088::setDx);
+		ADD_PROPERTY(PropertyInfo(Variant::INT, "dx"), "setDx", "getDx");
+
+        ClassDB::bind_method(D_METHOD("getSp"), &IProc_8088::getSp);
+		ClassDB::bind_method(D_METHOD("setSp", "value"), &IProc_8088::setSp);
+		ADD_PROPERTY(PropertyInfo(Variant::INT, "sp"), "setSp", "getSp");
+
+        ClassDB::bind_method(D_METHOD("getBp"), &IProc_8088::getBp);
+		ClassDB::bind_method(D_METHOD("setBp", "value"), &IProc_8088::setBp);
+		ADD_PROPERTY(PropertyInfo(Variant::INT, "bp"), "setBp", "getBp");
+
+        ClassDB::bind_method(D_METHOD("getSi"), &IProc_8088::getSi);
+		ClassDB::bind_method(D_METHOD("setSi", "value"), &IProc_8088::setSi);
+		ADD_PROPERTY(PropertyInfo(Variant::INT, "si"), "setSi", "getSi");
+
+        ClassDB::bind_method(D_METHOD("getDi"), &IProc_8088::getDi);
+		ClassDB::bind_method(D_METHOD("setDi", "value"), &IProc_8088::setDi);
+		ADD_PROPERTY(PropertyInfo(Variant::INT, "di"), "setDi", "getDi");
+
+        ClassDB::bind_method(D_METHOD("getIp"), &IProc_8088::getIp);
+		ClassDB::bind_method(D_METHOD("setIp", "value"), &IProc_8088::setIp);
+		ADD_PROPERTY(PropertyInfo(Variant::INT, "ip"), "setIp", "getIp");
+
+        ClassDB::bind_method(D_METHOD("getCs"), &IProc_8088::getCs);
+		ClassDB::bind_method(D_METHOD("setCs", "value"), &IProc_8088::setCs);
+		ADD_PROPERTY(PropertyInfo(Variant::INT, "cs"), "setCs", "getCs");
+
+        ClassDB::bind_method(D_METHOD("getSs"), &IProc_8088::getSs);
+		ClassDB::bind_method(D_METHOD("setSs", "value"), &IProc_8088::setSs);
+		ADD_PROPERTY(PropertyInfo(Variant::INT, "ss"), "setSs", "getSs");
+
+        ClassDB::bind_method(D_METHOD("getDs"), &IProc_8088::getDs);
+		ClassDB::bind_method(D_METHOD("setDs", "value"), &IProc_8088::setDs);
+		ADD_PROPERTY(PropertyInfo(Variant::INT, "ds"), "setDs", "getDs");
+
+        ClassDB::bind_method(D_METHOD("getEs"), &IProc_8088::getEs);
+		ClassDB::bind_method(D_METHOD("setEs", "value"), &IProc_8088::setEs);
+		ADD_PROPERTY(PropertyInfo(Variant::INT, "es"), "setEs", "getEs");
+	};
 	
 private:
 /**
@@ -209,20 +422,46 @@ public:
     word flags;
 
 	word ax; // accumulator
+    word getAx () const {return ax;}
+    void setAx (const int value) {ax = static_cast<word>(value & 0xffff);}
 	word bx; // base
+    word getBx () const {return bx;}
+    void setBx (const int value) {bx = static_cast<word>(value & 0xffff);}
 	word cx; // count
+    word getCx () const {return cx;}
+    void setCx (const int value) {cx = static_cast<word>(value & 0xffff);}
 	word dx; // data
+    word getDx () const {return dx;}
+    void setDx (const int value) {dx = static_cast<word>(value & 0xffff);}
 
 	word sp; // stack pointer
+    word getSp () const {return sp;}
+    void setSp (const int value) {sp = static_cast<word>(value & 0xffff);}
 	word bp; // base pointer
+    word getBp () const {return bp;}
+    void setBp (const int value) {bp = static_cast<word>(value & 0xffff);}
 	word si; // source index
+    word getSi () const {return si;}
+    void setSi (const int value) {si = static_cast<word>(value & 0xffff);}
 	word di; // destination index
+    word getDi () const {return di;}
+    void setDi (const int value) {di = static_cast<word>(value & 0xffff);}
 	word ip; // instruction pointer
+    word getIp () const {return ip;}
+    void setIp (const int value) {ip = static_cast<word>(value & 0xffff);}
 
 	word cs; // code segment
+    word getCs () const {return cs;}
+    void setCs (const int value) {cs = static_cast<word>(value & 0xffff);}
 	word ds; // data segment
+    word getDs () const {return ds;}
+    void setDs (const int value) {ds = static_cast<word>(value & 0xffff);}
 	word ss; // stack segment
+    word getSs () const {return ss;}
+    void setSs (const int value) {ss = static_cast<word>(value & 0xffff);}
 	word es; // extra segment
+    word getEs () const {return es;}
+    void setEs (const int value) {es = static_cast<word>(value & 0xffff);}
 
     // CF (Carry flag)
     bool getFlagCarry() { return isActiveBitByIdx(flags, 0); }
@@ -302,85 +541,115 @@ public:
     // pins section //
 	
 	bool clock;
-    bool getClockPin() { return clock; }
+    bool getClockPin() const { return clock; }
+	void setClockPin(const bool value) { clock = value; }
 	
 	bool ale = false;
-    void setALEPin(bool value) { ale = value; }
+    void setALEPin(const bool value) { ale = value; }
+	bool getALEPin() const { return ale; }
 
 	bool den = false;
-    void setDENPin(bool value) { den = value; }
+    void setDENPin(const bool value) { den = value; }
+	bool getDENPin() const { return den; }
 
-	bool dt_nrp = false;
-    void setDT_NRPin(bool value) { dt_nrp = value; }
+	bool dt_nr = false;
+    void setDT_NRPin(const bool value) { dt_nr = value; }
+	bool getDT_NRPin() const { return dt_nr; }
 	
-	bool io_nrp = false;
-    void setIO_NMPin(bool value) { io_nrp = value; }
+	bool io_nm = false;
+    void setIO_NMPin(const bool value) { io_nm = value; }
+	bool getIO_NMPin() const { return io_nm; }
 
     /**
      * active - 0
      */
 	 bool wr = false;
-    void setWRPin(bool value) { wr = value; }
+    void setWRPin(const bool value) { wr = value; }
+	bool getWRPin() const { return wr; }
 
     /**
      * active - 0
      */
 	 bool rd = false;
-    void setRDPin(bool value) { rd = value; }
+    void setRDPin(const bool value) { rd = value; }
+	bool getRDPin() const { return rd; }
 
     /**
      * 0 - MX mode
      * 1 - MN mode
      */
 	 bool mn_mx;
-    bool getMN_MXPin() { return mn_mx; }
+    bool getMN_MXPin() const { return mn_mx; }
+	void setMN_MXPin(const bool value) { mn_mx = value; }
 	
 	bool rst;
-    bool getResetPin() { return rst; }
+    bool getResetPin() const { return rst; }
+	void setResetPin(const bool value) { rst = value; }
 	
 	bool rdy;
-    bool getReadyPin() { return rdy; }
+    bool getReadyPin() const { return rdy; }
+	void setReadyPin(const bool value) { rdy = value; }
 	
 	bool a_pins[20] = {false};
-    void setA0Pin(bool value) { a_pins[0] = value; }
+    void setA0Pin(const bool value) { a_pins[0] = value; }
+	bool getA0Pin() const { return a_pins[0]; }
 
-    void setA1Pin(bool value) { a_pins[1] = value; }
+    void setA1Pin(const bool value) { a_pins[1] = value; }
+	bool getA1Pin() const { return a_pins[1]; }
 
-    void setA2Pin(bool value) { a_pins[2] = value; }
+    void setA2Pin(const bool value) { a_pins[2] = value; }
+	bool getA2Pin() const { return a_pins[2]; }
 
-    void setA3Pin(bool value) { a_pins[3] = value; }
+    void setA3Pin(const bool value) { a_pins[3] = value; }
+	bool getA3Pin() const { return a_pins[3]; }
 
-    void setA4Pin(bool value) { a_pins[4] = value; }
+    void setA4Pin(const bool value) { a_pins[4] = value; }
+	bool getA4Pin() const { return a_pins[4]; }
 
-    void setA5Pin(bool value) { a_pins[5] = value; }
+    void setA5Pin(const bool value) { a_pins[5] = value; }
+	bool getA5Pin() const { return a_pins[5]; }
 
-    void setA6Pin(bool value) { a_pins[6] = value; }
+    void setA6Pin(const bool value) { a_pins[6] = value; }
+	bool getA6Pin() const { return a_pins[6]; }
 
-    void setA7Pin(bool value) { a_pins[7] = value; }
+    void setA7Pin(const bool value) { a_pins[7] = value; }
+	bool getA7Pin() const { return a_pins[7]; }
 
-    void setA8Pin(bool value) { a_pins[8] = value; }
+    void setA8Pin(const bool value) { a_pins[8] = value; }
+	bool getA8Pin() const { return a_pins[8]; }
 
-    void setA9Pin(bool value) { a_pins[9] = value;; }
+    void setA9Pin(const bool value) { a_pins[9] = value;; }
+	bool getA9Pin() const { return a_pins[9]; }
 
-    void setA10Pin(bool value) { a_pins[10] = value; }
+    void setA10Pin(const bool value) { a_pins[10] = value; }
+	bool getA10Pin() const { return a_pins[10]; }
 
-    void setA11Pin(bool value) { a_pins[11] = value; }
+    void setA11Pin(const bool value) { a_pins[11] = value; }
+	bool getA11Pin() const { return a_pins[11]; }
 
-    void setA12Pin(bool value) { a_pins[12] = value; }
+    void setA12Pin(const bool value) { a_pins[12] = value; }
+	bool getA12Pin() const { return a_pins[12]; }
 
-    void setA13Pin(bool value) { a_pins[13] = value; }
+    void setA13Pin(const bool value) { a_pins[13] = value; }
+	bool getA13Pin() const { return a_pins[13]; }
 
-    void setA14Pin(bool value) { a_pins[14] = value; }
+    void setA14Pin(const bool value) { a_pins[14] = value; }
+	bool getA14Pin() const { return a_pins[14]; }
 
-    void setA15Pin(bool value) { a_pins[15] = value; }
+    void setA15Pin(const bool value) { a_pins[15] = value; }
+	bool getA15Pin() const { return a_pins[15]; }
 
-    void setA16Pin(bool value) { a_pins[16] = value; }
+    void setA16Pin(const bool value) { a_pins[16] = value; }
+	bool getA16Pin() const { return a_pins[16]; }
 
-    void setA17Pin(bool value) { a_pins[17] = value; }
+    void setA17Pin(const bool value) { a_pins[17] = value; }
+	bool getA17Pin() const { return a_pins[17]; }
 
-    void setA18Pin(bool value) { a_pins[18] = value; }
+    void setA18Pin(const bool value) { a_pins[18] = value; }
+	bool getA18Pin() const { return a_pins[18]; }
 
-    void setA19Pin(bool value) { a_pins[19] = value; }
+    void setA19Pin(const bool value) { a_pins[19] = value; }
+	bool getA19Pin() const { return a_pins[19]; }
 
     void setAPins(__int32 value) {
         setA0Pin(isActiveBitByIdx(value, 0));
@@ -406,6 +675,8 @@ public:
     }
 	
 	bool outputDisabled[29] = {false}; //wtf
+	bool getPinOutputDisabled(unsigned int index) { return outputDisabled[index > 28 ? 28 : index]; }
+	void setPinOutputDisabled(unsigned int index, bool value) { outputDisabled[index > 28 ? 28 : index] = value; }
 
     void setOutputEnabledA(bool enabled) {
         outputDisabled[14] = !enabled;
@@ -886,7 +1157,7 @@ public:
         if (!interrupted) {
             waitClocksCount += 1;
             interruptState = 0;
-            throw std::logic_error("Возникло прерывание: деление на ноль!");
+            throw std::logic_error("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ!");
             interrupted = true;
         }
 
@@ -897,7 +1168,7 @@ public:
         if (!interrupted) {
             waitClocksCount += 1;
             interruptState = 0;
-            throw std::logic_error("Возникло прерывание: TRAP!");
+            throw std::logic_error("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: TRAP!");
             interrupted = true;
         }
 
