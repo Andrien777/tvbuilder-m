@@ -16,7 +16,10 @@ func _ready() -> void:
 	freq_label = Label.new()
 	freq_label.text = "f = 1 Гц"
 	freq_label.position = Vector2(-50,-10)
-	#settings_popup.add_theme_color_override()
+	if GlobalSettings.LegacyGraphics:
+		freq_label.visible =false
+	else:
+		freq_label.visible = true
 	popup_style = StyleBoxFlat.new()
 	popup_style.bg_color =  Color.DIM_GRAY
 	popup_style.bg_color.a = 0.9
@@ -49,7 +52,6 @@ func _ready() -> void:
 	start_timer()
 	pin(1).set_low()
 	pin(2).set_high()
-
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
