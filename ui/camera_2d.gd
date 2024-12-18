@@ -35,13 +35,13 @@ func _physics_process(delta: float) -> void:
 		position += Vector2.RIGHT * 10
 		grid_rect.material.set_shader_parameter("position",position)
 	
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_MIDDLE):
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
 		if pressed_mmb:
 			position -= Input.get_last_mouse_velocity() * delta / zoom
-			Input.action_release("delete_component")
+			#Input.action_release("delete_component")
 		prev_pos = get_global_mouse_position()
 	
-	pressed_mmb = Input.is_mouse_button_pressed(MOUSE_BUTTON_MIDDLE)
+	pressed_mmb = Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT)
 
 func change_zoom(delta: Vector2) -> void:
 	var mouse_pos := get_global_mouse_position()
