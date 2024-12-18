@@ -8,7 +8,6 @@ func _ready() -> void:
 	$LoadButton.pressed.connect(mem_load)
 	mem_viewer = get_node("./../../")
 	$UpdateButton.pressed.connect(mem_viewer.update)
-	$ContinuousUpdate.pressed.connect(_on_continuous_update_button_pressed)
 	pass # Replace with function body.
 
 
@@ -33,6 +32,7 @@ func _on_mem_load(path):
 		addr+=1
 	file.close()
 	mem_viewer.update()
-	
-func _on_continuous_update_button_pressed():
+
+
+func _on_continuous_update_pressed() -> void:
 	mem_viewer.continuous_update = !mem_viewer.continuous_update

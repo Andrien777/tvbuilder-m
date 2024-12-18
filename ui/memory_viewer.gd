@@ -7,7 +7,7 @@ var continuous_update = false
 func _ready() -> void:
 	list = get_node("VBoxContainer/GridContainer")
 	close_requested.connect(hide)
-	memory_name_label = get_node("VBoxContainer/RamNameLabel")
+	memory_name_label = get_node("VBoxContainer/HBoxContainer2/RamNameLabel")
 
 
 

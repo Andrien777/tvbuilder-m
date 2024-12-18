@@ -165,9 +165,16 @@ script = ExtResource("12_wwdn8")
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="RamNameLabel" type="Label" parent="MemoryViewer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="MemoryViewer/VBoxContainer"]
+layout_mode = 2
+
+[node name="RamNameLabel" type="Label" parent="MemoryViewer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 text = "Имя элемента памяти"
+
+[node name="ContinuousUpdate" type="CheckBox" parent="MemoryViewer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Постоянное обновление"
 
 [node name="GridContainer" type="GridContainer" parent="MemoryViewer/VBoxContainer"]
 layout_mode = 2
@@ -204,10 +211,6 @@ text = "Обновить"
 [node name="LoadButton" type="Button" parent="MemoryViewer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "Загрузить из файла"
-
-[node name="ContinuousUpdate" type="CheckBox" parent="MemoryViewer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-text = "Постоянное обновление"
 
 [node name="FileDialog" type="FileDialog" parent="MemoryViewer/VBoxContainer/HBoxContainer"]
 title = "Open a File"
@@ -464,3 +467,4 @@ layout_mode = 2
 [connection signal="nothing_selected" from="UiCanvasLayer/FunctionalUIContainer/ComponentTree" to="UiCanvasLayer/FunctionalUIContainer/ComponentTree" method="_on_nothing_selected"]
 [connection signal="file_selected" from="SaveAsFileDialog" to="SaveAsFileDialog" method="_on_file_selected"]
 [connection signal="file_selected" from="LoadFileDialog" to="LoadFileDialog" method="_on_file_selected"]
+[connection signal="pressed" from="MemoryViewer/VBoxContainer/HBoxContainer2/ContinuousUpdate" to="MemoryViewer/VBoxContainer/HBoxContainer" method="_on_continuous_update_pressed"]
