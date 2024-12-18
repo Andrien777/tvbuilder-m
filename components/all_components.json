@@ -11,6 +11,10 @@
 		"config_path": "res://components/ic/memory/KR132RU9A.json",
 		"logic_class_path": "res://components/ic/memory/KR132RU9A.gd"
 	},
+	"КР537РУ10": {
+		"config_path": "res://components/ic/memory/KR537RU10.json",
+		"logic_class_path": "res://components/ic/memory/KR537RU10.gd"
+	},
 	"1531ИР22": {
 		"config_path": "res://components/ic/registers/K1531IR22.json",
 		"logic_class_path": "res://components/ic/registers/K1531IR22.gd"
@@ -135,5 +139,8 @@
 	},"8284A":{
 		"config_path": "res://components/ic/other/8284A.json",
 		"logic_class_path": "res://components/ic/other/8284A.gd"
+	},"8088":{
+		"config_path": "res://components/ic/proc/I8088.json",
+		"logic_class_path": "res://components/ic/proc/I8088.gd"
 	}
 }
