@@ -20,6 +20,7 @@ func _process(delta: float) -> void:
 			change_zoom(Vector2(-0.1,-0.1))
 			grid_rect.material.set_shader_parameter("scale",  Vector2.ONE/zoom)
 
+func _physics_process(delta: float) -> void:
 	if Input.is_action_pressed("pan_up"):
 		position += Vector2.UP * 10
 		grid_rect.material.set_shader_parameter("position",position)
@@ -36,12 +37,11 @@ func _process(delta: float) -> void:
 	
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_MIDDLE):
 		if pressed_mmb:
-			position -= Input.get_last_mouse_velocity() * delta
+			position -= Input.get_last_mouse_velocity() * delta / zoom
 			Input.action_release("delete_component")
 		prev_pos = get_global_mouse_position()
 	
 	pressed_mmb = Input.is_mouse_button_pressed(MOUSE_BUTTON_MIDDLE)
-
 
 func change_zoom(delta: Vector2) -> void:
 	var mouse_pos := get_global_mouse_position()
