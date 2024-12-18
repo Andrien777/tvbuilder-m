@@ -30,17 +30,16 @@ func _process(delta: float) -> void:
 func display_page(page: int):
 	for i in range(len(addr)):
 			addr[i].text = "%03x" % ((page*16 + i)*16)
-	if(page*16*16+17*16<len(memory.memory_content) and page>=0):
-		display(memory.memory_content.slice(page*16*16, page*16*16+17*16))
-	else:
-		for l in labels:
-			l.text = "?"
+	display(memory, page)
 
 func write_to_memory():
 	pass
 	
-func display(memory):
+func display(memory, page):
 	var i=0
 	for l in labels:
-		l.text = "%02x" % memory[i]
-		i = i+1
+		if i + page * 16 * 16 < memory.memory_content.size():
+			l.text = "%02x" % memory.memory_content[i + page * 16 * 16]
+			i = i+1
+		else:
+			l.text = "??"
