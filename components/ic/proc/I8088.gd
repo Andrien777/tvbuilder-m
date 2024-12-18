@@ -2,16 +2,27 @@ extends CircuitComponent
 class_name I8088
 var proc_impl = IProc_8088.new();
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	#proc_impl.a0_pin
-	#print(proc_impl.get_property_list());
-	#print(proc_impl.get_method_list());
-	#print(proc_impl.get_meta_list());
-	#print(proc_impl.get_signal_list());
-	pass # Replace with function body.
+var reg_viewer	
+func _ready():
+	proc_impl.ax = 0
+	proc_impl.bx = 0
+	proc_impl.cx = 0
+	proc_impl.dx = 0
+	reg_viewer = get_node("/root/RootNode/RegViewer")
+
+func _rmb_action():
+	reg_viewer.set_proc(self)
+
+func set_io():
+	for i in range(7, 15):
+		if proc_impl.getPinOutputDisabled(i):
+			pin(i + 2).set_input()
+		else:
+			pin(i + 2).set_output()
+
 
 func write_pins():
+	set_io()
 	if pin(9).input():
 		proc_impl.a7_pin = pin(9).high
 	if pin(10).input():
@@ -38,6 +49,7 @@ func write_pins():
 	proc_impl.mn_mx_pin = pin(33).high
 	
 func read_pins():
+	set_io()
 	pin(2).state = proc_impl.a14_pin
 	pin(3).state = proc_impl.a13_pin
 	pin(4).state = proc_impl.a12_pin
@@ -45,7 +57,7 @@ func read_pins():
 	pin(6).state = proc_impl.a10_pin
 	pin(7).state = proc_impl.a9_pin
 	pin(8).state = proc_impl.a8_pin
-
+	
 	if pin(9).output():
 		pin(9).state = proc_impl.a7_pin
 	if pin(10).output():
@@ -65,7 +77,9 @@ func read_pins():
 	#pin(24).state = proc_impl.inta_pin # Not implemented
 	pin(25).state = proc_impl.ale_pin
 	pin(26).state = proc_impl.den_pin
-	pin(27).state = proc_impl.wr_pin
+	pin(27).state = proc_impl.dt_nr_pin
+	pin(29).state = proc_impl.wr_pin
+	pin(32).state = proc_impl.rd_pin
 	#pin(28).state = proc_impl.hlda_pin # Not implemented
 	#pin(34).state = proc_impl.ss0_pin # Not implemented
 	pin(35).state = proc_impl.a19_pin

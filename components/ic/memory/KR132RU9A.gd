@@ -31,10 +31,6 @@ func _process_signal():
 			pin(13).set_output()
 			pin(14).set_output()
 		elif (previous_state and pin(10).low):
-			pin(11).set_z()
-			pin(12).set_z()
-			pin(13).set_z()
-			pin(14).set_z()
 			pin(11).set_input()
 			pin(12).set_input()
 			pin(13).set_input()
@@ -76,7 +72,7 @@ func set_value(addr:int, q:int, index:int):
 	if(q==1):
 		memory_content[addr] = memory_content[addr] | (q<<index) 
 	else:
-		memory_content[addr] = memory_content[addr] & (q<<index) 
+		memory_content[addr] = memory_content[addr] & memory_content[addr] & ~(1<<index)  
 	
 func get_values(addr:int):
 	var value = memory_content[addr]
