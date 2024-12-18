@@ -139,5 +139,8 @@
 	},"8284A":{
 		"config_path": "res://components/ic/other/8284A.json",
 		"logic_class_path": "res://components/ic/other/8284A.gd"
+	},"8088":{
+		"config_path": "res://components/ic/proc/I8088.json",
+		"logic_class_path": "res://components/ic/proc/I8088.gd"
 	}
 }

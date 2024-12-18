@@ -11,9 +11,6 @@ func _ready() -> void:
 	timer.timeout.connect(WireManager.force_update_wires)
 	add_child(timer)
 
-	memory_viewer = preload("res://tools/memory_viewer.tscn").instantiate() # I feel like this is not needed anymore?
-	add_child(memory_viewer)
-
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
