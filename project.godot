@@ -26,6 +26,10 @@ SaveManager="*res://ui/save_manager.gd"
 GlobalSettings="*res://ui/GlobalSettings.gd"
 ComponentManager="*res://netlist/component_manager.gd"
 
+[display]
+
+window/subwindows/embed_subwindows=false
+
 [dotnet]
 
 project/assembly_name="tvb2"
