@@ -4,6 +4,8 @@ var pressed_mmb = false
 var prev_pos
 var grid_rect 
 var delta_vec = Vector2.ZERO
+var lock_pan = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	grid_rect = get_node("../GridLayer/GridRect")
@@ -20,6 +22,8 @@ func _process(delta: float) -> void:
 			change_zoom(Vector2(-0.1,-0.1))
 
 func _physics_process(delta: float) -> void:
+	if(GlobalSettings.disableGlobalInput):
+		return
 	if Input.is_action_pressed("pan_up"):
 		position += Vector2.UP * 10
 	if Input.is_action_pressed("pan_down"):
@@ -28,13 +32,12 @@ func _physics_process(delta: float) -> void:
 		position += Vector2.LEFT * 10
 	if Input.is_action_pressed("pan_right"):
 		position += Vector2.RIGHT * 10
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
-		if pressed_mmb:
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		if pressed_mmb and not lock_pan:
 			var delta_vec = Input.get_last_mouse_velocity() * delta / zoom
 			position -= delta_vec
-		prev_pos = get_global_mouse_position()
-	
-	pressed_mmb = Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT)
+		prev_pos = get_global_mouse_position()	
+	pressed_mmb = Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)
 
 func change_zoom(delta: Vector2) -> void:
 	var mouse_pos := get_global_mouse_position()

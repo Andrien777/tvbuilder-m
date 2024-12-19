@@ -107,13 +107,13 @@ anchor_bottom = 1.0
 offset_top = 40.0
 offset_right = 0.191986
 grow_vertical = 2
-mouse_filter = 0
 metadata/_edit_use_anchors_ = true
 
 [node name="ComponentTree" type="Tree" parent="UiCanvasLayer/FunctionalUIContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 tooltip_text = "Tooltip"
+mouse_force_pass_scroll_events = false
 hide_root = true
 script = ExtResource("3_q10ex")
 
@@ -513,6 +513,8 @@ theme_override_fonts/font = ExtResource("18_awkwq")
 [connection signal="toggled" from="UiCanvasLayer/ButtonsContainer/DoCyclesButton" to="UiCanvasLayer/ButtonsContainer/DoCyclesButton" method="_on_toggled"]
 [connection signal="pressed" from="UiCanvasLayer/ButtonsContainer/MinimalGraphics" to="." method="toggle_graphics_mode"]
 [connection signal="item_mouse_selected" from="UiCanvasLayer/FunctionalUIContainer/ComponentTree" to="UiCanvasLayer/FunctionalUIContainer/ComponentTree" method="_on_item_mouse_selected"]
+[connection signal="mouse_entered" from="UiCanvasLayer/FunctionalUIContainer/ComponentTree" to="UiCanvasLayer/FunctionalUIContainer/ComponentTree" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="UiCanvasLayer/FunctionalUIContainer/ComponentTree" to="UiCanvasLayer/FunctionalUIContainer/ComponentTree" method="_on_mouse_exited"]
 [connection signal="nothing_selected" from="UiCanvasLayer/FunctionalUIContainer/ComponentTree" to="UiCanvasLayer/FunctionalUIContainer/ComponentTree" method="_on_nothing_selected"]
 [connection signal="file_selected" from="SaveAsFileDialog" to="SaveAsFileDialog" method="_on_file_selected"]
 [connection signal="file_selected" from="LoadFileDialog" to="LoadFileDialog" method="_on_file_selected"]

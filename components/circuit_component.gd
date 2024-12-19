@@ -3,6 +3,7 @@ class_name CircuitComponent
 
 var is_dragged = false
 var is_mouse_over = false
+var now_disabled_drag = false
 
 var drag_offset = Vector2(0,0)
 var readable_name:String
@@ -143,8 +144,10 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if is_dragged && Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		self.global_position = get_global_mouse_position() + drag_offset
-	else:
+	elif not now_disabled_drag:
 		self.is_dragged = false
+		get_node("/root/RootNode/Camera2D").lock_pan = false
+		now_disabled_drag = true
 	if Input.is_action_pressed("delete_component") and self.is_mouse_over:
 		Input.action_release("delete_component")
 		ComponentManager.remove_object(self)
@@ -154,9 +157,11 @@ var tween
 func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if(event.pressed):
+			get_node("/root/RootNode/Camera2D").lock_pan = true
 			_lmb_action()
 			drag_offset = global_position - get_global_mouse_position()
 			viewport.set_input_as_handled()
+			now_disabled_drag = false
 		is_dragged = event.pressed
 		if (is_dragged==false):
 			if tween:
@@ -167,6 +172,7 @@ func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void
 			dx += position.x - int(position.x)
 			dy += position.y - int(position.y)
 			tween.tween_property(self,"position",position - Vector2(dx, dy),0.1).set_trans(Tween.TRANS_ELASTIC)
+			get_node("/root/RootNode/Camera2D").lock_pan = false
 			#position = position - Vector2(int(position.x)%25, int(position.y)%25)
 	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
 		if(event.pressed):
