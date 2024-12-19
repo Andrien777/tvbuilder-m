@@ -4,16 +4,19 @@ extends GridContainer
 var labels = []
 var memory = null
 var addr = []
+var font = preload("res://ui/JetBrainsMonoNL-Regular.ttf")
 # Called when the node enters the scene tree for the first time.
 func _init() -> void:
 	for i in range(17): # Creating the table header
 		var label = Label.new()
+		label.add_theme_font_override("font", font)
 		if i>0:
 			label.text = "%2x" % (i-1)
 		add_child(label)
 	for j in range(16):
 		for i in range(17):
 			var label = Label.new()
+			label.add_theme_font_override("font", font)
 			if i>0:
 				labels.append(label) # Value label
 			else:

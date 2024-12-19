@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cc3tb05ie70il"]
+[gd_scene load_steps=21 format=3 uid="uid://cc3tb05ie70il"]
 
 [ext_resource type="Script" path="res://ui/main_scene.gd" id="1_8vqs3"]
 [ext_resource type="Shader" path="res://shaders/grid.gdshader" id="2_7ckc8"]
@@ -17,6 +17,7 @@
 [ext_resource type="Script" path="res://ui/pageControls.gd" id="15_o4npq"]
 [ext_resource type="Script" path="res://ui/memory_load_file_dialog.gd" id="16_h0gp2"]
 [ext_resource type="Script" path="res://ui/reg_viewer.gd" id="17_2a815"]
+[ext_resource type="FontFile" uid="uid://co86tufoji665" path="res://ui/JetBrainsMonoNL-Regular.ttf" id="18_awkwq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7n0h1"]
 shader = ExtResource("2_7ckc8")
@@ -246,40 +247,48 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer/AX_cont"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
 text = "AX"
 
 [node name="Val" type="Label" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer/AX_cont"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
 
 [node name="BX_cont" type="HBoxContainer" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 
 [node name="Label" type="Label" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer/BX_cont"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
 text = "BX"
 
 [node name="Val" type="Label" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer/BX_cont"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
 
 [node name="CX_cont" type="HBoxContainer" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 
 [node name="Label" type="Label" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer/CX_cont"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
 text = "CX"
 
 [node name="Val" type="Label" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer/CX_cont"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
 
 [node name="DX_cont" type="HBoxContainer" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 
 [node name="Label" type="Label" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer/DX_cont"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
 text = "DX"
 
 [node name="Val" type="Label" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer/DX_cont"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
 
 [node name="VSeparator" type="VSeparator" parent="RegViewer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -293,40 +302,48 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer2/CS_cont"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
 text = "CS"
 
 [node name="Val" type="Label" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer2/CS_cont"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
 
 [node name="SS_cont" type="HBoxContainer" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 
 [node name="Label" type="Label" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer2/SS_cont"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
 text = "SS"
 
 [node name="Val" type="Label" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer2/SS_cont"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
 
 [node name="DS_cont" type="HBoxContainer" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 
 [node name="Label" type="Label" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer2/DS_cont"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
 text = "DS"
 
 [node name="Val" type="Label" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer2/DS_cont"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
 
 [node name="ES_cont" type="HBoxContainer" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 
 [node name="Label" type="Label" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer2/ES_cont"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
 text = "ES"
 
 [node name="Val" type="Label" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer2/ES_cont"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
 
 [node name="VSeparator2" type="VSeparator" parent="RegViewer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -340,40 +357,48 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer3/SP_cont"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
 text = "SP"
 
 [node name="Val" type="Label" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer3/SP_cont"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
 
 [node name="BP_cont" type="HBoxContainer" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer3"]
 layout_mode = 2
 
 [node name="Label" type="Label" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer3/BP_cont"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
 text = "BP"
 
 [node name="Val" type="Label" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer3/BP_cont"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
 
 [node name="SI_cont" type="HBoxContainer" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer3"]
 layout_mode = 2
 
 [node name="Label" type="Label" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer3/SI_cont"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
 text = "SI"
 
 [node name="Val" type="Label" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer3/SI_cont"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
 
 [node name="DI_cont" type="HBoxContainer" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer3"]
 layout_mode = 2
 
 [node name="Label" type="Label" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer3/DI_cont"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
 text = "DI"
 
 [node name="Val" type="Label" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer3/DI_cont"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
 
 [node name="HSeparator" type="HSeparator" parent="RegViewer/VBoxContainer"]
 layout_mode = 2
@@ -383,10 +408,12 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="RegViewer/VBoxContainer/IP_cont"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
 text = "IP"
 
 [node name="Val" type="Label" parent="RegViewer/VBoxContainer/IP_cont"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
 
 [node name="HSeparator2" type="HSeparator" parent="RegViewer/VBoxContainer"]
 layout_mode = 2
@@ -397,66 +424,84 @@ columns = 9
 
 [node name="Label" type="Label" parent="RegViewer/VBoxContainer/GridContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
 text = "OF"
 
 [node name="Label2" type="Label" parent="RegViewer/VBoxContainer/GridContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
 text = "DF"
 
 [node name="Label3" type="Label" parent="RegViewer/VBoxContainer/GridContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
 text = "IF"
 
 [node name="Label4" type="Label" parent="RegViewer/VBoxContainer/GridContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
 text = "TF"
 
 [node name="Label5" type="Label" parent="RegViewer/VBoxContainer/GridContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
 text = "SF"
 
 [node name="Label6" type="Label" parent="RegViewer/VBoxContainer/GridContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
 text = "ZF"
 
 [node name="Label7" type="Label" parent="RegViewer/VBoxContainer/GridContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
 text = "AF"
 
 [node name="Label8" type="Label" parent="RegViewer/VBoxContainer/GridContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
 text = "PF"
 
 [node name="Label9" type="Label" parent="RegViewer/VBoxContainer/GridContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
 text = "CF"
 
 [node name="of" type="Label" parent="RegViewer/VBoxContainer/GridContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
 
 [node name="df" type="Label" parent="RegViewer/VBoxContainer/GridContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
 
 [node name="if" type="Label" parent="RegViewer/VBoxContainer/GridContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
 
 [node name="tf" type="Label" parent="RegViewer/VBoxContainer/GridContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
 
 [node name="sf" type="Label" parent="RegViewer/VBoxContainer/GridContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
 
 [node name="zf" type="Label" parent="RegViewer/VBoxContainer/GridContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
 
 [node name="acf" type="Label" parent="RegViewer/VBoxContainer/GridContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
 
 [node name="pf" type="Label" parent="RegViewer/VBoxContainer/GridContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
 
 [node name="cf" type="Label" parent="RegViewer/VBoxContainer/GridContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
 
 [connection signal="pressed" from="UiCanvasLayer/ButtonsContainer/ClearButton" to="UiCanvasLayer/ButtonsContainer/ClearButton" method="_on_pressed"]
 [connection signal="pressed" from="UiCanvasLayer/ButtonsContainer/SaveAsButton" to="SaveAsFileDialog" method="_on_save_as_button_pressed"]
