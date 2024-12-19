@@ -1,0 +1,145 @@
+{
+	"name":"8284A",
+	"num_pins": 18,
+	"height": 25,
+	"width": 25,
+	"texture": "res://graphics/legacy/ic/16leg_2x.png",
+	"pinSpecifications":[
+		{
+			"index": 1,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "CSYNC",
+			"description": "Вход синхронизации тактовых сигналов",
+			"dependencies": []
+		},{
+			"index": 2,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "PCLK",
+			"description": "Тактовый сигнал для периферийных микросхем",
+			"dependencies": [-1]
+		},{
+			"index": 3,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "~AEN1",
+			"description": "Вход разрешения работы шины 1",
+			"dependencies": []
+		}
+		,{
+			"index": 4,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "RDY1",
+			"description": "Вход готовности шины 1",
+			"dependencies": []
+		},{
+			"index": 5,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name":"READY",
+			"description": "Синхронизированный сигнал готовности шины",
+			"dependencies": [-1]
+		},{
+			"index": 6,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "RDY2",
+			"description": "Вход готовности шины 2",
+			"dependencies": []
+		}
+		,{
+			"index": 7,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "~AEN2",
+			"description": "Вход разрешения работы шины 2",
+			"dependencies": []
+		}
+		,{
+			"index": 8,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "CLK",
+			"description": "Тактовый сигнал для процессора",
+			"dependencies": [-1]
+		},{
+			"index": 9,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "GND",
+			"description": "Земля",
+			"dependencies": []
+		}
+		,{
+			"index": 18,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "VCC",
+			"description": "Питание 5В",
+			"dependencies": []
+		}
+		,{
+			"index": 17,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "X1",
+			"description": "Вход 1 с кристалла осциллятора",
+			"dependencies": []
+		}
+		,{
+			"index": 16,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "X2",
+			"description": "Вход 2 с кристалла осциллятора",
+			"dependencies": []
+		}
+		,{
+			"index": 15,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "~ASYNC",
+			"description": "Выбор режима синхронизации сигналов готовности",
+			"dependencies": []
+		}
+		,{
+			"index": 14,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "EFI",
+			"description": "Вход внешнего тактового сигнала",
+			"dependencies": []
+		},{
+			"index": 13,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "F/~C",
+			"description": "Выбор режима синхронизации тактовых импульсов",
+			"dependencies": [-1]
+		},{
+			"index": 12,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "OSC",
+			"description": "Выход внутреннего осциллятора",
+			"dependencies": [-1]
+		}
+		,{
+			"index": 11,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "~RES",
+			"description": "Вход генерации сигнала сброса",
+			"dependencies": []
+		},{
+			"index": 10,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "RESET",
+			"description": "Выход сигнала сброса",
+			"dependencies": [-1]
+		}
+	]
+}

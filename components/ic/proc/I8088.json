@@ -1,0 +1,339 @@
+{
+  "name":"8088",
+	"height": 25,
+	"width": 25,
+	"texture": "res://graphics/legacy/ic/alu_2x.png",
+  "num_pins": 40,
+  "pinSpecifications": [
+	{
+	  "index": 1,
+	  "readable_name": "GND",
+	  "description": "Общий провод (земля)",
+	  "direction": "DIRECTION_OUTPUT",
+	  "position": "BOTTOM",
+	  "dependencies": []
+	},
+	{
+	  "index": 2,
+	  "readable_name": "A14",
+	  "description": "Адресная шина, бит 14. Используется для формирования 20-битного адреса памяти или ввода-вывода.",
+	  "direction": "DIRECTION_OUTPUT",
+	  "position": "BOTTOM",
+	  "dependencies": [-1]
+
+	},
+	{
+	  "index": 3,
+	  "readable_name": "A13",
+	  "description": "Адресная шина, бит 13. Используется для формирования 20-битного адреса памяти или ввода-вывода.",
+	  "direction": "DIRECTION_OUTPUT",
+	  "position": "BOTTOM",
+	  "dependencies": []
+	},
+	{
+	  "index": 4,
+	  "readable_name": "A12",
+	  "description": "Адресная шина, бит 12. Используется для формирования 20-битного адреса памяти или ввода-вывода.",
+	  "direction": "DIRECTION_OUTPUT",
+	  "position": "BOTTOM",
+	  "dependencies": [-1]
+	},
+	{
+	  "index": 5,
+	  "readable_name": "A11",
+	  "description": "Адресная шина, бит 11. Используется для формирования 20-битного адреса памяти или ввода-вывода.",
+	  "direction": "DIRECTION_OUTPUT",
+	  "position": "BOTTOM",
+	  "dependencies": [-1]
+	
+	},
+	{
+	  "index": 6,
+	  "readable_name": "A10",
+	  "description": "Адресная шина, бит 10. Используется для формирования 20-битного адреса памяти или ввода-вывода.",
+	  "direction": "DIRECTION_OUTPUT",
+	  "position": "BOTTOM",
+	  "dependencies": [-1]
+	},
+	{
+	  "index": 7,
+	  "readable_name": "A9",
+	  "description": "Адресная шина, бит 9. Используется для формирования 20-битного адреса памяти или ввода-вывода.",
+	  "direction": "DIRECTION_OUTPUT",
+	  "position": "BOTTOM",
+	  "dependencies": []
+	},
+	{
+	  "index": 8,
+	  "readable_name": "A8",
+	  "description": "Адресная шина, бит 8. Используется для формирования 20-битного адреса памяти или ввода-вывода.",
+	  "direction": "DIRECTION_OUTPUT",
+	  "position": "BOTTOM",
+	  "dependencies": [-1],
+	  "position": "BOTTOM",
+	  "dependencies": [-1]
+	},
+	{
+	  "index": 9,
+	  "readable_name": "AD7",
+	  "description": "Многофункциональная шина данных, бит 7. Может использоваться как для ввода, так и для вывода данных.",
+	  "direction": "DIRECTION_INPUT_OUTPUT",
+	  "position": "BOTTOM",
+	  "dependencies": [-1]
+	},
+	{
+	  "index": 10,
+	  "readable_name": "AD6",
+	  "description": "Многофункциональная шина данных, бит 6. Может использоваться как для ввода, так и для вывода данных.",
+	  "direction": "DIRECTION_INPUT_OUTPUT",
+	  "position": "BOTTOM",
+	  "dependencies": [-1]
+	},
+	{
+	  "index": 11,
+	  "readable_name": "AD5",
+	  "description": "Многофункциональная шина данных, бит 5. Может использоваться как для ввода, так и для вывода данных.",
+	  "direction": "DIRECTION_INPUT_OUTPUT",
+	  "position": "BOTTOM",
+	  "dependencies": [-1]
+	},
+	{
+	  "index": 12,
+	  "readable_name": "AD4",
+	  "description": "Многофункциональная шина данных, бит 4. Может использоваться как для ввода, так и для вывода данных.",
+	  "direction": "DIRECTION_INPUT_OUTPUT",
+	  "position": "BOTTOM",
+	  "dependencies": [-1]
+	},
+	{
+	  "index": 13,
+	  "readable_name": "AD3",
+	  "description": "Многофункциональная шина данных, бит 3. Может использоваться как для ввода, так и для вывода данных.",
+	  "direction": "DIRECTION_INPUT_OUTPUT",
+	  "position": "BOTTOM",
+	  "dependencies": [-1],
+	  "position": "BOTTOM",
+	  "dependencies": [-1]
+	},
+	{
+	  "index": 14,
+	  "readable_name": "AD2",
+	  "description": "Многофункциональная шина данных, бит 2. Может использоваться как для ввода, так и для вывода данных.",
+	  "direction": "DIRECTION_INPUT_OUTPUT",
+	  "position": "BOTTOM",
+	  "dependencies": [-1]
+	},
+	{
+	  "index": 15,
+	  "readable_name": "AD1",
+	  "description": "Многофункциональная шина данных, бит 1. Может использоваться как для ввода, так и для вывода данных.",
+	  "direction": "DIRECTION_INPUT_OUTPUT",
+	  "position": "BOTTOM",
+	  "dependencies": [-1]
+	},
+	{
+	  "index": 16,
+	  "readable_name": "AD0",
+	  "description": "Многофункциональная шина данных, бит 0. Может использоваться как для ввода, так и для вывода данных.",
+	  "direction": "DIRECTION_INPUT_OUTPUT",
+	  "position": "BOTTOM",
+	  "dependencies": [-1],
+	},
+	{
+	  "index": 17,
+	  "readable_name": "NMI",
+	  "description": "Немаскируемое прерывание. Используется для сигнализации о критических ошибках.",
+	  "direction": "DIRECTION_INPUT",
+	  "position": "BOTTOM",
+	  "dependencies": [-1]
+	},
+	{
+	  "index": 18,
+	  "readable_name": "INTR",
+	  "description": "Маскируемое прерывание. Используется для запроса прерывания от периферийных устройств.",
+	  "direction": "DIRECTION_INPUT",
+	  "position": "BOTTOM",
+	  "dependencies": []
+	},
+	{
+	  "index": 19,
+	  "readable_name": "CLK",
+	  "description": "Тактовый сигнал. Определяет скорость работы процессора.",
+	  "direction": "DIRECTION_INPUT",
+	  "position": "BOTTOM",
+	  "dependencies": []
+	},
+	{
+	  "index": 20,
+	  "readable_name": "GND",
+	  "description": "Общий провод (земля)",
+	  "direction": "DIRECTION_OUTPUT",
+	  "position": "BOTTOM",
+	  "dependencies": [-1]
+	},
+	{
+	  "index": 21,
+	  "readable_name": "RESET",
+	  "description": "Сигнал сброса. Используется для инициализации процессора.",
+	  "direction": "DIRECTION_INPUT",
+	  "position": "TOP",
+	  "dependencies": []
+	},
+	{
+	  "index": 22,
+	  "readable_name": "READY",
+	  "description": "Сигнал готовности. Используется для синхронизации с медленными устройствами памяти или ввода-вывода.",
+	  "direction": "DIRECTION_INPUT",
+	  "position": "TOP",
+	  "dependencies": []
+	},
+	{
+	  "index": 23,
+	  "readable_name": "!TEST",
+	  "description": "Сигнал тестирования. Используется для перевода процессора в тестовый режим.",
+	  "direction": "DIRECTION_INPUT",
+	  "position": "TOP",
+	  "dependencies": []
+	},
+	{
+	  "index": 24,
+	  "readable_name": "!INTA",
+	  "description": "Сигнал подтверждения прерывания. Используется для подтверждения запроса прерывания.",
+	  "direction": "DIRECTION_OUTPUT",
+	  "position": "TOP",
+	  "dependencies": [-1]
+	},
+	{
+	  "index": 25,
+	  "readable_name": "ALE",
+	  "description": "Сигнал адреса низкого уровня. Используется для выделения адреса на шине адреса.",
+	  "direction": "DIRECTION_OUTPUT",
+	  "position": "TOP",
+	  "dependencies": [-1]
+	},
+	{
+	  "index": 26,
+	  "readable_name": "!DEN",
+	  "description": "Сигнал разрешения данных. Используется для разрешения передачи данных на шине данных.",
+	  "direction": "DIRECTION_OUTPUT",
+	  "position": "TOP",
+	  "dependencies": [-1]
+	},
+	{
+	  "index": 27,
+	  "readable_name": "DT/!R",
+	  "description": "Сигнал направления передачи данных. Определяет направление передачи данных (чтение или запись).",
+	  "direction": "DIRECTION_OUTPUT",
+	  "position": "TOP",
+	  "dependencies": [-1]
+	},
+	{
+	  "index": 28,
+	  "readable_name": "IO/!M",
+	  "description": "Сигнал выбора режима работы. Определяет, работает ли процессор с памятью или с устройствами ввода-вывода.",
+	  "direction": "DIRECTION_OUTPUT",
+	  "position": "TOP",
+	  "dependencies": [-1]
+	},
+	{
+	  "index": 29,
+	  "readable_name": "!WR",
+	  "description": "Сигнал записи. Используется для записи данных в память или устройства ввода-вывода.",
+	  "direction": "DIRECTION_OUTPUT",
+	  "position": "TOP",
+	  "dependencies": [-1],
+	  "position": "TOP",
+	  "dependencies": [-1]
+	},
+	{
+	  "index": 30,
+	  "readable_name": "HLDA",
+	  "description": "Сигнал удержания шины. Используется для передачи управления шиной внешнему устройству.",
+	  "direction": "DIRECTION_OUTPUT",
+	  "position": "TOP",
+	  "dependencies": [-1]
+	},
+	{
+	  "index": 31,
+	  "readable_name": "HOLD",
+	  "description": "Сигнал запроса удержания шины. Используется для запроса передачи управления шиной внешнему устройству.",
+	  "direction": "DIRECTION_INPUT",
+	  "position": "TOP",
+	  "dependencies": [-1]
+	},
+	{
+	  "index": 32,
+	  "readable_name": "!RD",
+	  "description": "Сигнал чтения. Используется для чтения данных из памяти или устройств ввода-вывода.",
+	  "direction": "DIRECTION_OUTPUT",
+	  "position": "TOP",
+	  "dependencies": [-1],
+	  "position": "TOP",
+	  "dependencies": [-1]
+	},
+	{
+	  "index": 33,
+	  "readable_name": "MN/!MX",
+	  "description": "Сигнал выбора режима памяти. Определяет, используется ли память или ввод-вывод.",
+	  "direction": "DIRECTION_INPUT",
+	  "position": "TOP",
+	  "dependencies": [-1]
+	},
+	{
+	  "index": 34,
+	  "readable_name": "!SS0",
+	  "description": "Сигнал выбора сегмента. Используется для выбора сегмента памяти.",
+	  "direction": "DIRECTION_OUTPUT",
+	  "position": "TOP",
+	  "dependencies": [-1]
+	},
+	{
+	  "index": 35,
+	  "readable_name": "A19/S6",
+	  "description": "Многофункциональная шина. Может использоваться как для адреса, так и для выбора сегмента.",
+	  "direction": "DIRECTION_OUTPUT",
+	  "position": "TOP",
+	  "dependencies": [-1]
+	},
+	{
+	  "index": 36,
+	  "readable_name": "A18/S5",
+	  "description": "Многофункциональная шина. Может использоваться как для адреса, так и для выбора сегмента.",
+	  "direction": "DIRECTION_OUTPUT",
+	  "position": "TOP",
+	  "dependencies": [-1]
+	},
+	{
+	  "index": 37,
+	  "readable_name": "A17/S4",
+	  "description": "Многофункциональная шина. Может использоваться как для адреса, так и для выбора сегмента.",
+	  "direction": "DIRECTION_OUTPUT",
+	  "position": "TOP",
+	  "dependencies": [-1]
+	},
+	{
+	  "index": 38,
+	  "readable_name": "A16/S3",
+	  "description": "Многофункциональная шина. Может использоваться как для адреса, так и для выбора сегмента.",
+	  "direction": "DIRECTION_OUTPUT",
+	  "position": "TOP",
+	  "dependencies": [-1]
+	},
+	{
+	  "index": 39,
+	  "readable_name": "A15",
+	  "description": "Адресная шина, бит 15. Используется для формирования 20-битного адреса памяти или ввода-вывода.",
+	  "direction": "DIRECTION_OUTPUT",
+	  "position": "TOP",
+	  "dependencies": [-1]
+	},
+	{
+	  "index": 40,
+	  "readable_name": "VCC",
+	  "description": "Напряжение питания.",
+	  "direction": "DIRECTION_OUTPUT",
+	  "position": "TOP",
+	  "dependencies": []
+	}
+  ]
+}

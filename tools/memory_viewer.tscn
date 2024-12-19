@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3 uid="uid://by6pxa4bjqgna"]
+
+[ext_resource type="Script" path="res://tools/memory_content_display.gd" id="1_5ixtb"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Window" type="Window" parent="."]
+title = "Просмотр памяти"
+position = Vector2i(0, 36)
+visible = false
+always_on_top = true
+
+[node name="ItemList" type="ItemList" parent="Window"]
+offset_left = 184.0
+offset_right = 184.0
+offset_bottom = 40.0
+script = ExtResource("1_5ixtb")
+
+[node name="BoxContainer" type="BoxContainer" parent="Window"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="Window/BoxContainer"]
+layout_mode = 2
+text = "Имя элемента памяти"

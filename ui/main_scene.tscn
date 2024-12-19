@@ -1,5 +1,6 @@
 [gd_scene load_steps=22 format=3 uid="uid://cc3tb05ie70il"]
 
+
 [ext_resource type="Script" path="res://ui/main_scene.gd" id="1_8vqs3"]
 [ext_resource type="Shader" path="res://shaders/grid.gdshader" id="2_7ckc8"]
 [ext_resource type="Script" path="res://ui/camera_2d.gd" id="2_pmywl"]
@@ -18,6 +19,13 @@
 [ext_resource type="Script" path="res://ui/logic_analyzer/logic_analyzer_timer.gd" id="14_st4q1"]
 [ext_resource type="Script" path="res://ui/logic_analyzer/signals_h_split_container.gd" id="15_7mwtm"]
 [ext_resource type="Script" path="res://ui/logic_analyzer/clear_button.gd" id="15_73c41"]
+[ext_resource type="Script" path="res://tools/memory_content_display.gd" id="12_ncj2o"]
+[ext_resource type="Script" path="res://ui/memory_viewer.gd" id="12_wwdn8"]
+[ext_resource type="Script" path="res://ui/mem_viewer_grid.gd" id="13_jjv1i"]
+[ext_resource type="Script" path="res://ui/pageControls.gd" id="15_o4npq"]
+[ext_resource type="Script" path="res://ui/memory_load_file_dialog.gd" id="16_h0gp2"]
+[ext_resource type="Script" path="res://ui/reg_viewer.gd" id="17_2a815"]
+[ext_resource type="FontFile" uid="uid://co86tufoji665" path="res://ui/JetBrainsMonoNL-Regular.ttf" id="18_awkwq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7n0h1"]
 shader = ExtResource("2_7ckc8")
@@ -30,8 +38,8 @@ shader_parameter/grid_color = Vector4(0.2, 0.2, 0.2, 1)
 shader = ExtResource("2_7ckc8")
 shader_parameter/position = null
 shader_parameter/scale = Vector2(1, 1)
-shader_parameter/background_color = Vector4(0.4, 0.6, 0.9, 1)
-shader_parameter/grid_color = Vector4(0.2, 0.2, 0.2, 1)
+shader_parameter/background_color = Vector4(0.16, 0.129, 0.016, 1)
+shader_parameter/grid_color = Vector4(0.5, 0.504, 0.004, 1)
 
 [node name="RootNode" type="Node2D"]
 script = ExtResource("1_8vqs3")
@@ -48,7 +56,6 @@ scale = Vector2(9, 5.0625)
 texture = ExtResource("3_ade1w")
 
 [node name="GridRect" type="TextureRect" parent="GridLayer"]
-visible = false
 material = SubResource("ShaderMaterial_1mdxg")
 anchors_preset = 15
 anchor_right = 1.0
@@ -90,7 +97,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="HelpButton" type="Button" parent="UiCanvasLayer/ButtonsContainer"]
 layout_mode = 2
-text = "Помогите"
+text = "Помощь"
 
 [node name="ShowLogicAnalyzerButton" type="Button" parent="UiCanvasLayer/ButtonsContainer"]
 layout_mode = 2
@@ -102,6 +109,10 @@ layout_mode = 2
 text = "Альтернативный алгоритм"
 script = ExtResource("5_qlik5")
 
+[node name="MinimalGraphics" type="CheckButton" parent="UiCanvasLayer/ButtonsContainer"]
+layout_mode = 2
+text = "Режим минималистичной графики"
+
 [node name="FunctionalUIContainer" type="VBoxContainer" parent="UiCanvasLayer"]
 anchors_preset = -1
 anchor_right = 0.242
@@ -109,13 +120,13 @@ anchor_bottom = 1.0
 offset_top = 40.0
 offset_right = 0.191986
 grow_vertical = 2
-mouse_filter = 0
 metadata/_edit_use_anchors_ = true
 
 [node name="ComponentTree" type="Tree" parent="UiCanvasLayer/FunctionalUIContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 tooltip_text = "Tooltip"
+mouse_force_pass_scroll_events = false
 hide_root = true
 script = ExtResource("3_q10ex")
 
@@ -146,15 +157,13 @@ title = "Управление"
 initial_position = 1
 size = Vector2i(760, 262)
 dialog_text = "Масштаб - колесико мыши или клавиши +/-
-Перемещение рабочей области - wasd или перетаскивание с зажатой СКМ
+Перемещение рабочей области - wasd или перетаскивание с зажатой ЛКМ
 Выбор элемента в дереве слева
-При выбранном элементе Alt + ЛКМ размещает элемент под курсором
+При выбранном элементе Alt + ЛКМ размещает элемент под курсором. Кроме этого допустимо перетаскивание в рабочую область
 При наведении на элемент перетаскивание мыши с зажатой ЛКМ перемещает элемент
-ПКМ при наведении на кнопку переключателя меняет его состояние
+ПКМ при наведении на объект взаимодействует с ним и открывает соответствующие контекстные меню (задание частоты для генератора, просмотр памяти и т.д.)
 Создание провода: ПКМ сначала по одной ножке, затем по второй
-Удаление элемента/провода: навести указатель мыши на элемент/провод и нажать Delete или СКМ
-Включение или отключение сетки: G
-Переключение графических режимов: \\"
+Удаление элемента/провода: навести указатель мыши на элемент/провод и нажать Delete или СКМ"
 script = ExtResource("8_s7pmm")
 
 [node name="LogicAnalyzerWindow" type="Window" parent="."]
@@ -232,13 +241,369 @@ layout_mode = 2
 [node name="LogicAnalyzerTimer" type="Timer" parent="LogicAnalyzerWindow"]
 script = ExtResource("14_st4q1")
 
+[node name="MemoryViewer" type="Window" parent="."]
+auto_translate_mode = 1
+title = "Просмотр памяти"
+position = Vector2i(150, 100)
+size = Vector2i(500, 550)
+visible = false
+always_on_top = true
+min_size = Vector2i(250, 250)
+script = ExtResource("12_wwdn8")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MemoryViewer"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MemoryViewer/VBoxContainer"]
+layout_mode = 2
+
+[node name="RamNameLabel" type="Label" parent="MemoryViewer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Имя элемента памяти"
+
+[node name="ContinuousUpdate" type="CheckBox" parent="MemoryViewer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Постоянное обновление"
+
+[node name="GridContainer" type="GridContainer" parent="MemoryViewer/VBoxContainer"]
+layout_mode = 2
+columns = 17
+script = ExtResource("13_jjv1i")
+
+[node name="ItemList" type="ItemList" parent="MemoryViewer/VBoxContainer"]
+layout_mode = 2
+max_columns = 0
+script = ExtResource("12_ncj2o")
+
+[node name="Label" type="Label" parent="MemoryViewer/VBoxContainer/ItemList"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Память???"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MemoryViewer/VBoxContainer"]
+layout_mode = 2
+script = ExtResource("15_o4npq")
+
+[node name="BackwardButton" type="Button" parent="MemoryViewer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "<"
+
+[node name="ForwardButton" type="Button" parent="MemoryViewer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = ">"
+
+[node name="UpdateButton" type="Button" parent="MemoryViewer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Обновить"
+
+[node name="LoadButton" type="Button" parent="MemoryViewer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Загрузить из файла"
+
+[node name="FileDialog" type="FileDialog" parent="MemoryViewer/VBoxContainer/HBoxContainer"]
+title = "Open a File"
+size = Vector2i(322, 350)
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+use_native_dialog = true
+script = ExtResource("16_h0gp2")
+
+[node name="RegViewer" type="Window" parent="."]
+position = Vector2i(0, 36)
+size = Vector2i(250, 250)
+visible = false
+always_on_top = true
+unfocusable = true
+script = ExtResource("17_2a815")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="RegViewer"]
+offset_right = 87.0
+offset_bottom = 131.0
+size_flags_stretch_ratio = 1.5
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="RegViewer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="RegViewer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="AX_cont" type="HBoxContainer" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer/AX_cont"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
+text = "AX"
+
+[node name="Val" type="Label" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer/AX_cont"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
+
+[node name="BX_cont" type="HBoxContainer" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer/BX_cont"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
+text = "BX"
+
+[node name="Val" type="Label" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer/BX_cont"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
+
+[node name="CX_cont" type="HBoxContainer" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer/CX_cont"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
+text = "CX"
+
+[node name="Val" type="Label" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer/CX_cont"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
+
+[node name="DX_cont" type="HBoxContainer" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer/DX_cont"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
+text = "DX"
+
+[node name="Val" type="Label" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer/DX_cont"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
+
+[node name="VSeparator" type="VSeparator" parent="RegViewer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="RegViewer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="CS_cont" type="HBoxContainer" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer2/CS_cont"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
+text = "CS"
+
+[node name="Val" type="Label" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer2/CS_cont"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
+
+[node name="SS_cont" type="HBoxContainer" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer2/SS_cont"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
+text = "SS"
+
+[node name="Val" type="Label" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer2/SS_cont"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
+
+[node name="DS_cont" type="HBoxContainer" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer2/DS_cont"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
+text = "DS"
+
+[node name="Val" type="Label" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer2/DS_cont"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
+
+[node name="ES_cont" type="HBoxContainer" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer2/ES_cont"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
+text = "ES"
+
+[node name="Val" type="Label" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer2/ES_cont"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
+
+[node name="VSeparator2" type="VSeparator" parent="RegViewer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="RegViewer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="SP_cont" type="HBoxContainer" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer3/SP_cont"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
+text = "SP"
+
+[node name="Val" type="Label" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer3/SP_cont"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
+
+[node name="BP_cont" type="HBoxContainer" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer3/BP_cont"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
+text = "BP"
+
+[node name="Val" type="Label" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer3/BP_cont"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
+
+[node name="SI_cont" type="HBoxContainer" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer3/SI_cont"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
+text = "SI"
+
+[node name="Val" type="Label" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer3/SI_cont"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
+
+[node name="DI_cont" type="HBoxContainer" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer3/DI_cont"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
+text = "DI"
+
+[node name="Val" type="Label" parent="RegViewer/VBoxContainer/HBoxContainer/VBoxContainer3/DI_cont"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
+
+[node name="HSeparator" type="HSeparator" parent="RegViewer/VBoxContainer"]
+layout_mode = 2
+
+[node name="IP_cont" type="HBoxContainer" parent="RegViewer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="RegViewer/VBoxContainer/IP_cont"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
+text = "IP"
+
+[node name="Val" type="Label" parent="RegViewer/VBoxContainer/IP_cont"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
+
+[node name="HSeparator2" type="HSeparator" parent="RegViewer/VBoxContainer"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="RegViewer/VBoxContainer"]
+layout_mode = 2
+columns = 9
+
+[node name="Label" type="Label" parent="RegViewer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
+text = "OF"
+
+[node name="Label2" type="Label" parent="RegViewer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
+text = "DF"
+
+[node name="Label3" type="Label" parent="RegViewer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
+text = "IF"
+
+[node name="Label4" type="Label" parent="RegViewer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
+text = "TF"
+
+[node name="Label5" type="Label" parent="RegViewer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
+text = "SF"
+
+[node name="Label6" type="Label" parent="RegViewer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
+text = "ZF"
+
+[node name="Label7" type="Label" parent="RegViewer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
+text = "AF"
+
+[node name="Label8" type="Label" parent="RegViewer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
+text = "PF"
+
+[node name="Label9" type="Label" parent="RegViewer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
+text = "CF"
+
+[node name="of" type="Label" parent="RegViewer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
+
+[node name="df" type="Label" parent="RegViewer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
+
+[node name="if" type="Label" parent="RegViewer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
+
+[node name="tf" type="Label" parent="RegViewer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
+
+[node name="sf" type="Label" parent="RegViewer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
+
+[node name="zf" type="Label" parent="RegViewer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
+
+[node name="acf" type="Label" parent="RegViewer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
+
+[node name="pf" type="Label" parent="RegViewer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
+
+[node name="cf" type="Label" parent="RegViewer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
+
 [connection signal="pressed" from="UiCanvasLayer/ButtonsContainer/ClearButton" to="UiCanvasLayer/ButtonsContainer/ClearButton" method="_on_pressed"]
 [connection signal="pressed" from="UiCanvasLayer/ButtonsContainer/SaveAsButton" to="SaveAsFileDialog" method="_on_save_as_button_pressed"]
 [connection signal="pressed" from="UiCanvasLayer/ButtonsContainer/LoadButton" to="LoadFileDialog" method="_on_load_button_pressed"]
 [connection signal="pressed" from="UiCanvasLayer/ButtonsContainer/HelpButton" to="HelpDialog" method="_on_help_button_pressed"]
 [connection signal="pressed" from="UiCanvasLayer/ButtonsContainer/ShowLogicAnalyzerButton" to="UiCanvasLayer/ButtonsContainer/ShowLogicAnalyzerButton" method="_on_pressed"]
 [connection signal="toggled" from="UiCanvasLayer/ButtonsContainer/DoCyclesButton" to="UiCanvasLayer/ButtonsContainer/DoCyclesButton" method="_on_toggled"]
+[connection signal="pressed" from="UiCanvasLayer/ButtonsContainer/MinimalGraphics" to="." method="toggle_graphics_mode"]
 [connection signal="item_mouse_selected" from="UiCanvasLayer/FunctionalUIContainer/ComponentTree" to="UiCanvasLayer/FunctionalUIContainer/ComponentTree" method="_on_item_mouse_selected"]
+[connection signal="mouse_entered" from="UiCanvasLayer/FunctionalUIContainer/ComponentTree" to="UiCanvasLayer/FunctionalUIContainer/ComponentTree" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="UiCanvasLayer/FunctionalUIContainer/ComponentTree" to="UiCanvasLayer/FunctionalUIContainer/ComponentTree" method="_on_mouse_exited"]
 [connection signal="nothing_selected" from="UiCanvasLayer/FunctionalUIContainer/ComponentTree" to="UiCanvasLayer/FunctionalUIContainer/ComponentTree" method="_on_nothing_selected"]
 [connection signal="file_selected" from="SaveAsFileDialog" to="SaveAsFileDialog" method="_on_file_selected"]
 [connection signal="file_selected" from="LoadFileDialog" to="LoadFileDialog" method="_on_file_selected"]
@@ -253,3 +618,4 @@ script = ExtResource("14_st4q1")
 [connection signal="text_change_rejected" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/TimerDelayLineEdit" to="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/TimerDelayLineEdit" method="_on_text_change_rejected"]
 [connection signal="text_submitted" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/TimerDelayLineEdit" to="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/TimerDelayLineEdit" method="_on_text_submitted"]
 [connection signal="timeout" from="LogicAnalyzerWindow/LogicAnalyzerTimer" to="LogicAnalyzerWindow/RootVBoxContainer/SignalsHSplitContainer" method="_on_logic_analyzer_timer_timeout"]
+[connection signal="pressed" from="MemoryViewer/VBoxContainer/HBoxContainer2/ContinuousUpdate" to="MemoryViewer/VBoxContainer/HBoxContainer" method="_on_continuous_update_pressed"]

@@ -7,7 +7,19 @@ func _init():
 	memory_content.resize(1024);
 	memory_content.fill(0);
 	
-	
+var mem_viewer	
+func _ready():
+	mem_viewer = get_node("/root/RootNode/MemoryViewer")
+
+func _rmb_action():
+	mem_viewer.set_memory(self)
+
+
+func initialize(spec: ComponentSpecification, ic = null):
+	super.initialize(spec, ic)
+	change_graphics_mode(GlobalSettings.GraphicsMode.Legacy if GlobalSettings.LegacyGraphics else GlobalSettings.GraphicsMode.Default)
+
+
 func _process_signal():
 	pin(9).set_low()
 	pin(18).set_high()
@@ -19,10 +31,6 @@ func _process_signal():
 			pin(13).set_output()
 			pin(14).set_output()
 		elif (previous_state and pin(10).low):
-			pin(11).set_z()
-			pin(12).set_z()
-			pin(13).set_z()
-			pin(14).set_z()
 			pin(11).set_input()
 			pin(12).set_input()
 			pin(13).set_input()
@@ -64,7 +72,7 @@ func set_value(addr:int, q:int, index:int):
 	if(q==1):
 		memory_content[addr] = memory_content[addr] | (q<<index) 
 	else:
-		memory_content[addr] = memory_content[addr] & (q<<index) 
+		memory_content[addr] = memory_content[addr] & memory_content[addr] & ~(1<<index)  
 	
 func get_values(addr:int):
 	var value = memory_content[addr]

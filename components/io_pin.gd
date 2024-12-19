@@ -8,7 +8,13 @@ var current_direction = NetConstants.DIRECTION.DIRECTION_OUTPUT
 func _ready() -> void:
 	pass # Replace with function body.
 
+# TODO: Refactor this to use fields
+#var input:
+	#get: 	return self.current_direction == NetConstants.DIRECTION.DIRECTION_INPUT
+#var output:
+	#get: 	return self.current_direction == NetConstants.DIRECTION.DIRECTION_OUTPUT
 
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
