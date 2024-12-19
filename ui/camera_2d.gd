@@ -10,7 +10,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	grid_rect.material.set_shader_parameter("position",position*zoom + 0.1 * delta_vec)
+	grid_rect.material.set_shader_parameter("position",position*zoom + zoom * delta_vec)
 	if(GlobalSettings.disableGlobalInput):
 		return
 	if Input.is_action_just_pressed("ZoomUp"):
@@ -28,7 +28,6 @@ func _physics_process(delta: float) -> void:
 		position += Vector2.LEFT * 10
 	if Input.is_action_pressed("pan_right"):
 		position += Vector2.RIGHT * 10
-	
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
 		if pressed_mmb:
 			var delta_vec = Input.get_last_mouse_velocity() * delta / zoom
