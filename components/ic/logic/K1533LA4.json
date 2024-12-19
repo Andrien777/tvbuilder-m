@@ -50,7 +50,7 @@
 	  "readable_name": "Y2",
 	  "description": "Выход второго элемента НЕ-И",
 	  "direction": "DIRECTION_OUTPUT",
-			"position": "TOP",
+			"position": "BOTTOM",
 	  "dependencies": [-1]
 	},
 	{
