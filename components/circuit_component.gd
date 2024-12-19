@@ -43,15 +43,15 @@ func initialize(spec: ComponentSpecification, ic = null)->void: # Ic field holds
 	#sprite.modulate = Color(0.0, 0.0, 0.0, 1.0)
 	# Render texture and set height-width
 	#Label
-	if(display_name_label):
-		name_label = Label.new()
-		name_label.position = Vector2(-50,-10) if  GlobalSettings.LegacyGraphics else Vector2(0,0)
-		name_label.z_index = 2
-		name_label.text = self.readable_name
-		add_child(name_label)
 	add_child(hitbox)
 	add_child(sprite)
 	initialize_pins(spec.pinSpecifications, shape.size)
+	if(display_name_label):
+		name_label = Label.new()
+		name_label.position = Vector2(-50,-10) if  GlobalSettings.LegacyGraphics else Vector2(0,0)
+		#name_label.z_index = 2
+		name_label.text = self.readable_name
+		add_child(name_label)
 	id = last_id
 	last_id += 1
 	ComponentManager.register_object(self)
