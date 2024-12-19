@@ -89,7 +89,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="HelpButton" type="Button" parent="UiCanvasLayer/ButtonsContainer"]
 layout_mode = 2
-text = "Помогите"
+text = "Помощь"
 
 [node name="DoCyclesButton" type="CheckButton" parent="UiCanvasLayer/ButtonsContainer"]
 layout_mode = 2
@@ -150,9 +150,7 @@ dialog_text = "Масштаб - колесико мыши или клавиши 
 При наведении на элемент перетаскивание мыши с зажатой ЛКМ перемещает элемент
 ПКМ при наведении на объект взаимодействует с ним и открывает соответствующие контекстные меню (задание частоты для генератора, просмотр памяти и т.д.)
 Создание провода: ПКМ сначала по одной ножке, затем по второй
-Удаление элемента/провода: навести указатель мыши на элемент/провод и нажать Delete или СКМ
-Включение или отключение сетки: G
-Переключение графических режимов: \\"
+Удаление элемента/провода: навести указатель мыши на элемент/провод и нажать Delete или СКМ"
 script = ExtResource("8_s7pmm")
 
 [node name="MemoryViewer" type="Window" parent="."]

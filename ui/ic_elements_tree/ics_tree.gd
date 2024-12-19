@@ -1,9 +1,16 @@
 extends Tree
 
 @onready var tree: Tree = $"."
+var timer
+var old_mouse_position
 
 func _ready() -> void:
 	_initialize_from_json()
+	timer = Timer.new() # To check if element is created with drag and drop
+	timer.one_shot = true
+	timer.wait_time = 0.25
+	timer.timeout.connect(_on_timer_callback)
+	add_child(timer)
 
 func _initialize_from_json() -> void:
 	var json = JSON.new()
@@ -31,6 +38,13 @@ func _parse_group(group, tree_node):
 func _on_item_mouse_selected(mouse_position: Vector2, _mouse_button_index: int) -> void:
 	var item = tree.get_item_at_position(mouse_position)
 	ICsTreeManager.selected_item = item
+	old_mouse_position = get_global_mouse_position()
+	timer.start()
 
 func _on_nothing_selected() -> void:
 	ICsTreeManager.selected_item = null
+	
+func _on_timer_callback():
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		if (get_global_mouse_position() - old_mouse_position).length() >= 10:
+			get_node("/root/RootNode").create_selected_element()

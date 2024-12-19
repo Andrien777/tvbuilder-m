@@ -21,16 +21,7 @@ func _input(event):
 	if (GlobalSettings.disableGlobalInput):
 		return
 	if event.is_action_pressed("add_new_ic_element"):
-		var element_name = ICsTreeManager.get_selected_element_name()
-		if element_name == null: return
-		
-		var spec = ComponentSpecification.new()
-		spec.initialize_from_json( ICsTreeManager.get_config_path(element_name) )
-		
-		var element: CircuitComponent = load( ICsTreeManager.get_class_path(element_name) ).new()
-		element.initialize(spec)
-		element.position = get_global_mouse_position()
-		add_child(element)
+		create_selected_element()
 	elif event.is_action_pressed("save_scheme"):
 		if SaveManager.last_path == "":
 			get_node("SaveAsFileDialog").visible = true
@@ -38,8 +29,6 @@ func _input(event):
 			SaveManager._on_autosave()
 	elif event.is_action_pressed("load_scheme"):
 		get_node("LoadFileDialog").visible = true
-	elif event.is_action_pressed("highlight_level"):
-		toggle_graphics_mode()
 
 func toggle_graphics_mode():
 	GlobalSettings.LegacyGraphics = not GlobalSettings.LegacyGraphics
@@ -57,3 +46,15 @@ func toggle_graphics_mode():
 		wire.change_color()
 	timer.start()
 	get_node("./GridLayer/GridRect").visible = not get_node("./GridLayer/GridRect").visible
+	
+func create_selected_element():
+	var element_name = ICsTreeManager.get_selected_element_name()
+	if element_name == null: return
+	var spec = ComponentSpecification.new()
+	spec.initialize_from_json( ICsTreeManager.get_config_path(element_name) )
+	
+	var element: CircuitComponent = load( ICsTreeManager.get_class_path(element_name) ).new()
+	element.initialize(spec)
+	element.position = get_global_mouse_position()
+	add_child(element)
+	element.is_dragged = true
