@@ -1,6 +1,10 @@
 extends CircuitComponent
 class_name CONST_0
 
+func initialize(spec: ComponentSpecification, ic = null):
+	super.initialize(spec, ic)
+	change_graphics_mode(GlobalSettings.GraphicsMode.Legacy if GlobalSettings.LegacyGraphics else GlobalSettings.GraphicsMode.Default)
+
 func _process_signal():
 	pin(1).set_low()
 

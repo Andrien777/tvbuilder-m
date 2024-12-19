@@ -1,7 +1,7 @@
 extends Node
 
 var LevelHighlight  = false
-var LegacyGraphics = false
+var LegacyGraphics = true
 var doCycles = true
 var disableGlobalInput = false
 enum GraphicsMode  {Default, Legacy}

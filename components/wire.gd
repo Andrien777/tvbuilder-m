@@ -68,7 +68,7 @@ func _process(delta: float, force_update = false) -> void:
 	# TODO: Render only if position of start|end nodes changed
 	
 	if first_object!=null and second_object!=null : # TODO: Notify WireManager about missing object
-		if  (abs(first_object.global_position - first_object_last_position) <= Vector2.ONE * 1e-6 or abs(second_object.global_position - second_object_last_position) <= Vector2.ONE * 1e-6 or force_update):
+		if  (abs(first_object.global_position - first_object_last_position) >= Vector2.ONE * 1e-6 or abs(second_object.global_position - second_object_last_position) >= Vector2.ONE * 1e-6 or force_update):
 
 			line.set_point_position(0, first_object.global_position)
 			line.set_point_position(1, first_object.global_position+get_pin_offset(first_object))
