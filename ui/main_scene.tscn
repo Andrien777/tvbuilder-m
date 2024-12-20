@@ -1,5 +1,6 @@
 [gd_scene load_steps=28 format=3 uid="uid://cc3tb05ie70il"]
 
+
 [ext_resource type="Script" path="res://ui/main_scene.gd" id="1_8vqs3"]
 [ext_resource type="Shader" path="res://shaders/grid.gdshader" id="2_7ckc8"]
 [ext_resource type="Script" path="res://ui/camera_2d.gd" id="2_pmywl"]
@@ -12,6 +13,12 @@
 [ext_resource type="Script" path="res://ui/do_cycles_button.gd" id="5_qlik5"]
 [ext_resource type="Script" path="res://ui/show_logic_analyzer_button.gd" id="7_nqego"]
 [ext_resource type="Script" path="res://ui/help_dialog.gd" id="8_s7pmm"]
+[ext_resource type="Script" path="res://ui/logic_analyzer/logic_analyzer_window.gd" id="12_ngdkd"]
+[ext_resource type="Script" path="res://ui/logic_analyzer/select_pins_button.gd" id="13_o3lk5"]
+[ext_resource type="Script" path="res://ui/logic_analyzer/timer_delay_line_edit.gd" id="13_oocfk"]
+[ext_resource type="Script" path="res://ui/logic_analyzer/logic_analyzer_timer.gd" id="14_st4q1"]
+[ext_resource type="Script" path="res://ui/logic_analyzer/signals_h_split_container.gd" id="15_7mwtm"]
+[ext_resource type="Script" path="res://ui/logic_analyzer/clear_button.gd" id="15_73c41"]
 [ext_resource type="Script" path="res://tools/memory_content_display.gd" id="12_ncj2o"]
 [ext_resource type="Script" path="res://ui/logic_analyzer/logic_analyzer_window.gd" id="12_ngdkd"]
 [ext_resource type="Script" path="res://ui/memory_viewer.gd" id="12_wwdn8"]
