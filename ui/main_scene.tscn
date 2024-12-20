@@ -599,7 +599,6 @@ theme_override_fonts/font = ExtResource("18_awkwq")
 z_index = -3
 texture_repeat = 2
 texture = ExtResource("19_xavts")
-offset = Vector2(-10, 6)
 region_enabled = true
 region_rect = Rect2(0, 0, 50000, 50000)
 region_filter_clip_enabled = true

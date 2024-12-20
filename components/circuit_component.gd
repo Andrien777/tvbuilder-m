@@ -25,6 +25,7 @@ func initialize(spec: ComponentSpecification, ic = null)->void: # Ic field holds
 	self.readable_name = spec.name
 	self.input_pickable = true
 	sprite = Sprite2D.new()
+	sprite.centered = false
 	hitbox = CollisionShape2D.new()
 	var shape = RectangleShape2D.new()
 	
@@ -49,7 +50,7 @@ func initialize(spec: ComponentSpecification, ic = null)->void: # Ic field holds
 	initialize_pins(spec.pinSpecifications, shape.size)
 	if(display_name_label):
 		name_label = Label.new()
-		name_label.position = Vector2(-50,-10) if  GlobalSettings.LegacyGraphics else Vector2(0,0)
+		name_label.position = Vector2(10,shape.size.y/2 - name_label.get_line_height()/2)
 		#name_label.z_index = 2
 		name_label.text = self.readable_name
 		add_child(name_label)
@@ -104,26 +105,26 @@ func initialize_pins(spec: Array, ic_shape:Vector2)->void:
 	for pin in pins:
 		match pin.ic_position:
 			"TOP":
-				pin.position = Vector2(side_padding-ic_shape.x/2 + 
+				pin.position = Vector2(side_padding+ 
 				side_margin[pin.ic_position]*(side_count[pin.ic_position] - side_index[pin.ic_position]-1), # TODO: Please think of something better
-				0-ic_shape.y/2)
+				0)
 				side_index[pin.ic_position]+=1
 			"BOTTOM":
 				pin.rotation_degrees =180
-				pin.position = Vector2(side_padding-ic_shape.x/2 + 
+				pin.position = Vector2(side_padding+ 
 				side_margin[pin.ic_position]*side_index[pin.ic_position], 
-				0+ic_shape.y/2)
+				ic_shape.y)
 				side_index[pin.ic_position]+=1
 			"LEFT":
 				pin.rotation_degrees =270
-				pin.position = Vector2(0-ic_shape.x/2 , 
-				side_padding-ic_shape.y/2+
+				pin.position = Vector2(0, 
+				side_padding+
 				side_margin[pin.ic_position]*side_index[pin.ic_position])
 				side_index[pin.ic_position]+=1	
 			"RIGHT":
 				pin.rotation_degrees =90
-				pin.position = Vector2(0+ic_shape.x/2 , 
-				side_padding-ic_shape.y/2+
+				pin.position = Vector2(ic_shape.x, 
+				side_padding+
 				side_margin[pin.ic_position]*(side_count[pin.ic_position] - side_index[pin.ic_position]-1))
 				side_index[pin.ic_position]+=1
 	for pin_spec in spec:
@@ -212,15 +213,12 @@ func pin(i:int):
 
 func change_graphics_mode(mode:GlobalSettings.GraphicsMode):
 	if (mode==GlobalSettings.GraphicsMode.Legacy): # TODO: Enum
-		if(display_name_label):
-			name_label.position = Vector2(-50,-10)
 		sprite.texture = ic_texture
 	else:
-		if(display_name_label):
-			name_label.position = Vector2(0,0)
 		sprite.texture = test_texture
 	var shape = RectangleShape2D.new()
 	shape.size = sprite.texture.get_size()
+	name_label.position = Vector2(10,shape.size.y/2 - name_label.get_line_height()/2)
 	hitbox.shape = shape
 	update_pins(self.pins, shape.size)
 
@@ -260,25 +258,25 @@ func update_pins(pins:Array, ic_shape:Vector2):
 			pin.scale=Vector2(0.2,0.4)
 		match _pin.ic_position:
 			"TOP":
-				pin.position = Vector2(side_padding-ic_shape.x/2 + 
+				pin.position = Vector2(side_padding+ 
 				side_margin[_pin.ic_position]*(side_count[_pin.ic_position] - side_index[_pin.ic_position]-1), # TODO: Please think of something better
-				0-ic_shape.y/2)
+				0)
 				side_index[_pin.ic_position]+=1
 			"BOTTOM":
 				pin.rotation_degrees =180
-				pin.position = Vector2(side_padding-ic_shape.x/2 + 
+				pin.position = Vector2(side_padding+ 
 				side_margin[_pin.ic_position]*side_index[_pin.ic_position], 
-				0+ic_shape.y/2)
+				ic_shape.y)
 				side_index[_pin.ic_position]+=1
 			"LEFT":
 				pin.rotation_degrees =270
-				pin.position = Vector2(0-ic_shape.x/2 , 
-				side_padding-ic_shape.y/2+
+				pin.position = Vector2(0 , 
+				side_padding+
 				side_margin[pin.ic_position]*side_index[pin.ic_position])
 				side_index[pin.ic_position]+=1	
 			"RIGHT":
 				pin.rotation_degrees =90
-				pin.position = Vector2(0+ic_shape.x/2 , 
-				side_padding-ic_shape.y/2+
+				pin.position = Vector2(ic_shape.x, 
+				side_padding+
 				side_margin[pin.ic_position]*(side_count[pin.ic_position] - side_index[pin.ic_position]-1))
 				side_index[pin.ic_position]+=1
