@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cc3tb05ie70il"]
+[gd_scene load_steps=29 format=3 uid="uid://cd0acvbjpyg0w"]
 
 [ext_resource type="Script" path="res://ui/main_scene.gd" id="1_8vqs3"]
 [ext_resource type="Shader" path="res://shaders/grid.gdshader" id="2_7ckc8"]
@@ -10,10 +10,17 @@
 [ext_resource type="Script" path="res://ui/load_file_dialog.gd" id="5_656tm"]
 [ext_resource type="Script" path="res://ui/clear_button.gd" id="5_pxoya"]
 [ext_resource type="Script" path="res://ui/do_cycles_button.gd" id="5_qlik5"]
+[ext_resource type="Script" path="res://ui/show_logic_analyzer_button.gd" id="7_nqego"]
 [ext_resource type="Script" path="res://ui/help_dialog.gd" id="8_s7pmm"]
 [ext_resource type="Script" path="res://tools/memory_content_display.gd" id="12_ncj2o"]
+[ext_resource type="Script" path="res://ui/logic_analyzer/logic_analyzer_window.gd" id="12_ngdkd"]
 [ext_resource type="Script" path="res://ui/memory_viewer.gd" id="12_wwdn8"]
 [ext_resource type="Script" path="res://ui/mem_viewer_grid.gd" id="13_jjv1i"]
+[ext_resource type="Script" path="res://ui/logic_analyzer/select_pins_button.gd" id="13_o3lk5"]
+[ext_resource type="Script" path="res://ui/logic_analyzer/timer_delay_line_edit.gd" id="13_oocfk"]
+[ext_resource type="Script" path="res://ui/logic_analyzer/logic_analyzer_timer.gd" id="14_st4q1"]
+[ext_resource type="Script" path="res://ui/logic_analyzer/signals_h_split_container.gd" id="15_7mwtm"]
+[ext_resource type="Script" path="res://ui/logic_analyzer/clear_button.gd" id="15_73c41"]
 [ext_resource type="Script" path="res://ui/pageControls.gd" id="15_o4npq"]
 [ext_resource type="Script" path="res://ui/memory_load_file_dialog.gd" id="16_h0gp2"]
 [ext_resource type="Script" path="res://ui/reg_viewer.gd" id="17_2a815"]
@@ -94,6 +101,11 @@ metadata/_edit_use_anchors_ = true
 layout_mode = 2
 text = "Помощь"
 
+[node name="ShowLogicAnalyzerButton" type="Button" parent="UiCanvasLayer/ButtonsContainer"]
+layout_mode = 2
+text = "Открыть логический анализатор"
+script = ExtResource("7_nqego")
+
 [node name="DoCyclesButton" type="CheckButton" parent="UiCanvasLayer/ButtonsContainer"]
 layout_mode = 2
 text = "Альтернативный алгоритм"
@@ -155,6 +167,80 @@ dialog_text = "Масштаб - колесико мыши или клавиши 
 Создание провода: ПКМ сначала по одной ножке, затем по второй
 Удаление элемента/провода: навести указатель мыши на элемент/провод и нажать Delete или СКМ"
 script = ExtResource("8_s7pmm")
+
+[node name="LogicAnalyzerWindow" type="Window" parent="."]
+mode = 1
+title = "Логический Анализатор"
+initial_position = 4
+size = Vector2i(900, 600)
+visible = false
+script = ExtResource("12_ngdkd")
+
+[node name="RootVBoxContainer" type="VBoxContainer" parent="LogicAnalyzerWindow"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ButtonHBoxContainer" type="HBoxContainer" parent="LogicAnalyzerWindow/RootVBoxContainer"]
+layout_mode = 2
+
+[node name="SelectPinsButton" type="Button" parent="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Начать выбор ножек"
+script = ExtResource("13_o3lk5")
+
+[node name="StartStopAnalysisButton" type="Button" parent="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Начать"
+
+[node name="ClearButton" type="Button" parent="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer"]
+layout_mode = 2
+text = "Очистить"
+script = ExtResource("15_73c41")
+
+[node name="TimerDelayLabel" type="Label" parent="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer"]
+layout_mode = 2
+text = "Задержка снятия значений"
+
+[node name="TimerDelayLineEdit" type="LineEdit" parent="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer"]
+layout_mode = 2
+script = ExtResource("13_oocfk")
+
+[node name="SignalsHSplitContainer" type="HSplitContainer" parent="LogicAnalyzerWindow/RootVBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+split_offset = 175
+script = ExtResource("15_7mwtm")
+
+[node name="SignalLabelsPanelContainer" type="PanelContainer" parent="LogicAnalyzerWindow/RootVBoxContainer/SignalsHSplitContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="SignalLabelsVBoxContainer" type="VBoxContainer" parent="LogicAnalyzerWindow/RootVBoxContainer/SignalsHSplitContainer/SignalLabelsPanelContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SignalsPanelContainer" type="PanelContainer" parent="LogicAnalyzerWindow/RootVBoxContainer/SignalsHSplitContainer"]
+layout_mode = 2
+
+[node name="SignalsScrollContainer" type="ScrollContainer" parent="LogicAnalyzerWindow/RootVBoxContainer/SignalsHSplitContainer/SignalsPanelContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SignalsVBoxContainer" type="VBoxContainer" parent="LogicAnalyzerWindow/RootVBoxContainer/SignalsHSplitContainer/SignalsPanelContainer/SignalsScrollContainer"]
+layout_mode = 2
+
+[node name="LogicAnalyzerTimer" type="Timer" parent="LogicAnalyzerWindow"]
+script = ExtResource("14_st4q1")
 
 [node name="MemoryViewer" type="Window" parent="."]
 auto_translate_mode = 1
@@ -513,7 +599,7 @@ theme_override_fonts/font = ExtResource("18_awkwq")
 z_index = -3
 texture_repeat = 2
 texture = ExtResource("19_xavts")
-offset = Vector2(-10, 9)
+offset = Vector2(-10, 6)
 region_enabled = true
 region_rect = Rect2(0, 0, 50000, 50000)
 region_filter_clip_enabled = true
@@ -522,6 +608,7 @@ region_filter_clip_enabled = true
 [connection signal="pressed" from="UiCanvasLayer/ButtonsContainer/SaveAsButton" to="SaveAsFileDialog" method="_on_save_as_button_pressed"]
 [connection signal="pressed" from="UiCanvasLayer/ButtonsContainer/LoadButton" to="LoadFileDialog" method="_on_load_button_pressed"]
 [connection signal="pressed" from="UiCanvasLayer/ButtonsContainer/HelpButton" to="HelpDialog" method="_on_help_button_pressed"]
+[connection signal="pressed" from="UiCanvasLayer/ButtonsContainer/ShowLogicAnalyzerButton" to="UiCanvasLayer/ButtonsContainer/ShowLogicAnalyzerButton" method="_on_pressed"]
 [connection signal="toggled" from="UiCanvasLayer/ButtonsContainer/DoCyclesButton" to="UiCanvasLayer/ButtonsContainer/DoCyclesButton" method="_on_toggled"]
 [connection signal="pressed" from="UiCanvasLayer/ButtonsContainer/MinimalGraphics" to="." method="toggle_graphics_mode"]
 [connection signal="item_mouse_selected" from="UiCanvasLayer/FunctionalUIContainer/ComponentTree" to="UiCanvasLayer/FunctionalUIContainer/ComponentTree" method="_on_item_mouse_selected"]
@@ -530,4 +617,15 @@ region_filter_clip_enabled = true
 [connection signal="nothing_selected" from="UiCanvasLayer/FunctionalUIContainer/ComponentTree" to="UiCanvasLayer/FunctionalUIContainer/ComponentTree" method="_on_nothing_selected"]
 [connection signal="file_selected" from="SaveAsFileDialog" to="SaveAsFileDialog" method="_on_file_selected"]
 [connection signal="file_selected" from="LoadFileDialog" to="LoadFileDialog" method="_on_file_selected"]
+[connection signal="close_requested" from="LogicAnalyzerWindow" to="LogicAnalyzerWindow" method="_on_close_requested"]
+[connection signal="pressed" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/SelectPinsButton" to="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/SelectPinsButton" method="_on_pressed"]
+[connection signal="pressed" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/StartStopAnalysisButton" to="LogicAnalyzerWindow/LogicAnalyzerTimer" method="_on_button_2_pressed"]
+[connection signal="pressed" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/ClearButton" to="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/ClearButton" method="_on_pressed"]
+[connection signal="delay_value_changed" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/TimerDelayLineEdit" to="LogicAnalyzerWindow/RootVBoxContainer/SignalsHSplitContainer" method="_on_timer_delay_line_edit_delay_value_changed"]
+[connection signal="delay_value_changed" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/TimerDelayLineEdit" to="LogicAnalyzerWindow/LogicAnalyzerTimer" method="_on_timer_delay_line_edit_delay_value_changed"]
+[connection signal="focus_entered" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/TimerDelayLineEdit" to="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/TimerDelayLineEdit" method="_on_focus_entered"]
+[connection signal="focus_exited" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/TimerDelayLineEdit" to="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/TimerDelayLineEdit" method="_on_focus_exited"]
+[connection signal="text_change_rejected" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/TimerDelayLineEdit" to="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/TimerDelayLineEdit" method="_on_text_change_rejected"]
+[connection signal="text_submitted" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/TimerDelayLineEdit" to="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/TimerDelayLineEdit" method="_on_text_submitted"]
+[connection signal="timeout" from="LogicAnalyzerWindow/LogicAnalyzerTimer" to="LogicAnalyzerWindow/RootVBoxContainer/SignalsHSplitContainer" method="_on_logic_analyzer_timer_timeout"]
 [connection signal="pressed" from="MemoryViewer/VBoxContainer/HBoxContainer2/ContinuousUpdate" to="MemoryViewer/VBoxContainer/HBoxContainer" method="_on_continuous_update_pressed"]

@@ -29,6 +29,7 @@ ComponentManager="*res://netlist/component_manager.gd"
 
 [display]
 
+window/subwindows/embed_subwindows=false
 window/dpi/allow_hidpi=false
 
 [dotnet]

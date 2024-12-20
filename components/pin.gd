@@ -7,7 +7,7 @@ var legacy_pin_texture = preload("res://graphics/legacy/pins/legacy_pin.png")
 var index: int # Index on a chip
 var state: NetConstants.LEVEL # Current state (low/high/z)
 var direction: NetConstants.DIRECTION  # Input/output/io/disabled
-var parent:Node2D
+var parent: Node2D
 var ic_position: String
 var readable_name: String
 var description: String
@@ -57,9 +57,14 @@ func _process(delta: float) -> void:
 func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.pressed and Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
 		WireManager.register_wire_point(self)
+	if event is InputEventMouseButton and event.pressed:
+		get_node("/root/RootNode/LogicAnalyzerWindow/RootVBoxContainer/SignalsHSplitContainer").add_signal(self)
+		
+		
 func _mouse_enter() -> void:
 	self.modulate=Color(0.7,0.7,0.7,1)
 	PopupManager.display_hint("Пин: "+str(index)+ " | " + readable_name,description,self.global_position, self.direction)
+	
 func _mouse_exit()->void:
 	self.modulate=Color(1,1,1,1)
 	PopupManager.hide_hint()
