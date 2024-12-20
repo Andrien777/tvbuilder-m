@@ -10,10 +10,9 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-
 func _on_file_button_pressed() -> void:
 	self.visible = true
-	self.position = Vector2(5, 60)
+	self.position = get_node("../FileButton").position + Vector2(get_node("/root/RootNode").get_window().position) + Vector2(5, 41)
 
 
 func _on_index_pressed(index: int) -> void:

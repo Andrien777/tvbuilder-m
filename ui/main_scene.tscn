@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://cd0acvbjpyg0w"]
+[gd_scene load_steps=31 format=3 uid="uid://cd0acvbjpyg0w"]
 
 [ext_resource type="Script" path="res://ui/main_scene.gd" id="1_8vqs3"]
 [ext_resource type="Shader" path="res://shaders/grid.gdshader" id="2_7ckc8"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://ui/settings_window.gd" id="7_jodis"]
 [ext_resource type="Script" path="res://ui/show_logic_analyzer_button.gd" id="7_nqego"]
 [ext_resource type="Script" path="res://ui/help_dialog.gd" id="8_s7pmm"]
+[ext_resource type="Script" path="res://ui/settings_popup_menu.gd" id="10_2s8mk"]
 [ext_resource type="Script" path="res://tools/memory_content_display.gd" id="12_ncj2o"]
 [ext_resource type="Script" path="res://ui/logic_analyzer/logic_analyzer_window.gd" id="12_ngdkd"]
 [ext_resource type="Script" path="res://ui/memory_viewer.gd" id="12_wwdn8"]
@@ -118,24 +119,38 @@ offset_bottom = 40.0
 
 [node name="DoCyclesButton" type="CheckButton" parent="UiCanvasLayer/FunctionalUIContainer/MenuContainer/SettingsWindow/VBoxContainer"]
 layout_mode = 2
-text = "Альтернативный алгоритм"
+text = "Альтернативный алгоритм обработки схем"
 script = ExtResource("5_qlik5")
 
 [node name="MinimalGraphics" type="CheckButton" parent="UiCanvasLayer/FunctionalUIContainer/MenuContainer/SettingsWindow/VBoxContainer"]
 layout_mode = 2
 text = "Режим минималистичной графики"
 
-[node name="PopupMenu" type="PopupMenu" parent="UiCanvasLayer/FunctionalUIContainer/MenuContainer"]
+[node name="FilePopupMenu" type="PopupMenu" parent="UiCanvasLayer/FunctionalUIContainer/MenuContainer"]
 title = "Файл"
 item_count = 4
 item_0/text = "Сохранить"
 item_0/id = 3
 item_1/text = "Сохранить как"
+item_1/id = 1
 item_2/text = "Загрузить"
 item_2/id = 1
 item_3/text = "Очистить"
 item_3/id = 2
 script = ExtResource("5_02b1i")
+
+[node name="SettingsPopupMenu" type="PopupMenu" parent="UiCanvasLayer/FunctionalUIContainer/MenuContainer"]
+hide_on_item_selection = false
+hide_on_checkable_item_selection = false
+item_count = 3
+item_0/text = "Альтернативный алгоритм обработки схем"
+item_0/checkable = 1
+item_1/text = "Минималистичный графический режим"
+item_1/checkable = 1
+item_1/id = 1
+item_2/text = "Все настройки"
+item_2/id = 2
+script = ExtResource("10_2s8mk")
 
 [node name="HideTreeButton" type="Button" parent="UiCanvasLayer/FunctionalUIContainer"]
 layout_mode = 2
@@ -622,13 +637,14 @@ region_filter_clip_enabled = true
 
 [connection signal="mouse_entered" from="UiCanvasLayer/FunctionalUIContainer" to="UiCanvasLayer/FunctionalUIContainer" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="UiCanvasLayer/FunctionalUIContainer" to="UiCanvasLayer/FunctionalUIContainer" method="_on_mouse_exited"]
-[connection signal="pressed" from="UiCanvasLayer/FunctionalUIContainer/MenuContainer/FileButton" to="UiCanvasLayer/FunctionalUIContainer/MenuContainer/PopupMenu" method="_on_file_button_pressed"]
+[connection signal="pressed" from="UiCanvasLayer/FunctionalUIContainer/MenuContainer/FileButton" to="UiCanvasLayer/FunctionalUIContainer/MenuContainer/FilePopupMenu" method="_on_file_button_pressed"]
 [connection signal="pressed" from="UiCanvasLayer/FunctionalUIContainer/MenuContainer/HelpButton" to="HelpDialog" method="_on_help_button_pressed"]
 [connection signal="pressed" from="UiCanvasLayer/FunctionalUIContainer/MenuContainer/ShowLogicAnalyzerButton" to="UiCanvasLayer/FunctionalUIContainer/MenuContainer/ShowLogicAnalyzerButton" method="_on_pressed"]
-[connection signal="pressed" from="UiCanvasLayer/FunctionalUIContainer/MenuContainer/SettingsButton" to="UiCanvasLayer/FunctionalUIContainer/MenuContainer/SettingsWindow" method="open_window"]
+[connection signal="pressed" from="UiCanvasLayer/FunctionalUIContainer/MenuContainer/SettingsButton" to="UiCanvasLayer/FunctionalUIContainer/MenuContainer/SettingsPopupMenu" method="_on_settings_button_pressed"]
 [connection signal="toggled" from="UiCanvasLayer/FunctionalUIContainer/MenuContainer/SettingsWindow/VBoxContainer/DoCyclesButton" to="UiCanvasLayer/FunctionalUIContainer/MenuContainer/SettingsWindow/VBoxContainer/DoCyclesButton" method="_on_toggled"]
 [connection signal="pressed" from="UiCanvasLayer/FunctionalUIContainer/MenuContainer/SettingsWindow/VBoxContainer/MinimalGraphics" to="." method="toggle_graphics_mode"]
-[connection signal="index_pressed" from="UiCanvasLayer/FunctionalUIContainer/MenuContainer/PopupMenu" to="UiCanvasLayer/FunctionalUIContainer/MenuContainer/PopupMenu" method="_on_index_pressed"]
+[connection signal="index_pressed" from="UiCanvasLayer/FunctionalUIContainer/MenuContainer/FilePopupMenu" to="UiCanvasLayer/FunctionalUIContainer/MenuContainer/FilePopupMenu" method="_on_index_pressed"]
+[connection signal="index_pressed" from="UiCanvasLayer/FunctionalUIContainer/MenuContainer/SettingsPopupMenu" to="UiCanvasLayer/FunctionalUIContainer/MenuContainer/SettingsPopupMenu" method="_on_index_pressed"]
 [connection signal="pressed" from="UiCanvasLayer/FunctionalUIContainer/HideTreeButton" to="UiCanvasLayer/FunctionalUIContainer/ComponentTree" method="hide_tree"]
 [connection signal="item_mouse_selected" from="UiCanvasLayer/FunctionalUIContainer/ComponentTree" to="UiCanvasLayer/FunctionalUIContainer/ComponentTree" method="_on_item_mouse_selected"]
 [connection signal="nothing_selected" from="UiCanvasLayer/FunctionalUIContainer/ComponentTree" to="UiCanvasLayer/FunctionalUIContainer/ComponentTree" method="_on_nothing_selected"]
