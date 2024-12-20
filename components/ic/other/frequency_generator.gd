@@ -101,14 +101,14 @@ func change_graphics_mode(mode:GlobalSettings.GraphicsMode):
 	elif mode== GlobalSettings.GraphicsMode.Default:
 		freq_label.visible = true
 
-func _process(delta: float) -> void: # Just to disable deletion on backspace while popup is open
-	if is_dragged && Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT): # TODO: Remove this overload
-		self.global_position = get_global_mouse_position() + drag_offset
-	else:
-		self.is_dragged = false
-		snap_to_grid()
-	if Input.is_action_pressed("delete_component") and self.is_mouse_over and settings_popup.visible == false :
-		Input.action_release("delete_component")
-		ComponentManager.remove_object(self)
-		queue_free()
+#func _process(delta: float) -> void: # Just to disable deletion on backspace while popup is open
+	#if is_dragged && Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT): # TODO: Remove this overload
+		#self.global_position = get_global_mouse_position() + drag_offset
+	#else:
+		#self.is_dragged = false
+		#snap_to_grid()
+	#if Input.is_action_pressed("delete_component") and self.is_mouse_over and settings_popup.visible == false :
+		#Input.action_release("delete_component")
+		#ComponentManager.remove_object(self)
+		#queue_free()
 		

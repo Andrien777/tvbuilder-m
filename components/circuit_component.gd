@@ -152,7 +152,7 @@ func _process(delta: float) -> void:
 		snap_to_grid()
 		get_node("/root/RootNode/Camera2D").lock_pan = false
 		now_disabled_drag = true
-	if Input.is_action_pressed("delete_component"):
+	if Input.is_action_pressed("delete_component") and not GlobalSettings.disableGlobalInput:
 		if self.is_mouse_over:
 			Input.action_release("delete_component")
 			ComponentManager.remove_object(self)
