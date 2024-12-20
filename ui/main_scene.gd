@@ -24,11 +24,11 @@ func _input(event):
 		create_selected_element()
 	elif event.is_action_pressed("save_scheme"):
 		if SaveManager.last_path == "":
-			get_node("SaveAsFileDialog").visible = true
+			get_node("SaveAsFileDialog")._on_save_as_button_pressed()
 		else:
 			SaveManager._on_autosave()
 	elif event.is_action_pressed("load_scheme"):
-		get_node("LoadFileDialog").visible = true
+		get_node("LoadFileDialog")._on_load_button_pressed()
 
 func toggle_graphics_mode():
 	GlobalSettings.LegacyGraphics = not GlobalSettings.LegacyGraphics

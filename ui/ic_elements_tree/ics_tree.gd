@@ -53,14 +53,6 @@ func _on_timer_callback():
 	else:
 		get_node("/root/RootNode/Camera2D").lock_pan = false
 
-func _on_mouse_entered() -> void:
-	mouse_over = true
-	GlobalSettings.disableGlobalInput = true
-
-func _on_mouse_exited() -> void:
-	mouse_over = false
-	GlobalSettings.disableGlobalInput = false
-
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("hide_tree") and not GlobalSettings.disableGlobalInput:
 		hide_tree()

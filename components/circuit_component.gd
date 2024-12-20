@@ -2,7 +2,7 @@ extends StaticBody2D
 class_name CircuitComponent
 
 var is_dragged = false
-var is_mouse_over = false
+var is_mouse_over = true
 var now_disabled_drag = false
 
 var drag_offset = Vector2(0,0)
@@ -150,10 +150,11 @@ func _process(delta: float) -> void:
 		snap_to_grid()
 		get_node("/root/RootNode/Camera2D").lock_pan = false
 		now_disabled_drag = true
-	if Input.is_action_pressed("delete_component") and self.is_mouse_over:
-		Input.action_release("delete_component")
-		ComponentManager.remove_object(self)
-		queue_free()
+	if Input.is_action_pressed("delete_component"):
+		if self.is_mouse_over:
+			Input.action_release("delete_component")
+			ComponentManager.remove_object(self)
+			queue_free()
 		
 var tween
 func snap_to_grid():
