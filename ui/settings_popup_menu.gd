@@ -12,7 +12,7 @@ func _process(delta: float) -> void:
 
 func _on_settings_button_pressed() -> void:
 	self.visible = true
-	self.position = get_node("../SettingsButton").position + Vector2(get_node("/root/RootNode").get_window().position) + Vector2(2, 41)
+	self.position = get_node("../SettingsButton").position + Vector2(get_node("/root/RootNode").get_window().position) + Vector2(-3, 36)
 	self.set_item_checked(0, not GlobalSettings.doCycles)
 	self.set_item_checked(1, not GlobalSettings.LegacyGraphics)
 

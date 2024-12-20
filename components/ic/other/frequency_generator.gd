@@ -15,7 +15,7 @@ func _ready() -> void:
 	settings_popup = Panel.new()
 	freq_label = Label.new()
 	freq_label.text = "f = 1 Гц"
-	freq_label.position = Vector2(-50,-10)
+	freq_label.position = Vector2(10, 20)
 	if GlobalSettings.LegacyGraphics:
 		freq_label.visible =false
 	else:
@@ -30,7 +30,7 @@ func _ready() -> void:
 	
 	text_line = LineEdit.new()
 	text_line.context_menu_enabled = false
-	text_line.max_length = 3
+	text_line.max_length = 4
 	text_line.text = "1"
 	text_line.text_changed.connect(on_text_update)
 	text_line.position = Vector2(20,40)
@@ -97,7 +97,7 @@ func on_enable_button_press():
 func change_graphics_mode(mode:GlobalSettings.GraphicsMode):
 	super.change_graphics_mode(mode)
 	if mode==GlobalSettings.GraphicsMode.Legacy:
-		freq_label.visible =false
+		freq_label.visible = false
 	elif mode== GlobalSettings.GraphicsMode.Default:
 		freq_label.visible = true
 

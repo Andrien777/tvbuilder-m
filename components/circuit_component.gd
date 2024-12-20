@@ -20,7 +20,7 @@ var pins: Array
 var ic_texture = null
 var sprite = null
 var hitbox
-var name_label
+var name_label = Label.new()
 func initialize(spec: ComponentSpecification, ic = null)->void: # Ic field holds saved state and is component-specific
 	self.readable_name = spec.name
 	self.input_pickable = true
