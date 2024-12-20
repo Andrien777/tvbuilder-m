@@ -13,7 +13,7 @@ func _ready() -> void:
 	timer.wait_time = 0.2
 	timer.timeout.connect(_on_timer_callback)
 	add_child(timer)
-	hide_button = get_node("../HideTreeButton")
+	hide_button = get_node("../../HideTreeButton")
 
 func _initialize_from_json() -> void:
 	var json = JSON.new()

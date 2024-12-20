@@ -35,7 +35,7 @@ func add_signal(pin: Pin):
 		var line_edit = LineEdit.new()
 		line_edit.custom_minimum_size = Vector2(0, SIGNAL_ROW_HEIGHT)
 		line_edit.text_changed.connect(_on_text_submitted.bind(1))
-		line_edit.text = pin.description
+		line_edit.text = pin.readable_name
 		var line_edit_menu = line_edit.get_menu()
 		label_container.add_child(line_edit)
 		

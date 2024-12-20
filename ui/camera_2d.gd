@@ -39,8 +39,8 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_pressed("pan_right"):
 		position += Vector2.RIGHT * 10
 		position_delta += Vector2.RIGHT * 10
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		if pressed_mmb and not lock_pan:
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and not lock_pan:
+		if pressed_mmb:
 			var delta_vec = Input.get_last_mouse_velocity() * delta / zoom
 			position -= delta_vec
 			position_delta -= delta_vec

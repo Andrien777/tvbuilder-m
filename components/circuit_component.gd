@@ -145,6 +145,7 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if is_dragged && Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		get_node("/root/RootNode/Camera2D").lock_pan = true
 		self.global_position = get_global_mouse_position() + drag_offset
 	elif not now_disabled_drag:
 		self.is_dragged = false
@@ -171,8 +172,8 @@ func snap_to_grid():
 	
 func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		get_node("/root/RootNode/Camera2D").lock_pan = true
 		if(event.pressed):
-			get_node("/root/RootNode/Camera2D").lock_pan = true
 			_lmb_action()
 			drag_offset = global_position - get_global_mouse_position()
 			viewport.set_input_as_handled()
