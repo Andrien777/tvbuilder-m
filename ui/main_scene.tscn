@@ -290,7 +290,7 @@ min_size = Vector2i(250, 250)
 script = ExtResource("12_wwdn8")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MemoryViewer"]
-anchors_preset = -1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 10.0
@@ -364,7 +364,6 @@ unfocusable = true
 script = ExtResource("17_2a815")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="RegViewer"]
-anchors_preset = -1
 offset_left = 10.0
 offset_top = 10.0
 offset_right = 87.0

@@ -1,7 +1,7 @@
 ;--------------------------------
 ; Custom defines
   !define NAME "TVBuilder"
-  !define APPFILE "tvb_8088_test.exe"
+  !define APPFILE "tvbuilder_beta_1.0.exe"
   !define VERSION "beta-1.0"
   !define SLUG "${NAME} v${VERSION}"
 
@@ -43,8 +43,8 @@
   Section "-hidden app"
     SectionIn RO
     SetOutPath "$INSTDIR"
-    File tvb_8088_test.exe
-    File /r "\bin" 
+    File tvbuilder_beta_1.0.exe
+    File ".\bin\*.*" 
     WriteUninstaller "$INSTDIR\Uninstall.exe"
   SectionEnd
 
