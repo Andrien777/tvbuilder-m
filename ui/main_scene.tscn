@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://cd0acvbjpyg0w"]
+[gd_scene load_steps=30 format=3 uid="uid://cd0acvbjpyg0w"]
 
 [ext_resource type="Script" path="res://ui/main_scene.gd" id="1_8vqs3"]
 [ext_resource type="Shader" path="res://shaders/grid.gdshader" id="2_7ckc8"]
@@ -8,7 +8,6 @@
 [ext_resource type="Script" path="res://ui/save_file_dialog.gd" id="4_5cvoo"]
 [ext_resource type="Script" path="res://ui/popup_menu.gd" id="5_02b1i"]
 [ext_resource type="Script" path="res://ui/load_file_dialog.gd" id="5_656tm"]
-[ext_resource type="Script" path="res://ui/functional_ui_container.gd" id="5_m2vs3"]
 [ext_resource type="Script" path="res://ui/do_cycles_button.gd" id="5_qlik5"]
 [ext_resource type="Script" path="res://ui/settings_window.gd" id="7_jodis"]
 [ext_resource type="Script" path="res://ui/show_logic_analyzer_button.gd" id="7_nqego"]
@@ -81,7 +80,6 @@ anchor_bottom = 1.0
 offset_left = 5.0
 offset_top = 5.0
 grow_vertical = 2
-script = ExtResource("5_m2vs3")
 metadata/_edit_use_anchors_ = true
 
 [node name="MenuContainer" type="HBoxContainer" parent="UiCanvasLayer/FunctionalUIContainer"]
@@ -635,18 +633,28 @@ region_enabled = true
 region_rect = Rect2(0, 0, 50000, 50000)
 region_filter_clip_enabled = true
 
-[connection signal="mouse_entered" from="UiCanvasLayer/FunctionalUIContainer" to="UiCanvasLayer/FunctionalUIContainer" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="UiCanvasLayer/FunctionalUIContainer" to="UiCanvasLayer/FunctionalUIContainer" method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="UiCanvasLayer/FunctionalUIContainer/MenuContainer/FileButton" to="UiCanvasLayer/FunctionalUIContainer/ComponentTree" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="UiCanvasLayer/FunctionalUIContainer/MenuContainer/FileButton" to="UiCanvasLayer/FunctionalUIContainer/ComponentTree" method="_on_mouse_exited"]
 [connection signal="pressed" from="UiCanvasLayer/FunctionalUIContainer/MenuContainer/FileButton" to="UiCanvasLayer/FunctionalUIContainer/MenuContainer/FilePopupMenu" method="_on_file_button_pressed"]
+[connection signal="mouse_entered" from="UiCanvasLayer/FunctionalUIContainer/MenuContainer/HelpButton" to="UiCanvasLayer/FunctionalUIContainer/ComponentTree" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="UiCanvasLayer/FunctionalUIContainer/MenuContainer/HelpButton" to="UiCanvasLayer/FunctionalUIContainer/ComponentTree" method="_on_mouse_exited"]
 [connection signal="pressed" from="UiCanvasLayer/FunctionalUIContainer/MenuContainer/HelpButton" to="HelpDialog" method="_on_help_button_pressed"]
+[connection signal="mouse_entered" from="UiCanvasLayer/FunctionalUIContainer/MenuContainer/ShowLogicAnalyzerButton" to="UiCanvasLayer/FunctionalUIContainer/ComponentTree" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="UiCanvasLayer/FunctionalUIContainer/MenuContainer/ShowLogicAnalyzerButton" to="UiCanvasLayer/FunctionalUIContainer/ComponentTree" method="_on_mouse_exited"]
 [connection signal="pressed" from="UiCanvasLayer/FunctionalUIContainer/MenuContainer/ShowLogicAnalyzerButton" to="UiCanvasLayer/FunctionalUIContainer/MenuContainer/ShowLogicAnalyzerButton" method="_on_pressed"]
+[connection signal="mouse_entered" from="UiCanvasLayer/FunctionalUIContainer/MenuContainer/SettingsButton" to="UiCanvasLayer/FunctionalUIContainer/ComponentTree" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="UiCanvasLayer/FunctionalUIContainer/MenuContainer/SettingsButton" to="UiCanvasLayer/FunctionalUIContainer/ComponentTree" method="_on_mouse_exited"]
 [connection signal="pressed" from="UiCanvasLayer/FunctionalUIContainer/MenuContainer/SettingsButton" to="UiCanvasLayer/FunctionalUIContainer/MenuContainer/SettingsPopupMenu" method="_on_settings_button_pressed"]
 [connection signal="toggled" from="UiCanvasLayer/FunctionalUIContainer/MenuContainer/SettingsWindow/VBoxContainer/DoCyclesButton" to="UiCanvasLayer/FunctionalUIContainer/MenuContainer/SettingsWindow/VBoxContainer/DoCyclesButton" method="_on_toggled"]
 [connection signal="pressed" from="UiCanvasLayer/FunctionalUIContainer/MenuContainer/SettingsWindow/VBoxContainer/MinimalGraphics" to="." method="toggle_graphics_mode"]
 [connection signal="index_pressed" from="UiCanvasLayer/FunctionalUIContainer/MenuContainer/FilePopupMenu" to="UiCanvasLayer/FunctionalUIContainer/MenuContainer/FilePopupMenu" method="_on_index_pressed"]
 [connection signal="index_pressed" from="UiCanvasLayer/FunctionalUIContainer/MenuContainer/SettingsPopupMenu" to="UiCanvasLayer/FunctionalUIContainer/MenuContainer/SettingsPopupMenu" method="_on_index_pressed"]
+[connection signal="mouse_entered" from="UiCanvasLayer/FunctionalUIContainer/HideTreeButton" to="UiCanvasLayer/FunctionalUIContainer/ComponentTree" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="UiCanvasLayer/FunctionalUIContainer/HideTreeButton" to="UiCanvasLayer/FunctionalUIContainer/ComponentTree" method="_on_mouse_exited"]
 [connection signal="pressed" from="UiCanvasLayer/FunctionalUIContainer/HideTreeButton" to="UiCanvasLayer/FunctionalUIContainer/ComponentTree" method="hide_tree"]
 [connection signal="item_mouse_selected" from="UiCanvasLayer/FunctionalUIContainer/ComponentTree" to="UiCanvasLayer/FunctionalUIContainer/ComponentTree" method="_on_item_mouse_selected"]
+[connection signal="mouse_entered" from="UiCanvasLayer/FunctionalUIContainer/ComponentTree" to="UiCanvasLayer/FunctionalUIContainer/ComponentTree" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="UiCanvasLayer/FunctionalUIContainer/ComponentTree" to="UiCanvasLayer/FunctionalUIContainer/ComponentTree" method="_on_mouse_exited"]
 [connection signal="nothing_selected" from="UiCanvasLayer/FunctionalUIContainer/ComponentTree" to="UiCanvasLayer/FunctionalUIContainer/ComponentTree" method="_on_nothing_selected"]
 [connection signal="file_selected" from="SaveAsFileDialog" to="SaveAsFileDialog" method="_on_file_selected"]
 [connection signal="file_selected" from="LoadFileDialog" to="LoadFileDialog" method="_on_file_selected"]

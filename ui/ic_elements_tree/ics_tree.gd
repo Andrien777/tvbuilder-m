@@ -74,3 +74,11 @@ func hide_tree():
 		tween.tween_property(tree,"scale",Vector2(1, 1),0.4).set_trans(Tween.TRANS_ELASTIC)
 		tree_visible = true
 		hide_button.text = "Скрыть дерево"
+
+func _on_mouse_entered() -> void:
+	GlobalSettings.disableGlobalInput = true
+	get_node("/root/RootNode/Camera2D").lock_pan = true
+
+func _on_mouse_exited() -> void:
+	GlobalSettings.disableGlobalInput = false
+	get_node("/root/RootNode/Camera2D").lock_pan = false
