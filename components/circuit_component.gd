@@ -146,6 +146,7 @@ func _process(delta: float) -> void:
 		self.global_position = get_global_mouse_position() + drag_offset
 	elif not now_disabled_drag:
 		self.is_dragged = false
+		snap_to_grid()
 		get_node("/root/RootNode/Camera2D").lock_pan = false
 		now_disabled_drag = true
 	if Input.is_action_pressed("delete_component") and self.is_mouse_over:
@@ -154,6 +155,17 @@ func _process(delta: float) -> void:
 		queue_free()
 		
 var tween
+func snap_to_grid():
+	if tween:
+		tween.kill()
+	tween = create_tween()
+	var dx = int(position.x) % 25 if int(position.x) % 25 < (25 - int(position.x) % 25) else int(position.x) % 25 - 25
+	var dy = int(position.y) % 25 if int(position.y) % 25 < (25 - int(position.y) % 25) else int(position.y) % 25 - 25
+	dx += position.x - int(position.x)
+	dy += position.y - int(position.y)
+	tween.tween_property(self,"position",position - Vector2(dx, dy),0.1).set_trans(Tween.TRANS_ELASTIC)
+	
+	
 func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if(event.pressed):
@@ -164,14 +176,7 @@ func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void
 			now_disabled_drag = false
 		is_dragged = event.pressed
 		if (is_dragged==false):
-			if tween:
-				tween.kill()
-			tween = create_tween()
-			var dx = int(position.x) % 25 if int(position.x) % 25 < (25 - int(position.x) % 25) else int(position.x) % 25 - 25
-			var dy = int(position.y) % 25 if int(position.y) % 25 < (25 - int(position.y) % 25) else int(position.y) % 25 - 25
-			dx += position.x - int(position.x)
-			dy += position.y - int(position.y)
-			tween.tween_property(self,"position",position - Vector2(dx, dy),0.1).set_trans(Tween.TRANS_ELASTIC)
+			snap_to_grid()
 			get_node("/root/RootNode/Camera2D").lock_pan = false
 			#position = position - Vector2(int(position.x)%25, int(position.y)%25)
 	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:

@@ -2,17 +2,20 @@ extends Camera2D
 
 var pressed_mmb = false
 var prev_pos
-var grid_rect 
+#var grid_rect 
 var delta_vec = Vector2.ZERO
 var lock_pan = false
+var grid_sprite
+var position_delta = Vector2.ZERO
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	grid_rect = get_node("../GridLayer/GridRect")
+	#grid_rect = get_node("../GridLayer/GridRect")
+	grid_sprite = get_node("/root/RootNode/GridSprite")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	grid_rect.material.set_shader_parameter("position",position*zoom + zoom * delta_vec)
+	#grid_rect.material.set_shader_parameter("position",position*zoom - delta_vec * zoom)
 	if(GlobalSettings.disableGlobalInput):
 		return
 	if Input.is_action_just_pressed("ZoomUp"):
@@ -26,25 +29,43 @@ func _physics_process(delta: float) -> void:
 		return
 	if Input.is_action_pressed("pan_up"):
 		position += Vector2.UP * 10
+		position_delta += Vector2.UP * 10
 	if Input.is_action_pressed("pan_down"):
 		position += Vector2.DOWN * 10
+		position_delta += Vector2.DOWN * 10
 	if Input.is_action_pressed("pan_left"):
 		position += Vector2.LEFT * 10
+		position_delta += Vector2.LEFT * 10
 	if Input.is_action_pressed("pan_right"):
 		position += Vector2.RIGHT * 10
+		position_delta += Vector2.RIGHT * 10
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		if pressed_mmb and not lock_pan:
 			var delta_vec = Input.get_last_mouse_velocity() * delta / zoom
 			position -= delta_vec
+			position_delta -= delta_vec
+			position = Vector2(int(position.x), int(position.y))
 		prev_pos = get_global_mouse_position()	
 	pressed_mmb = Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)
+	while position_delta.x >= 25:
+		grid_sprite.offset.x += 25
+		position_delta.x -= 25
+	while position_delta.x <= -25:
+		grid_sprite.offset.x -= 25
+		position_delta.x += 25
+	while position_delta.y >= 25:
+		grid_sprite.offset.y += 25
+		position_delta.y -= 25
+	while position_delta.y <= -25:
+		grid_sprite.offset.y -= 25
+		position_delta.y += 25
 
 func change_zoom(delta: Vector2) -> void:
 	var mouse_pos := get_global_mouse_position()
 	zoom += delta
 	var new_mouse_pos := get_global_mouse_position()
-	grid_rect.material.set_shader_parameter("scale", grid_rect.get_material().get_shader_parameter("scale") + delta)
+	#grid_rect.material.set_shader_parameter("scale", grid_rect.get_material().get_shader_parameter("scale") + delta)
 	position += mouse_pos - new_mouse_pos
+	position = Vector2(int(position.x), int(position.y))
 	delta_vec = mouse_pos - new_mouse_pos
 	#grid_rect.material.set_shader_parameter("position",grid_rect.get_material().get_shader_parameter("position") + delta_vec * Vector2(-zoom.x/2,zoom.y/2))
-	

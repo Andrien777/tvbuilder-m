@@ -9,7 +9,7 @@ func _ready() -> void:
 	_initialize_from_json()
 	timer = Timer.new() # To check if element is created with drag and drop
 	timer.one_shot = true
-	timer.wait_time = 0.25
+	timer.wait_time = 0.2
 	timer.timeout.connect(_on_timer_callback)
 	add_child(timer)
 
@@ -47,8 +47,7 @@ func _on_nothing_selected() -> void:
 	
 func _on_timer_callback():
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		if (get_global_mouse_position() - old_mouse_position).length() >= 10:
-			get_node("/root/RootNode").create_selected_element()
+		get_node("/root/RootNode").create_selected_element()
 	else:
 		get_node("/root/RootNode/Camera2D").lock_pan = false
 

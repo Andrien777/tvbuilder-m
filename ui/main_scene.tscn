@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://cc3tb05ie70il"]
+[gd_scene load_steps=22 format=3 uid="uid://cc3tb05ie70il"]
 
 [ext_resource type="Script" path="res://ui/main_scene.gd" id="1_8vqs3"]
 [ext_resource type="Shader" path="res://shaders/grid.gdshader" id="2_7ckc8"]
@@ -18,6 +18,7 @@
 [ext_resource type="Script" path="res://ui/memory_load_file_dialog.gd" id="16_h0gp2"]
 [ext_resource type="Script" path="res://ui/reg_viewer.gd" id="17_2a815"]
 [ext_resource type="FontFile" uid="uid://co86tufoji665" path="res://ui/JetBrainsMonoNL-Regular.ttf" id="18_awkwq"]
+[ext_resource type="Texture2D" uid="uid://m6615xpuyo5e" path="res://ui/tile.png" id="19_xavts"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7n0h1"]
 shader = ExtResource("2_7ckc8")
@@ -38,6 +39,7 @@ script = ExtResource("1_8vqs3")
 
 [node name="GridLayer" type="CanvasLayer" parent="."]
 layer = -1
+visible = false
 
 [node name="Grid" type="Sprite2D" parent="GridLayer"]
 visible = false
@@ -48,6 +50,7 @@ scale = Vector2(9, 5.0625)
 texture = ExtResource("3_ade1w")
 
 [node name="GridRect" type="TextureRect" parent="GridLayer"]
+visible = false
 material = SubResource("ShaderMaterial_1mdxg")
 anchors_preset = 15
 anchor_right = 1.0
@@ -505,6 +508,15 @@ theme_override_fonts/font = ExtResource("18_awkwq")
 [node name="cf" type="Label" parent="RegViewer/VBoxContainer/GridContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("18_awkwq")
+
+[node name="GridSprite" type="Sprite2D" parent="."]
+z_index = -3
+texture_repeat = 2
+texture = ExtResource("19_xavts")
+offset = Vector2(-10, 9)
+region_enabled = true
+region_rect = Rect2(0, 0, 50000, 50000)
+region_filter_clip_enabled = true
 
 [connection signal="pressed" from="UiCanvasLayer/ButtonsContainer/ClearButton" to="UiCanvasLayer/ButtonsContainer/ClearButton" method="_on_pressed"]
 [connection signal="pressed" from="UiCanvasLayer/ButtonsContainer/SaveAsButton" to="SaveAsFileDialog" method="_on_save_as_button_pressed"]

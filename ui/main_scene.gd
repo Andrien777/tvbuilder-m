@@ -45,7 +45,7 @@ func toggle_graphics_mode():
 	for wire in WireManager.wires:
 		wire.change_color()
 	timer.start()
-	get_node("./GridLayer/GridRect").visible = not get_node("./GridLayer/GridRect").visible
+	get_node("./GridSprite").visible = not get_node("./GridSprite").visible
 	
 func create_selected_element():
 	var element_name = ICsTreeManager.get_selected_element_name()

@@ -8,7 +8,7 @@ void vertex() {
 }
 
 void fragment() { //or int(UV.y)%5==0
-	if (int(round((UV.x*1.0/SCREEN_PIXEL_SIZE.x+position.x)/scale.x))%25<3 && int(round((UV.y*1.0/SCREEN_PIXEL_SIZE.y+position.y)/scale.y))%25<3){
+	if (int((UV.x*1.0/SCREEN_PIXEL_SIZE.x+position.x)/scale.x)%25<3 && int((UV.y*1.0/SCREEN_PIXEL_SIZE.y+position.y)/scale.y)%25<3){
 		COLOR = background_color;
 	}
 	else{

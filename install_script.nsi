@@ -17,6 +17,8 @@
   RequestExecutionLevel admin
  # define installation directory
 
+!define MUI_ICON "ui\tvb_logo.ico"
+!define MUI_HEADERIMAGE
 !define MUI_WELCOMEPAGE_TITLE "${SLUG} Setup"
 
 ;--------------------------------
@@ -42,7 +44,7 @@
     SectionIn RO
     SetOutPath "$INSTDIR"
     File tvb_8088_test.exe
-    File /r "bin\*.*" 
+    File /r "bin" 
     WriteUninstaller "$INSTDIR\Uninstall.exe"
   SectionEnd
 
