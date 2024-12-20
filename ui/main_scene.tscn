@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cc3tb05ie70il"]
+[gd_scene load_steps=28 format=3 uid="uid://cc3tb05ie70il"]
 
 
 [ext_resource type="Script" path="res://ui/main_scene.gd" id="1_8vqs3"]
@@ -20,8 +20,14 @@
 [ext_resource type="Script" path="res://ui/logic_analyzer/signals_h_split_container.gd" id="15_7mwtm"]
 [ext_resource type="Script" path="res://ui/logic_analyzer/clear_button.gd" id="15_73c41"]
 [ext_resource type="Script" path="res://tools/memory_content_display.gd" id="12_ncj2o"]
+[ext_resource type="Script" path="res://ui/logic_analyzer/logic_analyzer_window.gd" id="12_ngdkd"]
 [ext_resource type="Script" path="res://ui/memory_viewer.gd" id="12_wwdn8"]
 [ext_resource type="Script" path="res://ui/mem_viewer_grid.gd" id="13_jjv1i"]
+[ext_resource type="Script" path="res://ui/logic_analyzer/select_pins_button.gd" id="13_o3lk5"]
+[ext_resource type="Script" path="res://ui/logic_analyzer/timer_delay_line_edit.gd" id="13_oocfk"]
+[ext_resource type="Script" path="res://ui/logic_analyzer/logic_analyzer_timer.gd" id="14_st4q1"]
+[ext_resource type="Script" path="res://ui/logic_analyzer/signals_h_split_container.gd" id="15_7mwtm"]
+[ext_resource type="Script" path="res://ui/logic_analyzer/clear_button.gd" id="15_73c41"]
 [ext_resource type="Script" path="res://ui/pageControls.gd" id="15_o4npq"]
 [ext_resource type="Script" path="res://ui/memory_load_file_dialog.gd" id="16_h0gp2"]
 [ext_resource type="Script" path="res://ui/reg_viewer.gd" id="17_2a815"]
@@ -226,7 +232,6 @@ layout_mode = 2
 [node name="SignalLabelsVBoxContainer" type="VBoxContainer" parent="LogicAnalyzerWindow/RootVBoxContainer/SignalsHSplitContainer/SignalLabelsPanelContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme = SubResource("Theme_gbwwf")
 
 [node name="SignalsPanelContainer" type="PanelContainer" parent="LogicAnalyzerWindow/RootVBoxContainer/SignalsHSplitContainer"]
 layout_mode = 2
