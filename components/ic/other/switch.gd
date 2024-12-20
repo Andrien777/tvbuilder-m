@@ -17,9 +17,10 @@ func initialize(spec: ComponentSpecification, ic = null)->void:
 	self.scale = Vector2(1,1)
 	button = SwitchButton.new()
 	button.initialize(self)
+	button.position = sprite.texture.get_size() / 2
 	add_child(button)
 	label = Label.new()
-	label.position = self.position + Vector2(-20,-20)
+	label.position = self.position
 	label.z_index = 2
 	label.text = ""
 	add_child(label)

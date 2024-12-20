@@ -10,6 +10,7 @@ func initialize(spec: ComponentSpecification, ic = null)->void:
 	
 	#self.scale = Vector2(0.5,0.5)
 	led_sprite = Sprite2D.new()
+	led_sprite.position = sprite.texture.get_size() / 2
 	if(!GlobalSettings.LegacyGraphics):
 		#self.sprite.texture = default_texture
 		#self.update_pins(self.pins, default_texture.get_size())

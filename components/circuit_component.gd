@@ -37,6 +37,7 @@ func initialize(spec: ComponentSpecification, ic = null)->void: # Ic field holds
 	shape.size = current_texture.get_size()
 	sprite.texture = current_texture
 	hitbox.shape = shape
+	hitbox.position = shape.size/2
 	height = spec.height
 	width = spec.width
 	texture = spec.texture
