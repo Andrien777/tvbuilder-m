@@ -4,6 +4,7 @@ extends Tree
 var timer
 var old_mouse_position
 var mouse_over = false
+var hide_button
 
 func _ready() -> void:
 	_initialize_from_json()
@@ -12,6 +13,7 @@ func _ready() -> void:
 	timer.wait_time = 0.2
 	timer.timeout.connect(_on_timer_callback)
 	add_child(timer)
+	hide_button = get_node("../HideTreeButton")
 
 func _initialize_from_json() -> void:
 	var json = JSON.new()
@@ -58,3 +60,25 @@ func _on_mouse_entered() -> void:
 func _on_mouse_exited() -> void:
 	mouse_over = false
 	GlobalSettings.disableGlobalInput = false
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("hide_tree") and not GlobalSettings.disableGlobalInput:
+		hide_tree()
+
+var tree_visible = true
+var tween
+func hide_tree():
+	if tree_visible:
+		if tween:
+			tween.kill()
+		tween = create_tween()
+		tween.tween_property(tree,"scale",Vector2(0, 1),0.4).set_trans(Tween.TRANS_CIRC)
+		tree_visible = false
+		hide_button.text = "Показать дерево"
+	else:
+		if tween:
+			tween.kill()
+		tween = create_tween()
+		tween.tween_property(tree,"scale",Vector2(1, 1),0.4).set_trans(Tween.TRANS_ELASTIC)
+		tree_visible = true
+		hide_button.text = "Скрыть дерево"

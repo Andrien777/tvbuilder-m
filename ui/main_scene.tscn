@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://cd0acvbjpyg0w"]
+[gd_scene load_steps=28 format=3 uid="uid://cd0acvbjpyg0w"]
 
 [ext_resource type="Script" path="res://ui/main_scene.gd" id="1_8vqs3"]
 [ext_resource type="Shader" path="res://shaders/grid.gdshader" id="2_7ckc8"]
@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://xbhxywpvacu6" path="res://icon.svg" id="3_ade1w"]
 [ext_resource type="Script" path="res://ui/ic_elements_tree/ics_tree.gd" id="3_q10ex"]
 [ext_resource type="Script" path="res://ui/save_file_dialog.gd" id="4_5cvoo"]
-[ext_resource type="Script" path="res://ui/hide_tree_button.gd" id="5_546py"]
 [ext_resource type="Script" path="res://ui/load_file_dialog.gd" id="5_656tm"]
 [ext_resource type="Script" path="res://ui/clear_button.gd" id="5_pxoya"]
 [ext_resource type="Script" path="res://ui/do_cycles_button.gd" id="5_qlik5"]
@@ -77,11 +76,6 @@ offset_right = 679.0
 offset_bottom = 31.0
 mouse_filter = 0
 
-[node name="CheckButton" type="CheckButton" parent="UiCanvasLayer/ButtonsContainer"]
-layout_mode = 2
-text = "Скрыть дерево"
-script = ExtResource("5_546py")
-
 [node name="ClearButton" type="Button" parent="UiCanvasLayer/ButtonsContainer"]
 layout_mode = 2
 text = "Очистить"
@@ -101,11 +95,6 @@ metadata/_edit_use_anchors_ = true
 layout_mode = 2
 text = "Помощь"
 
-[node name="ShowLogicAnalyzerButton" type="Button" parent="UiCanvasLayer/ButtonsContainer"]
-layout_mode = 2
-text = "Открыть логический анализатор"
-script = ExtResource("7_nqego")
-
 [node name="DoCyclesButton" type="CheckButton" parent="UiCanvasLayer/ButtonsContainer"]
 layout_mode = 2
 text = "Альтернативный алгоритм"
@@ -123,6 +112,15 @@ offset_top = 40.0
 offset_right = 0.191986
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
+
+[node name="ShowLogicAnalyzerButton" type="Button" parent="UiCanvasLayer/FunctionalUIContainer"]
+layout_mode = 2
+text = "Открыть логический анализатор"
+script = ExtResource("7_nqego")
+
+[node name="HideTreeButton" type="Button" parent="UiCanvasLayer/FunctionalUIContainer"]
+layout_mode = 2
+text = "Скрыть дерево"
 
 [node name="ComponentTree" type="Tree" parent="UiCanvasLayer/FunctionalUIContainer"]
 layout_mode = 2
@@ -161,6 +159,7 @@ size = Vector2i(760, 262)
 dialog_text = "Масштаб - колесико мыши или клавиши +/-
 Перемещение рабочей области - wasd или перетаскивание с зажатой ЛКМ
 Выбор элемента в дереве слева
+Tab - скрыть/показать дерево
 При выбранном элементе Alt + ЛКМ размещает элемент под курсором. Кроме этого допустимо перетаскивание в рабочую область
 При наведении на элемент перетаскивание мыши с зажатой ЛКМ перемещает элемент
 ПКМ при наведении на объект взаимодействует с ним и открывает соответствующие контекстные меню (задание частоты для генератора, просмотр памяти и т.д.)
@@ -607,9 +606,10 @@ region_filter_clip_enabled = true
 [connection signal="pressed" from="UiCanvasLayer/ButtonsContainer/SaveAsButton" to="SaveAsFileDialog" method="_on_save_as_button_pressed"]
 [connection signal="pressed" from="UiCanvasLayer/ButtonsContainer/LoadButton" to="LoadFileDialog" method="_on_load_button_pressed"]
 [connection signal="pressed" from="UiCanvasLayer/ButtonsContainer/HelpButton" to="HelpDialog" method="_on_help_button_pressed"]
-[connection signal="pressed" from="UiCanvasLayer/ButtonsContainer/ShowLogicAnalyzerButton" to="UiCanvasLayer/ButtonsContainer/ShowLogicAnalyzerButton" method="_on_pressed"]
 [connection signal="toggled" from="UiCanvasLayer/ButtonsContainer/DoCyclesButton" to="UiCanvasLayer/ButtonsContainer/DoCyclesButton" method="_on_toggled"]
 [connection signal="pressed" from="UiCanvasLayer/ButtonsContainer/MinimalGraphics" to="." method="toggle_graphics_mode"]
+[connection signal="pressed" from="UiCanvasLayer/FunctionalUIContainer/ShowLogicAnalyzerButton" to="UiCanvasLayer/FunctionalUIContainer/ShowLogicAnalyzerButton" method="_on_pressed"]
+[connection signal="pressed" from="UiCanvasLayer/FunctionalUIContainer/HideTreeButton" to="UiCanvasLayer/FunctionalUIContainer/ComponentTree" method="hide_tree"]
 [connection signal="item_mouse_selected" from="UiCanvasLayer/FunctionalUIContainer/ComponentTree" to="UiCanvasLayer/FunctionalUIContainer/ComponentTree" method="_on_item_mouse_selected"]
 [connection signal="mouse_entered" from="UiCanvasLayer/FunctionalUIContainer/ComponentTree" to="UiCanvasLayer/FunctionalUIContainer/ComponentTree" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="UiCanvasLayer/FunctionalUIContainer/ComponentTree" to="UiCanvasLayer/FunctionalUIContainer/ComponentTree" method="_on_mouse_exited"]
