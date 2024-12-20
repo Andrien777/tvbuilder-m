@@ -211,6 +211,7 @@ title = "Логический Анализатор"
 initial_position = 4
 size = Vector2i(900, 600)
 visible = false
+always_on_top = true
 script = ExtResource("12_ngdkd")
 
 [node name="RootVBoxContainer" type="VBoxContainer" parent="LogicAnalyzerWindow"]
@@ -245,7 +246,7 @@ script = ExtResource("15_73c41")
 
 [node name="TimerDelayLabel" type="Label" parent="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer"]
 layout_mode = 2
-text = "Задержка снятия значений"
+text = "Период снятия значений, с"
 
 [node name="TimerDelayLineEdit" type="LineEdit" parent="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer"]
 layout_mode = 2

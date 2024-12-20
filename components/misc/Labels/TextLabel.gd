@@ -16,12 +16,13 @@ func _init():
 	last_id += 1
 	label = Label.new()
 	label.text = "Метка"
-	label.position = Vector2(-20,-20)
+	label.position = Vector2(0,0)
 	label.add_theme_font_size_override("font_size",24)
-	var hitbox = CollisionShape2D.new()
+	hitbox = CollisionShape2D.new()
 	var shape = RectangleShape2D.new()
 	shape.size = Vector2(70,30)
 	hitbox.shape = shape
+	hitbox.position = shape.size / 2
 	self.input_pickable = true
 	popup = Panel.new()
 	popup.position = Vector2(0,0)
@@ -65,17 +66,17 @@ func _input(event):
 	if(popup.visible):
 		pass
 		
-func _process(delta: float) -> void:
-	if is_dragged && Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		self.global_position = get_global_mouse_position() + drag_offset
-	else:
-		self.is_dragged = false
-		snap_to_grid()
-	if Input.is_action_pressed("delete_component") and self.is_mouse_over and popup.visible == false:
-		Input.action_release("delete_component")
-		ComponentManager.remove_object(self)
-		queue_free()
-		
+#func _process(delta: float) -> void:
+	#if is_dragged && Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		#self.global_position = get_global_mouse_position() + drag_offset
+	#else:
+		#self.is_dragged = false
+		#snap_to_grid()
+	#if Input.is_action_pressed("delete_component") and self.is_mouse_over and popup.visible == false:
+		#Input.action_release("delete_component")
+		#ComponentManager.remove_object(self)
+		#queue_free()
+		#
 func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void: # TODO: Remove this overload
 	if event.is_action_pressed("toggle_grid"):
 		print(event)

@@ -44,7 +44,7 @@
     SectionIn RO
     SetOutPath "$INSTDIR"
     File tvb_8088_test.exe
-    File /r "bin" 
+    File /r "\bin" 
     WriteUninstaller "$INSTDIR\Uninstall.exe"
   SectionEnd
 

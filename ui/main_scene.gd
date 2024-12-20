@@ -54,7 +54,7 @@ func create_selected_element():
 	spec.initialize_from_json( ICsTreeManager.get_config_path(element_name) )
 	var element: CircuitComponent = load( ICsTreeManager.get_class_path(element_name) ).new()
 	element.initialize(spec)
-	element.position = get_global_mouse_position() - element.hitbox.shape.size / 2
+	element.position = get_global_mouse_position()
 	element.drag_offset = -element.hitbox.shape.size / 2
 	add_child(element)
 	element.is_dragged = true

@@ -2,11 +2,13 @@ extends HSplitContainer
 
 var signals: Array[LA_Signal]
 const SIGNAL_ROW_HEIGHT = 70
-const BASE_SIGNAL_VALUE_WIDTH = 60
+const BASE_SIGNAL_VALUE_WIDTH = 100
 var signal_value_width = BASE_SIGNAL_VALUE_WIDTH
 @onready var select_pins_button = get_node("/root/RootNode/LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/SelectPinsButton")
 @onready var signal_container = get_node("./SignalsPanelContainer/SignalsScrollContainer/SignalsVBoxContainer")
+@onready var scroll_container = get_node("./SignalsPanelContainer/SignalsScrollContainer")
 @onready var label_container = get_node("./SignalLabelsPanelContainer/SignalLabelsVBoxContainer")
+var timer
 
 var _current_signal_value_index = 1
 
@@ -33,7 +35,8 @@ class LA_Signal:
 func add_signal(pin: Pin):
 	if select_pins_button.is_add_pins_mode_on:
 		var line_edit = LineEdit.new()
-		line_edit.custom_minimum_size = Vector2(0, SIGNAL_ROW_HEIGHT)
+		line_edit.custom_minimum_size = Vector2(0, SIGNAL_ROW_HEIGHT - 4)
+		line_edit.size.y = SIGNAL_ROW_HEIGHT - 4
 		line_edit.text_changed.connect(_on_text_submitted.bind(1))
 		line_edit.text = pin.readable_name
 		var line_edit_menu = line_edit.get_menu()
@@ -52,22 +55,47 @@ func add_signal(pin: Pin):
 			pin.index
 			)
 		signals.append(sig)
-		
 		line_edit_menu.add_item("Прекратить отслеживание", 2281337)
 		var callback = func(id): 
 			if (id == 2281337):
 				remove_signal(sig)
 		line_edit_menu.id_pressed.connect(callback)
+		clear_signal_values()
 	
 func _on_text_submitted(text, id):
-	print(text + " " + str(id))
+	pass
+
+func _ready() -> void:
+	timer = Timer.new() # To move scroll bar
+	timer.one_shot = true
+	timer.wait_time = 0.001
+	timer.timeout.connect(_on_timer_callback)
+	add_child(timer)
 
 func _on_logic_analyzer_timer_timeout() -> void:
 	var current_signal_index = 0
+	#if abs(_current_signal_value_index * signal_value_width / BASE_SIGNAL_VALUE_WIDTH - int(_current_signal_value_index * signal_value_width / BASE_SIGNAL_VALUE_WIDTH)) < 1e-6:
+		#var timestamp_line = Line2D.new()
+		#timestamp_line.width = 1
+		#timestamp_line.default_color = Color.ALICE_BLUE
+		#scroll_container.add_child(timestamp_line)
+		#timestamp_line.add_point(Vector2(signal_value_width * _current_signal_value_index, 0))
+		#timestamp_line.add_point(Vector2(signal_value_width * _current_signal_value_index, scroll_container.size.y))
+		#var timestamp_label = Label.new()
+		#scroll_container.add_child(timestamp_label)
+		#timestamp_label.position = Vector2(100, 100)
+		#timestamp_label.text = str(int(_current_signal_value_index * signal_value_width / BASE_SIGNAL_VALUE_WIDTH))
+		#timestamp_label.position = Vector2(100, 100)
+		#timestamp_label.add_theme_font_size_override("font_size", 10)
+		#timestamp_label.position = Vector2(100, 100)
+		#timestamp_label.add_theme_color_override("font_color", Color.CRIMSON)
+		#timestamp_label.position = Vector2(100, 100)
 	for sig in signals:
 		draw_new_signal_value(sig, current_signal_index, _current_signal_value_index)
 		current_signal_index += 1
 	_current_signal_value_index += 1
+	timer.start()
+	
 	
 func draw_new_signal_value(sig: LA_Signal, signal_index: int, signal_value_index: int):
 	var line = sig.signal_line
@@ -112,6 +140,18 @@ func clear_signal_values():
 		line.clear_points()
 		line.add_point(Vector2(0, SIGNAL_ROW_HEIGHT*0.9), _current_signal_value_index)
 	_current_signal_value_index = 1
+	scroll_container.scroll_horizontal = 0
+	signal_container.custom_minimum_size.x = 0
+	for child in scroll_container.get_children():
+		if child.is_class("Line2D"):
+			child.clear_points()
+			child.queue_free()
+		elif child.is_class("Label"):
+			child.queue_free()
 	
 func _on_timer_delay_line_edit_delay_value_changed(new_value: float) -> void:
 	signal_value_width = BASE_SIGNAL_VALUE_WIDTH * new_value
+	clear_signal_values()
+
+func _on_timer_callback():
+	scroll_container.scroll_horizontal = scroll_container.get_h_scroll_bar().max_value
