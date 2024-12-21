@@ -2,7 +2,7 @@ extends StaticBody2D
 class_name CircuitComponent
 
 var is_dragged = false
-var is_mouse_over = true
+var is_mouse_over = false
 var now_disabled_drag = false
 
 var drag_offset = Vector2(0,0)

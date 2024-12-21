@@ -58,4 +58,5 @@ func create_selected_element():
 	element.drag_offset = -element.hitbox.shape.size / 2
 	add_child(element)
 	element.is_dragged = true
+	element.is_mouse_over = true
 	get_node("./Camera2D").lock_pan = true
