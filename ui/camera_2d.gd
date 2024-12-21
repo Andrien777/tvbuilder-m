@@ -1,12 +1,11 @@
 extends Camera2D
 
 var pressed_mmb = false
+var mouse_offset
 var prev_pos
 #var grid_rect 
-var delta_vec = Vector2.ZERO
 var lock_pan = false
 var grid_sprite
-var position_delta = Vector2.ZERO
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -29,36 +28,22 @@ func _physics_process(delta: float) -> void:
 		return
 	if Input.is_action_pressed("pan_up"):
 		position += Vector2.UP * 10
-		position_delta += Vector2.UP * 10
 	if Input.is_action_pressed("pan_down"):
 		position += Vector2.DOWN * 10
-		position_delta += Vector2.DOWN * 10
 	if Input.is_action_pressed("pan_left"):
 		position += Vector2.LEFT * 10
-		position_delta += Vector2.LEFT * 10
 	if Input.is_action_pressed("pan_right"):
 		position += Vector2.RIGHT * 10
-		position_delta += Vector2.RIGHT * 10
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and not lock_pan and not GlobalSettings.disableGlobalInput and get_node("/root/RootNode").get_window().has_focus():
 		if pressed_mmb:
-			var delta_vec = Input.get_last_mouse_velocity() * delta / zoom
-			position -= delta_vec
-			position_delta -= delta_vec
+			position = mouse_offset - get_local_mouse_position()
 			position = Vector2(int(position.x), int(position.y))
-		prev_pos = get_global_mouse_position()	
+			prev_pos = position
+		else:
+			mouse_offset = position + get_local_mouse_position()
+			prev_pos = position
 	pressed_mmb = Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)
-	while position_delta.x >= 25:
-		grid_sprite.offset.x += 25
-		position_delta.x -= 25
-	while position_delta.x <= -25:
-		grid_sprite.offset.x -= 25
-		position_delta.x += 25
-	while position_delta.y >= 25:
-		grid_sprite.offset.y += 25
-		position_delta.y -= 25
-	while position_delta.y <= -25:
-		grid_sprite.offset.y -= 25
-		position_delta.y += 25
+	grid_sprite.offset = get_screen_center_position().snapped(Vector2(25, 25))
 
 func change_zoom(delta: Vector2) -> void:
 	var mouse_pos := get_global_mouse_position()
@@ -67,5 +52,4 @@ func change_zoom(delta: Vector2) -> void:
 	#grid_rect.material.set_shader_parameter("scale", grid_rect.get_material().get_shader_parameter("scale") + delta)
 	position += mouse_pos - new_mouse_pos
 	position = Vector2(int(position.x), int(position.y))
-	delta_vec = mouse_pos - new_mouse_pos
 	#grid_rect.material.set_shader_parameter("position",grid_rect.get_material().get_shader_parameter("position") + delta_vec * Vector2(-zoom.x/2,zoom.y/2))
