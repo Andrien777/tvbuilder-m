@@ -78,4 +78,5 @@ func load(scene: Node2D, path: String):
 		WireManager._create_wire(from_pin, to_pin)
 		
 func _init():
+	add_child(autosave_timer)
 	autosave_timer.timeout.connect(_on_autosave)
