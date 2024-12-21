@@ -43,7 +43,7 @@
   Section "-hidden app"
     SectionIn RO
     SetOutPath "$INSTDIR"
-    File tvbuilder_beta_1.0.exe
+    File ${APPFILE}
     File ".\bin\*.*" 
     WriteUninstaller "$INSTDIR\Uninstall.exe"
   SectionEnd

@@ -11,10 +11,12 @@ config_version=5
 [application]
 
 config/name="TVBuilder"
-config/version="beta -1.0"
+config/version="1.0"
 run/main_scene="res://ui/main_scene.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
+boot_splash/bg_color=Color(0.762404, 0.762404, 0.762404, 1)
 boot_splash/image="res://ui/tvb_splash.png"
+boot_splash/fullsize=false
 config/icon="res://icon.svg"
 
 [autoload]
