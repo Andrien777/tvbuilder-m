@@ -1,7 +1,7 @@
 extends Camera2D
 
 var pressed_mmb = false
-var mouse_offset
+var mouse_offset = Vector2.ZERO
 var prev_pos
 #var grid_rect 
 var lock_pan = false

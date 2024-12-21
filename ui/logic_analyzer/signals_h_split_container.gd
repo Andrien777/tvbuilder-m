@@ -41,6 +41,7 @@ func add_signal(pin: Pin):
 		line_edit.text = pin.readable_name
 		var line_edit_menu = line_edit.get_menu()
 		label_container.add_child(line_edit)
+		pin.sprite.modulate = Color(0, 0.75, 1, 1)
 		
 		var signal_line_container = Container.new()
 		var signal_line = Line2D.new()
@@ -58,7 +59,7 @@ func add_signal(pin: Pin):
 		line_edit_menu.add_item("Прекратить отслеживание", 2281337)
 		var callback = func(id): 
 			if (id == 2281337):
-				remove_signal(sig)
+				remove_signal(sig, pin)
 		line_edit_menu.id_pressed.connect(callback)
 		clear_signal_values()
 	
@@ -124,10 +125,11 @@ func get_current_signal_value(sig: LA_Signal) -> NetConstants.LEVEL:
 	push_error("Logic Analyzer couldn't find Pin " + str(sig) + " in the netlist")
 	return NetConstants.LEVEL.LEVEL_Z # Pin is inexistent
 
-func remove_signal(LA_Signal):
-	signals.erase(LA_Signal)
-	LA_Signal.line_edit.queue_free()
-	LA_Signal.signal_line.queue_free()
+func remove_signal(sig_to_del: LA_Signal, pin: Pin):
+	pin.sprite.modulate = Color(1, 1, 1, 1)
+	signals.erase(sig_to_del)
+	sig_to_del.line_edit.queue_free()
+	sig_to_del.signal_line.queue_free()
 	# Move other lines to their new places
 	var signal_index = 0
 	for sig in signals: 
