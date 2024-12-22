@@ -41,6 +41,7 @@ func _init():
 		sprite.texture = texture
 		sprite.z_index = 1
 		sprite.visible=false
+		sprite.centered = false
 		sprites.append(sprite)
 		add_child(sprite)
 	#bottom_left_sprite = Sprite2D.new()
