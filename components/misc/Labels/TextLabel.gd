@@ -107,5 +107,5 @@ func to_json_object() -> Dictionary:
 		"position": position,
 		"content": label.text
 	}
-func change_graphics_mode(mode:GlobalSettings.GraphicsMode):
+func change_graphics_mode(mode):
 	pass

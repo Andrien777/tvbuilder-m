@@ -3,7 +3,16 @@
 	"num_pins": 3,
 	"height": 25,
 	"width": 25,
-	"texture": "",
+	"textures": [
+		{
+			"name":"LEGACY", 
+			"path":"res://graphics/legacy/ic/14leg_2x.png"
+		},
+		{
+			"name":"DEFAULT", 
+			"path":"res://components/ic/ic.png"
+		}
+		],
 	"pinSpecifications": [
 		{
 			"index": 1,

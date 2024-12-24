@@ -6,18 +6,17 @@ var settings_popup
 var enable_button
 var enabled = 0
 var popup_style
-var freq_label
+var freq_label = Label.new()
 func _init():
 	display_name_label = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	self.input_pickable = true
 	settings_popup = Panel.new()
-	freq_label = Label.new()
 	freq_label.text = "f = 1 Гц"
 	freq_label.position = Vector2(10, 20)
-	if GlobalSettings.LegacyGraphics:
-		freq_label.visible =false
+	if GlobalSettings.CurrentGraphicsMode == LegacyGraphicsMode:
+		freq_label.visible = false
 	else:
 		freq_label.visible = true
 	popup_style = StyleBoxFlat.new()
@@ -94,10 +93,10 @@ func on_enable_button_press():
 	if(!enabled):
 		pin(1).set_low()
 		
-func change_graphics_mode(mode:GlobalSettings.GraphicsMode):
+func change_graphics_mode(mode):
 	super.change_graphics_mode(mode)
-	if mode==GlobalSettings.GraphicsMode.Legacy:
+	if mode==LegacyGraphicsMode:
 		freq_label.visible = false
-	elif mode== GlobalSettings.GraphicsMode.Default:
+	elif mode==DefaultGraphicsMode:
 		freq_label.visible = true
 		

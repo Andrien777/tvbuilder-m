@@ -14,7 +14,6 @@ var id
 var fallback_texture = preload("res://components/ic/ic.png")
 var height: float
 var width: float
-var texture: String # TODO: Get rid of
 var textures: Dictionary # Holds textures for every graphics mode TODO: Lazy loading
 const side_padding = 10 # TODO: Move side_padding to spec?
 var pins: Array
@@ -37,16 +36,13 @@ func initialize(spec: ComponentSpecification, ic = null)->void: # Ic field holds
 	#var current_texture = ic_texture if (GlobalSettings.LegacyGraphics or spec.name=="Переключатель" or spec.name=="Светодиод") else fallback_texture
 	for t in spec.textures:
 		self.textures[t] = load(spec.textures[t])
-	
 	change_graphics_mode(GlobalSettings.CurrentGraphicsMode)
 	var current_texture = sprite.texture
 	shape.size = current_texture.get_size()
-	sprite.texture = current_texture
 	hitbox.shape = shape
 	hitbox.position = shape.size/2
 	height = spec.height
 	width = spec.width
-	texture = "" # TODO: idk change
 	#var texture = load(spec.texture)
 	#sprite.scale = Vector2(0.1,0.1)
 	#sprite.modulate = Color(0.0, 0.0, 0.0, 1.0)
@@ -55,29 +51,20 @@ func initialize(spec: ComponentSpecification, ic = null)->void: # Ic field holds
 	add_child(hitbox)
 	add_child(sprite)
 	initialize_pins(spec.pinSpecifications, shape.size)
-	if(display_name_label):
-		name_label = Label.new()
-		name_label.position = Vector2(10,shape.size.y/2 - name_label.get_line_height()/2)
-		#name_label.z_index = 2
-		name_label.text = self.readable_name
-		add_child(name_label)
-	id = last_id
-	last_id += 1
+	name_label = Label.new()
+	name_label.position = Vector2(10,shape.size.y/2 - name_label.get_line_height()/2)
+	#name_label.z_index = 2
+	name_label.text = self.readable_name
+	add_child(name_label)
+	name_label.visible = display_name_label
 	ComponentManager.register_object(self)
+	
 
 func initialize_pins(spec: Array, ic_shape:Vector2)->void:
 	var side_count = {"TOP":0, "BOTTOM":0, "LEFT":0, "RIGHT":0}
 	var side_margin = {"TOP":0, "BOTTOM":0, "LEFT":0, "RIGHT":0}
 	for pin_spec in spec:
-		match pin_spec.position: # Could be just side_count[pin_spec]+=1
-			"TOP":
-				side_count["TOP"]+=1
-			"BOTTOM":
-				side_count["BOTTOM"]+=1
-			"LEFT":
-				side_count["LEFT"]+=1
-			"RIGHT":
-				side_count["RIGHT"]+=1
+		side_count[pin_spec.position] += 1
 	for k in side_count:
 		if k=="TOP" or k=="BOTTOM": #if pins are spaced horizontally
 			if side_count[k] != 1:
@@ -224,7 +211,7 @@ func change_graphics_mode(mode):
 	if(self.textures.has(mode.texture_tag)):
 		sprite.texture = self.textures[mode.texture_tag]
 	else:
-		sprite.texuter = fallback_texture
+		sprite.texture = fallback_texture
 	var shape = RectangleShape2D.new()
 	shape.size = sprite.texture.get_size()
 	name_label.position = Vector2(10,shape.size.y/2 - name_label.get_line_height()/2)

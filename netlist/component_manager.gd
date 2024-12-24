@@ -3,9 +3,13 @@ extends Node
 
 var obj_list: Dictionary # CircuitComponent -> ""
 
+var last_id = 0
+
 var ALL_COMPONENTS_LIST
 
 func register_object(object: CircuitComponent):
+	object.id = last_id
+	last_id += 1
 	if not obj_list.is_empty() and get_by_id(object.id) != null:
 		PopupManager.display_error("Попытка добавить дубликат id", "Объект не добавлен", Vector2(100, 100))
 	else:
