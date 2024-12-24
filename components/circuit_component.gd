@@ -222,15 +222,7 @@ func update_pins(pins:Array, ic_shape:Vector2):
 	var side_count = {"TOP":0, "BOTTOM":0, "LEFT":0, "RIGHT":0}
 	var side_margin = {"TOP":0, "BOTTOM":0, "LEFT":0, "RIGHT":0}
 	for _pin in pins:
-		match _pin.ic_position: # Could be just side_count[pin_spec]+=1
-			"TOP":
-				side_count["TOP"]+=1
-			"BOTTOM":
-				side_count["BOTTOM"]+=1
-			"LEFT":
-				side_count["LEFT"]+=1
-			"RIGHT":
-				side_count["RIGHT"]+=1
+		side_count[_pin.ic_position] += 1
 	for k in side_count:
 		if k=="TOP" or k=="BOTTOM": #if pins are spaced horizontally
 			if side_count[k] != 1:
@@ -247,32 +239,31 @@ func update_pins(pins:Array, ic_shape:Vector2):
 	var side_index = {"TOP":0, "BOTTOM":0, "LEFT":0, "RIGHT":0}
 	for _pin in pins:
 		_pin.change_graphics_mode(GlobalSettings.CurrentGraphicsMode)
-		var pin = _pin
 		if(GlobalSettings.CurrentGraphicsMode==LegacyGraphicsMode):
-			pin.scale=Vector2(0.2,0.2)
+			_pin.scale=Vector2(0.2,0.2)
 		else:
-			pin.scale=Vector2(0.2,0.4)
+			_pin.scale=Vector2(0.2,0.4)
 		match _pin.ic_position:
 			"TOP":
-				pin.position = Vector2(side_padding+ 
+				_pin.position = Vector2(side_padding+ 
 				side_margin[_pin.ic_position]*(side_count[_pin.ic_position] - side_index[_pin.ic_position]-1), # TODO: Please think of something better
 				0)
 				side_index[_pin.ic_position]+=1
 			"BOTTOM":
-				pin.rotation_degrees =180
-				pin.position = Vector2(side_padding+ 
+				_pin.rotation_degrees =180
+				_pin.position = Vector2(side_padding+ 
 				side_margin[_pin.ic_position]*side_index[_pin.ic_position], 
 				ic_shape.y)
 				side_index[_pin.ic_position]+=1
 			"LEFT":
-				pin.rotation_degrees =270
-				pin.position = Vector2(0 , 
+				_pin.rotation_degrees =270
+				_pin.position = Vector2(0 , 
 				side_padding+
-				side_margin[pin.ic_position]*side_index[pin.ic_position])
-				side_index[pin.ic_position]+=1	
+				side_margin[_pin.ic_position]*side_index[_pin.ic_position])
+				side_index[_pin.ic_position]+=1	
 			"RIGHT":
-				pin.rotation_degrees =90
-				pin.position = Vector2(ic_shape.x, 
+				_pin.rotation_degrees =90
+				_pin.position = Vector2(ic_shape.x, 
 				side_padding+
-				side_margin[pin.ic_position]*(side_count[pin.ic_position] - side_index[pin.ic_position]-1))
-				side_index[pin.ic_position]+=1
+				side_margin[_pin.ic_position]*(side_count[_pin.ic_position] - side_index[_pin.ic_position]-1))
+				side_index[_pin.ic_position]+=1
