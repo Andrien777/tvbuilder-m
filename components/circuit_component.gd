@@ -11,10 +11,11 @@ var readable_name:String
 var display_name_label = true
 static var last_id = 0
 var id
-var test_texture = preload("res://components/ic/ic.png")
+var fallback_texture = preload("res://components/ic/ic.png")
 var height: float
 var width: float
-var texture: String
+var texture: String # TODO: Get rid of
+var textures: Dictionary # Holds textures for every graphics mode TODO: Lazy loading
 const side_padding = 10 # TODO: Move side_padding to spec?
 var pins: Array
 var ic_texture = null
@@ -28,19 +29,24 @@ func initialize(spec: ComponentSpecification, ic = null)->void: # Ic field holds
 	sprite.centered = false
 	hitbox = CollisionShape2D.new()
 	var shape = RectangleShape2D.new()
+	#
+	#if not spec.textures.is_empty(): 
+		#ic_texture = load(spec.texture)
+	#else:
+		#ic_texture = fallback_texture 
+	#var current_texture = ic_texture if (GlobalSettings.LegacyGraphics or spec.name=="Переключатель" or spec.name=="Светодиод") else fallback_texture
+	for t in spec.textures:
+		self.textures[t] = load(spec.textures[t])
 	
-	if (spec.texture!=""): 
-		ic_texture = load(spec.texture)
-	else:
-		ic_texture = test_texture # TODO: Remove hardcoded names ASAP. We really need multiple textures. Its bad, i know
-	var current_texture = ic_texture if (GlobalSettings.LegacyGraphics or spec.name=="Переключатель" or spec.name=="Светодиод") else test_texture
+	change_graphics_mode(GlobalSettings.CurrentGraphicsMode)
+	var current_texture = sprite.texture
 	shape.size = current_texture.get_size()
 	sprite.texture = current_texture
 	hitbox.shape = shape
 	hitbox.position = shape.size/2
 	height = spec.height
 	width = spec.width
-	texture = spec.texture
+	texture = "" # TODO: idk change
 	#var texture = load(spec.texture)
 	#sprite.scale = Vector2(0.1,0.1)
 	#sprite.modulate = Color(0.0, 0.0, 0.0, 1.0)
@@ -92,7 +98,7 @@ func initialize_pins(spec: Array, ic_shape:Vector2)->void:
 			pin = IO_Pin.new()
 		else:
 			pin = Pin.new()
-		if(GlobalSettings.LegacyGraphics):
+		if(GlobalSettings.CurrentGraphicsMode==LegacyGraphicsMode):
 			pin.scale=Vector2(0.2,0.2)
 		else:
 			pin.scale=Vector2(0.2,0.4)
@@ -214,11 +220,11 @@ func to_json_object() -> Dictionary:
 func pin(i:int):
 	return self.pins[i-1] 
 
-func change_graphics_mode(mode:GlobalSettings.GraphicsMode):
-	if (mode==GlobalSettings.GraphicsMode.Legacy): # TODO: Enum
-		sprite.texture = ic_texture
+func change_graphics_mode(mode):
+	if(self.textures.has(mode.texture_tag)):
+		sprite.texture = self.textures[mode.texture_tag]
 	else:
-		sprite.texture = test_texture
+		sprite.texuter = fallback_texture
 	var shape = RectangleShape2D.new()
 	shape.size = sprite.texture.get_size()
 	name_label.position = Vector2(10,shape.size.y/2 - name_label.get_line_height()/2)
@@ -253,9 +259,9 @@ func update_pins(pins:Array, ic_shape:Vector2):
 
 	var side_index = {"TOP":0, "BOTTOM":0, "LEFT":0, "RIGHT":0}
 	for _pin in pins:
-		_pin.change_graphics_mode(GlobalSettings.GraphicsMode.Legacy if GlobalSettings.LegacyGraphics else GlobalSettings.GraphicsMode.Default)
+		_pin.change_graphics_mode(GlobalSettings.CurrentGraphicsMode)
 		var pin = _pin
-		if(GlobalSettings.LegacyGraphics):
+		if(GlobalSettings.CurrentGraphicsMode==LegacyGraphicsMode):
 			pin.scale=Vector2(0.2,0.2)
 		else:
 			pin.scale=Vector2(0.2,0.4)

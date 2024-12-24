@@ -6,12 +6,13 @@ var texture_off = preload("res://graphics/legacy/led/ld_down_green.png")
 var default_texture  = preload("res://components/ic/ic2.svg")
 func initialize(spec: ComponentSpecification, ic = null)->void:
 	self.display_name_label = false
-	super.initialize(spec)
+	
 	
 	#self.scale = Vector2(0.5,0.5)
 	led_sprite = Sprite2D.new()
+	super.initialize(spec)
 	led_sprite.position = sprite.texture.get_size() / 2
-	if(!GlobalSettings.LegacyGraphics):
+	if(GlobalSettings.CurrentGraphicsMode==DefaultGraphicsMode):
 		#self.sprite.texture = default_texture
 		#self.update_pins(self.pins, default_texture.get_size())
 		led_sprite.texture = ic_texture
@@ -19,6 +20,7 @@ func initialize(spec: ComponentSpecification, ic = null)->void:
 	else:
 		led_sprite.texture = texture_off
 		#led_sprite.scale = Vector2(2,2)
+	
 	add_child(led_sprite)
 
 func _process(delta: float)->void:
@@ -30,24 +32,24 @@ func _process(delta: float)->void:
 		
 		
 func set_on():
-	if GlobalSettings.LegacyGraphics:
+	if GlobalSettings.CurrentGraphicsMode==LegacyGraphicsMode:
 		led_sprite.set_texture(texture_on)
 		#self.sprite.texture = texture_up
 	else:
 		sprite.modulate = Color(0, 100, 0, 1)
 		
 func set_off():
-	if GlobalSettings.LegacyGraphics:
+	if GlobalSettings.CurrentGraphicsMode==LegacyGraphicsMode:
 		led_sprite.set_texture(texture_off)
 		#self.sprite.texture = texture_down
 	else:
 		sprite.modulate = Color(0, 0, 0, 1)
 
-func change_graphics_mode(mode:GlobalSettings.GraphicsMode):
-	super.update_pins(self.pins, self.hitbox.shape.size)
+func change_graphics_mode(mode):
+	super.change_graphics_mode(mode)
+	#super.update_pins(self.pins, self.hitbox.shape.size)
 	#super.change_graphics_mode(mode) 
-	if(mode == GlobalSettings.GraphicsMode.Default):
-
+	if(mode == DefaultGraphicsMode):
 		led_sprite.texture = ic_texture
 		led_sprite.modulate = Color(0, 100, 0, 0.2)
 	else:
