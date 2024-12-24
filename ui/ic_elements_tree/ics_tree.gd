@@ -1,7 +1,7 @@
 extends Tree
 
 @onready var tree: Tree = $"."
-var timer
+var timer: Timer
 var old_mouse_position
 var mouse_over = false
 var hide_button
@@ -80,5 +80,6 @@ func _on_mouse_entered() -> void:
 	get_node("/root/RootNode/Camera2D").lock_pan = true
 
 func _on_mouse_exited() -> void:
+	if timer.is_stopped():
+		get_node("/root/RootNode/Camera2D").lock_pan = false
 	GlobalSettings.disableGlobalInput = false
-	get_node("/root/RootNode/Camera2D").lock_pan = false

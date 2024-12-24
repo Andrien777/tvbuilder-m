@@ -31,6 +31,8 @@ func _input(event):
 		get_node("LoadFileDialog")._on_load_button_pressed()
 	elif event.is_action_pressed("undo"):
 		HistoryBuffer.undo_last_event()
+	elif event.is_action_pressed("redo"):
+		HistoryBuffer.redo_last_event()
 
 func toggle_graphics_mode():
 	GlobalSettings.LegacyGraphics = not GlobalSettings.LegacyGraphics

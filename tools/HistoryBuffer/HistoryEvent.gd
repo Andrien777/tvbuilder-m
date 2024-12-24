@@ -13,5 +13,5 @@ func _process(delta: float) -> void:
 func undo():
 	pass
 
-#func initialize():
-	#pass
+func redo():
+	pass

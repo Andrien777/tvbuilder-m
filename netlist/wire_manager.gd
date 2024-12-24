@@ -45,6 +45,21 @@ func _delete_wire(wire):
 		wires.erase(wire)
 		wire.queue_free()
 
+func _delete_wire_by_ends(from, to): #Slow and questionable, but should work fine
+	var wire_to_delete = null
+	for wire in wires:
+		if wire.first_object == from and wire.second_object == to or \
+		wire.second_object == from and wire.first_object == to:
+			wire_to_delete = wire
+	
+	NetlistClass.delete_connection(wire_to_delete.first_object, wire_to_delete.second_object)
+	if is_instance_valid(wire_to_delete.first_object):
+		(wire_to_delete.first_object as Pin).state = NetConstants.LEVEL.LEVEL_Z
+	if is_instance_valid(wire_to_delete.second_object):
+		(wire_to_delete.second_object as Pin).state = NetConstants.LEVEL.LEVEL_Z
+	wires.erase(wire_to_delete)
+	wire_to_delete.queue_free()
+
 func _create_wire(first_object:Node2D, second_object:Node2D):
 	if(first_object.parent is Switch):
 		first_object.parent.label.text = second_object.readable_name # TODO: Delete this...
@@ -73,7 +88,6 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-
 	if(wire_ghost.visible):
 		wire_ghost_pointer.position = get_global_mouse_position()
 	

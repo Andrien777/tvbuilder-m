@@ -5,6 +5,7 @@ class_name ComponentDeletionEvent
 var name
 var position
 var connections: Dictionary # Array of Int (pin index), Pin pairs
+var object
 
 func initialize(object):
 	self.name=  object.readable_name
@@ -26,7 +27,13 @@ func undo():
 	var element: CircuitComponent = load( ICsTreeManager.get_class_path(name) ).new()
 	element.initialize(spec)
 	element.position = position
+	self.object = element
 	ComponentManager.get_node("/root/RootNode").add_child(element) # TODO: idk thats stupid
 	#ComponentManager.add_child(element)  # Thats even more stupid though
 	for key in connections:
 		WireManager._create_wire(element.pin(key), connections[key])
+
+func redo():
+	if is_instance_valid(object):
+		ComponentManager.remove_object(object)
+		object.queue_free()
