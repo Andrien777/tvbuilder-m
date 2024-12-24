@@ -29,6 +29,8 @@ func _input(event):
 			SaveManager._on_autosave()
 	elif event.is_action_pressed("load_scheme"):
 		get_node("LoadFileDialog")._on_load_button_pressed()
+	elif event.is_action_pressed("undo"):
+		HistoryBuffer.undo_last_event()
 
 func toggle_graphics_mode():
 	GlobalSettings.LegacyGraphics = not GlobalSettings.LegacyGraphics
@@ -60,3 +62,7 @@ func create_selected_element():
 	element.is_dragged = true
 	element.is_mouse_over = true
 	get_node("./Camera2D").lock_pan = true
+	# TODO: Why do we even register IC`s in their constructor and not there?
+	var event = ComponentCreationEvent.new()
+	event.initialize(element)
+	HistoryBuffer.register_event(event)

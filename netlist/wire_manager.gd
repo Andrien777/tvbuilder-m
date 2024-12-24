@@ -28,7 +28,10 @@ func register_wire_point(object:Node2D):
 					_delete_wire(wire)
 		else:
 			# TODO: Check if creation is possible
-			_create_wire(first_wire_point, second_wire_point)
+			var event = WireCreationEvent.new()
+			event.initialize(_create_wire(first_wire_point, second_wire_point)) # TODO: Kind of ugly side effect use
+			HistoryBuffer.register_event(event)
+			
 		first_wire_point = null
 		second_wire_point = null
 
@@ -56,6 +59,7 @@ func _create_wire(first_object:Node2D, second_object:Node2D):
 	NetlistClass.add_connection(first_pin, second_pin)
 	wires.append(wire)
 	add_child(wire)
+	return wire
 
 func clear():
 	for wire in wires:
