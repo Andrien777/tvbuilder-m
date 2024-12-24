@@ -5,6 +5,7 @@ var LegacyGraphics = true
 var doCycles = true
 var disableGlobalInput = false
 enum GraphicsMode  {Default, Legacy}
+var historyDepth = 200
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.

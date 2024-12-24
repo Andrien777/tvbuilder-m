@@ -10,7 +10,7 @@ func _ready() -> void:
 
 func register_event(event:HistoryEvent):
 	history.append(event)
-	if history.size() > 200:
+	while history.size() > GlobalSettings.historyDepth:
 		history.pop_front()
 	redo_buffer = []
 

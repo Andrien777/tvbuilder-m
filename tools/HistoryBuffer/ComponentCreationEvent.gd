@@ -5,12 +5,12 @@ var object
 var name
 var position
 var connections: Dictionary # Array of Int (pin index), Pin pairs
+var id
 
 func initialize(object):
 	self.object = object
-	
+	self.id = object.id
 	self.name=  object.readable_name
-	self.position = object.get_global_position()
 	# TODO: implement restoring wires
 	# This will require to populate the connections dict with Int -> Object pairs (self pin index -> other Pin object)
 	# The issue is, we don`t know what is connected to a Pin now - only the WireManager knows that
@@ -23,6 +23,7 @@ func initialize(object):
 	
 func undo():
 	if is_instance_valid(object):
+		self.position = object.get_global_position()
 		ComponentManager.remove_object(object)
 		object.queue_free()
 
@@ -33,6 +34,7 @@ func redo():
 	var element: CircuitComponent = load( ICsTreeManager.get_class_path(name) ).new()
 	element.initialize(spec)
 	element.position = position
+	ComponentManager.change_id(element, self.id)
 	self.object = element
 	ComponentManager.get_node("/root/RootNode").add_child(element) # TODO: idk thats stupid
 	#ComponentManager.add_child(element)  # Thats even more stupid though

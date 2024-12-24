@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://cd0acvbjpyg0w"]
+[gd_scene load_steps=32 format=3 uid="uid://cd0acvbjpyg0w"]
 
 [ext_resource type="Script" path="res://ui/main_scene.gd" id="1_8vqs3"]
 [ext_resource type="Shader" path="res://shaders/grid.gdshader" id="2_7ckc8"]
@@ -11,8 +11,10 @@
 [ext_resource type="Script" path="res://ui/do_cycles_button.gd" id="5_qlik5"]
 [ext_resource type="Script" path="res://ui/settings_window.gd" id="7_jodis"]
 [ext_resource type="Script" path="res://ui/show_logic_analyzer_button.gd" id="7_nqego"]
+[ext_resource type="Script" path="res://ui/history_depth_edit.gd" id="8_gu4b6"]
 [ext_resource type="Script" path="res://ui/help_dialog.gd" id="8_s7pmm"]
 [ext_resource type="Script" path="res://ui/settings_popup_menu.gd" id="10_2s8mk"]
+[ext_resource type="Script" path="res://ui/edit_popup.gd" id="11_pyl4o"]
 [ext_resource type="Script" path="res://tools/memory_content_display.gd" id="12_ncj2o"]
 [ext_resource type="Script" path="res://ui/logic_analyzer/logic_analyzer_window.gd" id="12_ngdkd"]
 [ext_resource type="Script" path="res://ui/memory_viewer.gd" id="12_wwdn8"]
@@ -82,6 +84,10 @@ alignment = 1
 layout_mode = 2
 text = "Файл"
 
+[node name="EditButton" type="Button" parent="UiCanvasLayer/MenuContainer"]
+layout_mode = 2
+text = "Правка"
+
 [node name="HelpButton" type="Button" parent="UiCanvasLayer/MenuContainer"]
 layout_mode = 2
 text = "Помощь"
@@ -104,8 +110,8 @@ unresizable = true
 script = ExtResource("7_jodis")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UiCanvasLayer/MenuContainer/SettingsWindow"]
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 403.0
+offset_bottom = 101.0
 
 [node name="DoCyclesButton" type="CheckButton" parent="UiCanvasLayer/MenuContainer/SettingsWindow/VBoxContainer"]
 layout_mode = 2
@@ -115,6 +121,18 @@ script = ExtResource("5_qlik5")
 [node name="MinimalGraphics" type="CheckButton" parent="UiCanvasLayer/MenuContainer/SettingsWindow/VBoxContainer"]
 layout_mode = 2
 text = "Режим минималистичной графики"
+
+[node name="HistoryDepthContainer" type="HBoxContainer" parent="UiCanvasLayer/MenuContainer/SettingsWindow/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 2
+
+[node name="Label" type="Label" parent="UiCanvasLayer/MenuContainer/SettingsWindow/VBoxContainer/HistoryDepthContainer"]
+layout_mode = 2
+text = "  Глубина истории событий: "
+
+[node name="HistoryDepthEdit" type="LineEdit" parent="UiCanvasLayer/MenuContainer/SettingsWindow/VBoxContainer/HistoryDepthContainer"]
+layout_mode = 2
+script = ExtResource("8_gu4b6")
 
 [node name="FilePopupMenu" type="PopupMenu" parent="UiCanvasLayer/MenuContainer"]
 title = "Файл"
@@ -141,6 +159,15 @@ item_1/id = 1
 item_2/text = "Все настройки"
 item_2/id = 2
 script = ExtResource("10_2s8mk")
+
+[node name="EditPopup" type="PopupMenu" parent="UiCanvasLayer/MenuContainer"]
+hide_on_item_selection = false
+hide_on_checkable_item_selection = false
+item_count = 2
+item_0/text = "Отменить"
+item_1/text = "Вернуть"
+item_1/id = 1
+script = ExtResource("11_pyl4o")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UiCanvasLayer"]
 anchors_preset = 9
@@ -202,7 +229,9 @@ dialog_text = "- Масштаб - колесико мыши или клавиш�
 - При наведении на элемент перетаскивание мыши с зажатой ЛКМ перемещает элемент
 - ПКМ при наведении на объект взаимодействует с ним и открывает соответствующие контекстные меню (задание частоты для генератора, просмотр памяти и т.д.)
 - Создание провода: ПКМ сначала по одной ножке, затем по второй
-- Удаление элемента/провода: навести указатель мыши на элемент/провод и нажать Delete или СКМ"
+- Удаление элемента/провода: навести указатель мыши на элемент/провод и нажать Delete или СКМ
+- Отменить последнее действие: Ctrl+Z
+- Восстановить отмененное действие: Ctrl+Y"
 dialog_autowrap = true
 script = ExtResource("8_s7pmm")
 
@@ -651,6 +680,7 @@ region_filter_clip_enabled = true
 [connection signal="mouse_entered" from="UiCanvasLayer/MenuContainer/FileButton" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="UiCanvasLayer/MenuContainer/FileButton" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_mouse_exited"]
 [connection signal="pressed" from="UiCanvasLayer/MenuContainer/FileButton" to="UiCanvasLayer/MenuContainer/FilePopupMenu" method="_on_file_button_pressed"]
+[connection signal="pressed" from="UiCanvasLayer/MenuContainer/EditButton" to="UiCanvasLayer/MenuContainer/EditPopup" method="_on_edit_button_pressed"]
 [connection signal="mouse_entered" from="UiCanvasLayer/MenuContainer/HelpButton" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="UiCanvasLayer/MenuContainer/HelpButton" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_mouse_exited"]
 [connection signal="pressed" from="UiCanvasLayer/MenuContainer/HelpButton" to="HelpDialog" method="_on_help_button_pressed"]
@@ -662,8 +692,11 @@ region_filter_clip_enabled = true
 [connection signal="pressed" from="UiCanvasLayer/MenuContainer/SettingsButton" to="UiCanvasLayer/MenuContainer/SettingsPopupMenu" method="_on_settings_button_pressed"]
 [connection signal="toggled" from="UiCanvasLayer/MenuContainer/SettingsWindow/VBoxContainer/DoCyclesButton" to="UiCanvasLayer/MenuContainer/SettingsWindow/VBoxContainer/DoCyclesButton" method="_on_toggled"]
 [connection signal="pressed" from="UiCanvasLayer/MenuContainer/SettingsWindow/VBoxContainer/MinimalGraphics" to="." method="toggle_graphics_mode"]
+[connection signal="focus_exited" from="UiCanvasLayer/MenuContainer/SettingsWindow/VBoxContainer/HistoryDepthContainer/HistoryDepthEdit" to="UiCanvasLayer/MenuContainer/SettingsWindow/VBoxContainer/HistoryDepthContainer/HistoryDepthEdit" method="_on_focus_exited"]
+[connection signal="text_submitted" from="UiCanvasLayer/MenuContainer/SettingsWindow/VBoxContainer/HistoryDepthContainer/HistoryDepthEdit" to="UiCanvasLayer/MenuContainer/SettingsWindow/VBoxContainer/HistoryDepthContainer/HistoryDepthEdit" method="_on_text_submitted"]
 [connection signal="index_pressed" from="UiCanvasLayer/MenuContainer/FilePopupMenu" to="UiCanvasLayer/MenuContainer/FilePopupMenu" method="_on_index_pressed"]
 [connection signal="index_pressed" from="UiCanvasLayer/MenuContainer/SettingsPopupMenu" to="UiCanvasLayer/MenuContainer/SettingsPopupMenu" method="_on_index_pressed"]
+[connection signal="index_pressed" from="UiCanvasLayer/MenuContainer/EditPopup" to="UiCanvasLayer/MenuContainer/EditPopup" method="_on_index_pressed"]
 [connection signal="mouse_entered" from="UiCanvasLayer/VBoxContainer/HideTreeButton" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="UiCanvasLayer/VBoxContainer/HideTreeButton" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_mouse_exited"]
 [connection signal="pressed" from="UiCanvasLayer/VBoxContainer/HideTreeButton" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="hide_tree"]

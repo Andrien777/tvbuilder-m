@@ -6,10 +6,12 @@ var name
 var position
 var connections: Dictionary # Array of Int (pin index), Pin pairs
 var object
+var id
 
 func initialize(object):
 	self.name=  object.readable_name
 	self.position = object.get_global_position()
+	self.id = object.id
 	# TODO: implement restoring wires
 	# This will require to populate the connections dict with Int -> Object pairs (self pin index -> other Pin object)
 	# The issue is, we don`t know what is connected to a Pin now - only the WireManager knows that
@@ -27,6 +29,7 @@ func undo():
 	var element: CircuitComponent = load( ICsTreeManager.get_class_path(name) ).new()
 	element.initialize(spec)
 	element.position = position
+	ComponentManager.change_id(element, self.id)
 	self.object = element
 	ComponentManager.get_node("/root/RootNode").add_child(element) # TODO: idk thats stupid
 	#ComponentManager.add_child(element)  # Thats even more stupid though
