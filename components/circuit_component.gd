@@ -28,12 +28,6 @@ func initialize(spec: ComponentSpecification, ic = null)->void: # Ic field holds
 	sprite.centered = false
 	hitbox = CollisionShape2D.new()
 	var shape = RectangleShape2D.new()
-	#
-	#if not spec.textures.is_empty(): 
-		#ic_texture = load(spec.texture)
-	#else:
-		#ic_texture = fallback_texture 
-	#var current_texture = ic_texture if (GlobalSettings.LegacyGraphics or spec.name=="Переключатель" or spec.name=="Светодиод") else fallback_texture
 	for t in spec.textures:
 		self.textures[t] = load(spec.textures[t])
 	change_graphics_mode(GlobalSettings.CurrentGraphicsMode)
@@ -43,41 +37,18 @@ func initialize(spec: ComponentSpecification, ic = null)->void: # Ic field holds
 	hitbox.position = shape.size/2
 	height = spec.height
 	width = spec.width
-	#var texture = load(spec.texture)
-	#sprite.scale = Vector2(0.1,0.1)
-	#sprite.modulate = Color(0.0, 0.0, 0.0, 1.0)
-	# Render texture and set height-width
-	#Label
 	add_child(hitbox)
 	add_child(sprite)
 	initialize_pins(spec.pinSpecifications, shape.size)
 	name_label = Label.new()
 	name_label.position = Vector2(10,shape.size.y/2 - name_label.get_line_height()/2)
-	#name_label.z_index = 2
 	name_label.text = self.readable_name
 	add_child(name_label)
 	name_label.visible = display_name_label
 	ComponentManager.register_object(self)
-	
+	update_pins(pins, hitbox.shape.size)	
 
 func initialize_pins(spec: Array, ic_shape:Vector2)->void:
-	var side_count = {"TOP":0, "BOTTOM":0, "LEFT":0, "RIGHT":0}
-	var side_margin = {"TOP":0, "BOTTOM":0, "LEFT":0, "RIGHT":0}
-	for pin_spec in spec:
-		side_count[pin_spec.position] += 1
-	for k in side_count:
-		if k=="TOP" or k=="BOTTOM": #if pins are spaced horizontally
-			if side_count[k] != 1:
-				side_margin[k] = (ic_shape.x-2*side_padding)/(side_count[k]-1)
-			else:
-				side_margin[k] = ic_shape.x/2
-		else: # or vertically
-			if side_count[k] != 1:
-				side_margin[k] = (ic_shape.y-2*side_padding)/(side_count[k]-1)
-			else:
-				side_margin[k] = ic_shape.y/2
-
-
 	var side_index = {"TOP":0, "BOTTOM":0, "LEFT":0, "RIGHT":0}
 	for pin_spec in spec:
 		var pin
@@ -92,35 +63,9 @@ func initialize_pins(spec: Array, ic_shape:Vector2)->void:
 
 		#pin.global_position = Vector2(200,200)
 		pin.initialize(pin_spec, NetConstants.LEVEL.LEVEL_Z, self)
-		
 		pins.append(pin)
 		add_child(pin)
 	pins.sort_custom(pin_comparator)
-	for pin in pins:
-		match pin.ic_position:
-			"TOP":
-				pin.position = Vector2(side_padding+ 
-				side_margin[pin.ic_position]*(side_count[pin.ic_position] - side_index[pin.ic_position]-1), # TODO: Please think of something better
-				0)
-				side_index[pin.ic_position]+=1
-			"BOTTOM":
-				pin.rotation_degrees =180
-				pin.position = Vector2(side_padding+ 
-				side_margin[pin.ic_position]*side_index[pin.ic_position], 
-				ic_shape.y)
-				side_index[pin.ic_position]+=1
-			"LEFT":
-				pin.rotation_degrees =270
-				pin.position = Vector2(0, 
-				side_padding+
-				side_margin[pin.ic_position]*side_index[pin.ic_position])
-				side_index[pin.ic_position]+=1	
-			"RIGHT":
-				pin.rotation_degrees =90
-				pin.position = Vector2(ic_shape.x, 
-				side_padding+
-				side_margin[pin.ic_position]*(side_count[pin.ic_position] - side_index[pin.ic_position]-1))
-				side_index[pin.ic_position]+=1
 	for pin_spec in spec:
 		if pin_spec.dependencies.is_empty() or pin_spec.direction == NetConstants.DIRECTION.DIRECTION_INPUT:
 			continue
