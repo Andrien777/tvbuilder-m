@@ -2,7 +2,7 @@ extends Node2D
 var wires: Array[Wire]
 var first_wire_point = null
 var second_wire_point = null
-
+var timer: Timer
 var wire_ghost_pointer = Node2D.new()
 var wire_ghost = Wire.new()
 
@@ -11,6 +11,11 @@ func _init():
 	wire_ghost.line.modulate =Color(0.8,0.8,0.8,1)
 	wire_ghost.has_hitbox = false
 	add_child(wire_ghost)
+	timer = Timer.new()
+	timer.one_shot = true
+	timer.wait_time = 0.05
+	timer.timeout.connect(force_update_wires)
+	add_child(timer)
 
 func register_wire_point(object:Node2D):
 	if first_wire_point == null:
@@ -94,6 +99,13 @@ func _process(delta: float) -> void:
 
 func get_json_list():
 	pass
+
+func force_update_wires_after_delay():
+	if timer.is_stopped():
+		timer.start()
+	else:
+		timer.stop()
+		timer.start()
 
 func force_update_wires():
 	for wire in wires:

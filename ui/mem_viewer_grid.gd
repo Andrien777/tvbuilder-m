@@ -41,8 +41,11 @@ func write_to_memory():
 func display(memory, page):
 	var i=0
 	for l in labels:
-		if i + page * 16 * 16 < memory.memory_content.size():
-			l.text = "%02x" % memory.memory_content[i + page * 16 * 16]
-			i = i+1
+		if is_instance_valid(memory):
+			if i + page * 16 * 16 < memory.memory_content.size():
+				l.text = "%02x" % memory.memory_content[i + page * 16 * 16]
+				i = i+1
+			else:
+				l.text = "??"
 		else:
-			l.text = "??"
+				l.text = "??"

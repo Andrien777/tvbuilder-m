@@ -15,13 +15,18 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if (continuous_update):
 		update()
+	if not is_instance_valid(list.memory):
+		memory_name_label.text = "Память не выбрана"
+		update()
+
 func set_page(page):
 	self.page = page
 	update()
 	
 func update():
 	list.display_page(page)
-	memory_name_label.text = list.memory.readable_name
+	if is_instance_valid(list.memory):
+		memory_name_label.text = list.memory.readable_name
 	
 func set_memory(memory):
 	if list.memory!=memory:

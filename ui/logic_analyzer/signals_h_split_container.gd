@@ -126,7 +126,8 @@ func get_current_signal_value(sig: LA_Signal) -> NetConstants.LEVEL:
 	return NetConstants.LEVEL.LEVEL_Z # Pin is inexistent
 
 func remove_signal(sig_to_del: LA_Signal, pin: Pin):
-	pin.sprite.modulate = Color(1, 1, 1, 1)
+	if is_instance_valid(pin):
+		pin.sprite.modulate = Color(1, 1, 1, 1)
 	signals.erase(sig_to_del)
 	sig_to_del.line_edit.queue_free()
 	sig_to_del.signal_line.queue_free()
