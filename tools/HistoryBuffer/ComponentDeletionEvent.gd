@@ -18,9 +18,15 @@ func initialize(object):
 	# Implementing this will mean implementing this functionality in WireManager class
 	for wire in WireManager.wires: # Or we could just write some questionable code like this
 		if wire.first_object in object.pins:
-			connections[wire.first_object.index] = wire.second_object
+			if connections.has(wire.first_object.index):
+				connections[wire.first_object.index].append({"id": wire.second_object.parent.id,"index": wire.second_object.index})
+			else:
+				connections[wire.first_object.index] = [{"id": wire.second_object.parent.id,"index": wire.second_object.index}]
 		elif wire.second_object in object.pins:
-			connections[wire.second_object.index] = wire.first_object
+			if connections.has(wire.second_object.index):
+				connections[wire.second_object.index].append({"id": wire.first_object.parent.id,"index": wire.first_object.index})
+			else:
+				connections[wire.second_object.index] = [{"id": wire.first_object.parent.id,"index": wire.first_object.index}]
 
 func undo():
 	if name == null: return
@@ -34,7 +40,9 @@ func undo():
 	ComponentManager.get_node("/root/RootNode").add_child(element) # TODO: idk thats stupid
 	#ComponentManager.add_child(element)  # Thats even more stupid though
 	for key in connections:
-		WireManager._create_wire(element.pin(key), connections[key])
+		for conn in connections[key]:
+			var other = ComponentManager.get_by_id(conn["id"])
+			WireManager._create_wire(element.pin(key), other.pin(conn["index"]))
 
 func redo():
 	if is_instance_valid(object):
