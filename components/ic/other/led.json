@@ -5,6 +5,16 @@
 	"height": 25,
 	"width": 25,
 	"texture": "res://graphics/legacy/ic/sw_background_2x.png",
+	"textures": [
+		{
+			"name":"LEGACY", 
+			"path":"res://graphics/legacy/ic/sw_background_2x.png"
+		},
+		{
+			"name":"DEFAULT", 
+			"path":"res://graphics/legacy/ic/sw_background_2x.png"
+		}
+		],
 	"pinSpecifications": [
 		{
 			"index": 1,

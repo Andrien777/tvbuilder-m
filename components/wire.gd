@@ -54,7 +54,7 @@ func _mouse_enter() -> void:
 	is_mouse_over = true
 func _mouse_exit() -> void:
 	self.line.width = 2
-	if (GlobalSettings.LegacyGraphics):
+	if (GlobalSettings.CurrentGraphicsMode==LegacyGraphicsMode):
 		self.modulate=Color(1,0,0,1)
 	else:
 		self.modulate=Color(1,1,1,1)
@@ -123,7 +123,7 @@ func get_pin_offset(pin:Node2D):
 			return Vector2.RIGHT*pin_offset
 		
 func change_color():
-	if (GlobalSettings.LegacyGraphics):
+	if (GlobalSettings.CurrentGraphicsMode==LegacyGraphicsMode):
 		self.modulate=Color(1,0,0,1)
 	else:
 		self.modulate=Color(1,1,1,1)

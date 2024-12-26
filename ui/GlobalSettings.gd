@@ -1,11 +1,13 @@
 extends Node
 
 var LevelHighlight  = false
-var LegacyGraphics = true
 var doCycles = true
 var disableGlobalInput = false
-enum GraphicsMode  {Default, Legacy}
+
 var historyDepth = 200
+
+var CurrentGraphicsMode = LegacyGraphicsMode
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.

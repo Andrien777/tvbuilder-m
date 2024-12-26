@@ -10,21 +10,22 @@ var label # TODO: Delete this...
 var button
 func initialize(spec: ComponentSpecification, ic = null)->void:
 	self.display_name_label = false # TODO: Move to spec?
-	super.initialize(spec)
+	
 	#self.sprite.texture = switch_texture
 	#self.sprite.modulate = Color(0.5,0.5,0.5,1)
-	
-	self.scale = Vector2(1,1)
-	button = SwitchButton.new()
-	button.initialize(self)
-	button.position = sprite.texture.get_size() / 2
-	add_child(button)
 	label = Label.new()
 	label.position = self.position
 	label.z_index = 2
 	label.text = ""
 	add_child(label)
-	if (!GlobalSettings.LegacyGraphics):
+	self.scale = Vector2(1,1)
+	button = SwitchButton.new()
+	button.initialize(self)
+	super.initialize(spec)
+	button.position = sprite.texture.get_size() / 2
+	add_child(button)
+	
+	if (GlobalSettings.CurrentGraphicsMode==DefaultGraphicsMode):
 		self.sprite.modulate = Color(0,0,0,1)
 	else:
 		label.visible = false
@@ -34,10 +35,11 @@ func _process_signal():
 		pins[0].state = NetConstants.LEVEL.LEVEL_HIGH
 	else:
 		pins[0].state = NetConstants.LEVEL.LEVEL_LOW
-func change_graphics_mode(mode:GlobalSettings.GraphicsMode):
-	super.update_pins(self.pins, self.hitbox.shape.size)
+func change_graphics_mode(mode):
+	super.change_graphics_mode(mode)
+	#super.update_pins(self.pins, self.hitbox.shape.size)
 	#super.change_graphics_mode(mode)
-	if(mode == GlobalSettings.GraphicsMode.Legacy): 
+	if(mode==LegacyGraphicsMode): 
 		self.sprite.modulate = Color(1,1,1,1)
 		label.visible =false
 	else:

@@ -11,10 +11,10 @@ var readable_name:String
 var display_name_label = true
 static var last_id = 0
 var id
-var test_texture = preload("res://components/ic/ic.png")
+var fallback_texture = preload("res://components/ic/ic.png")
 var height: float
 var width: float
-var texture: String
+var textures: Dictionary # Holds textures for every graphics mode TODO: Lazy loading
 const side_padding = 10 # TODO: Move side_padding to spec?
 var pins: Array
 var ic_texture = null
@@ -28,63 +28,27 @@ func initialize(spec: ComponentSpecification, ic = null)->void: # Ic field holds
 	sprite.centered = false
 	hitbox = CollisionShape2D.new()
 	var shape = RectangleShape2D.new()
-	
-	if (spec.texture!=""): 
-		ic_texture = load(spec.texture)
-	else:
-		ic_texture = test_texture # TODO: Remove hardcoded names ASAP. We really need multiple textures. Its bad, i know
-	var current_texture = ic_texture if (GlobalSettings.LegacyGraphics or spec.name=="Переключатель" or spec.name=="Светодиод") else test_texture
+	for t in spec.textures:
+		self.textures[t] = load(spec.textures[t])
+	change_graphics_mode(GlobalSettings.CurrentGraphicsMode)
+	var current_texture = sprite.texture
 	shape.size = current_texture.get_size()
-	sprite.texture = current_texture
 	hitbox.shape = shape
 	hitbox.position = shape.size/2
 	height = spec.height
 	width = spec.width
-	texture = spec.texture
-	#var texture = load(spec.texture)
-	#sprite.scale = Vector2(0.1,0.1)
-	#sprite.modulate = Color(0.0, 0.0, 0.0, 1.0)
-	# Render texture and set height-width
-	#Label
 	add_child(hitbox)
 	add_child(sprite)
 	initialize_pins(spec.pinSpecifications, shape.size)
-	if(display_name_label):
-		name_label = Label.new()
-		name_label.position = Vector2(10,shape.size.y/2 - name_label.get_line_height()/2)
-		#name_label.z_index = 2
-		name_label.text = self.readable_name
-		add_child(name_label)
-	id = last_id
-	last_id += 1
+	name_label = Label.new()
+	name_label.position = Vector2(10,shape.size.y/2 - name_label.get_line_height()/2)
+	name_label.text = self.readable_name
+	add_child(name_label)
+	name_label.visible = display_name_label
 	ComponentManager.register_object(self)
+	update_pins(pins, hitbox.shape.size)	
 
 func initialize_pins(spec: Array, ic_shape:Vector2)->void:
-	var side_count = {"TOP":0, "BOTTOM":0, "LEFT":0, "RIGHT":0}
-	var side_margin = {"TOP":0, "BOTTOM":0, "LEFT":0, "RIGHT":0}
-	for pin_spec in spec:
-		match pin_spec.position: # Could be just side_count[pin_spec]+=1
-			"TOP":
-				side_count["TOP"]+=1
-			"BOTTOM":
-				side_count["BOTTOM"]+=1
-			"LEFT":
-				side_count["LEFT"]+=1
-			"RIGHT":
-				side_count["RIGHT"]+=1
-	for k in side_count:
-		if k=="TOP" or k=="BOTTOM": #if pins are spaced horizontally
-			if side_count[k] != 1:
-				side_margin[k] = (ic_shape.x-2*side_padding)/(side_count[k]-1)
-			else:
-				side_margin[k] = ic_shape.x/2
-		else: # or vertically
-			if side_count[k] != 1:
-				side_margin[k] = (ic_shape.y-2*side_padding)/(side_count[k]-1)
-			else:
-				side_margin[k] = ic_shape.y/2
-
-
 	var side_index = {"TOP":0, "BOTTOM":0, "LEFT":0, "RIGHT":0}
 	for pin_spec in spec:
 		var pin
@@ -92,42 +56,16 @@ func initialize_pins(spec: Array, ic_shape:Vector2)->void:
 			pin = IO_Pin.new()
 		else:
 			pin = Pin.new()
-		if(GlobalSettings.LegacyGraphics):
+		if(GlobalSettings.CurrentGraphicsMode==LegacyGraphicsMode):
 			pin.scale=Vector2(0.2,0.2)
 		else:
 			pin.scale=Vector2(0.2,0.4)
 
 		#pin.global_position = Vector2(200,200)
 		pin.initialize(pin_spec, NetConstants.LEVEL.LEVEL_Z, self)
-		
 		pins.append(pin)
 		add_child(pin)
 	pins.sort_custom(pin_comparator)
-	for pin in pins:
-		match pin.ic_position:
-			"TOP":
-				pin.position = Vector2(side_padding+ 
-				side_margin[pin.ic_position]*(side_count[pin.ic_position] - side_index[pin.ic_position]-1), # TODO: Please think of something better
-				0)
-				side_index[pin.ic_position]+=1
-			"BOTTOM":
-				pin.rotation_degrees =180
-				pin.position = Vector2(side_padding+ 
-				side_margin[pin.ic_position]*side_index[pin.ic_position], 
-				ic_shape.y)
-				side_index[pin.ic_position]+=1
-			"LEFT":
-				pin.rotation_degrees =270
-				pin.position = Vector2(0, 
-				side_padding+
-				side_margin[pin.ic_position]*side_index[pin.ic_position])
-				side_index[pin.ic_position]+=1	
-			"RIGHT":
-				pin.rotation_degrees =90
-				pin.position = Vector2(ic_shape.x, 
-				side_padding+
-				side_margin[pin.ic_position]*(side_count[pin.ic_position] - side_index[pin.ic_position]-1))
-				side_index[pin.ic_position]+=1
 	for pin_spec in spec:
 		if pin_spec.dependencies.is_empty() or pin_spec.direction == NetConstants.DIRECTION.DIRECTION_INPUT:
 			continue
@@ -221,11 +159,11 @@ func to_json_object() -> Dictionary:
 func pin(i:int):
 	return self.pins[i-1] 
 
-func change_graphics_mode(mode:GlobalSettings.GraphicsMode):
-	if (mode==GlobalSettings.GraphicsMode.Legacy): # TODO: Enum
-		sprite.texture = ic_texture
+func change_graphics_mode(mode):
+	if(self.textures.has(mode.texture_tag)):
+		sprite.texture = self.textures[mode.texture_tag]
 	else:
-		sprite.texture = test_texture
+		sprite.texture = fallback_texture
 	var shape = RectangleShape2D.new()
 	shape.size = sprite.texture.get_size()
 	name_label.position = Vector2(10,shape.size.y/2 - name_label.get_line_height()/2)
@@ -236,15 +174,7 @@ func update_pins(pins:Array, ic_shape:Vector2):
 	var side_count = {"TOP":0, "BOTTOM":0, "LEFT":0, "RIGHT":0}
 	var side_margin = {"TOP":0, "BOTTOM":0, "LEFT":0, "RIGHT":0}
 	for _pin in pins:
-		match _pin.ic_position: # Could be just side_count[pin_spec]+=1
-			"TOP":
-				side_count["TOP"]+=1
-			"BOTTOM":
-				side_count["BOTTOM"]+=1
-			"LEFT":
-				side_count["LEFT"]+=1
-			"RIGHT":
-				side_count["RIGHT"]+=1
+		side_count[_pin.ic_position] += 1
 	for k in side_count:
 		if k=="TOP" or k=="BOTTOM": #if pins are spaced horizontally
 			if side_count[k] != 1:
@@ -260,33 +190,32 @@ func update_pins(pins:Array, ic_shape:Vector2):
 
 	var side_index = {"TOP":0, "BOTTOM":0, "LEFT":0, "RIGHT":0}
 	for _pin in pins:
-		_pin.change_graphics_mode(GlobalSettings.GraphicsMode.Legacy if GlobalSettings.LegacyGraphics else GlobalSettings.GraphicsMode.Default)
-		var pin = _pin
-		if(GlobalSettings.LegacyGraphics):
-			pin.scale=Vector2(0.2,0.2)
+		_pin.change_graphics_mode(GlobalSettings.CurrentGraphicsMode)
+		if(GlobalSettings.CurrentGraphicsMode==LegacyGraphicsMode):
+			_pin.scale=Vector2(0.2,0.2)
 		else:
-			pin.scale=Vector2(0.2,0.4)
+			_pin.scale=Vector2(0.2,0.4)
 		match _pin.ic_position:
 			"TOP":
-				pin.position = Vector2(side_padding+ 
+				_pin.position = Vector2(side_padding+ 
 				side_margin[_pin.ic_position]*(side_count[_pin.ic_position] - side_index[_pin.ic_position]-1), # TODO: Please think of something better
 				0)
 				side_index[_pin.ic_position]+=1
 			"BOTTOM":
-				pin.rotation_degrees =180
-				pin.position = Vector2(side_padding+ 
+				_pin.rotation_degrees =180
+				_pin.position = Vector2(side_padding+ 
 				side_margin[_pin.ic_position]*side_index[_pin.ic_position], 
 				ic_shape.y)
 				side_index[_pin.ic_position]+=1
 			"LEFT":
-				pin.rotation_degrees =270
-				pin.position = Vector2(0 , 
+				_pin.rotation_degrees =270
+				_pin.position = Vector2(0 , 
 				side_padding+
-				side_margin[pin.ic_position]*side_index[pin.ic_position])
-				side_index[pin.ic_position]+=1	
+				side_margin[_pin.ic_position]*side_index[_pin.ic_position])
+				side_index[_pin.ic_position]+=1	
 			"RIGHT":
-				pin.rotation_degrees =90
-				pin.position = Vector2(ic_shape.x, 
+				_pin.rotation_degrees =90
+				_pin.position = Vector2(ic_shape.x, 
 				side_padding+
-				side_margin[pin.ic_position]*(side_count[pin.ic_position] - side_index[pin.ic_position]-1))
-				side_index[pin.ic_position]+=1
+				side_margin[_pin.ic_position]*(side_count[_pin.ic_position] - side_index[_pin.ic_position]-1))
+				side_index[_pin.ic_position]+=1
