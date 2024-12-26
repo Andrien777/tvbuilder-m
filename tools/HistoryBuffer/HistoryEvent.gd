@@ -1,13 +1,6 @@
-extends Node
+extends RefCounted
 
-var LevelHighlight  = false
-var doCycles = true
-var disableGlobalInput = false
-
-var historyDepth = 200
-
-var CurrentGraphicsMode = LegacyGraphicsMode
-
+class_name HistoryEvent
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -15,4 +8,10 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	pass
+
+func undo():
+	pass
+
+func redo():
 	pass

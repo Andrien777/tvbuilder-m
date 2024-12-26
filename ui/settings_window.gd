@@ -12,3 +12,5 @@ func _process(delta: float) -> void:
 
 func open_window():
 	self.visible = true
+	get_node("VBoxContainer/DoCyclesButton").button_pressed = not GlobalSettings.doCycles
+	get_node("VBoxContainer/MinimalGraphics").button_pressed = not GlobalSettings.LegacyGraphics

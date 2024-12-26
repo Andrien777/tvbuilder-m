@@ -57,6 +57,30 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if is_instance_valid(proc):
 		update()
+	else:
+		ax_val.text = "\t????"
+		bx_val.text = "\t????"
+		cx_val.text = "\t????"
+		dx_val.text = "\t????"
+		cs_val.text = "\t????"
+		ip_val.text = "\t????"
+		si_val.text = "\t????"
+		sp_val.text = "\t????"
+		bp_val.text = "\t????"
+		di_val.text = "\t????"
+		ss_val.text = "\t????"
+		ds_val.text = "\t????"
+		es_val.text = "\t????"
+		
+		of_val.text = "\t?"
+		df_val.text = "\t?"
+		if_val.text = "\t?"
+		tf_val.text = "\t?"
+		sf_val.text = "\t?"
+		zf_val.text = "\t?"
+		acf_val.text = "\t?"
+		pf_val.text = "\t?"
+		cf_val.text = "\t?"
 
 func set_proc(procc):
 	proc = procc

@@ -102,6 +102,10 @@ func _process(delta: float, force_update = false) -> void:
 		first_object.modulate=Color(1,1,1,1)
 		second_object.modulate=Color(1,1,1,1)
 		WireManager._delete_wire(self)
+		var event = WireDeletionEvent.new() # We are doing it there (and not in WireManager)
+		# to prevent events creating from the HistoryEvent.undo() call 
+		event.initialize(self.first_object, self.second_object)
+		HistoryBuffer.register_event(event)
 	
 		
 		

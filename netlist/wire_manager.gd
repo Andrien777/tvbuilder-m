@@ -2,7 +2,7 @@ extends Node2D
 var wires: Array[Wire]
 var first_wire_point = null
 var second_wire_point = null
-
+var timer: Timer
 var wire_ghost_pointer = Node2D.new()
 var wire_ghost = Wire.new()
 
@@ -11,6 +11,11 @@ func _init():
 	wire_ghost.line.modulate =Color(0.8,0.8,0.8,1)
 	wire_ghost.has_hitbox = false
 	add_child(wire_ghost)
+	timer = Timer.new()
+	timer.one_shot = true
+	timer.wait_time = 0.05
+	timer.timeout.connect(force_update_wires)
+	add_child(timer)
 
 func register_wire_point(object:Node2D):
 	if first_wire_point == null:
@@ -28,7 +33,10 @@ func register_wire_point(object:Node2D):
 					_delete_wire(wire)
 		else:
 			# TODO: Check if creation is possible
-			_create_wire(first_wire_point, second_wire_point)
+			var event = WireCreationEvent.new()
+			event.initialize(_create_wire(first_wire_point, second_wire_point)) # TODO: Kind of ugly side effect use
+			HistoryBuffer.register_event(event)
+			
 		first_wire_point = null
 		second_wire_point = null
 
@@ -41,6 +49,21 @@ func _delete_wire(wire):
 			(wire.second_object as Pin).state = NetConstants.LEVEL.LEVEL_Z
 		wires.erase(wire)
 		wire.queue_free()
+
+func _delete_wire_by_ends(from, to): #Slow and questionable, but should work fine
+	var wire_to_delete = null
+	for wire in wires:
+		if wire.first_object == from and wire.second_object == to or \
+		wire.second_object == from and wire.first_object == to:
+			wire_to_delete = wire
+	
+	NetlistClass.delete_connection(wire_to_delete.first_object, wire_to_delete.second_object)
+	if is_instance_valid(wire_to_delete.first_object):
+		(wire_to_delete.first_object as Pin).state = NetConstants.LEVEL.LEVEL_Z
+	if is_instance_valid(wire_to_delete.second_object):
+		(wire_to_delete.second_object as Pin).state = NetConstants.LEVEL.LEVEL_Z
+	wires.erase(wire_to_delete)
+	wire_to_delete.queue_free()
 
 func _create_wire(first_object:Node2D, second_object:Node2D):
 	if(first_object.parent is Switch):
@@ -56,6 +79,7 @@ func _create_wire(first_object:Node2D, second_object:Node2D):
 	NetlistClass.add_connection(first_pin, second_pin)
 	wires.append(wire)
 	add_child(wire)
+	return wire
 
 func clear():
 	for wire in wires:
@@ -69,13 +93,19 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-
 	if(wire_ghost.visible):
 		wire_ghost_pointer.position = get_global_mouse_position()
 	
 
 func get_json_list():
 	pass
+
+func force_update_wires_after_delay():
+	if timer.is_stopped():
+		timer.start()
+	else:
+		timer.stop()
+		timer.start()
 
 func force_update_wires():
 	for wire in wires:

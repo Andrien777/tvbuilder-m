@@ -94,6 +94,9 @@ func _process(delta: float) -> void:
 		if self.is_mouse_over:
 			Input.action_release("delete_component")
 			ComponentManager.remove_object(self)
+			var event = ComponentDeletionEvent.new()
+			event.initialize(self)
+			HistoryBuffer.register_event(event)
 			queue_free()
 		
 var tween
@@ -116,7 +119,11 @@ func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void
 			drag_offset = global_position - get_global_mouse_position()
 			viewport.set_input_as_handled()
 			now_disabled_drag = false
+			var move_event = MoveEvent.new()
+			move_event.initialize(self.global_position, self)
+			HistoryBuffer.register_event(move_event)
 		is_dragged = event.pressed
+		
 		if (is_dragged==false):
 			snap_to_grid()
 			get_node("/root/RootNode/Camera2D").lock_pan = false
