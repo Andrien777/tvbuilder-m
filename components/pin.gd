@@ -26,7 +26,7 @@ func initialize(spec: PinSpecification, state: NetConstants.LEVEL, parent: Node2
 	
 	sprite = Sprite2D.new()
 	var hitbox = CollisionShape2D.new()
-	if(GlobalSettings.LegacyGraphics):
+	if(GlobalSettings.CurrentGraphicsMode==LegacyGraphicsMode):
 		sprite.texture = legacy_pin_texture
 	else:
 		sprite.texture = pin_texture
@@ -99,8 +99,8 @@ func output():
 func input():
 	return self.direction == NetConstants.DIRECTION.DIRECTION_INPUT
 
-func change_graphics_mode(mode:GlobalSettings.GraphicsMode):
-	if(GlobalSettings.LegacyGraphics):
+func change_graphics_mode(mode):
+	if(mode==LegacyGraphicsMode): # Pins just have 2 graphics modes for now
 		sprite.texture = legacy_pin_texture
 	else:
 		sprite.texture = pin_texture

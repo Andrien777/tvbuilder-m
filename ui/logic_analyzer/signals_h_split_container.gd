@@ -144,12 +144,12 @@ func clear_signal_values():
 	_current_signal_value_index = 1
 	scroll_container.scroll_horizontal = 0
 	signal_container.custom_minimum_size.x = 0
-	for child in scroll_container.get_children():
-		if child.is_class("Line2D"):
-			child.clear_points()
-			child.queue_free()
-		elif child.is_class("Label"):
-			child.queue_free()
+	#for child in scroll_container.get_children():
+		#if child.is_class("Line2D"):
+			#child.clear_points()
+			#child.queue_free()
+		#elif child.is_class("Label"):
+			#child.queue_free()
 	
 func _on_timer_delay_line_edit_delay_value_changed(new_value: float) -> void:
 	signal_value_width = BASE_SIGNAL_VALUE_WIDTH * new_value

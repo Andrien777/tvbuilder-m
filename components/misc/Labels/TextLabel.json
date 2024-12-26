@@ -3,7 +3,7 @@
 	"num_pins": 0,
 	"height": 25,
 	"width": 25,
-	"texture": "",
+	"textures":[],
 	"pinSpecifications": [
 		{
 			"index": 1,

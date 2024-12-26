@@ -92,10 +92,6 @@ func get_addr():
 	addr = addr | ((pin(8).high as int)<<10)
 	return addr
 
-func initialize(spec: ComponentSpecification, ic = null):
-	super.initialize(spec, ic)
-	change_graphics_mode(GlobalSettings.GraphicsMode.Legacy if GlobalSettings.LegacyGraphics else GlobalSettings.GraphicsMode.Default)
-
 func set_value(addr:int, q:int, index:int):
 	if(q==1):
 		memory_content[addr] = memory_content[addr] | (q<<index) 
@@ -109,9 +105,9 @@ func get_values(addr:int):
 func change_graphics_mode(mode):
 	super.change_graphics_mode(mode)
 
-	if(mode == GlobalSettings.GraphicsMode.Default):
+	if(mode == DefaultGraphicsMode):
 		self.display_name_label = true
 		name_label.visible = true
-	elif (mode==GlobalSettings.GraphicsMode.Legacy):
+	elif (mode == LegacyGraphicsMode):
 		self.display_name_label = false
 		name_label.visible = false

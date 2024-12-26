@@ -31,17 +31,20 @@ func _input(event):
 		get_node("LoadFileDialog")._on_load_button_pressed()
 
 func toggle_graphics_mode():
-	GlobalSettings.LegacyGraphics = not GlobalSettings.LegacyGraphics
-	if(!GlobalSettings.LegacyGraphics):
+	if GlobalSettings.CurrentGraphicsMode==LegacyGraphicsMode:
+		GlobalSettings.CurrentGraphicsMode = DefaultGraphicsMode
+	else:
+		GlobalSettings.CurrentGraphicsMode = LegacyGraphicsMode
+	if(GlobalSettings.CurrentGraphicsMode==DefaultGraphicsMode):
 		grid_rect.material.set_shader_parameter("grid_color",Vector4(0.2, 0.2, 0.2, 1.0))
 		grid_rect.material.set_shader_parameter("background_color",Vector4(0.4, 0.6, 0.9, 1.0))
 		for ic in ComponentManager.obj_list.values():
-			ic.change_graphics_mode(GlobalSettings.GraphicsMode.Default) # TODO: Move to componenet manager
+			ic.change_graphics_mode(GlobalSettings.CurrentGraphicsMode) # TODO: Move to componenet manager
 	else:
 		grid_rect.material.set_shader_parameter("grid_color",Vector4(128.0/256.0, 129.0/256.0, 1/256.0, 1.0))
 		grid_rect.material.set_shader_parameter("background_color",Vector4(41.0/256.0, 33.0/256.0, 4/256.0, 1.0))
 		for ic in ComponentManager.obj_list.values():
-			ic.change_graphics_mode(GlobalSettings.GraphicsMode.Legacy)
+			ic.change_graphics_mode(GlobalSettings.CurrentGraphicsMode)
 	for wire in WireManager.wires:
 		wire.change_color()
 	timer.start()

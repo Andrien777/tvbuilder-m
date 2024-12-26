@@ -27,7 +27,7 @@ var top_right_texture = preload("res://graphics/legacy/ic/7segment/TOP_RIGHT.png
 var top_left_texture = preload("res://graphics/legacy/ic/7segment/TOP_LEFT.png")
 var top_center_texture = preload("res://graphics/legacy/ic/7segment/TOP_CENTER.png")
 var mid_center_texture = preload("res://graphics/legacy/ic/7segment/MID_CENTER.png")
-var textures = [top_center_texture,top_right_texture,bottom_right_texture,bottom_center_texture,bottom_left_texture,top_left_texture,mid_center_texture]
+var ss_textures = [top_center_texture,top_right_texture,bottom_right_texture,bottom_center_texture,bottom_left_texture,top_left_texture,mid_center_texture]
 var sprites = []
 func _init():
 	#label = Label.new()
@@ -36,9 +36,9 @@ func _init():
 	#label.text = "Z"
 	#add_child(label)
 	
-	for texture in textures:
+	for ss_texture in ss_textures:
 		sprite = Sprite2D.new()
-		sprite.texture = texture
+		sprite.texture = ss_texture
 		sprite.z_index = 1
 		sprite.visible=false
 		sprite.centered = false
