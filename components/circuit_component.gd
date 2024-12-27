@@ -9,7 +9,6 @@ var drag_offset = Vector2(0,0)
 var readable_name:String
 
 var display_name_label = true
-static var last_id = 0
 var id
 var fallback_texture = preload("res://components/ic/ic.png")
 var height: float
@@ -98,6 +97,16 @@ func _process(delta: float) -> void:
 			event.initialize(self)
 			HistoryBuffer.register_event(event)
 			queue_free()
+	if Input.is_action_pressed("show_connection_table") and not GlobalSettings.disableGlobalInput:
+		if self.is_mouse_over:
+			Input.action_release("show_connection_table")
+			var conn_table = load("res://tools/ConnectionTable/ConnectionTable.tscn").instantiate()
+			conn_table.ic = self
+			add_child(conn_table)
+			conn_table.get_connections(self)
+			conn_table.display_connections()
+			
+			
 		
 var tween
 func snap_to_grid():

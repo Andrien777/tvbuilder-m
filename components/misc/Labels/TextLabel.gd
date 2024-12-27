@@ -12,8 +12,6 @@ func initialize(spec: ComponentSpecification, ic=null)->void:
 	self.text_line.text = self.label.text
 func _init():
 	readable_name = "Метка"
-	id = last_id
-	last_id += 1
 	label = Label.new()
 	label.text = "Метка"
 	label.position = Vector2(0,0)

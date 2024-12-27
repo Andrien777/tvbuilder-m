@@ -11,7 +11,6 @@ func initialize(object):
 	self.object = object
 	self.id = object.id
 	self.name=  object.readable_name
-	# TODO: implement restoring wires
 	# This will require to populate the connections dict with Int -> Object pairs (self pin index -> other Pin object)
 	# The issue is, we don`t know what is connected to a Pin now - only the WireManager knows that
 	# Implementing this will mean implementing this functionality in WireManager class

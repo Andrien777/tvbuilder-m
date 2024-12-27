@@ -12,6 +12,7 @@ func register_object(object: CircuitComponent):
 	last_id += 1
 	if not obj_list.is_empty() and get_by_id(object.id) != null:
 		PopupManager.display_error("Попытка добавить дубликат id", "Объект не добавлен", Vector2(100, 100))
+		OS.alert("Обнаружено столкновение идентификаторов","Ошибка добавления объекта",)
 	else:
 		obj_list[object.id] = object
 
@@ -32,7 +33,7 @@ func clear():
 	obj_list.clear()
 	WireManager.clear()
 	NetlistClass.clear()
-	CircuitComponent.last_id = 0
+	ComponentManager.last_id = 0
 	
 func _ready() -> void:
 	var json = JSON.new()

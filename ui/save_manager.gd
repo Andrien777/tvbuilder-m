@@ -51,7 +51,7 @@ func load(scene: Node2D, path: String):
 		spec.initialize_from_json(ComponentManager.ALL_COMPONENTS_LIST[ic.name].config_path)
 		component.initialize(spec, ic)
 		ComponentManager.change_id(component, ic.id)
-		CircuitComponent.last_id = max(CircuitComponent.last_id, ic.id) + 1
+		ComponentManager.last_id = max(ComponentManager.last_id, ic.id) + 1
 		scene.add_child(component)
 		var pos = ic.position.split(",")
 		var x = float(pos[0].replace("(", ""))
