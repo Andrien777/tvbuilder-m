@@ -9,6 +9,10 @@ var hitbox: Array
 
 var is_mouse_over = false
 var has_hitbox = true
+var is_dragged = false
+var dragged_point_index = 0
+var last_point_index = 3
+var control_points: Array[Vector2]
 func initialize(first_object:Node2D, second_object:Node2D)->void:
 	line.clear_points()
 
@@ -65,9 +69,8 @@ var first_object_last_position = Vector2(0,0)
 var second_object_last_position = Vector2(0,0)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float, force_update = false) -> void:
-	# TODO: Render only if position of start|end nodes changed
 	
-	if first_object!=null and second_object!=null : # TODO: Notify WireManager about missing object
+	if first_object!=null and second_object!=null :
 		if  (abs(first_object.global_position - first_object_last_position) >= Vector2.ONE * 1e-6 or abs(second_object.global_position - second_object_last_position) >= Vector2.ONE * 1e-6 or force_update):
 
 			line.set_point_position(0, first_object.global_position)
@@ -75,6 +78,8 @@ func _process(delta: float, force_update = false) -> void:
 			line.set_point_position(2,Vector2(line.get_point_position(1).x,line.get_point_position(3).y))
 			line.set_point_position(line.get_point_count()-2,second_object.global_position+get_pin_offset(second_object))
 			line.set_point_position(line.get_point_count()-1,second_object.global_position)
+			
+			
 			if(has_hitbox):
 				for i in range(0, line.points.size()-1):
 					var shape = RectangleShape2D.new()
@@ -106,8 +111,35 @@ func _process(delta: float, force_update = false) -> void:
 		# to prevent events creating from the HistoryEvent.undo() call 
 		event.initialize(self.first_object, self.second_object)
 		HistoryBuffer.register_event(event)
-	
-		
+	if(is_dragged):
+		control_points[-1] = get_global_mouse_position()
+		line.set_point_position(dragged_point_index, Vector2(line.get_point_position(dragged_point_index-1).x,control_points[-1].y))
+		line.set_point_position(dragged_point_index+1, control_points[-1])
+		line.set_point_position(dragged_point_index+2, Vector2(control_points[-1].x,line.get_point_position(dragged_point_index+3).y))
+func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		get_node("/root/RootNode/Camera2D").lock_pan = true
+		if(event.pressed and control_points.is_empty()): # Limit to one control point for now
+			var mouse_pos = get_global_mouse_position()
+			control_points.append(mouse_pos)
+			line.remove_point(last_point_index-1)
+			last_point_index -=1
+			line.add_point(Vector2(line.get_point_position(last_point_index-1).x,mouse_pos.y), last_point_index)
+			line.add_point(mouse_pos, last_point_index+1)
+			line.add_point(Vector2(mouse_pos.x,line.get_point_position(last_point_index+4).y), last_point_index+2)
+			dragged_point_index = last_point_index
+			last_point_index+=3
+		is_dragged = event.pressed
+		if (is_dragged==false):
+			pass
+			#snap_to_grid()
+			#get_node("/root/RootNode/Camera2D").lock_pan = false
+			
+func _input(event: InputEvent) -> void: # This need to be like that because event won`t register in _input_event unless the mouse is on the wire
+	if is_dragged and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed==false:
+		is_dragged = false
+		get_node("/root/RootNode/Camera2D").lock_pan = false
+
 		
 func get_pin_offset(pin:Node2D):
 	if(not pin is Pin): # Wire technically traces two Node2Ds, not two pins
