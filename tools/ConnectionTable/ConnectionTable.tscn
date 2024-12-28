@@ -1,0 +1,43 @@
+[gd_scene load_steps=3 format=3 uid="uid://bihbv20ikc5jx"]
+
+[ext_resource type="Script" path="res://tools/ConnectionTable/connection_table.gd" id="1_3cvae"]
+[ext_resource type="FontFile" uid="uid://co86tufoji665" path="res://ui/JetBrainsMonoNL-Regular.ttf" id="2_hc8qw"]
+
+[node name="ConnectionTable" type="Node2D"]
+script = ExtResource("1_3cvae")
+
+[node name="Window" type="Window" parent="."]
+initial_position = 2
+size = Vector2i(300, 450)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Window"]
+custom_minimum_size = Vector2(300, 400)
+offset_right = 206.0
+offset_bottom = 430.0
+
+[node name="Label" type="Label" parent="Window/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.796243, 0.796243, 0.796243, 1)
+theme_override_fonts/font = ExtResource("2_hc8qw")
+theme_override_font_sizes/font_size = 19
+text = "Таблица соединений"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Window/VBoxContainer"]
+custom_minimum_size = Vector2(300, 400)
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="Window/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+columns = 3
+
+[node name="PinHeader" type="Label" parent="Window/VBoxContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+text = "Ножка"
+
+[node name="TargetIcHeader" type="Label" parent="Window/VBoxContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+text = "Микросхема"
+
+[node name="TargetPinHeader" type="Label" parent="Window/VBoxContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+text = "Ножка"

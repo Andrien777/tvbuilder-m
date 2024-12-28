@@ -113,6 +113,7 @@ func _process(delta: float, force_update = false) -> void:
 		HistoryBuffer.register_event(event)
 	if(is_dragged):
 		control_points[-1] = get_global_mouse_position()
+	for point in control_points: # TODO: do something for every point
 		line.set_point_position(dragged_point_index, Vector2(line.get_point_position(dragged_point_index-1).x,control_points[-1].y))
 		line.set_point_position(dragged_point_index+1, control_points[-1])
 		line.set_point_position(dragged_point_index+2, Vector2(control_points[-1].x,line.get_point_position(dragged_point_index+3).y))
@@ -133,12 +134,13 @@ func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void
 		if (is_dragged==false):
 			pass
 			#snap_to_grid()
-			#get_node("/root/RootNode/Camera2D").lock_pan = false
+			get_node("/root/RootNode/Camera2D").lock_pan = false
 			
 func _input(event: InputEvent) -> void: # This need to be like that because event won`t register in _input_event unless the mouse is on the wire
 	if is_dragged and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed==false:
 		is_dragged = false
 		get_node("/root/RootNode/Camera2D").lock_pan = false
+		_process(0.0,true) # Recalculate the hitbox
 
 		
 func get_pin_offset(pin:Node2D):
