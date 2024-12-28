@@ -10,6 +10,8 @@ func _ready() -> void:
 	timer.wait_time = 0.1
 	timer.timeout.connect(WireManager.force_update_wires)
 	add_child(timer)
+	GlobalSettings.try_load()
+	get_node("./GridSprite").visible = GlobalSettings.CurrentGraphicsMode==LegacyGraphicsMode
 
 	
 
@@ -52,7 +54,7 @@ func toggle_graphics_mode():
 	for wire in WireManager.wires:
 		wire.change_color()
 	timer.start()
-	get_node("./GridSprite").visible = not get_node("./GridSprite").visible
+	get_node("./GridSprite").visible = GlobalSettings.CurrentGraphicsMode==LegacyGraphicsMode
 	
 func create_selected_element():
 	var element_name = ICsTreeManager.get_selected_element_name()

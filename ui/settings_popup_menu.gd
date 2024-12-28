@@ -15,6 +15,7 @@ func _on_settings_button_pressed() -> void:
 	self.position = get_node("../SettingsButton").position + Vector2(get_node("/root/RootNode").get_window().position) + Vector2(-3, 36)
 	self.set_item_checked(0, not GlobalSettings.doCycles)
 	self.set_item_checked(1, GlobalSettings.CurrentGraphicsMode==DefaultGraphicsMode)
+	self.set_item_checked(2, GlobalSettings.showLastWire)
 
 
 func _on_index_pressed(index: int) -> void:
@@ -26,5 +27,14 @@ func _on_index_pressed(index: int) -> void:
 			get_node("/root/RootNode").toggle_graphics_mode()
 			self.set_item_checked(1, GlobalSettings.CurrentGraphicsMode==DefaultGraphicsMode)
 		2:
+			GlobalSettings.showLastWire = not GlobalSettings.showLastWire
+			self.set_item_checked(2, GlobalSettings.showLastWire)
+			WireManager.toggle_last_wire_visible()
+		3:
 			get_node("../SettingsWindow").open_window()
 			self.hide()
+
+
+func _on_popup_hide() -> void:
+	GlobalSettings.save()
+	hide()
