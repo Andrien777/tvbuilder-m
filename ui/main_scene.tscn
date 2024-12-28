@@ -323,6 +323,7 @@ script = ExtResource("14_st4q1")
 
 [node name="MemoryViewer" type="Window" parent="."]
 auto_translate_mode = 1
+title = "Просмотр содержимого памяти"
 initial_position = 1
 size = Vector2i(500, 550)
 visible = false
@@ -397,6 +398,7 @@ use_native_dialog = true
 script = ExtResource("16_h0gp2")
 
 [node name="RegViewer" type="Window" parent="."]
+title = "Просмотр содержимого регистров"
 initial_position = 1
 size = Vector2i(250, 250)
 visible = false
