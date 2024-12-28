@@ -112,7 +112,7 @@ func _process(delta: float, force_update = false) -> void:
 		event.initialize(self.first_object, self.second_object)
 		HistoryBuffer.register_event(event)
 	if(is_dragged):
-		control_points[-1] = get_global_mouse_position()
+		control_points[-1] = snap_to_grid(get_global_mouse_position()) if GlobalSettings.WireSnap else get_global_mouse_position()
 	for point in control_points: # TODO: do something for every point
 		line.set_point_position(dragged_point_index, Vector2(line.get_point_position(dragged_point_index-1).x,control_points[-1].y))
 		line.set_point_position(dragged_point_index+1, control_points[-1])
@@ -161,3 +161,12 @@ func change_color():
 		self.modulate=Color(1,0,0,1)
 	else:
 		self.modulate=Color(1,1,1,1)
+
+func snap_to_grid(point): # TODO: Add wire snap to settings
+	var snap_distance = 5
+	var dx = int(point.x) % snap_distance if int(point.x) % snap_distance < (snap_distance - int(point.x) % snap_distance) else int(point.x) % snap_distance - snap_distance
+	var dy = int(point.y) % snap_distance if int(point.y) % snap_distance < (snap_distance - int(point.y) % snap_distance) else int(point.y) % snap_distance - snap_distance
+	dx += point.x - int(point.x)
+	dy += point.y - int(point.y)
+	point -= Vector2(dx, dy)
+	return point

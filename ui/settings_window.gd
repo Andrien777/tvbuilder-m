@@ -14,3 +14,4 @@ func open_window():
 	self.visible = true
 	get_node("VBoxContainer/DoCyclesButton").button_pressed = not GlobalSettings.doCycles
 	get_node("VBoxContainer/MinimalGraphics").button_pressed = not GlobalSettings.CurrentGraphicsMode==LegacyGraphicsMode
+	get_node("VBoxContainer/WireSnapCheckButton").button_pressed = GlobalSettings.WireSnap

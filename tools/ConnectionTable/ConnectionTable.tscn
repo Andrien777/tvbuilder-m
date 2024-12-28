@@ -7,13 +7,19 @@
 script = ExtResource("1_3cvae")
 
 [node name="Window" type="Window" parent="."]
+title = "Таблица соединений"
 initial_position = 2
-size = Vector2i(300, 450)
+size = Vector2i(350, 450)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Window"]
 custom_minimum_size = Vector2(300, 400)
 offset_right = 206.0
 offset_bottom = 430.0
+
+[node name="ContinuousUpdateCheckBox" type="CheckBox" parent="Window/VBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Постоянное обновление"
 
 [node name="Label" type="Label" parent="Window/VBoxContainer"]
 layout_mode = 2
@@ -23,11 +29,13 @@ theme_override_font_sizes/font_size = 19
 text = "Таблица соединений"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Window/VBoxContainer"]
-custom_minimum_size = Vector2(300, 400)
+custom_minimum_size = Vector2(350, 400)
 layout_mode = 2
 
 [node name="GridContainer" type="GridContainer" parent="Window/VBoxContainer/ScrollContainer"]
 layout_mode = 2
+theme_override_constants/h_separation = 15
+theme_override_constants/v_separation = 5
 columns = 3
 
 [node name="PinHeader" type="Label" parent="Window/VBoxContainer/ScrollContainer/GridContainer"]
@@ -41,3 +49,9 @@ text = "Микросхема"
 [node name="TargetPinHeader" type="Label" parent="Window/VBoxContainer/ScrollContainer/GridContainer"]
 layout_mode = 2
 text = "Ножка"
+
+[node name="SignalStateHeader" type="Label" parent="Window/VBoxContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+text = "Сигнал"
+
+[connection signal="toggled" from="Window/VBoxContainer/ContinuousUpdateCheckBox" to="." method="_on_continuous_update_check_box_toggled"]

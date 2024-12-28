@@ -3,9 +3,9 @@ extends Node
 var LevelHighlight  = false
 var doCycles = true
 var disableGlobalInput = false
-
+var WireSnap = true
 var historyDepth = 200
-
+var ShowSignalsInConnectionTable = false
 var CurrentGraphicsMode = LegacyGraphicsMode
 
 # Called when the node enters the scene tree for the first time.
