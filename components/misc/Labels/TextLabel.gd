@@ -3,7 +3,7 @@ class_name TextLabel
 
 var popup
 var text_line
-var label
+var label: Label
 var popup_style
 
 func initialize(spec: ComponentSpecification, ic=null)->void:
@@ -18,7 +18,7 @@ func _init():
 	label.add_theme_font_size_override("font_size",24)
 	hitbox = CollisionShape2D.new()
 	var shape = RectangleShape2D.new()
-	shape.size = Vector2(70,30)
+	shape.size = label.get_rect().size + Vector2(30,0)
 	hitbox.shape = shape
 	hitbox.position = shape.size / 2
 	self.input_pickable = true
@@ -92,6 +92,8 @@ func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void
 func on_text_update(new_text:String):
 	if(new_text!=""):
 		label.text = new_text
+		hitbox.shape.size = label.get_rect().size + Vector2(30,0)
+		hitbox.position = hitbox.shape.size / 2
 	
 #func _mouse_enter() -> void:
 	#is_mouse_over = true
