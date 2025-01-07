@@ -35,6 +35,8 @@ func _input(event):
 		HistoryBuffer.undo_last_event()
 	elif event.is_action_pressed("redo"):
 		HistoryBuffer.redo_last_event()
+	elif event.is_action_pressed("abort_wire_creation"):
+		WireManager.stop_wire_creation()
 
 func toggle_graphics_mode():
 	if GlobalSettings.CurrentGraphicsMode==LegacyGraphicsMode:

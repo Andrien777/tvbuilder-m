@@ -198,7 +198,7 @@ func update_pins(pins:Array, ic_shape:Vector2):
 
 
 	var side_index = {"TOP":0, "BOTTOM":0, "LEFT":0, "RIGHT":0}
-	for _pin in pins:
+	for _pin: Pin in pins:
 		_pin.change_graphics_mode(GlobalSettings.CurrentGraphicsMode)
 		if(GlobalSettings.CurrentGraphicsMode==LegacyGraphicsMode):
 			_pin.scale=Vector2(0.2,0.2)
@@ -208,23 +208,23 @@ func update_pins(pins:Array, ic_shape:Vector2):
 			"TOP":
 				_pin.position = Vector2(side_padding+ 
 				side_margin[_pin.ic_position]*(side_count[_pin.ic_position] - side_index[_pin.ic_position]-1), # TODO: Please think of something better
-				0)
+				-3)
 				side_index[_pin.ic_position]+=1
 			"BOTTOM":
 				_pin.rotation_degrees =180
 				_pin.position = Vector2(side_padding+ 
 				side_margin[_pin.ic_position]*side_index[_pin.ic_position], 
-				ic_shape.y)
+				ic_shape.y+3)
 				side_index[_pin.ic_position]+=1
 			"LEFT":
 				_pin.rotation_degrees =270
-				_pin.position = Vector2(0 , 
+				_pin.position = Vector2(-3 , 
 				side_padding+
 				side_margin[_pin.ic_position]*side_index[_pin.ic_position])
 				side_index[_pin.ic_position]+=1	
 			"RIGHT":
 				_pin.rotation_degrees =90
-				_pin.position = Vector2(ic_shape.x, 
+				_pin.position = Vector2(ic_shape.x+3, 
 				side_padding+
 				side_margin[_pin.ic_position]*(side_count[_pin.ic_position] - side_index[_pin.ic_position]-1))
 				side_index[_pin.ic_position]+=1

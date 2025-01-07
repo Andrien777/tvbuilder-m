@@ -39,7 +39,7 @@
 		,{
 			"index": 4,
 			"direction": "DIRECTION_OUTPUT",
-			"position": "RIGHT",
+			"position": "LEFT",
 			"readable_name": "Общий катод",
 			"description": "Катод светодиодов, который подключен на общий провод",
 			"dependencies": []
