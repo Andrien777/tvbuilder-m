@@ -17,9 +17,9 @@ func _process(delta: float) -> void:
 	#grid_rect.material.set_shader_parameter("position",position*zoom - delta_vec * zoom)
 	if(GlobalSettings.disableGlobalInput):
 		return
-	if Input.is_action_just_pressed("ZoomUp"):
+	if Input.is_action_just_pressed("ZoomUp") and get_window().has_focus():
 		change_zoom(Vector2(0.1,0.1))
-	elif Input.is_action_just_pressed("ZoomDown"):
+	elif Input.is_action_just_pressed("ZoomDown") and get_window().has_focus():
 		if zoom.x > 0.1 and zoom.y > 0.1:
 			change_zoom(Vector2(-0.1,-0.1))
 
