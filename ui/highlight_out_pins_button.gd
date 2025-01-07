@@ -12,7 +12,6 @@ func _process(delta: float) -> void:
 
 
 func _on_pressed() -> void:
-	GlobalSettings.showLastWire = not GlobalSettings.showLastWire
-	self.button_pressed = GlobalSettings.showLastWire
-	WireManager.toggle_last_wire_visible()
-	get_node("/root/RootNode/UiCanvasLayer/VBoxContainer2/RibbonContainer/ShowLastWireRibbonButton").button_pressed = GlobalSettings.showLastWire
+	GlobalSettings.highlightOutputPins = not GlobalSettings.highlightOutputPins
+	get_node("/root/RootNode/UiCanvasLayer/VBoxContainer2/RibbonContainer/HighlightPinsButton").button_pressed = GlobalSettings.highlightOutputPins
+	ComponentManager.toggle_output_highlight()

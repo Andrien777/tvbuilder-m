@@ -83,7 +83,9 @@ func on_text_update(new_text:String):
 	if(new_text.is_valid_float()):
 		var freq = float(new_text)
 		if(freq>0):
+			stop_timer()
 			timer.wait_time = 1/(freq*2.0)
+			start_timer()
 			freq_label.text = "f = "+ str(freq) + " Гц"
 			popup_style.bg_color =  Color.DIM_GRAY
 	else:

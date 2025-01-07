@@ -228,3 +228,7 @@ func update_pins(pins:Array, ic_shape:Vector2):
 				side_padding+
 				side_margin[_pin.ic_position]*(side_count[_pin.ic_position] - side_index[_pin.ic_position]-1))
 				side_index[_pin.ic_position]+=1
+
+func toggle_output_highlight():
+	for pin in pins:
+		pin.toggle_output_highlight()

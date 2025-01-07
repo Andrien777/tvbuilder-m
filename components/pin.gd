@@ -104,3 +104,10 @@ func change_graphics_mode(mode):
 		sprite.texture = legacy_pin_texture
 	else:
 		sprite.texture = pin_texture
+
+func toggle_output_highlight():
+	if GlobalSettings.highlightOutputPins:
+		if self.output():
+			self.modulate = Color(1, 0, 0)
+	else:
+		self.modulate = Color(1, 1, 1)

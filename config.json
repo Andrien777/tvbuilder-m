@@ -1,6 +1,6 @@
 {
 	"AltAlgo": 0,
-	"GraphicsMode": "DefaultGraphicsMode",
+	"GraphicsMode": "LegacyGraphicsMode",
 	"HistoryDepth": 200,
 	"LevelHighlight": 0,
 	"ShowLastWire": 0
