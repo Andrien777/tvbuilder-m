@@ -18,7 +18,7 @@ const side_padding = 10 # TODO: Move side_padding to spec?
 var pins: Array
 var ic_texture = null
 var sprite = null
-var hitbox
+var hitbox: CollisionShape2D
 var name_label = Label.new()
 func initialize(spec: ComponentSpecification, ic = null)->void: # Ic field holds saved state and is component-specific
 	self.readable_name = spec.name
