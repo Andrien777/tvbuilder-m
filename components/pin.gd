@@ -58,7 +58,7 @@ func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void
 	if event is InputEventMouseButton and event.pressed and Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
 		WireManager.register_wire_point(self)
 	if event is InputEventMouseButton and event.pressed:
-		get_node("/root/RootNode/LogicAnalyzerWindow/RootVBoxContainer/SignalsHSplitContainer").add_signal(self)
+		get_node("/root/RootNode/LogicAnalyzerWindow/RootVBoxContainer/ScrollContainer/SignalsHSplitContainer").add_signal(self)
 		
 		
 func _mouse_enter() -> void:
