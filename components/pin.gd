@@ -14,6 +14,7 @@ var description: String
 var sprite_shape: Vector2
 var dependencies: Array[Pin]
 var sprite
+var is_tracked = false
 func initialize(spec: PinSpecification, state: NetConstants.LEVEL, parent: Node2D)->void:
 	self.input_pickable = true
 	self.state = state
@@ -53,6 +54,8 @@ func _process(delta: float) -> void:
 			self.modulate = Color(0.3,1,1,1)
 		else:
 			self.modulate = Color(1,0.3,1,1)
+	if is_tracked:
+		self.modulate = Color(0, 0.75, 1, 1)
 
 func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.pressed and Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
@@ -66,7 +69,13 @@ func _mouse_enter() -> void:
 	PopupManager.display_hint("Пин: "+str(index)+ " | " + readable_name,description,self.global_position, self.direction)
 	
 func _mouse_exit()->void:
-	self.modulate=Color(1,1,1,1)
+	if GlobalSettings.highlightOutputPins:
+		if self.output():
+			self.modulate = Color(1, 0, 0)
+		else:
+			self.modulate = Color(1, 1, 1)
+	else:
+		self.modulate = Color(1, 1, 1)
 	PopupManager.hide_hint()
 
 

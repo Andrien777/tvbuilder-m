@@ -41,7 +41,7 @@ func add_signal(pin: Pin):
 		line_edit.text = pin.readable_name
 		var line_edit_menu = line_edit.get_menu()
 		label_container.add_child(line_edit)
-		pin.sprite.modulate = Color(0, 0.75, 1, 1)
+		pin.is_tracked = true
 		
 		var signal_line_container = Container.new()
 		var signal_line = Line2D.new()
@@ -127,7 +127,12 @@ func get_current_signal_value(sig: LA_Signal) -> NetConstants.LEVEL:
 
 func remove_signal(sig_to_del: LA_Signal, pin: Pin):
 	if is_instance_valid(pin):
-		pin.sprite.modulate = Color(1, 1, 1, 1)
+		if GlobalSettings.highlightOutputPins:
+			if pin.output():
+				pin.modulate = Color(1, 0, 0)
+			else:
+				pin.modulate = Color(1, 1, 1)
+		pin.is_tracked = false
 	signals.erase(sig_to_del)
 	sig_to_del.line_edit.queue_free()
 	sig_to_del.signal_line.queue_free()

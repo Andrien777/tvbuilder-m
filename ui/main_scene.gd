@@ -35,7 +35,7 @@ func _input(event):
 		HistoryBuffer.undo_last_event()
 	elif event.is_action_pressed("redo"):
 		HistoryBuffer.redo_last_event()
-	elif event.is_action_pressed("abort_wire_creation"):
+	elif event.is_action_pressed("abort_wire_creation") or event.is_action_pressed("delete_component"):
 		WireManager.stop_wire_creation()
 
 func toggle_graphics_mode():

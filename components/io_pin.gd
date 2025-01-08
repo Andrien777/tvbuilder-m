@@ -25,6 +25,8 @@ func input():
 	return self.current_direction == NetConstants.DIRECTION.DIRECTION_INPUT
 func set_input():
 	self.current_direction = NetConstants.DIRECTION.DIRECTION_INPUT
+	if GlobalSettings.highlightOutputPins:
+		self.modulate = Color(1, 1, 1)
 func set_output():
 	self.current_direction = NetConstants.DIRECTION.DIRECTION_OUTPUT
 	if GlobalSettings.highlightOutputPins:

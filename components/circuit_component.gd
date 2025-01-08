@@ -45,7 +45,8 @@ func initialize(spec: ComponentSpecification, ic = null)->void: # Ic field holds
 	add_child(name_label)
 	name_label.visible = display_name_label
 	ComponentManager.register_object(self)
-	update_pins(pins, hitbox.shape.size)	
+	update_pins(pins, hitbox.shape.size)
+	toggle_output_highlight()
 
 func initialize_pins(spec: Array, ic_shape:Vector2)->void:
 	var side_index = {"TOP":0, "BOTTOM":0, "LEFT":0, "RIGHT":0}
