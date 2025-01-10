@@ -38,7 +38,7 @@ func propagate_signal() -> void:
 	var stack: Array[NetlistNode]
 	while visited.size() != nodes.size():
 		for key in nodes.keys(): #find first output
-			if nodes[key] not in visited and nodes[key].pin.output():
+			if nodes[key] not in visited and is_instance_valid(nodes[key].pin) and nodes[key].pin.output():
 				stack.push_back(nodes[key])
 				break
 		if(stack.is_empty()): # If there are no outputs, find anything

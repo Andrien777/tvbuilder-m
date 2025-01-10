@@ -9,6 +9,7 @@ var historyDepth = 200
 var CurrentGraphicsMode = LegacyGraphicsMode
 
 var showLastWire = false
+var highlightOutputPins = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

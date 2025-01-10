@@ -12,7 +12,5 @@ func _process(delta: float) -> void:
 
 
 func _on_pressed() -> void:
-	GlobalSettings.showLastWire = not GlobalSettings.showLastWire
-	self.button_pressed = GlobalSettings.showLastWire
-	WireManager.toggle_last_wire_visible()
-	get_node("/root/RootNode/UiCanvasLayer/VBoxContainer2/RibbonContainer/ShowLastWireRibbonButton").button_pressed = GlobalSettings.showLastWire
+	get_node("/root/RootNode/UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree").hide_tree()
+	button_pressed = not get_node("/root/RootNode/UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree").tree_visible
