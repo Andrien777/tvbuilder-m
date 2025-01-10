@@ -81,17 +81,14 @@ func _on_text_submitted(text, id):
 	pass
 
 
-var cum_delta = 0
 func _process(delta: float) -> void:
-	cum_delta += delta
-	if (cum_delta > 0.01 and start_stop_analysis_button.is_analysis_in_progress):
+	if (start_stop_analysis_button.is_analysis_in_progress):
 		var current_signal_index = 0
-		cum_delta = 0
 		for sig in signals:
-			draw_new_signal_value(sig, current_signal_index)
+			draw_new_signal_value(sig, current_signal_index, delta)
 			current_signal_index += 1
 
-func draw_new_signal_value(sig: LA_Signal, signal_index: int):
+func draw_new_signal_value(sig: LA_Signal, signal_index: int, time_delta: float):
 	var line = sig.signal_line
 	var points = line.points
 	var prev_point = points[points.size()-1]
@@ -100,7 +97,7 @@ func draw_new_signal_value(sig: LA_Signal, signal_index: int):
 	
 	line.position.y = SIGNAL_ROW_HEIGHT * signal_index
 	
-	var new_point_x = prev_point.x + signal_values_zoom_factor
+	var new_point_x = prev_point.x + signal_values_zoom_factor * time_delta * 100
 	
 	signal_container.custom_minimum_size.x = new_point_x
 	
