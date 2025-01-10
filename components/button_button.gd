@@ -1,18 +1,18 @@
 extends StaticBody2D
-class_name SwitchButton
+class_name ButtonButton
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
 
-var texture_up = preload("res://graphics/legacy/switch/sw_up.png")
-var texture_down = preload("res://graphics/legacy/switch/sw_down.png")
+var texture_down = preload("res://graphics/legacy/button/bt_up.png")
+var texture_up = preload("res://graphics/legacy/button/bt_down.png")
 var texture_default = preload("res://icon.svg")
 var sprite: Sprite2D
-var parent: Switch
+var parent: ICButton
 var button_hitbox
-func initialize(parent: Switch)->void:
+func initialize(parent: ICButton)->void:
 	self.input_pickable = true
 	sprite = Sprite2D.new()
 	self.scale = Vector2(1,1) if GlobalSettings.CurrentGraphicsMode==LegacyGraphicsMode else Vector2(1,1)
@@ -35,12 +35,11 @@ func _process(delta: float) -> void:
 
 func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_RIGHT:
-		viewport.set_input_as_handled()
-		parent.on = not parent.on
-		if parent.on:
-			set_on()
-		else:
-			set_off()
+		parent.on = true
+		set_on()
+	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.is_released():
+		parent.on = false
+		set_off()
 	
 func set_on():
 	if GlobalSettings.CurrentGraphicsMode==LegacyGraphicsMode:
@@ -76,3 +75,6 @@ func change_graphics_mode(mode):
 	else:
 		set_off()
 	
+func _mouse_exit() -> void:
+	parent.on = false
+	set_off()

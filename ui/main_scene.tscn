@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://cd0acvbjpyg0w"]
+[gd_scene load_steps=45 format=3 uid="uid://cd0acvbjpyg0w"]
 
 [ext_resource type="Script" path="res://ui/main_scene.gd" id="1_8vqs3"]
 [ext_resource type="Shader" path="res://shaders/grid.gdshader" id="2_7ckc8"]
@@ -14,21 +14,31 @@
 [ext_resource type="Script" path="res://ui/history_depth_edit.gd" id="8_gu4b6"]
 [ext_resource type="Script" path="res://ui/show_last_wire_button.gd" id="8_hup2n"]
 [ext_resource type="Script" path="res://ui/help_dialog.gd" id="8_s7pmm"]
+[ext_resource type="Script" path="res://ui/highlight_out_pins_button.gd" id="9_jb6it"]
+[ext_resource type="Script" path="res://ui/hide_tree_button.gd" id="10_2jhff"]
 [ext_resource type="Script" path="res://ui/settings_popup_menu.gd" id="10_2s8mk"]
+[ext_resource type="Texture2D" uid="uid://k4s8m84velia" path="res://ui/menu_icons/File/Save.png" id="10_ty556"]
+[ext_resource type="Script" path="res://ui/hide_ribbon_button.gd" id="11_fg8sm"]
+[ext_resource type="Texture2D" uid="uid://dgjllnwiryf7v" path="res://ui/menu_icons/File/SaveAs.png" id="11_nlil7"]
 [ext_resource type="Script" path="res://ui/edit_popup.gd" id="11_pyl4o"]
 [ext_resource type="Script" path="res://tools/memory_content_display.gd" id="12_ncj2o"]
 [ext_resource type="Script" path="res://ui/logic_analyzer/logic_analyzer_window.gd" id="12_ngdkd"]
+[ext_resource type="Texture2D" uid="uid://qaxuxk0hf3ie" path="res://ui/menu_icons/File/OpenProject.png" id="12_pimgv"]
 [ext_resource type="Script" path="res://ui/memory_viewer.gd" id="12_wwdn8"]
 [ext_resource type="Script" path="res://ui/mem_viewer_grid.gd" id="13_jjv1i"]
 [ext_resource type="Script" path="res://ui/logic_analyzer/select_pins_button.gd" id="13_o3lk5"]
 [ext_resource type="Script" path="res://ui/logic_analyzer/signals_h_split_container.gd" id="15_7mwtm"]
 [ext_resource type="Script" path="res://ui/logic_analyzer/clear_button.gd" id="15_73c41"]
 [ext_resource type="Script" path="res://ui/pageControls.gd" id="15_o4npq"]
+[ext_resource type="Texture2D" uid="uid://b1a2ldmw7a02s" path="res://ui/menu_icons/File/NewProject.png" id="16_drtnh"]
 [ext_resource type="Script" path="res://ui/memory_load_file_dialog.gd" id="16_h0gp2"]
 [ext_resource type="Script" path="res://ui/reg_viewer.gd" id="17_2a815"]
+[ext_resource type="Texture2D" uid="uid://bcaxvx8ib8tex" path="res://ui/menu_icons/Edit/ViewLastWire.png" id="17_4cskb"]
+[ext_resource type="Texture2D" uid="uid://tkuyn0xyh17i" path="res://ui/menu_icons/Edit/ColorPin.png" id="18_38rbo"]
 [ext_resource type="FontFile" uid="uid://co86tufoji665" path="res://ui/JetBrainsMonoNL-Regular.ttf" id="18_awkwq"]
 [ext_resource type="Script" path="res://ui/logic_analyzer/start_stop_analysis_button.gd" id="19_gtxal"]
 [ext_resource type="Texture2D" uid="uid://m6615xpuyo5e" path="res://ui/tile.png" id="19_xavts"]
+[ext_resource type="Texture2D" uid="uid://c1lrw4fvr8awx" path="res://ui/menu_icons/camera-focus.png" id="22_8cmxa"]
 [ext_resource type="Script" path="res://ui/logic_analyzer/zoom_out_button.gd" id="21_16sfj"]
 [ext_resource type="Script" path="res://ui/logic_analyzer/zoom_in_button.gd" id="22_bntlu"]
 
@@ -45,6 +55,22 @@ shader_parameter/position = null
 shader_parameter/scale = Vector2(1, 1)
 shader_parameter/background_color = Vector4(0.16, 0.129, 0.016, 1)
 shader_parameter/grid_color = Vector4(0.5, 0.504, 0.004, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_plm8y"]
+content_margin_left = 4.0
+bg_color = Color(0.93408, 0.93408, 0.93408, 0.67451)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_762xe"]
+content_margin_left = 4.0
+bg_color = Color(0.933333, 0.933333, 0.933333, 0.67451)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [node name="RootNode" type="Node2D"]
 script = ExtResource("1_8vqs3")
@@ -77,87 +103,109 @@ script = ExtResource("2_pmywl")
 
 [node name="UiCanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="MenuContainer" type="HBoxContainer" parent="UiCanvasLayer"]
-offset_right = 515.0
-offset_bottom = 31.0
+[node name="VBoxContainer2" type="VBoxContainer" parent="UiCanvasLayer"]
+offset_right = 587.0
+offset_bottom = 124.0
+
+[node name="MenuContainer" type="HBoxContainer" parent="UiCanvasLayer/VBoxContainer2"]
+layout_mode = 2
 alignment = 1
 
-[node name="FileButton" type="Button" parent="UiCanvasLayer/MenuContainer"]
+[node name="FileButton" type="Button" parent="UiCanvasLayer/VBoxContainer2/MenuContainer"]
 layout_mode = 2
 text = "Файл"
 
-[node name="EditButton" type="Button" parent="UiCanvasLayer/MenuContainer"]
+[node name="EditButton" type="Button" parent="UiCanvasLayer/VBoxContainer2/MenuContainer"]
 layout_mode = 2
 text = "Правка"
 
-[node name="HelpButton" type="Button" parent="UiCanvasLayer/MenuContainer"]
+[node name="HelpButton" type="Button" parent="UiCanvasLayer/VBoxContainer2/MenuContainer"]
 layout_mode = 2
 text = "Помощь"
 
-[node name="ShowLogicAnalyzerButton" type="Button" parent="UiCanvasLayer/MenuContainer"]
+[node name="ShowLogicAnalyzerButton" type="Button" parent="UiCanvasLayer/VBoxContainer2/MenuContainer"]
 layout_mode = 2
 text = "Открыть логический анализатор"
 script = ExtResource("7_nqego")
 
-[node name="SettingsButton" type="Button" parent="UiCanvasLayer/MenuContainer"]
+[node name="SettingsButton" type="Button" parent="UiCanvasLayer/VBoxContainer2/MenuContainer"]
 layout_mode = 2
 text = "Настройки"
 
-[node name="SettingsWindow" type="Window" parent="UiCanvasLayer/MenuContainer"]
+[node name="SettingsWindow" type="Window" parent="UiCanvasLayer/VBoxContainer2/MenuContainer"]
 title = "Настройки"
 initial_position = 1
-size = Vector2i(400, 200)
+size = Vector2i(400, 300)
 visible = false
 unresizable = true
 script = ExtResource("7_jodis")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UiCanvasLayer/MenuContainer/SettingsWindow"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow"]
 offset_right = 403.0
 offset_bottom = 101.0
 
-[node name="DoCyclesButton" type="CheckButton" parent="UiCanvasLayer/MenuContainer/SettingsWindow/VBoxContainer"]
+[node name="DoCyclesButton" type="CheckButton" parent="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer"]
 layout_mode = 2
 text = "Альтернативный алгоритм обработки схем"
 script = ExtResource("5_qlik5")
 
-[node name="MinimalGraphics" type="CheckButton" parent="UiCanvasLayer/MenuContainer/SettingsWindow/VBoxContainer"]
+[node name="MinimalGraphics" type="CheckButton" parent="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer"]
 layout_mode = 2
 text = "Режим минималистичной графики"
 
-[node name="ShowLastWireButton" type="CheckButton" parent="UiCanvasLayer/MenuContainer/SettingsWindow/VBoxContainer"]
+[node name="ShowLastWireButton" type="CheckButton" parent="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer"]
 layout_mode = 2
 text = "Показать только последний провод"
 script = ExtResource("8_hup2n")
 
-[node name="HistoryDepthContainer" type="HBoxContainer" parent="UiCanvasLayer/MenuContainer/SettingsWindow/VBoxContainer"]
+[node name="HighlightOutPinsButton" type="CheckButton" parent="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer"]
+layout_mode = 2
+text = "Подсветка \"выходных\" ножек микросхем"
+script = ExtResource("9_jb6it")
+
+[node name="HideTreeButton" type="CheckButton" parent="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer"]
+layout_mode = 2
+text = "Скрыть дерево"
+script = ExtResource("10_2jhff")
+
+[node name="HideRibbonButton" type="CheckButton" parent="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer"]
+layout_mode = 2
+text = "Скрыть пиктографическое меню"
+script = ExtResource("11_fg8sm")
+
+[node name="HistoryDepthContainer" type="HBoxContainer" parent="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 2
 
-[node name="Label" type="Label" parent="UiCanvasLayer/MenuContainer/SettingsWindow/VBoxContainer/HistoryDepthContainer"]
+[node name="Label" type="Label" parent="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer/HistoryDepthContainer"]
 layout_mode = 2
 text = "  Глубина истории событий: "
 
-[node name="HistoryDepthEdit" type="LineEdit" parent="UiCanvasLayer/MenuContainer/SettingsWindow/VBoxContainer/HistoryDepthContainer"]
+[node name="HistoryDepthEdit" type="LineEdit" parent="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer/HistoryDepthContainer"]
 layout_mode = 2
 script = ExtResource("8_gu4b6")
 
-[node name="FilePopupMenu" type="PopupMenu" parent="UiCanvasLayer/MenuContainer"]
+[node name="FilePopupMenu" type="PopupMenu" parent="UiCanvasLayer/VBoxContainer2/MenuContainer"]
 title = "Файл"
 item_count = 4
 item_0/text = "Сохранить"
+item_0/icon = ExtResource("10_ty556")
 item_0/id = 3
 item_1/text = "Сохранить как"
+item_1/icon = ExtResource("11_nlil7")
 item_1/id = 1
-item_2/text = "Загрузить"
+item_2/text = "Открыть"
+item_2/icon = ExtResource("12_pimgv")
 item_2/id = 1
-item_3/text = "Очистить"
+item_3/text = "Новый проект"
+item_3/icon = ExtResource("16_drtnh")
 item_3/id = 2
 script = ExtResource("5_02b1i")
 
-[node name="SettingsPopupMenu" type="PopupMenu" parent="UiCanvasLayer/MenuContainer"]
+[node name="SettingsPopupMenu" type="PopupMenu" parent="UiCanvasLayer/VBoxContainer2/MenuContainer"]
 hide_on_item_selection = false
 hide_on_checkable_item_selection = false
-item_count = 4
+item_count = 7
 item_0/text = "Альтернативный алгоритм обработки схем"
 item_0/checkable = 1
 item_1/text = "Минималистичный графический режим"
@@ -166,11 +214,20 @@ item_1/id = 1
 item_2/text = "Показать только последний провод"
 item_2/checkable = 1
 item_2/id = 3
-item_3/text = "Все настройки"
-item_3/id = 2
+item_3/text = "Подсветка выходов микросхем"
+item_3/checkable = 1
+item_3/id = 4
+item_4/text = "Скрыть дерево"
+item_4/checkable = 1
+item_4/id = 5
+item_5/text = "Скрыть пиктографическое меню"
+item_5/checkable = 1
+item_5/id = 6
+item_6/text = "Все настройки"
+item_6/id = 2
 script = ExtResource("10_2s8mk")
 
-[node name="EditPopup" type="PopupMenu" parent="UiCanvasLayer/MenuContainer"]
+[node name="EditPopup" type="PopupMenu" parent="UiCanvasLayer/VBoxContainer2/MenuContainer"]
 hide_on_item_selection = false
 hide_on_checkable_item_selection = false
 item_count = 2
@@ -179,18 +236,51 @@ item_1/text = "Вернуть"
 item_1/id = 1
 script = ExtResource("11_pyl4o")
 
+[node name="RibbonContainer" type="HBoxContainer" parent="UiCanvasLayer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="NewButton" type="Button" parent="UiCanvasLayer/VBoxContainer2/RibbonContainer"]
+layout_mode = 2
+tooltip_text = "Создать новый проект"
+icon = ExtResource("16_drtnh")
+
+[node name="LoadButton" type="Button" parent="UiCanvasLayer/VBoxContainer2/RibbonContainer"]
+layout_mode = 2
+tooltip_text = "Открыть проект"
+icon = ExtResource("12_pimgv")
+
+[node name="SaveButton" type="Button" parent="UiCanvasLayer/VBoxContainer2/RibbonContainer"]
+layout_mode = 2
+tooltip_text = "Сохранить проект"
+icon = ExtResource("10_ty556")
+
+[node name="ShowLastWireRibbonButton" type="Button" parent="UiCanvasLayer/VBoxContainer2/RibbonContainer"]
+layout_mode = 2
+tooltip_text = "Отображать только последний провод"
+theme_override_styles/pressed = SubResource("StyleBoxFlat_plm8y")
+toggle_mode = true
+icon = ExtResource("17_4cskb")
+
+[node name="HighlightPinsButton" type="Button" parent="UiCanvasLayer/VBoxContainer2/RibbonContainer"]
+layout_mode = 2
+tooltip_text = "Подсветка \"выходных\" ножек микросхем"
+theme_override_styles/pressed = SubResource("StyleBoxFlat_762xe")
+toggle_mode = true
+icon = ExtResource("18_38rbo")
+
+[node name="CameraCentreButton" type="Button" parent="UiCanvasLayer/VBoxContainer2/RibbonContainer"]
+layout_mode = 2
+tooltip_text = "Центрировать камеру"
+icon = ExtResource("22_8cmxa")
+
 [node name="VBoxContainer" type="VBoxContainer" parent="UiCanvasLayer"]
 anchors_preset = 9
 anchor_bottom = 1.0
-offset_top = 36.0
+offset_top = 72.0
 offset_right = 300.0
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-
-[node name="HideTreeButton" type="Button" parent="UiCanvasLayer/VBoxContainer"]
-layout_mode = 2
-text = "Скрыть дерево"
 
 [node name="FunctionalUIContainer" type="VBoxContainer" parent="UiCanvasLayer/VBoxContainer"]
 layout_mode = 2
@@ -232,13 +322,14 @@ title = "Управление"
 initial_position = 1
 size = Vector2i(760, 262)
 dialog_text = "- Масштаб - колесико мыши или клавиши +/-
-- Перемещение рабочей области - wasd или перетаскивание с зажатой ЛКМ
+- Перемещение рабочей области - клавиши w/a/s/d или перетаскивание с зажатой ЛКМ
 - Выбор элемента в дереве слева
 - Tab - скрыть/показать дерево
 - При выбранном элементе Alt + ЛКМ размещает элемент под курсором. Кроме этого допустимо перетаскивание в рабочую область
 - При наведении на элемент перетаскивание мыши с зажатой ЛКМ перемещает элемент
 - ПКМ при наведении на объект взаимодействует с ним и открывает соответствующие контекстные меню (задание частоты для генератора, просмотр памяти и т.д.)
 - Создание провода: ПКМ сначала по одной ножке, затем по второй
+- Отмена создания провода в процессе проведения: Esc или СКМ
 - Удаление элемента/провода: навести указатель мыши на элемент/провод и нажать Delete или СКМ
 - Отменить последнее действие: Ctrl+Z
 - Восстановить отмененное действие: Ctrl+Y"
@@ -697,31 +788,37 @@ region_enabled = true
 region_rect = Rect2(0, 0, 50000, 50000)
 region_filter_clip_enabled = true
 
-[connection signal="mouse_entered" from="UiCanvasLayer/MenuContainer/FileButton" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="UiCanvasLayer/MenuContainer/FileButton" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_mouse_exited"]
-[connection signal="pressed" from="UiCanvasLayer/MenuContainer/FileButton" to="UiCanvasLayer/MenuContainer/FilePopupMenu" method="_on_file_button_pressed"]
-[connection signal="pressed" from="UiCanvasLayer/MenuContainer/EditButton" to="UiCanvasLayer/MenuContainer/EditPopup" method="_on_edit_button_pressed"]
-[connection signal="mouse_entered" from="UiCanvasLayer/MenuContainer/HelpButton" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="UiCanvasLayer/MenuContainer/HelpButton" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_mouse_exited"]
-[connection signal="pressed" from="UiCanvasLayer/MenuContainer/HelpButton" to="HelpDialog" method="_on_help_button_pressed"]
-[connection signal="mouse_entered" from="UiCanvasLayer/MenuContainer/ShowLogicAnalyzerButton" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="UiCanvasLayer/MenuContainer/ShowLogicAnalyzerButton" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_mouse_exited"]
-[connection signal="pressed" from="UiCanvasLayer/MenuContainer/ShowLogicAnalyzerButton" to="UiCanvasLayer/MenuContainer/ShowLogicAnalyzerButton" method="_on_pressed"]
-[connection signal="mouse_entered" from="UiCanvasLayer/MenuContainer/SettingsButton" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="UiCanvasLayer/MenuContainer/SettingsButton" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_mouse_exited"]
-[connection signal="pressed" from="UiCanvasLayer/MenuContainer/SettingsButton" to="UiCanvasLayer/MenuContainer/SettingsPopupMenu" method="_on_settings_button_pressed"]
-[connection signal="toggled" from="UiCanvasLayer/MenuContainer/SettingsWindow/VBoxContainer/DoCyclesButton" to="UiCanvasLayer/MenuContainer/SettingsWindow/VBoxContainer/DoCyclesButton" method="_on_toggled"]
-[connection signal="pressed" from="UiCanvasLayer/MenuContainer/SettingsWindow/VBoxContainer/MinimalGraphics" to="." method="toggle_graphics_mode"]
-[connection signal="pressed" from="UiCanvasLayer/MenuContainer/SettingsWindow/VBoxContainer/ShowLastWireButton" to="UiCanvasLayer/MenuContainer/SettingsWindow/VBoxContainer/ShowLastWireButton" method="_on_pressed"]
-[connection signal="focus_exited" from="UiCanvasLayer/MenuContainer/SettingsWindow/VBoxContainer/HistoryDepthContainer/HistoryDepthEdit" to="UiCanvasLayer/MenuContainer/SettingsWindow/VBoxContainer/HistoryDepthContainer/HistoryDepthEdit" method="_on_focus_exited"]
-[connection signal="text_submitted" from="UiCanvasLayer/MenuContainer/SettingsWindow/VBoxContainer/HistoryDepthContainer/HistoryDepthEdit" to="UiCanvasLayer/MenuContainer/SettingsWindow/VBoxContainer/HistoryDepthContainer/HistoryDepthEdit" method="_on_text_submitted"]
-[connection signal="index_pressed" from="UiCanvasLayer/MenuContainer/FilePopupMenu" to="UiCanvasLayer/MenuContainer/FilePopupMenu" method="_on_index_pressed"]
-[connection signal="index_pressed" from="UiCanvasLayer/MenuContainer/SettingsPopupMenu" to="UiCanvasLayer/MenuContainer/SettingsPopupMenu" method="_on_index_pressed"]
-[connection signal="popup_hide" from="UiCanvasLayer/MenuContainer/SettingsPopupMenu" to="UiCanvasLayer/MenuContainer/SettingsPopupMenu" method="_on_popup_hide"]
-[connection signal="index_pressed" from="UiCanvasLayer/MenuContainer/EditPopup" to="UiCanvasLayer/MenuContainer/EditPopup" method="_on_index_pressed"]
-[connection signal="mouse_entered" from="UiCanvasLayer/VBoxContainer/HideTreeButton" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="UiCanvasLayer/VBoxContainer/HideTreeButton" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_mouse_exited"]
-[connection signal="pressed" from="UiCanvasLayer/VBoxContainer/HideTreeButton" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="hide_tree"]
+[connection signal="mouse_entered" from="UiCanvasLayer/VBoxContainer2/MenuContainer/FileButton" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="UiCanvasLayer/VBoxContainer2/MenuContainer/FileButton" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_mouse_exited"]
+[connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/MenuContainer/FileButton" to="UiCanvasLayer/VBoxContainer2/MenuContainer/FilePopupMenu" method="_on_file_button_pressed"]
+[connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/MenuContainer/EditButton" to="UiCanvasLayer/VBoxContainer2/MenuContainer/EditPopup" method="_on_edit_button_pressed"]
+[connection signal="mouse_entered" from="UiCanvasLayer/VBoxContainer2/MenuContainer/HelpButton" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="UiCanvasLayer/VBoxContainer2/MenuContainer/HelpButton" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_mouse_exited"]
+[connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/MenuContainer/HelpButton" to="HelpDialog" method="_on_help_button_pressed"]
+[connection signal="mouse_entered" from="UiCanvasLayer/VBoxContainer2/MenuContainer/ShowLogicAnalyzerButton" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="UiCanvasLayer/VBoxContainer2/MenuContainer/ShowLogicAnalyzerButton" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_mouse_exited"]
+[connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/MenuContainer/ShowLogicAnalyzerButton" to="UiCanvasLayer/VBoxContainer2/MenuContainer/ShowLogicAnalyzerButton" method="_on_pressed"]
+[connection signal="mouse_entered" from="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsButton" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsButton" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_mouse_exited"]
+[connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsButton" to="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsPopupMenu" method="_on_settings_button_pressed"]
+[connection signal="toggled" from="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer/DoCyclesButton" to="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer/DoCyclesButton" method="_on_toggled"]
+[connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer/MinimalGraphics" to="." method="toggle_graphics_mode"]
+[connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer/ShowLastWireButton" to="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer/ShowLastWireButton" method="_on_pressed"]
+[connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer/HighlightOutPinsButton" to="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer/HighlightOutPinsButton" method="_on_pressed"]
+[connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer/HideTreeButton" to="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer/HideTreeButton" method="_on_pressed"]
+[connection signal="toggled" from="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer/HideRibbonButton" to="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer/HideRibbonButton" method="_on_toggled"]
+[connection signal="focus_exited" from="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer/HistoryDepthContainer/HistoryDepthEdit" to="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer/HistoryDepthContainer/HistoryDepthEdit" method="_on_focus_exited"]
+[connection signal="text_submitted" from="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer/HistoryDepthContainer/HistoryDepthEdit" to="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer/HistoryDepthContainer/HistoryDepthEdit" method="_on_text_submitted"]
+[connection signal="index_pressed" from="UiCanvasLayer/VBoxContainer2/MenuContainer/FilePopupMenu" to="UiCanvasLayer/VBoxContainer2/MenuContainer/FilePopupMenu" method="_on_index_pressed"]
+[connection signal="index_pressed" from="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsPopupMenu" to="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsPopupMenu" method="_on_index_pressed"]
+[connection signal="popup_hide" from="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsPopupMenu" to="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsPopupMenu" method="_on_popup_hide"]
+[connection signal="index_pressed" from="UiCanvasLayer/VBoxContainer2/MenuContainer/EditPopup" to="UiCanvasLayer/VBoxContainer2/MenuContainer/EditPopup" method="_on_index_pressed"]
+[connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/NewButton" to="UiCanvasLayer/VBoxContainer2/MenuContainer/FilePopupMenu" method="_on_clear_button_pressed"]
+[connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/LoadButton" to="LoadFileDialog" method="_on_load_button_pressed"]
+[connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/SaveButton" to="UiCanvasLayer/VBoxContainer2/MenuContainer/FilePopupMenu" method="_on_save_button_pressed"]
+[connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/ShowLastWireRibbonButton" to="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer/ShowLastWireButton" method="_on_pressed"]
+[connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/HighlightPinsButton" to="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer/HighlightOutPinsButton" method="_on_pressed"]
+[connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/CameraCentreButton" to="Camera2D" method="move_to_centre"]
 [connection signal="item_mouse_selected" from="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_item_mouse_selected"]
 [connection signal="mouse_entered" from="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_mouse_exited"]

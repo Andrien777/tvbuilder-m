@@ -16,7 +16,7 @@ func _ready() -> void:
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	NetlistClass.propagate_signal()
 
 func _input(event):
@@ -35,6 +35,8 @@ func _input(event):
 		HistoryBuffer.undo_last_event()
 	elif event.is_action_pressed("redo"):
 		HistoryBuffer.redo_last_event()
+	elif event.is_action_pressed("abort_wire_creation") or event.is_action_pressed("delete_component"):
+		WireManager.stop_wire_creation()
 
 func toggle_graphics_mode():
 	if GlobalSettings.CurrentGraphicsMode==LegacyGraphicsMode:

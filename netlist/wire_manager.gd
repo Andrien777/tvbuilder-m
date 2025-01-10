@@ -17,6 +17,11 @@ func _init():
 	timer.timeout.connect(force_update_wires)
 	add_child(timer)
 
+func stop_wire_creation():
+	wire_ghost.visible = false
+	first_wire_point = null
+	second_wire_point = null
+
 func register_wire_point(object:Node2D):
 	if first_wire_point == null:
 		first_wire_point =object

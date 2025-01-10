@@ -23,6 +23,10 @@
 		"config_path": "res://components/ic/other/switch.json",
 		"logic_class_path": "res://components/ic/other/switch.gd"
 	},
+	"Кнопка": {
+		"config_path": "res://components/ic/other/button.json",
+		"logic_class_path": "res://components/ic/other/button.gd"
+	},
 	"Светодиод": {
 		"config_path": "res://components/ic/other/led.json",
 		"logic_class_path": "res://components/ic/other/led.gd"
