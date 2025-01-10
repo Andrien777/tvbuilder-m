@@ -1,11 +1,25 @@
 extends CircuitComponent
 class_name K1531IR22
 
-
+var state: Array
+var inputs: Array
+var outputs: Array
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass
+	inputs = [3, 4, 7, 8, 11, 14, 17, 18]
+	outputs = [2, 5, 6, 9, 12, 15, 16, 19]
+	state = [0, 0, 0, 0, 0, 0, 0, 0]
 	
+
+func save_state():
+	for i in range(inputs.size()):
+		state[i] = pin(inputs[i]).high_or_z as int
+
+
+func load_state():
+	for i in range(outputs.size()):
+		pin(outputs[i]).state = state[i]
+
 
 	
 func _process_signal():
@@ -13,20 +27,8 @@ func _process_signal():
 	pin(20).set_high()
 	if (pin(1).low):
 		if pin(13).high:
-			pin(2).state = pin(3).state
-			pin(5).state = pin(4).state
-			pin(6).state = pin(7).state
-			pin(9).state = pin(8).state
-			pin(12).state = pin(11).state
-			pin(15).state = pin(14).state
-			pin(16).state = pin(17).state
-			pin(19).state = pin(18).state
+			save_state()
+		load_state()
 	else:
-		pin(2).set_z()
-		pin(5).set_z()
-		pin(6).set_z()
-		pin(9).set_z()
-		pin(12).set_z()
-		pin(15).set_z()
-		pin(16).set_z()
-		pin(19).set_z()
+		for i in range(outputs.size()):
+			pin(outputs[i]).set_z()

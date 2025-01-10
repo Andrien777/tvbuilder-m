@@ -97,6 +97,9 @@ func _process(delta: float) -> void:
 			var event = ComponentDeletionEvent.new()
 			event.initialize(self)
 			HistoryBuffer.register_event(event)
+			for wire: Wire in WireManager.wires:
+				if wire.first_object in pins or wire.second_object in pins:
+					WireManager._delete_wire(wire)
 			queue_free()
 	if Input.is_action_pressed("show_connection_table") and not GlobalSettings.disableGlobalInput:
 		if self.is_mouse_over:
@@ -205,30 +208,48 @@ func update_pins(pins:Array, ic_shape:Vector2):
 			_pin.scale=Vector2(0.2,0.2)
 		else:
 			_pin.scale=Vector2(0.2,0.4)
-		match _pin.ic_position:
-			"TOP":
-				_pin.position = Vector2(side_padding+ 
-				side_margin[_pin.ic_position]*(side_count[_pin.ic_position] - side_index[_pin.ic_position]-1), # TODO: Please think of something better
-				-3)
-				side_index[_pin.ic_position]+=1
-			"BOTTOM":
-				_pin.rotation_degrees =180
-				_pin.position = Vector2(side_padding+ 
-				side_margin[_pin.ic_position]*side_index[_pin.ic_position], 
-				ic_shape.y+3)
-				side_index[_pin.ic_position]+=1
-			"LEFT":
-				_pin.rotation_degrees =270
-				_pin.position = Vector2(-3 , 
-				side_padding+
-				side_margin[_pin.ic_position]*side_index[_pin.ic_position])
-				side_index[_pin.ic_position]+=1	
-			"RIGHT":
-				_pin.rotation_degrees =90
-				_pin.position = Vector2(ic_shape.x+3, 
-				side_padding+
-				side_margin[_pin.ic_position]*(side_count[_pin.ic_position] - side_index[_pin.ic_position]-1))
-				side_index[_pin.ic_position]+=1
+		if side_count[_pin.ic_position] == 1:
+			match _pin.ic_position:
+				"TOP":
+					_pin.position = Vector2(ic_shape.x/2,
+					-4)
+				"BOTTOM":
+					_pin.rotation_degrees =180
+					_pin.position = Vector2(ic_shape.x/2, 
+					ic_shape.y+4)
+				"LEFT":
+					_pin.rotation_degrees =270
+					_pin.position = Vector2(-4 , 
+					ic_shape.y/2)
+				"RIGHT":
+					_pin.rotation_degrees =90
+					_pin.position = Vector2(ic_shape.x+4 , 
+					ic_shape.y/2)
+		else:
+			match _pin.ic_position:
+				"TOP":
+					_pin.position = Vector2(side_padding+ 
+					side_margin[_pin.ic_position]*(side_count[_pin.ic_position] - side_index[_pin.ic_position]-1), # TODO: Please think of something better
+					-4)
+					side_index[_pin.ic_position]+=1
+				"BOTTOM":
+					_pin.rotation_degrees =180
+					_pin.position = Vector2(side_padding+ 
+					side_margin[_pin.ic_position]*side_index[_pin.ic_position], 
+					ic_shape.y+4)
+					side_index[_pin.ic_position]+=1
+				"LEFT":
+					_pin.rotation_degrees =270
+					_pin.position = Vector2(-4 , 
+					side_padding+
+					side_margin[_pin.ic_position]*side_index[_pin.ic_position])
+					side_index[_pin.ic_position]+=1	
+				"RIGHT":
+					_pin.rotation_degrees =90
+					_pin.position = Vector2(ic_shape.x+4, 
+					side_padding+
+					side_margin[_pin.ic_position]*(side_count[_pin.ic_position] - side_index[_pin.ic_position]-1))
+					side_index[_pin.ic_position]+=1
 
 func toggle_output_highlight():
 	for pin in pins:

@@ -49,7 +49,7 @@
 			"position": "LEFT",
 			"readable_name": "NC",
 			"description": "Неиспользуемый вывод",
-			"dependencies": [-1]
+			"dependencies": []
 		},{
 			"index": 6,
 			"direction": "DIRECTION_INPUT",
@@ -118,21 +118,21 @@
 			"position": "RIGHT",
 			"readable_name": "NC",
 			"description": "Неиспользуемый вывод",
-			"dependencies": [-1]
+			"dependencies": []
 		},{
 			"index": 10,
 			"direction": "DIRECTION_OUTPUT",
 			"position": "RIGHT",
 			"readable_name": "NC",
 			"description": "Неиспользуемый вывод",
-			"dependencies": [-1]
+			"dependencies": []
 		},{
 			"index": 9,
 			"direction": "DIRECTION_OUTPUT",
 			"position": "RIGHT",
 			"readable_name": "NC",
 			"description": "Неиспользуемый вывод",
-			"dependencies": [-1]
+			"dependencies": []
 		}
 	]
 }
