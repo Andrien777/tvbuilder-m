@@ -46,12 +46,13 @@ func _physics_process(delta: float) -> void:
 	grid_sprite.offset = get_screen_center_position().snapped(Vector2(25, 25))
 
 func move_to_centre():
-	var centre = Vector2.ZERO
-	for obj: CircuitComponent in ComponentManager.obj_list.values():
-		centre += obj.position + obj.hitbox.shape.size/2
-	centre /= ComponentManager.obj_list.size()
-	position = centre
-	grid_sprite.offset = get_screen_center_position().snapped(Vector2(25, 25))
+	if not ComponentManager.obj_list.is_empty():
+		var centre = Vector2.ZERO
+		for obj: CircuitComponent in ComponentManager.obj_list.values():
+			centre += obj.position + obj.hitbox.shape.size/2
+		centre /= ComponentManager.obj_list.size()
+		position = centre
+		grid_sprite.offset = get_screen_center_position().snapped(Vector2(25, 25))
 
 func change_zoom(delta: Vector2) -> void:
 	var mouse_pos := get_global_mouse_position()
