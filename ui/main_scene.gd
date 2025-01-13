@@ -12,6 +12,7 @@ func _ready() -> void:
 	add_child(timer)
 	GlobalSettings.try_load()
 	get_node("./GridSprite").visible = GlobalSettings.CurrentGraphicsMode==LegacyGraphicsMode
+	get_node("./GridSprite").modulate = GlobalSettings.bg_color
 
 	
 

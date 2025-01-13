@@ -18,6 +18,7 @@ func open_window():
 	get_node("VBoxContainer/HighlightOutPinsButton").button_pressed = GlobalSettings.highlightOutputPins
 	get_node("VBoxContainer/HideTreeButton").button_pressed = not get_node("/root/RootNode/UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree").tree_visible
 	get_node("VBoxContainer/HideRibbonButton").button_pressed = not get_node("/root/RootNode/UiCanvasLayer/VBoxContainer2/RibbonContainer").visible
+	get_node("VBoxContainer/ColorContainer/ColorPickerButton").color = get_node('/root/RootNode/GridSprite').modulate
 
 func close():
 	GlobalSettings.save()

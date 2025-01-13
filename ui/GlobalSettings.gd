@@ -11,6 +11,8 @@ var CurrentGraphicsMode = LegacyGraphicsMode
 var showLastWire = false
 var highlightOutputPins = false
 
+var bg_color = Color(0.5, 0.504, 0.004)
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -42,6 +44,8 @@ func try_load():
 						CurrentGraphicsMode = DefaultGraphicsMode
 			if parsed.has("ShowLastWire"):
 				showLastWire = parsed["ShowLastWire"] as bool
+			if parsed.has("BgColor"):
+				bg_color = Color(parsed["BgColor"])
 				
 
 func save():
@@ -56,5 +60,6 @@ func save():
 		DefaultGraphicsMode:
 			json_object["GraphicsMode"] = "DefaultGraphicsMode"
 	json_object["ShowLastWire"] = showLastWire as int
+	json_object["BgColor"] = bg_color.to_html(false)
 	file.store_string(JSON.stringify(json_object, "\t"))
 	file.close()
