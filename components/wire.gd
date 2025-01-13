@@ -46,13 +46,9 @@ func _init()->void:
 func _ready() -> void:
 	pass # Replace with function body.
 
-var prev_modulate_1
-var prev_modulate_2
 func _mouse_enter() -> void:
 	self.line.width = 4
 	self.modulate=Color(0.7,0.7,0.7,1)
-	prev_modulate_1 = first_object.modulate
-	prev_modulate_2 = second_object.modulate
 	first_object.modulate=Color(0.7,0.7,0.7,1)
 	second_object.modulate=Color(0.7,0.7,0.7,1)
 	is_mouse_over = true
@@ -62,8 +58,10 @@ func _mouse_exit() -> void:
 		self.modulate=Color(1,0,0,1)
 	else:
 		self.modulate=Color(1,1,1,1)
-	first_object.modulate=prev_modulate_1
-	second_object.modulate=prev_modulate_2
+	first_object.modulate=Color(1,1,1,1)
+	second_object.modulate=Color(1,1,1,1)
+	first_object.toggle_output_highlight()
+	second_object.toggle_output_highlight()
 	is_mouse_over = false
 var first_object_last_position = Vector2(0,0)
 var second_object_last_position = Vector2(0,0)

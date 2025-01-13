@@ -129,11 +129,8 @@ func get_current_signal_value(sig: LA_Signal) -> NetConstants.LEVEL:
 
 func remove_signal(sig_to_del: LA_Signal, pin: Pin):
 	if is_instance_valid(pin):
-		if GlobalSettings.highlightOutputPins:
-			if pin.output():
-				pin.modulate = Color(1, 0, 0)
-			else:
-				pin.modulate = Color(1, 1, 1)
+		pin.modulate = Color(1, 1, 1, 1)
+		pin.toggle_output_highlight()
 		pin.is_tracked = false
 	signals.erase(sig_to_del)
 	sig_to_del.line_edit.queue_free()
