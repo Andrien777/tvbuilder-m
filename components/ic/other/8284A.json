@@ -18,8 +18,8 @@
 			"index": 1,
 			"direction": "DIRECTION_INPUT",
 			"position": "BOTTOM",
-			"readable_name": "CSYNC",
-			"description": "Вход синхронизации тактовых сигналов",
+			"readable_name": "CSYNC (Не подключен)",
+			"description": "Вход синхронизации тактовых сигналов (Не подключен)",
 			"dependencies": []
 		},{
 			"index": 2,

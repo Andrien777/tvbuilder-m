@@ -22,6 +22,8 @@ func _process(delta: float) -> void:
 	elif Input.is_action_just_pressed("ZoomDown") and get_window().has_focus():
 		if zoom.x > 0.1 and zoom.y > 0.1:
 			change_zoom(Vector2(-0.1,-0.1))
+	if Input.is_action_pressed("focus_camera") and get_window().has_focus() and not GlobalSettings.disableGlobalInput:
+		move_to_centre()
 
 func _physics_process(delta: float) -> void:
 	if(GlobalSettings.disableGlobalInput):
