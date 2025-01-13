@@ -21,9 +21,9 @@ func _process_signal():
 	else:
 		pin(12).set_low()
 	inner_clk = osc && pin(13).low || pin(14).high && pin(13).high
-	if pin(1).low_or_z:
-		if inner_clk && !prev_inner_clk:
-			counter_3 += 1
+	#if pin(1).low_or_z:
+	if inner_clk && !prev_inner_clk:
+		counter_3 += 1
 	clk = counter_3 == 2
 	if (counter_3 == 3): counter_3 = 0
 	prev_inner_clk = inner_clk
@@ -38,8 +38,8 @@ func _process_signal():
 		else:
 			pin(10).set_low()
 	if clk && !prev_clk:
-		if pin(1).low_or_z:
-			counter_2 += 1
+		#if pin(1).low_or_z:
+		counter_2 += 1
 		sync_rdy = inner_rdy
 		if (final_rdy):
 			pin(5).set_high()
