@@ -1,4 +1,6 @@
-[gd_scene load_steps=50 format=3 uid="uid://cd0acvbjpyg0w"]
+
+[gd_scene load_steps=34 format=3 uid="uid://cd0acvbjpyg0w"]
+
 
 [ext_resource type="Script" path="res://ui/main_scene.gd" id="1_8vqs3"]
 [ext_resource type="Shader" path="res://shaders/grid.gdshader" id="2_7ckc8"]
@@ -12,10 +14,16 @@
 [ext_resource type="Script" path="res://ui/settings_window.gd" id="7_jodis"]
 [ext_resource type="Script" path="res://ui/show_logic_analyzer_button.gd" id="7_nqego"]
 [ext_resource type="Script" path="res://ui/history_depth_edit.gd" id="8_gu4b6"]
+
+[ext_resource type="Script" path="res://ui/wire_snap_check_button.gd" id="8_hf4kn"]
+[ext_resource type="Script" path="res://ui/help_dialog.gd" id="8_s7pmm"]
+[ext_resource type="Script" path="res://ui/Settings/show_signals_in_connection_table_check_button.gd" id="9_edg7m"]
+
 [ext_resource type="Script" path="res://ui/show_last_wire_button.gd" id="8_hup2n"]
 [ext_resource type="Script" path="res://ui/help_dialog.gd" id="8_s7pmm"]
 [ext_resource type="Script" path="res://ui/highlight_out_pins_button.gd" id="9_jb6it"]
 [ext_resource type="Script" path="res://ui/hide_tree_button.gd" id="10_2jhff"]
+
 [ext_resource type="Script" path="res://ui/settings_popup_menu.gd" id="10_2s8mk"]
 [ext_resource type="Texture2D" uid="uid://k4s8m84velia" path="res://ui/menu_icons/File/Save.png" id="10_ty556"]
 [ext_resource type="Script" path="res://ui/hide_ribbon_button.gd" id="11_fg8sm"]
@@ -158,6 +166,19 @@ script = ExtResource("5_qlik5")
 layout_mode = 2
 text = "Режим минималистичной графики"
 
+
+[node name="WireSnapCheckButton" type="CheckButton" parent="UiCanvasLayer/MenuContainer/SettingsWindow/VBoxContainer"]
+layout_mode = 2
+text = "Привязка проводов к сетке"
+script = ExtResource("8_hf4kn")
+
+[node name="ShowSignalsInConnectionTableCheckButton" type="CheckButton" parent="UiCanvasLayer/MenuContainer/SettingsWindow/VBoxContainer"]
+layout_mode = 2
+text = "Показывать уровни в таблице соединений"
+script = ExtResource("9_edg7m")
+
+[node name="HistoryDepthContainer" type="HBoxContainer" parent="UiCanvasLayer/MenuContainer/SettingsWindow/VBoxContainer"]
+
 [node name="ShowLastWireButton" type="CheckButton" parent="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer"]
 layout_mode = 2
 text = "Показать только последний провод"
@@ -184,6 +205,7 @@ text = "Разрешить перезапись настроек цвета из
 script = ExtResource("12_0y82w")
 
 [node name="TurboModeButton" type="CheckButton" parent="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer"]
+
 layout_mode = 2
 text = "Ускорение работы схем"
 script = ExtResource("13_mk3xf")
@@ -475,6 +497,7 @@ layout_mode = 2
 
 [node name="MemoryViewer" type="Window" parent="."]
 auto_translate_mode = 1
+title = "Просмотр содержимого памяти"
 initial_position = 1
 size = Vector2i(500, 550)
 visible = false
@@ -549,6 +572,7 @@ use_native_dialog = true
 script = ExtResource("16_h0gp2")
 
 [node name="RegViewer" type="Window" parent="."]
+title = "Просмотр содержимого регистров"
 initial_position = 1
 size = Vector2i(250, 250)
 visible = false
@@ -840,6 +864,33 @@ texture = ExtResource("19_xavts")
 region_enabled = true
 region_rect = Rect2(0, 0, 50000, 50000)
 region_filter_clip_enabled = true
+
+
+[connection signal="mouse_entered" from="UiCanvasLayer/MenuContainer/FileButton" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="UiCanvasLayer/MenuContainer/FileButton" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_mouse_exited"]
+[connection signal="pressed" from="UiCanvasLayer/MenuContainer/FileButton" to="UiCanvasLayer/MenuContainer/FilePopupMenu" method="_on_file_button_pressed"]
+[connection signal="pressed" from="UiCanvasLayer/MenuContainer/EditButton" to="UiCanvasLayer/MenuContainer/EditPopup" method="_on_edit_button_pressed"]
+[connection signal="mouse_entered" from="UiCanvasLayer/MenuContainer/HelpButton" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="UiCanvasLayer/MenuContainer/HelpButton" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_mouse_exited"]
+[connection signal="pressed" from="UiCanvasLayer/MenuContainer/HelpButton" to="HelpDialog" method="_on_help_button_pressed"]
+[connection signal="mouse_entered" from="UiCanvasLayer/MenuContainer/ShowLogicAnalyzerButton" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="UiCanvasLayer/MenuContainer/ShowLogicAnalyzerButton" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_mouse_exited"]
+[connection signal="pressed" from="UiCanvasLayer/MenuContainer/ShowLogicAnalyzerButton" to="UiCanvasLayer/MenuContainer/ShowLogicAnalyzerButton" method="_on_pressed"]
+[connection signal="mouse_entered" from="UiCanvasLayer/MenuContainer/SettingsButton" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="UiCanvasLayer/MenuContainer/SettingsButton" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_mouse_exited"]
+[connection signal="pressed" from="UiCanvasLayer/MenuContainer/SettingsButton" to="UiCanvasLayer/MenuContainer/SettingsPopupMenu" method="_on_settings_button_pressed"]
+[connection signal="toggled" from="UiCanvasLayer/MenuContainer/SettingsWindow/VBoxContainer/DoCyclesButton" to="UiCanvasLayer/MenuContainer/SettingsWindow/VBoxContainer/DoCyclesButton" method="_on_toggled"]
+[connection signal="pressed" from="UiCanvasLayer/MenuContainer/SettingsWindow/VBoxContainer/MinimalGraphics" to="." method="toggle_graphics_mode"]
+[connection signal="toggled" from="UiCanvasLayer/MenuContainer/SettingsWindow/VBoxContainer/WireSnapCheckButton" to="UiCanvasLayer/MenuContainer/SettingsWindow/VBoxContainer/WireSnapCheckButton" method="_on_wire_snap_check_button_toggled"]
+[connection signal="toggled" from="UiCanvasLayer/MenuContainer/SettingsWindow/VBoxContainer/ShowSignalsInConnectionTableCheckButton" to="UiCanvasLayer/MenuContainer/SettingsWindow/VBoxContainer/ShowSignalsInConnectionTableCheckButton" method="_on_toggled"]
+[connection signal="focus_exited" from="UiCanvasLayer/MenuContainer/SettingsWindow/VBoxContainer/HistoryDepthContainer/HistoryDepthEdit" to="UiCanvasLayer/MenuContainer/SettingsWindow/VBoxContainer/HistoryDepthContainer/HistoryDepthEdit" method="_on_focus_exited"]
+[connection signal="text_submitted" from="UiCanvasLayer/MenuContainer/SettingsWindow/VBoxContainer/HistoryDepthContainer/HistoryDepthEdit" to="UiCanvasLayer/MenuContainer/SettingsWindow/VBoxContainer/HistoryDepthContainer/HistoryDepthEdit" method="_on_text_submitted"]
+[connection signal="index_pressed" from="UiCanvasLayer/MenuContainer/FilePopupMenu" to="UiCanvasLayer/MenuContainer/FilePopupMenu" method="_on_index_pressed"]
+[connection signal="index_pressed" from="UiCanvasLayer/MenuContainer/SettingsPopupMenu" to="UiCanvasLayer/MenuContainer/SettingsPopupMenu" method="_on_index_pressed"]
+[connection signal="index_pressed" from="UiCanvasLayer/MenuContainer/EditPopup" to="UiCanvasLayer/MenuContainer/EditPopup" method="_on_index_pressed"]
+[connection signal="mouse_entered" from="UiCanvasLayer/VBoxContainer/HideTreeButton" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="UiCanvasLayer/VBoxContainer/HideTreeButton" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_mouse_exited"]
+[connection signal="pressed" from="UiCanvasLayer/VBoxContainer/HideTreeButton" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="hide_tree"]
 
 [connection signal="mouse_entered" from="UiCanvasLayer/VBoxContainer2/MenuContainer/FileButton" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="UiCanvasLayer/VBoxContainer2/MenuContainer/FileButton" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_mouse_exited"]

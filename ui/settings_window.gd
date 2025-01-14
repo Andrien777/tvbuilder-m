@@ -14,6 +14,9 @@ func open_window():
 	self.visible = true
 	get_node("VBoxContainer/DoCyclesButton").button_pressed = not GlobalSettings.doCycles
 	get_node("VBoxContainer/MinimalGraphics").button_pressed = not GlobalSettings.CurrentGraphicsMode==LegacyGraphicsMode
+
+	get_node("VBoxContainer/WireSnapCheckButton").button_pressed = GlobalSettings.WireSnap
+
 	get_node("VBoxContainer/ShowLastWireButton").button_pressed = GlobalSettings.showLastWire
 	get_node("VBoxContainer/HighlightOutPinsButton").button_pressed = GlobalSettings.highlightOutputPins
 	get_node("VBoxContainer/SettingsOverrideButton").button_pressed = GlobalSettings.allowSettingsOverride
@@ -26,3 +29,4 @@ func open_window():
 func close():
 	GlobalSettings.save()
 	hide()
+

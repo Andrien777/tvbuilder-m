@@ -76,6 +76,19 @@ func load(scene: Node2D, path: String):
 		if to_pin == null:
 			print("error")
 			continue
+		if "wire" in edge:
+			if "control_points" in edge.wire:
+				var points = []
+				for p in edge.wire.control_points:
+					var pos = p.split(",")
+					var x = float(pos[0].replace("(", ""))
+					var y = float(pos[1].replace(")", ""))
+					points.append(Vector2(x,y))
+				WireManager._create_wire(from_pin, to_pin, points)
+			else:
+				WireManager._create_wire(from_pin, to_pin)
+		else:
+			WireManager._create_wire(from_pin, to_pin)
 		WireManager._create_wire(from_pin, to_pin)
 	if parsed.has("config"):
 		if parsed.config.version >= 1:
@@ -86,6 +99,7 @@ func load(scene: Node2D, path: String):
 				GlobalSettings.useDefaultWireColor = parsed.config["DefaultWireColor"] as bool
 				for wire in WireManager.wires:
 					wire.change_color()
+
 		
 func _init():
 	add_child(autosave_timer)
