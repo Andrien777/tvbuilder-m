@@ -75,7 +75,19 @@ func load(scene: Node2D, path: String):
 		if to_pin == null:
 			print("error")
 			continue
-		WireManager._create_wire(from_pin, to_pin)
+		if "wire" in edge:
+			if "control_points" in edge.wire:
+				var points = []
+				for p in edge.wire.control_points:
+					var pos = p.split(",")
+					var x = float(pos[0].replace("(", ""))
+					var y = float(pos[1].replace(")", ""))
+					points.append(Vector2(x,y))
+				WireManager._create_wire(from_pin, to_pin, points)
+			else:
+				WireManager._create_wire(from_pin, to_pin)
+		else:
+			WireManager._create_wire(from_pin, to_pin)
 		
 func _init():
 	add_child(autosave_timer)

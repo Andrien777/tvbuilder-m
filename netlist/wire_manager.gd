@@ -49,14 +49,21 @@ func _delete_wire(wire):
 			(wire.second_object as Pin).state = NetConstants.LEVEL.LEVEL_Z
 		wires.erase(wire)
 		wire.queue_free()
-
-func _delete_wire_by_ends(from, to): #Slow and questionable, but should work fine
-	var wire_to_delete = null
+func find_wire_by_ends(from, to):
+	var res_wire
 	for wire in wires:
 		if wire.first_object == from and wire.second_object == to or \
 		wire.second_object == from and wire.first_object == to:
-			wire_to_delete = wire
+			res_wire = wire
+	return res_wire
 	
+func _delete_wire_by_ends(from, to): #Slow and questionable, but should work fine
+	var wire_to_delete = find_wire_by_ends(from, to)
+	#for wire in wires:
+		#if wire.first_object == from and wire.second_object == to or \
+		#wire.second_object == from and wire.first_object == to:
+			#wire_to_delete = wire
+
 	NetlistClass.delete_connection(wire_to_delete.first_object, wire_to_delete.second_object)
 	if is_instance_valid(wire_to_delete.first_object):
 		(wire_to_delete.first_object as Pin).state = NetConstants.LEVEL.LEVEL_Z
@@ -65,7 +72,7 @@ func _delete_wire_by_ends(from, to): #Slow and questionable, but should work fin
 	wires.erase(wire_to_delete)
 	wire_to_delete.queue_free()
 
-func _create_wire(first_object:Node2D, second_object:Node2D):
+func _create_wire(first_object:Node2D, second_object:Node2D, control_points = []):
 	if(first_object.parent is Switch):
 		first_object.parent.label.text = second_object.readable_name # TODO: Delete this...
 	
@@ -77,6 +84,9 @@ func _create_wire(first_object:Node2D, second_object:Node2D):
 	var first_pin = first_object as IO_Pin if first_object is IO_Pin else first_object as Pin
 	var second_pin = second_object as IO_Pin if second_object is IO_Pin else second_object as Pin
 	NetlistClass.add_connection(first_pin, second_pin)
+	if not control_points.is_empty():
+		for p in control_points:
+			wire.add_control_point(p)
 	wires.append(wire)
 	add_child(wire)
 	return wire

@@ -13,6 +13,7 @@ var is_dragged = false
 var dragged_point_index = 0
 var last_point_index = 4
 var control_points: Array[Vector2]
+var control_point_dragged_from
 func initialize(first_object:Node2D, second_object:Node2D)->void:
 	line.clear_points()
 
@@ -143,12 +144,17 @@ func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void
 		is_dragged = event.pressed
 		if (is_dragged==false):
 			get_node("/root/RootNode/Camera2D").lock_pan = false
+		else:
+			control_point_dragged_from = get_global_mouse_position()
 			
 func _input(event: InputEvent) -> void: # This need to be like that because event won`t register in _input_event unless the mouse is on the wire
 	if is_dragged and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed==false:
 		is_dragged = false
 		get_node("/root/RootNode/Camera2D").lock_pan = false
 		_process(0.0,true) # Recalculate the hitbox
+		var drag_event = ControlPointMoveEvent.new()
+		drag_event.initialize(self,control_point_dragged_from, get_global_mouse_position())
+		HistoryBuffer.register_event(drag_event)
 
 func add_control_point(position):
 	control_points.append(position)
