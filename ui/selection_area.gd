@@ -33,6 +33,10 @@ func _process(delta: float) -> void:
 			line.points[i] += offset
 	elif not now_disabled_drag:
 		self.is_dragged = false
+		for obj in ComponentManager.obj_list.values():
+			if obj.is_selected:
+				obj.snap_to_grid()
+				obj.is_dragged = false
 		get_node("/root/RootNode/Camera2D").lock_pan = false
 		now_disabled_drag = true
 
@@ -63,6 +67,7 @@ func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void
 			for obj in ComponentManager.obj_list.values():
 				if obj.is_selected:
 					obj.snap_to_grid()
+					obj.is_dragged = false
 			get_node("/root/RootNode/Camera2D").lock_pan = false
 		is_dragged = event.pressed
 	if Input.is_action_pressed("delete_component") and not GlobalSettings.disableGlobalInput:
@@ -73,6 +78,8 @@ func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void
 			input_pickable = false
 			self.visible = false
 			hitbox.shape.size = Vector2(0, 0)
+			for i in range(4):
+				line.points[i] = Vector2(0, 0)
 
 
 func _on_mouse_entered() -> void:

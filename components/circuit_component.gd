@@ -104,12 +104,11 @@ func _process(delta: float) -> void:
 			conn_table.get_connections(self)
 			conn_table.display_connections()
 	is_selected = ComponentManager.selection_area.is_in(self)
-	if is_selected:
+	if is_selected or is_mouse_over:
 		self.modulate = Color(0.7, 0.7, 1)
 	else:
 		self.modulate = Color(1, 1, 1)
-			
-			
+
 		
 var tween
 func snap_to_grid():
