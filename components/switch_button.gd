@@ -60,12 +60,12 @@ func change_graphics_mode(mode):
 	#super.change_graphics_mode(mode) 
 	self.scale = Vector2(1,1) if mode==LegacyGraphicsMode else Vector2(1,1)
 	
-	if(LegacyGraphicsMode):
+	if(mode == LegacyGraphicsMode):
 		sprite.scale = Vector2(1, 1) 
 		sprite.modulate = Color(1,1,1,1)
 		sprite.set_texture(texture_down)
 	else:
-		sprite.scale = Vector2(10, 10) 
+		sprite.scale = Vector2(0.25, 0.25) 
 		sprite.set_texture(texture_default)
 		sprite.modulate = Color(0,0,0,1)
 	var shape = RectangleShape2D.new()

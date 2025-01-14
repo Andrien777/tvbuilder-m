@@ -79,17 +79,17 @@ func _process_signal():
 
 func get_addr():
 	var addr =0 
-	addr = addr | (pin(19).high as int )
-	addr = addr | ((pin(22).high as int)<<1) 
-	addr = addr | ((pin(23).high as int)<<2)
-	addr = addr | ((pin(1).high as int)<<3)
-	addr = addr | ((pin(2).high as int)<<4)
+	addr = addr | (pin(8).high as int )
+	addr = addr | ((pin(7).high as int)<<1) 
+	addr = addr | ((pin(6).high as int)<<2)
+	addr = addr | ((pin(5).high as int)<<3)
+	addr = addr | ((pin(4).high as int)<<4)
 	addr = addr | ((pin(3).high as int)<<5)
-	addr = addr | ((pin(4).high as int)<<6)
-	addr = addr | ((pin(5).high as int)<<7)
-	addr = addr | ((pin(6).high as int)<<8)
-	addr = addr | ((pin(7).high as int)<<9)
-	addr = addr | ((pin(8).high as int)<<10)
+	addr = addr | ((pin(2).high as int)<<6)
+	addr = addr | ((pin(1).high as int)<<7)
+	addr = addr | ((pin(23).high as int)<<8)
+	addr = addr | ((pin(22).high as int)<<9)
+	addr = addr | ((pin(19).high as int)<<10)
 	return addr
 
 func set_value(addr:int, q:int, index:int):

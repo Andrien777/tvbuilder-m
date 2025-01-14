@@ -18,7 +18,7 @@ const side_padding = 10 # TODO: Move side_padding to spec?
 var pins: Array
 var ic_texture = null
 var sprite = null
-var hitbox
+var hitbox: CollisionShape2D
 var name_label = Label.new()
 func initialize(spec: ComponentSpecification, ic = null)->void: # Ic field holds saved state and is component-specific
 	self.readable_name = spec.name
@@ -45,7 +45,8 @@ func initialize(spec: ComponentSpecification, ic = null)->void: # Ic field holds
 	add_child(name_label)
 	name_label.visible = display_name_label
 	ComponentManager.register_object(self)
-	update_pins(pins, hitbox.shape.size)	
+	update_pins(pins, hitbox.shape.size)
+	toggle_output_highlight()
 
 func initialize_pins(spec: Array, ic_shape:Vector2)->void:
 	var side_index = {"TOP":0, "BOTTOM":0, "LEFT":0, "RIGHT":0}
@@ -96,6 +97,9 @@ func _process(delta: float) -> void:
 			var event = ComponentDeletionEvent.new()
 			event.initialize(self)
 			HistoryBuffer.register_event(event)
+			for wire: Wire in WireManager.wires:
+				if wire.first_object in pins or wire.second_object in pins:
+					WireManager._delete_wire(wire)
 			queue_free()
 	if Input.is_action_pressed("show_connection_table") and not GlobalSettings.disableGlobalInput:
 		if self.is_mouse_over:
@@ -198,33 +202,55 @@ func update_pins(pins:Array, ic_shape:Vector2):
 
 
 	var side_index = {"TOP":0, "BOTTOM":0, "LEFT":0, "RIGHT":0}
-	for _pin in pins:
+	for _pin: Pin in pins:
 		_pin.change_graphics_mode(GlobalSettings.CurrentGraphicsMode)
 		if(GlobalSettings.CurrentGraphicsMode==LegacyGraphicsMode):
 			_pin.scale=Vector2(0.2,0.2)
 		else:
 			_pin.scale=Vector2(0.2,0.4)
-		match _pin.ic_position:
-			"TOP":
-				_pin.position = Vector2(side_padding+ 
-				side_margin[_pin.ic_position]*(side_count[_pin.ic_position] - side_index[_pin.ic_position]-1), # TODO: Please think of something better
-				0)
-				side_index[_pin.ic_position]+=1
-			"BOTTOM":
-				_pin.rotation_degrees =180
-				_pin.position = Vector2(side_padding+ 
-				side_margin[_pin.ic_position]*side_index[_pin.ic_position], 
-				ic_shape.y)
-				side_index[_pin.ic_position]+=1
-			"LEFT":
-				_pin.rotation_degrees =270
-				_pin.position = Vector2(0 , 
-				side_padding+
-				side_margin[_pin.ic_position]*side_index[_pin.ic_position])
-				side_index[_pin.ic_position]+=1	
-			"RIGHT":
-				_pin.rotation_degrees =90
-				_pin.position = Vector2(ic_shape.x, 
-				side_padding+
-				side_margin[_pin.ic_position]*(side_count[_pin.ic_position] - side_index[_pin.ic_position]-1))
-				side_index[_pin.ic_position]+=1
+		if side_count[_pin.ic_position] == 1:
+			match _pin.ic_position:
+				"TOP":
+					_pin.position = Vector2(ic_shape.x/2,
+					-4)
+				"BOTTOM":
+					_pin.rotation_degrees =180
+					_pin.position = Vector2(ic_shape.x/2, 
+					ic_shape.y+4)
+				"LEFT":
+					_pin.rotation_degrees =270
+					_pin.position = Vector2(-4 , 
+					ic_shape.y/2)
+				"RIGHT":
+					_pin.rotation_degrees =90
+					_pin.position = Vector2(ic_shape.x+4 , 
+					ic_shape.y/2)
+		else:
+			match _pin.ic_position:
+				"TOP":
+					_pin.position = Vector2(side_padding+ 
+					side_margin[_pin.ic_position]*(side_count[_pin.ic_position] - side_index[_pin.ic_position]-1), # TODO: Please think of something better
+					-4)
+					side_index[_pin.ic_position]+=1
+				"BOTTOM":
+					_pin.rotation_degrees =180
+					_pin.position = Vector2(side_padding+ 
+					side_margin[_pin.ic_position]*side_index[_pin.ic_position], 
+					ic_shape.y+4)
+					side_index[_pin.ic_position]+=1
+				"LEFT":
+					_pin.rotation_degrees =270
+					_pin.position = Vector2(-4 , 
+					side_padding+
+					side_margin[_pin.ic_position]*side_index[_pin.ic_position])
+					side_index[_pin.ic_position]+=1	
+				"RIGHT":
+					_pin.rotation_degrees =90
+					_pin.position = Vector2(ic_shape.x+4, 
+					side_padding+
+					side_margin[_pin.ic_position]*(side_count[_pin.ic_position] - side_index[_pin.ic_position]-1))
+					side_index[_pin.ic_position]+=1
+
+func toggle_output_highlight():
+	for pin in pins:
+		pin.toggle_output_highlight()

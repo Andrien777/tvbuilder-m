@@ -1,7 +1,7 @@
 extends Node
 # Component Manager
 
-var obj_list: Dictionary # CircuitComponent -> ""
+var obj_list: Dictionary # int -> CircuitComponent
 
 var last_id = 0
 
@@ -39,3 +39,7 @@ func _ready() -> void:
 	var json = JSON.new()
 	var file = FileAccess.open("res://components/all_components.json", FileAccess.READ).get_as_text()
 	ALL_COMPONENTS_LIST = json.parse_string(file)
+
+func toggle_output_highlight():
+	for obj in obj_list.values():
+		obj.toggle_output_highlight()

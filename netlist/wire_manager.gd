@@ -13,9 +13,14 @@ func _init():
 	add_child(wire_ghost)
 	timer = Timer.new()
 	timer.one_shot = true
-	timer.wait_time = 0.05
+	timer.wait_time = 0.1
 	timer.timeout.connect(force_update_wires)
 	add_child(timer)
+
+func stop_wire_creation():
+	wire_ghost.visible = false
+	first_wire_point = null
+	second_wire_point = null
 
 func register_wire_point(object:Node2D):
 	if first_wire_point == null:
@@ -48,6 +53,10 @@ func _delete_wire(wire):
 		if is_instance_valid(wire.second_object):
 			(wire.second_object as Pin).state = NetConstants.LEVEL.LEVEL_Z
 		wires.erase(wire)
+		if GlobalSettings.showLastWire:
+			if not wires.is_empty():
+				wires.back().visible = true
+				wires.back().input_pickable = true
 		wire.queue_free()
 func find_wire_by_ends(from, to):
 	var res_wire
@@ -70,6 +79,10 @@ func _delete_wire_by_ends(from, to): #Slow and questionable, but should work fin
 	if is_instance_valid(wire_to_delete.second_object):
 		(wire_to_delete.second_object as Pin).state = NetConstants.LEVEL.LEVEL_Z
 	wires.erase(wire_to_delete)
+	if GlobalSettings.showLastWire:
+		if not wires.is_empty():
+			wires.back().visible = true
+			wires.back().input_pickable = true
 	wire_to_delete.queue_free()
 
 func _create_wire(first_object:Node2D, second_object:Node2D, control_points = []):
@@ -84,9 +97,16 @@ func _create_wire(first_object:Node2D, second_object:Node2D, control_points = []
 	var first_pin = first_object as IO_Pin if first_object is IO_Pin else first_object as Pin
 	var second_pin = second_object as IO_Pin if second_object is IO_Pin else second_object as Pin
 	NetlistClass.add_connection(first_pin, second_pin)
+
 	if not control_points.is_empty():
 		for p in control_points:
 			wire.add_control_point(p)
+
+	if GlobalSettings.showLastWire:
+		if not wires.is_empty():
+			wires.back().visible = false
+			wires.back().input_pickable = false
+
 	wires.append(wire)
 	add_child(wire)
 	return wire
@@ -99,6 +119,20 @@ func clear():
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
+
+
+func toggle_last_wire_visible():
+	if GlobalSettings.showLastWire:
+		for wire in wires:
+			wire.visible = false
+			wire.input_pickable = false
+		if not wires.is_empty():
+			wires.back().visible = true
+			wires.back().input_pickable = true
+	else:
+		for wire in wires:
+			wire.visible = true
+			wire.input_pickable = true
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

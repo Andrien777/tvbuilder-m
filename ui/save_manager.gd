@@ -23,7 +23,8 @@ func save(path: String) -> void:
 	var file = FileAccess.open(path, FileAccess.WRITE)
 	file.store_string(json.stringify({
 		"components": json_list_ic,
-		"netlist": NetlistClass.get_json_adjacency()
+		"netlist": NetlistClass.get_json_adjacency(),
+		"config": GlobalSettings.get_object_to_save()
 	}, "\t"))
 	file.close()
 
@@ -88,6 +89,17 @@ func load(scene: Node2D, path: String):
 				WireManager._create_wire(from_pin, to_pin)
 		else:
 			WireManager._create_wire(from_pin, to_pin)
+		WireManager._create_wire(from_pin, to_pin)
+	if parsed.has("config"):
+		if parsed.config.version >= 1:
+			if GlobalSettings.allowSettingsOverride:
+				GlobalSettings.bg_color = Color(parsed.config["BgColor"])
+				get_node("/root/RootNode/GridSprite").modulate = GlobalSettings.bg_color
+				GlobalSettings.wire_color = Color(parsed.config["WireColor"])
+				GlobalSettings.useDefaultWireColor = parsed.config["DefaultWireColor"] as bool
+				for wire in WireManager.wires:
+					wire.change_color()
+
 		
 func _init():
 	add_child(autosave_timer)

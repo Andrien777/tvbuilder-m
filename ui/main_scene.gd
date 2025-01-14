@@ -10,12 +10,20 @@ func _ready() -> void:
 	timer.wait_time = 0.1
 	timer.timeout.connect(WireManager.force_update_wires)
 	add_child(timer)
+	GlobalSettings.try_load()
+	get_node("./GridSprite").visible = GlobalSettings.CurrentGraphicsMode==LegacyGraphicsMode
+	get_node("./GridSprite").modulate = GlobalSettings.bg_color
 
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	NetlistClass.propagate_signal()
+	if GlobalSettings.turbo:
+		NetlistClass.propagate_signal()
+		NetlistClass.propagate_signal()
+		NetlistClass.propagate_signal()
+		NetlistClass.propagate_signal()
 
 func _input(event):
 	if (GlobalSettings.disableGlobalInput):
@@ -33,6 +41,8 @@ func _input(event):
 		HistoryBuffer.undo_last_event()
 	elif event.is_action_pressed("redo"):
 		HistoryBuffer.redo_last_event()
+	elif event.is_action_pressed("abort_wire_creation") or event.is_action_pressed("delete_component"):
+		WireManager.stop_wire_creation()
 
 func toggle_graphics_mode():
 	if GlobalSettings.CurrentGraphicsMode==LegacyGraphicsMode:
@@ -51,8 +61,10 @@ func toggle_graphics_mode():
 			ic.change_graphics_mode(GlobalSettings.CurrentGraphicsMode)
 	for wire in WireManager.wires:
 		wire.change_color()
+	if GlobalSettings.useDefaultWireColor:
+		get_node("/root/RootNode/UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer/WireColorContainer/WireColorPickerButton")._on_wire_color_reset_button_pressed()
 	timer.start()
-	get_node("./GridSprite").visible = not get_node("./GridSprite").visible
+	get_node("./GridSprite").visible = GlobalSettings.CurrentGraphicsMode==LegacyGraphicsMode
 	
 func create_selected_element():
 	var element_name = ICsTreeManager.get_selected_element_name()

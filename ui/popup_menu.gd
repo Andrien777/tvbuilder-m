@@ -18,13 +18,20 @@ func _on_file_button_pressed() -> void:
 func _on_index_pressed(index: int) -> void:
 	match index:
 		0:
-			if SaveManager.last_path == "":
-				get_node("/root/RootNode/SaveAsFileDialog")._on_save_as_button_pressed()
-			else:
-				SaveManager._on_autosave()
+			_on_save_button_pressed()
 		1:
 			get_node("/root/RootNode/SaveAsFileDialog")._on_save_as_button_pressed()
 		2:
 			get_node("/root/RootNode/LoadFileDialog")._on_load_button_pressed()
 		3:
-			ComponentManager.clear()
+			_on_clear_button_pressed()
+
+func _on_clear_button_pressed():
+	ComponentManager.clear()
+	SaveManager.last_path = ""
+
+func _on_save_button_pressed():
+	if SaveManager.last_path == "":
+		get_node("/root/RootNode/SaveAsFileDialog")._on_save_as_button_pressed()
+	else:
+		SaveManager._on_autosave()

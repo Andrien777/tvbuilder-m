@@ -17,11 +17,13 @@ func _process(delta: float) -> void:
 	#grid_rect.material.set_shader_parameter("position",position*zoom - delta_vec * zoom)
 	if(GlobalSettings.disableGlobalInput):
 		return
-	if Input.is_action_just_pressed("ZoomUp"):
+	if Input.is_action_just_pressed("ZoomUp") and get_window().has_focus():
 		change_zoom(Vector2(0.1,0.1))
-	elif Input.is_action_just_pressed("ZoomDown"):
+	elif Input.is_action_just_pressed("ZoomDown") and get_window().has_focus():
 		if zoom.x > 0.1 and zoom.y > 0.1:
 			change_zoom(Vector2(-0.1,-0.1))
+	if Input.is_action_pressed("focus_camera") and get_window().has_focus() and not GlobalSettings.disableGlobalInput:
+		move_to_centre()
 
 func _physics_process(delta: float) -> void:
 	if(GlobalSettings.disableGlobalInput):
@@ -44,6 +46,15 @@ func _physics_process(delta: float) -> void:
 			prev_pos = position
 	pressed_mmb = Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)
 	grid_sprite.offset = get_screen_center_position().snapped(Vector2(25, 25))
+
+func move_to_centre():
+	if not ComponentManager.obj_list.is_empty():
+		var centre = Vector2.ZERO
+		for obj: CircuitComponent in ComponentManager.obj_list.values():
+			centre += obj.position + obj.hitbox.shape.size/2
+		centre /= ComponentManager.obj_list.size()
+		position = centre
+		grid_sprite.offset = get_screen_center_position().snapped(Vector2(25, 25))
 
 func change_zoom(delta: Vector2) -> void:
 	var mouse_pos := get_global_mouse_position()
