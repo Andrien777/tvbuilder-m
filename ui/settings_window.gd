@@ -29,4 +29,3 @@ func open_window():
 func close():
 	GlobalSettings.save()
 	hide()
-

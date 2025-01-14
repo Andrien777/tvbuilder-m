@@ -185,10 +185,9 @@ func change_color():
 		GlobalSettings.wire_color = Color(1,0,0,1)
 	elif GlobalSettings.useDefaultWireColor:
 		self.modulate=Color(1,1,1,1)
-    GlobalSettings.wire_color = Color(1,1,1,1)
+		GlobalSettings.wire_color = Color(1,1,1,1)
 	else:
 		self.modulate = GlobalSettings.wire_color
-
 
 func snap_to_grid(point): # TODO: Add wire snap to settings
 	var snap_distance = 5
