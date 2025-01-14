@@ -2,6 +2,7 @@ extends Node2D
 var grid_rect
 var timer
 var memory_viewer
+var selection_area
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	grid_rect = get_node("GridLayer/GridRect")
@@ -13,6 +14,7 @@ func _ready() -> void:
 	GlobalSettings.try_load()
 	get_node("./GridSprite").visible = GlobalSettings.CurrentGraphicsMode==LegacyGraphicsMode
 	get_node("./GridSprite").modulate = GlobalSettings.bg_color
+	selection_area = get_node("SelectionArea")
 
 	
 
@@ -43,6 +45,13 @@ func _input(event):
 		HistoryBuffer.redo_last_event()
 	elif event.is_action_pressed("abort_wire_creation") or event.is_action_pressed("delete_component"):
 		WireManager.stop_wire_creation()
+	elif event.is_action_pressed("select") and not GlobalSettings.disableGlobalInput and get_window().has_focus() and  Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		GlobalSettings.is_selecting = true
+		get_node("Camera2D").lock_pan = true
+		selection_area.start_tracking()
+	elif event.is_action_released("select") or (GlobalSettings.is_selecting and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)):
+		GlobalSettings.is_selecting = false
+		get_node("Camera2D").lock_pan = false
 
 func toggle_graphics_mode():
 	if GlobalSettings.CurrentGraphicsMode==LegacyGraphicsMode:

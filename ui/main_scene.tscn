@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://cd0acvbjpyg0w"]
+[gd_scene load_steps=52 format=3 uid="uid://cd0acvbjpyg0w"]
 
 [ext_resource type="Script" path="res://ui/main_scene.gd" id="1_8vqs3"]
 [ext_resource type="Shader" path="res://shaders/grid.gdshader" id="2_7ckc8"]
@@ -45,6 +45,7 @@
 [ext_resource type="Script" path="res://ui/logic_analyzer/zoom_out_button.gd" id="21_16sfj"]
 [ext_resource type="Texture2D" uid="uid://c1lrw4fvr8awx" path="res://ui/menu_icons/camera-focus.png" id="22_8cmxa"]
 [ext_resource type="Script" path="res://ui/logic_analyzer/zoom_in_button.gd" id="22_bntlu"]
+[ext_resource type="Script" path="res://ui/selection_area.gd" id="46_0mty4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7n0h1"]
 shader = ExtResource("2_7ckc8")
@@ -75,6 +76,8 @@ corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y731f"]
 
 [node name="RootNode" type="Node2D"]
 script = ExtResource("1_8vqs3")
@@ -841,6 +844,18 @@ region_enabled = true
 region_rect = Rect2(0, 0, 50000, 50000)
 region_filter_clip_enabled = true
 
+[node name="SelectionArea" type="StaticBody2D" parent="."]
+script = ExtResource("46_0mty4")
+
+[node name="Line2D" type="Line2D" parent="SelectionArea"]
+points = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0)
+closed = true
+width = 2.0
+default_color = Color(0, 0.729412, 1, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SelectionArea"]
+shape = SubResource("RectangleShape2D_y731f")
+
 [connection signal="mouse_entered" from="UiCanvasLayer/VBoxContainer2/MenuContainer/FileButton" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="UiCanvasLayer/VBoxContainer2/MenuContainer/FileButton" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_mouse_exited"]
 [connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/MenuContainer/FileButton" to="UiCanvasLayer/VBoxContainer2/MenuContainer/FilePopupMenu" method="_on_file_button_pressed"]
@@ -891,3 +906,5 @@ region_filter_clip_enabled = true
 [connection signal="pressed" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/ZoomOutButton" to="LogicAnalyzerWindow/RootVBoxContainer/ScrollContainer/SignalsHSplitContainer" method="_on_zoom_out_button_pressed"]
 [connection signal="pressed" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/ZoomInButton" to="LogicAnalyzerWindow/RootVBoxContainer/ScrollContainer/SignalsHSplitContainer" method="_on_zoom_in_button_pressed"]
 [connection signal="pressed" from="MemoryViewer/VBoxContainer/HBoxContainer2/ContinuousUpdate" to="MemoryViewer/VBoxContainer/HBoxContainer" method="_on_continuous_update_pressed"]
+[connection signal="mouse_entered" from="SelectionArea" to="SelectionArea" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="SelectionArea" to="SelectionArea" method="_on_mouse_exited"]

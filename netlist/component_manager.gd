@@ -7,6 +7,8 @@ var last_id = 0
 
 var ALL_COMPONENTS_LIST
 
+var selection_area
+
 func register_object(object: CircuitComponent):
 	object.id = last_id
 	last_id += 1
@@ -39,6 +41,7 @@ func _ready() -> void:
 	var json = JSON.new()
 	var file = FileAccess.open("res://components/all_components.json", FileAccess.READ).get_as_text()
 	ALL_COMPONENTS_LIST = json.parse_string(file)
+	selection_area = get_node("/root/RootNode/SelectionArea")
 
 func toggle_output_highlight():
 	for obj in obj_list.values():
