@@ -21,6 +21,7 @@ func open_window():
 	get_node("VBoxContainer/HideRibbonButton").button_pressed = not get_node("/root/RootNode/UiCanvasLayer/VBoxContainer2/RibbonContainer").visible
 	get_node("VBoxContainer/ColorContainer/ColorPickerButton").color = get_node('/root/RootNode/GridSprite').modulate
 	get_node("VBoxContainer/WireColorContainer/WireColorPickerButton").color = GlobalSettings.wire_color
+	get_node("VBoxContainer/TurboModeButton").button_pressed = GlobalSettings.turbo
 
 func close():
 	GlobalSettings.save()

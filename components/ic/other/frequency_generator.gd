@@ -1,9 +1,11 @@
 extends CircuitComponent
 class_name FrequencyGenerator
 var timer
-var text_line
+var text_line: LineEdit
 var settings_popup
 var enable_button
+var turbo_button
+var turbo = false
 var enabled = 0
 var popup_style
 var freq_label = Label.new()
@@ -23,7 +25,7 @@ func _ready() -> void:
 	popup_style.bg_color =  Color.DIM_GRAY
 	popup_style.bg_color.a = 0.9
 	popup_style.set_corner_radius_all(15)
-	settings_popup.size = Vector2(150,100)
+	settings_popup.size = Vector2(250,100)
 	settings_popup.add_theme_stylebox_override("panel", popup_style)
 	settings_popup.visible = false
 	
@@ -32,12 +34,17 @@ func _ready() -> void:
 	text_line.max_length = 4
 	text_line.text = "1"
 	text_line.text_changed.connect(on_text_update)
-	text_line.position = Vector2(20,40)
+	text_line.position = Vector2(20,60)
 	
 	enable_button = CheckButton.new()
 	enable_button.pressed.connect(on_enable_button_press)
 	enable_button.position = Vector2(15,0)
 	enable_button.text = "Включить "
+	
+	turbo_button = CheckButton.new()
+	turbo_button.pressed.connect(on_turbo_button_press)
+	turbo_button.position = Vector2(15,30)
+	turbo_button.text = "Макс. частота "
 	
 	timer = Timer.new()
 	timer.one_shot = false
@@ -46,6 +53,7 @@ func _ready() -> void:
 	add_child(timer)
 	settings_popup.add_child(text_line)
 	settings_popup.add_child(enable_button)
+	settings_popup.add_child(turbo_button)
 	add_child(settings_popup)
 	add_child(freq_label)
 	start_timer()
@@ -67,12 +75,22 @@ func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void
 			GlobalSettings.disableGlobalInput = false
 
 
+func _process_signal():
+	if enabled and turbo:
+		if(pin(1).high):
+			pin(1).set_low()
+			pin(2).set_high()
+		else:
+			pin(1).set_high()
+			pin(2).set_low()
+
+
 func stop_timer(): # might be useful in case graphics need to hook into timer events
 	timer.stop()
 func start_timer():
 	timer.start()
 func on_timer_timeout():
-	if(enabled):
+	if(enabled and not turbo):
 		if(pin(1).high):
 			pin(1).set_low()
 			pin(2).set_high()
@@ -94,6 +112,15 @@ func on_enable_button_press():
 	enabled = !enabled
 	if(!enabled):
 		pin(1).set_low()
+
+func on_turbo_button_press():
+	turbo = !turbo
+	if(turbo):
+		text_line.visible = false
+		stop_timer()
+	else:
+		text_line.visible = true
+		start_timer()
 		
 func change_graphics_mode(mode):
 	super.change_graphics_mode(mode)
