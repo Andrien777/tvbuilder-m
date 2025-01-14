@@ -4,12 +4,27 @@ var LevelHighlight  = false
 var doCycles = true
 var disableGlobalInput = false
 
-var historyDepth = 200
+var WireSnap = true
 
+var turbo = false
+
+
+var historyDepth = 200
+var ShowSignalsInConnectionTable = false
 var CurrentGraphicsMode = LegacyGraphicsMode
+
+var PinIndexOffset = 5
+
 
 var showLastWire = false
 var highlightOutputPins = false
+
+var bg_color = Color(0.5, 0.504, 0.004)
+var wire_color = Color(1, 0, 0)
+var useDefaultWireColor = true
+
+var allowSettingsOverride = true
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -42,6 +57,14 @@ func try_load():
 						CurrentGraphicsMode = DefaultGraphicsMode
 			if parsed.has("ShowLastWire"):
 				showLastWire = parsed["ShowLastWire"] as bool
+			if parsed.has("BgColor"):
+				bg_color = Color(parsed["BgColor"])
+			if parsed.has("WireColor"):
+				wire_color = Color(parsed["WireColor"])
+			if parsed.has("DefaultWireColor"):
+				useDefaultWireColor = parsed["DefaultWireColor"] as bool
+			if parsed.has("SettingsOverride"):
+				allowSettingsOverride = parsed["SettingsOverride"] as bool
 				
 
 func save():
@@ -56,5 +79,17 @@ func save():
 		DefaultGraphicsMode:
 			json_object["GraphicsMode"] = "DefaultGraphicsMode"
 	json_object["ShowLastWire"] = showLastWire as int
+	json_object["BgColor"] = bg_color.to_html(false)
+	json_object["WireColor"] = wire_color.to_html(false)
+	json_object["DefaultWireColor"] = useDefaultWireColor as int
+	json_object["SettingsOverride"] = allowSettingsOverride as int
 	file.store_string(JSON.stringify(json_object, "\t"))
 	file.close()
+
+func get_object_to_save():
+	var json_object = {}
+	json_object["version"] = 1
+	json_object["BgColor"] = bg_color.to_html(false)
+	json_object["WireColor"] = wire_color.to_html(false)
+	json_object["DefaultWireColor"] = useDefaultWireColor as int
+	return json_object

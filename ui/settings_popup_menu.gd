@@ -18,6 +18,7 @@ func _on_settings_button_pressed() -> void:
 	self.set_item_checked(2, GlobalSettings.highlightOutputPins)
 	self.set_item_checked(3, not get_node("/root/RootNode/UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree").tree_visible)
 	self.set_item_checked(4, not get_node("/root/RootNode/UiCanvasLayer/VBoxContainer2/RibbonContainer").visible)
+	self.set_item_checked(5, GlobalSettings.turbo)
 
 
 func _on_index_pressed(index: int) -> void:
@@ -50,6 +51,9 @@ func _on_index_pressed(index: int) -> void:
 				get_node("/root/RootNode/UiCanvasLayer/VBoxContainer").size.y += 36
 				self.set_item_checked(4, true)
 		5:
+			GlobalSettings.turbo = not GlobalSettings.turbo
+			self.set_item_checked(5, GlobalSettings.turbo)
+		6:
 			get_node("../SettingsWindow").open_window()
 			self.hide()
 
