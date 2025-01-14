@@ -89,7 +89,6 @@ func load(scene: Node2D, path: String):
 				WireManager._create_wire(from_pin, to_pin)
 		else:
 			WireManager._create_wire(from_pin, to_pin)
-		WireManager._create_wire(from_pin, to_pin)
 	if parsed.has("config"):
 		if parsed.config.version >= 1:
 			if GlobalSettings.allowSettingsOverride:

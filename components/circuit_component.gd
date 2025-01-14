@@ -101,14 +101,14 @@ func _process(delta: float) -> void:
 				if wire.first_object in pins or wire.second_object in pins:
 					WireManager._delete_wire(wire)
 			queue_free()
-	#if Input.is_action_pressed("show_connection_table") and not GlobalSettings.disableGlobalInput:
-		#if self.is_mouse_over:
-			#Input.action_release("show_connection_table")
-			#var conn_table = load("res://tools/ConnectionTable/ConnectionTable.tscn").instantiate()
-			#conn_table.ic = self
-			#add_child(conn_table)
-			#conn_table.get_connections(self)
-			#conn_table.display_connections()
+	if Input.is_action_pressed("show_connection_table") and not GlobalSettings.disableGlobalInput:
+		if self.is_mouse_over:
+			Input.action_release("show_connection_table")
+			var conn_table = load("res://tools/ConnectionTable/ConnectionTable.tscn").instantiate()
+			conn_table.ic = self
+			add_child(conn_table)
+			conn_table.get_connections(self)
+			conn_table.display_connections()
 			
 			
 		
