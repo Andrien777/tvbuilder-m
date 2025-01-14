@@ -1,8 +1,11 @@
 {
 	"AltAlgo": 0,
 	"BgColor": "808101",
+	"DefaultWireColor": 1,
 	"GraphicsMode": "LegacyGraphicsMode",
 	"HistoryDepth": 200,
 	"LevelHighlight": 0,
-	"ShowLastWire": 0
+	"SettingsOverride": 1,
+	"ShowLastWire": 0,
+	"WireColor": "ff0000"
 }

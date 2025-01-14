@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://cd0acvbjpyg0w"]
+[gd_scene load_steps=49 format=3 uid="uid://cd0acvbjpyg0w"]
 
 [ext_resource type="Script" path="res://ui/main_scene.gd" id="1_8vqs3"]
 [ext_resource type="Shader" path="res://shaders/grid.gdshader" id="2_7ckc8"]
@@ -21,6 +21,7 @@
 [ext_resource type="Script" path="res://ui/hide_ribbon_button.gd" id="11_fg8sm"]
 [ext_resource type="Texture2D" uid="uid://dgjllnwiryf7v" path="res://ui/menu_icons/File/SaveAs.png" id="11_nlil7"]
 [ext_resource type="Script" path="res://ui/edit_popup.gd" id="11_pyl4o"]
+[ext_resource type="Script" path="res://ui/settings_override_button.gd" id="12_0y82w"]
 [ext_resource type="Script" path="res://tools/memory_content_display.gd" id="12_ncj2o"]
 [ext_resource type="Script" path="res://ui/logic_analyzer/logic_analyzer_window.gd" id="12_ngdkd"]
 [ext_resource type="Texture2D" uid="uid://qaxuxk0hf3ie" path="res://ui/menu_icons/File/OpenProject.png" id="12_pimgv"]
@@ -28,6 +29,7 @@
 [ext_resource type="Script" path="res://ui/color_picker_button.gd" id="13_2hrbp"]
 [ext_resource type="Script" path="res://ui/mem_viewer_grid.gd" id="13_jjv1i"]
 [ext_resource type="Script" path="res://ui/logic_analyzer/select_pins_button.gd" id="13_o3lk5"]
+[ext_resource type="Script" path="res://ui/wire_color_picker_button.gd" id="14_chms3"]
 [ext_resource type="Script" path="res://ui/logic_analyzer/signals_h_split_container.gd" id="15_7mwtm"]
 [ext_resource type="Script" path="res://ui/logic_analyzer/clear_button.gd" id="15_73c41"]
 [ext_resource type="Script" path="res://ui/pageControls.gd" id="15_o4npq"]
@@ -136,13 +138,13 @@ text = "Настройки"
 [node name="SettingsWindow" type="Window" parent="UiCanvasLayer/VBoxContainer2/MenuContainer"]
 title = "Настройки"
 initial_position = 1
-size = Vector2i(450, 350)
+size = Vector2i(600, 350)
 visible = false
 unresizable = true
 script = ExtResource("7_jodis")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow"]
-offset_right = 440.0
+offset_right = 590.0
 offset_bottom = 350.0
 size_flags_vertical = 0
 
@@ -175,6 +177,11 @@ layout_mode = 2
 text = "Скрыть пиктографическое меню"
 script = ExtResource("11_fg8sm")
 
+[node name="SettingsOverrideButton" type="CheckButton" parent="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer"]
+layout_mode = 2
+text = "Разрешить перезапись настроек цвета из сохранения"
+script = ExtResource("12_0y82w")
+
 [node name="HistoryDepthContainer" type="HBoxContainer" parent="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 0
@@ -198,9 +205,28 @@ text = "  Цвет фона"
 [node name="ColorPickerButton" type="ColorPickerButton" parent="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer/ColorContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+edit_alpha = false
 script = ExtResource("13_2hrbp")
 
 [node name="ColorResetButtonButton" type="Button" parent="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer/ColorContainer"]
+layout_mode = 2
+text = "По умолчанию"
+
+[node name="WireColorContainer" type="HBoxContainer" parent="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer/WireColorContainer"]
+layout_mode = 2
+text = "  Цвет проводов"
+
+[node name="WireColorPickerButton" type="ColorPickerButton" parent="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer/WireColorContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+edit_alpha = false
+script = ExtResource("14_chms3")
+
+[node name="WireColorResetButton" type="Button" parent="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer/WireColorContainer"]
 layout_mode = 2
 text = "По умолчанию"
 
@@ -825,10 +851,13 @@ region_filter_clip_enabled = true
 [connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer/HighlightOutPinsButton" to="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer/HighlightOutPinsButton" method="_on_pressed"]
 [connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer/HideTreeButton" to="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer/HideTreeButton" method="_on_pressed"]
 [connection signal="toggled" from="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer/HideRibbonButton" to="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer/HideRibbonButton" method="_on_toggled"]
+[connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer/SettingsOverrideButton" to="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer/SettingsOverrideButton" method="_on_pressed"]
 [connection signal="focus_exited" from="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer/HistoryDepthContainer/HistoryDepthEdit" to="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer/HistoryDepthContainer/HistoryDepthEdit" method="_on_focus_exited"]
 [connection signal="text_submitted" from="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer/HistoryDepthContainer/HistoryDepthEdit" to="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer/HistoryDepthContainer/HistoryDepthEdit" method="_on_text_submitted"]
 [connection signal="color_changed" from="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer/ColorContainer/ColorPickerButton" to="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer/ColorContainer/ColorPickerButton" method="_on_color_changed"]
 [connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer/ColorContainer/ColorResetButtonButton" to="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer/ColorContainer/ColorPickerButton" method="reset_color"]
+[connection signal="color_changed" from="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer/WireColorContainer/WireColorPickerButton" to="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer/WireColorContainer/WireColorPickerButton" method="_on_color_changed"]
+[connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer/WireColorContainer/WireColorResetButton" to="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer/WireColorContainer/WireColorPickerButton" method="_on_wire_color_reset_button_pressed"]
 [connection signal="index_pressed" from="UiCanvasLayer/VBoxContainer2/MenuContainer/FilePopupMenu" to="UiCanvasLayer/VBoxContainer2/MenuContainer/FilePopupMenu" method="_on_index_pressed"]
 [connection signal="index_pressed" from="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsPopupMenu" to="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsPopupMenu" method="_on_index_pressed"]
 [connection signal="popup_hide" from="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsPopupMenu" to="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsPopupMenu" method="_on_popup_hide"]
