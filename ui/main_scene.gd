@@ -12,12 +12,18 @@ func _ready() -> void:
 	add_child(timer)
 	GlobalSettings.try_load()
 	get_node("./GridSprite").visible = GlobalSettings.CurrentGraphicsMode==LegacyGraphicsMode
+	get_node("./GridSprite").modulate = GlobalSettings.bg_color
 
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
 	NetlistClass.propagate_signal()
+	if GlobalSettings.turbo:
+		NetlistClass.propagate_signal()
+		NetlistClass.propagate_signal()
+		NetlistClass.propagate_signal()
+		NetlistClass.propagate_signal()
 
 func _input(event):
 	if (GlobalSettings.disableGlobalInput):
@@ -55,6 +61,8 @@ func toggle_graphics_mode():
 			ic.change_graphics_mode(GlobalSettings.CurrentGraphicsMode)
 	for wire in WireManager.wires:
 		wire.change_color()
+	if GlobalSettings.useDefaultWireColor:
+		get_node("/root/RootNode/UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer/WireColorContainer/WireColorPickerButton")._on_wire_color_reset_button_pressed()
 	timer.start()
 	get_node("./GridSprite").visible = GlobalSettings.CurrentGraphicsMode==LegacyGraphicsMode
 	
