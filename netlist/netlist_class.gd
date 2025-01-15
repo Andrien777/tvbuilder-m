@@ -179,6 +179,7 @@ func propagate_signal() -> void:
 	if GlobalSettings.doCycles:
 		for ic in ComponentManager.obj_list.values():
 			ic._process_signal()
+	ComponentManager.clear_deletion_queue()
 
 func get_json_adjacency():
 	var visited: Array[Pin]

@@ -9,6 +9,8 @@ var ALL_COMPONENTS_LIST
 
 var selection_area
 
+var deletion_queue: Array[CircuitComponent] = []
+
 func get_config_path_by_name(name:String):
 	return ALL_COMPONENTS_LIST[name].config_path
 
@@ -26,7 +28,15 @@ func register_object(object: CircuitComponent):
 
 func remove_object(object: CircuitComponent):
 	obj_list.erase(object.id)
-	
+
+func add_to_deletion_queue(object: CircuitComponent):
+	deletion_queue.append(object)
+
+func clear_deletion_queue():
+	for obj in deletion_queue:
+		obj.fully_delete()
+	deletion_queue.clear()
+
 func get_by_id(id: int) -> CircuitComponent:
 	return obj_list.get(id)
 	

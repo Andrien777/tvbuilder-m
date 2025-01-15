@@ -122,6 +122,18 @@ func snap_to_grid():
 	tween.tween_property(self,"position",position - Vector2(dx, dy),0.1).set_trans(Tween.TRANS_ELASTIC)
 	
 
+func fully_delete():
+	Input.action_release("delete_component")
+	ComponentManager.remove_object(self)
+	var event = ComponentDeletionEvent.new()
+	event.initialize(self)
+	HistoryBuffer.register_event(event)
+	for wire: Wire in WireManager.wires:
+		if wire.first_object in pins or wire.second_object in pins:
+			WireManager._delete_wire(wire)
+	queue_free()
+
+
 func delete_self():
 	Input.action_release("delete_component")
 	ComponentManager.remove_object(self)
