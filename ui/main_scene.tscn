@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://cd0acvbjpyg0w"]
+[gd_scene load_steps=55 format=3 uid="uid://cd0acvbjpyg0w"]
 
 [ext_resource type="Script" path="res://ui/main_scene.gd" id="1_8vqs3"]
 [ext_resource type="Shader" path="res://shaders/grid.gdshader" id="2_7ckc8"]
@@ -39,6 +39,8 @@
 [ext_resource type="Script" path="res://ui/logic_analyzer/zoom_out_button.gd" id="21_16sfj"]
 [ext_resource type="Texture2D" uid="uid://c1lrw4fvr8awx" path="res://ui/menu_icons/camera-focus.png" id="22_8cmxa"]
 [ext_resource type="Script" path="res://ui/logic_analyzer/zoom_in_button.gd" id="22_bntlu"]
+[ext_resource type="Script" path="res://ui/logic_analyzer/start_for_button.gd" id="33_503t8"]
+[ext_resource type="Script" path="res://ui/logic_analyzer/start_for_line_edit.gd" id="34_3a6np"]
 [ext_resource type="Texture2D" uid="uid://b1rpgeq2toymq" path="res://ui/menu_icons/help.png" id="23_aids2"]
 [ext_resource type="Script" path="res://ui/conn_mode_button.gd" id="24_c307o"]
 [ext_resource type="Texture2D" uid="uid://bj5r1k8bf0r7n" path="res://ui/menu_icons/select.png" id="27_2hiqc"]
@@ -357,11 +359,12 @@ dialog_autowrap = true
 script = ExtResource("8_s7pmm")
 
 [node name="LogicAnalyzerWindow" type="Window" parent="."]
+handle_input_locally = false
 mode = 1
 title = "Логический Анализатор"
 initial_position = 4
 size = Vector2i(900, 600)
-visible = false
+always_on_top = true
 script = ExtResource("12_ngdkd")
 
 [node name="RootVBoxContainer" type="VBoxContainer" parent="LogicAnalyzerWindow"]
@@ -390,6 +393,20 @@ size_flags_horizontal = 0
 size_flags_vertical = 0
 text = "Начать"
 script = ExtResource("19_gtxal")
+
+[node name="StartForButton" type="Button" parent="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer"]
+layout_mode = 2
+text = "Запустить на "
+script = ExtResource("33_503t8")
+
+[node name="StartForLineEdit" type="LineEdit" parent="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer"]
+layout_mode = 2
+text = "1"
+script = ExtResource("34_3a6np")
+
+[node name="SecondsLabel" type="Label" parent="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer"]
+layout_mode = 2
+text = "c"
 
 [node name="ClearButton" type="Button" parent="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer"]
 layout_mode = 2
@@ -860,9 +877,14 @@ shape = SubResource("RectangleShape2D_y731f")
 [connection signal="nothing_selected" from="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_nothing_selected"]
 [connection signal="file_selected" from="SaveAsFileDialog" to="SaveAsFileDialog" method="_on_file_selected"]
 [connection signal="file_selected" from="LoadFileDialog" to="LoadFileDialog" method="_on_file_selected"]
+[connection signal="about_to_popup" from="LogicAnalyzerWindow" to="LogicAnalyzerWindow" method="_on_about_to_popup"]
 [connection signal="close_requested" from="LogicAnalyzerWindow" to="LogicAnalyzerWindow" method="_on_close_requested"]
+[connection signal="visibility_changed" from="LogicAnalyzerWindow" to="LogicAnalyzerWindow" method="_on_visibility_changed"]
 [connection signal="pressed" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/SelectPinsButton" to="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/SelectPinsButton" method="_on_pressed"]
 [connection signal="pressed" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/StartStopAnalysisButton" to="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/StartStopAnalysisButton" method="_on_pressed"]
+[connection signal="pressed" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/StartForButton" to="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/StartForButton" method="_on_pressed"]
+[connection signal="focus_exited" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/StartForLineEdit" to="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/StartForLineEdit" method="_on_focus_exited"]
+[connection signal="text_submitted" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/StartForLineEdit" to="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/StartForLineEdit" method="_on_text_submitted"]
 [connection signal="pressed" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/ClearButton" to="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/ClearButton" method="_on_pressed"]
 [connection signal="pressed" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/ZoomOutButton" to="LogicAnalyzerWindow/RootVBoxContainer/ScrollContainer/SignalsHSplitContainer" method="_on_zoom_out_button_pressed"]
 [connection signal="pressed" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/ZoomInButton" to="LogicAnalyzerWindow/RootVBoxContainer/ScrollContainer/SignalsHSplitContainer" method="_on_zoom_in_button_pressed"]
