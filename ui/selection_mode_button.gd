@@ -17,14 +17,14 @@ func _process(delta: float) -> void:
 func _on_pressed() -> void:
 	if not GlobalSettings.is_selecting:
 		GlobalSettings.is_selecting = true
-		self.tooltip_text = "Обычный режим"
-		self.icon = cursor
+		self.tooltip_text = "Режим выделения"
+		self.icon = sel_icon
 		GlobalSettings.is_selecting = true
 		camera.lock_pan = true
 	else:
 		GlobalSettings.is_selecting = false
-		self.tooltip_text = "Режим выделения"
-		self.icon = sel_icon
+		self.tooltip_text = "Обычный режим"
+		self.icon = cursor
 		GlobalSettings.is_selecting = false
 		camera.lock_pan = false
 		camera.pressed_mmb = false

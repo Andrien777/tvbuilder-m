@@ -35,8 +35,8 @@ func undo():
 func redo():
 	if name == null: return
 	var spec = ComponentSpecification.new()
-	spec.initialize_from_json( ICsTreeManager.get_config_path(name) )
-	var element: CircuitComponent = load( ICsTreeManager.get_class_path(name) ).new()
+	spec.initialize_from_json( ComponentManager.get_config_path_by_name(name) )
+	var element: CircuitComponent = load( ComponentManager.get_class_path_by_name(name) ).new()
 	element.initialize(spec)
 	element.position = position
 	ComponentManager.change_id(element, self.id)

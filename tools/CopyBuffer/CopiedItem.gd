@@ -35,8 +35,10 @@ func copy(obj: CircuitComponent, mouse_pos: Vector2):
 func paste(mouse_pos: Vector2):
 	if item_name == null: return
 	var spec = ComponentSpecification.new()
-	spec.initialize_from_json( ICsTreeManager.get_config_path(item_name) )
-	var element: CircuitComponent = load( ICsTreeManager.get_class_path(item_name) ).new()
+	
+	
+	spec.initialize_from_json( ComponentManager.get_config_path_by_name(item_name) )
+	var element: CircuitComponent = load( ComponentManager.get_class_path_by_name(item_name) ).new()
 	element.initialize(spec)
 	element.position = mouse_pos + item_offset
 	ComponentManager.get_node("/root/RootNode").add_child(element)
