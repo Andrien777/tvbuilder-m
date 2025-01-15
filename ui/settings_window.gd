@@ -12,19 +12,19 @@ func _process(delta: float) -> void:
 
 func open_window():
 	self.visible = true
-	get_node("VBoxContainer/DoCyclesButton").button_pressed = not GlobalSettings.doCycles
-	get_node("VBoxContainer/MinimalGraphics").button_pressed = not GlobalSettings.CurrentGraphicsMode==LegacyGraphicsMode
+	get_node("VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/DoCyclesButton").button_pressed = not GlobalSettings.doCycles
+	get_node("VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/MinimalGraphics").button_pressed = not GlobalSettings.CurrentGraphicsMode==LegacyGraphicsMode
 
-	get_node("VBoxContainer/WireSnapCheckButton").button_pressed = GlobalSettings.WireSnap
+	get_node("VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/WireSnapCheckButton").button_pressed = GlobalSettings.WireSnap
 
-	get_node("VBoxContainer/ShowLastWireButton").button_pressed = GlobalSettings.showLastWire
-	get_node("VBoxContainer/HighlightOutPinsButton").button_pressed = GlobalSettings.highlightOutputPins
-	get_node("VBoxContainer/SettingsOverrideButton").button_pressed = GlobalSettings.allowSettingsOverride
-	get_node("VBoxContainer/HideTreeButton").button_pressed = not get_node("/root/RootNode/UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree").tree_visible
-	get_node("VBoxContainer/HideRibbonButton").button_pressed = not get_node("/root/RootNode/UiCanvasLayer/VBoxContainer2/RibbonContainer").visible
-	get_node("VBoxContainer/ColorContainer/ColorPickerButton").color = get_node('/root/RootNode/GridSprite').modulate
-	get_node("VBoxContainer/WireColorContainer/WireColorPickerButton").color = GlobalSettings.wire_color
-	get_node("VBoxContainer/TurboModeButton").button_pressed = GlobalSettings.turbo
+	get_node("VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/ShowLastWireButton").button_pressed = GlobalSettings.showLastWire
+	get_node("VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/HighlightOutPinsButton").button_pressed = GlobalSettings.highlightOutputPins
+	get_node("VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/SettingsOverrideButton").button_pressed = GlobalSettings.allowSettingsOverride
+	get_node("VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/HideTreeButton").button_pressed = not get_node("/root/RootNode/UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree").tree_visible
+	get_node("VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/HideRibbonButton").button_pressed = not get_node("/root/RootNode/UiCanvasLayer/VBoxContainer2/RibbonContainer").visible
+	get_node("VBoxContainer/ColorSubmenu/ColorContainer/ColorPickerButton").color = get_node('/root/RootNode/GridSprite').modulate
+	get_node("VBoxContainer/ColorSubmenu/WireColorContainer/WireColorPickerButton").color = GlobalSettings.wire_color
+	get_node("VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/TurboModeButton").button_pressed = GlobalSettings.turbo
 
 func close():
 	GlobalSettings.save()
