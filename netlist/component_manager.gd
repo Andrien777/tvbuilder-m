@@ -9,6 +9,12 @@ var ALL_COMPONENTS_LIST
 
 var selection_area
 
+func get_config_path_by_name(name:String):
+	return ALL_COMPONENTS_LIST[name].config_path
+
+func get_class_path_by_name(name:String):
+	return ALL_COMPONENTS_LIST[name].logic_class_path
+
 func register_object(object: CircuitComponent):
 	object.id = last_id
 	last_id += 1
