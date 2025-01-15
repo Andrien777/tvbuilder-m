@@ -104,7 +104,7 @@ func _process(delta: float) -> void:
 			conn_table.get_connections(self)
 			conn_table.display_connections()
 	is_selected = ComponentManager.selection_area.is_in(self)
-	if is_selected or is_mouse_over:
+	if is_selected or (is_mouse_over and GlobalSettings.is_selecting):
 		self.modulate = Color(0.7, 0.7, 1)
 	else:
 		self.modulate = Color(1, 1, 1)
@@ -134,7 +134,7 @@ func delete_self():
 	queue_free()
 
 func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void:
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not GlobalSettings.is_selecting:
 		get_node("/root/RootNode/Camera2D").lock_pan = true
 		if(event.pressed):
 			_lmb_action()

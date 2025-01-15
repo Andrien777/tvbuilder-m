@@ -82,6 +82,14 @@ func _create_wire(first_object:Node2D, second_object:Node2D):
 	if(first_object.parent is Switch):
 		first_object.parent.label.text = second_object.readable_name # TODO: Delete this...
 	
+	var found = false
+	for wire in wires:
+		if wire.first_object == first_object and wire.second_object == second_object or\
+		 wire.first_object == second_object and wire.second_object == first_object:
+			found = true
+			break
+	if found:
+		return
 	if first_object==second_object:
 		print("Соединение с самим собой")
 		return
