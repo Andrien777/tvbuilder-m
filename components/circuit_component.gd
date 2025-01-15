@@ -20,6 +20,8 @@ var ic_texture = null
 var sprite = null
 var hitbox: CollisionShape2D
 var name_label = Label.new()
+var is_selected = false
+
 func initialize(spec: ComponentSpecification, ic = null)->void: # Ic field holds saved state and is component-specific
 	self.readable_name = spec.name
 	self.input_pickable = true
@@ -92,25 +94,21 @@ func _process(delta: float) -> void:
 		now_disabled_drag = true
 	if Input.is_action_pressed("delete_component") and not GlobalSettings.disableGlobalInput:
 		if self.is_mouse_over:
-			Input.action_release("delete_component")
-			ComponentManager.remove_object(self)
-			var event = ComponentDeletionEvent.new()
-			event.initialize(self)
-			HistoryBuffer.register_event(event)
-			for wire: Wire in WireManager.wires:
-				if wire.first_object in pins or wire.second_object in pins:
-					WireManager._delete_wire(wire)
-			queue_free()
-	#if Input.is_action_pressed("show_connection_table") and not GlobalSettings.disableGlobalInput:
-		#if self.is_mouse_over:
-			#Input.action_release("show_connection_table")
-			#var conn_table = load("res://tools/ConnectionTable/ConnectionTable.tscn").instantiate()
-			#conn_table.ic = self
-			#add_child(conn_table)
-			#conn_table.get_connections(self)
-			#conn_table.display_connections()
-			
-			
+			delete_self()
+	if Input.is_action_pressed("show_connection_table") and not GlobalSettings.disableGlobalInput:
+		if self.is_mouse_over:
+			Input.action_release("show_connection_table")
+			var conn_table = load("res://tools/ConnectionTable/ConnectionTable.tscn").instantiate()
+			conn_table.ic = self
+			add_child(conn_table)
+			conn_table.get_connections(self)
+			conn_table.display_connections()
+	is_selected = ComponentManager.selection_area.is_in(self)
+	if is_selected or (is_mouse_over and GlobalSettings.is_selecting):
+		self.modulate = Color(0.7, 0.7, 1)
+	else:
+		self.modulate = Color(1, 1, 1)
+
 		
 var tween
 func snap_to_grid():
@@ -123,9 +121,20 @@ func snap_to_grid():
 	dy += position.y - int(position.y)
 	tween.tween_property(self,"position",position - Vector2(dx, dy),0.1).set_trans(Tween.TRANS_ELASTIC)
 	
-	
+
+func delete_self():
+	Input.action_release("delete_component")
+	ComponentManager.remove_object(self)
+	var event = ComponentDeletionEvent.new()
+	event.initialize(self)
+	HistoryBuffer.register_event(event)
+	for wire: Wire in WireManager.wires:
+		if wire.first_object in pins or wire.second_object in pins:
+			WireManager._delete_wire(wire)
+	queue_free()
+
 func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void:
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not GlobalSettings.is_selecting:
 		get_node("/root/RootNode/Camera2D").lock_pan = true
 		if(event.pressed):
 			_lmb_action()

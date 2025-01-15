@@ -1,0 +1,161 @@
+[gd_scene load_steps=15 format=3 uid="uid://r773p6djrrnn"]
+
+[ext_resource type="Script" path="res://ui/settings_window.gd" id="1_wym6i"]
+[ext_resource type="Script" path="res://ui/Settings/settings_tab_bar.gd" id="2_raqp3"]
+[ext_resource type="Script" path="res://ui/do_cycles_button.gd" id="3_3m4vl"]
+[ext_resource type="Script" path="res://ui/show_last_wire_button.gd" id="4_86fdw"]
+[ext_resource type="Script" path="res://ui/highlight_out_pins_button.gd" id="5_a3qqb"]
+[ext_resource type="Script" path="res://ui/hide_tree_button.gd" id="6_63quq"]
+[ext_resource type="Script" path="res://ui/hide_ribbon_button.gd" id="7_7lpxt"]
+[ext_resource type="Script" path="res://ui/settings_override_button.gd" id="8_s2k1a"]
+[ext_resource type="Script" path="res://ui/turbo_mode_button.gd" id="9_sfqq5"]
+[ext_resource type="Script" path="res://ui/wire_snap_check_button.gd" id="10_wu532"]
+[ext_resource type="Script" path="res://ui/Settings/show_signals_in_connection_table_check_button.gd" id="11_xvqeq"]
+[ext_resource type="Script" path="res://ui/history_depth_edit.gd" id="12_x6i6f"]
+[ext_resource type="Script" path="res://ui/color_picker_button.gd" id="13_iwgjq"]
+[ext_resource type="Script" path="res://ui/wire_color_picker_button.gd" id="14_g2wx6"]
+
+[node name="SettingsWindow" type="Window"]
+auto_translate_mode = 1
+title = "Настройки"
+initial_position = 1
+size = Vector2i(600, 600)
+visible = false
+unresizable = true
+script = ExtResource("1_wym6i")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+offset_right = 590.0
+offset_bottom = 350.0
+size_flags_vertical = 0
+
+[node name="TabBar" type="TabBar" parent="VBoxContainer"]
+layout_mode = 2
+current_tab = 0
+tab_count = 3
+tab_0/title = "Общие"
+tab_1/title = "Цвета"
+tab_2/title = "Назначения клавиш"
+script = ExtResource("2_raqp3")
+
+[node name="GeneralSettingsScroll" type="ScrollContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(600, 600)
+layout_mode = 2
+
+[node name="GeneralSettingsContainer" type="VBoxContainer" parent="VBoxContainer/GeneralSettingsScroll"]
+layout_mode = 2
+
+[node name="DoCyclesButton" type="CheckButton" parent="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer"]
+layout_mode = 2
+text = "Альтернативный алгоритм обработки схем"
+script = ExtResource("3_3m4vl")
+
+[node name="MinimalGraphics" type="CheckButton" parent="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer"]
+layout_mode = 2
+text = "Режим минималистичной графики"
+
+[node name="ShowLastWireButton" type="CheckButton" parent="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer"]
+layout_mode = 2
+text = "Показать только последний провод"
+script = ExtResource("4_86fdw")
+
+[node name="HighlightOutPinsButton" type="CheckButton" parent="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer"]
+layout_mode = 2
+text = "Подсветка \"выходных\" ножек микросхем"
+script = ExtResource("5_a3qqb")
+
+[node name="HideTreeButton" type="CheckButton" parent="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer"]
+layout_mode = 2
+text = "Скрыть дерево"
+script = ExtResource("6_63quq")
+
+[node name="HideRibbonButton" type="CheckButton" parent="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer"]
+layout_mode = 2
+text = "Скрыть пиктографическое меню"
+script = ExtResource("7_7lpxt")
+
+[node name="SettingsOverrideButton" type="CheckButton" parent="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer"]
+layout_mode = 2
+text = "Разрешить перезапись настроек цвета из сохранения"
+script = ExtResource("8_s2k1a")
+
+[node name="TurboModeButton" type="CheckButton" parent="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer"]
+layout_mode = 2
+text = "Ускорение работы схем"
+script = ExtResource("9_sfqq5")
+
+[node name="WireSnapCheckButton" type="CheckButton" parent="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer"]
+layout_mode = 2
+text = "Привязка проводов к сетке"
+script = ExtResource("10_wu532")
+
+[node name="ShowSignalsInConnectionTableCheckButton" type="CheckButton" parent="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer"]
+layout_mode = 2
+text = "Показывать уровни в таблице соединений"
+script = ExtResource("11_xvqeq")
+
+[node name="HistoryDepthContainer" type="HBoxContainer" parent="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/HistoryDepthContainer"]
+layout_mode = 2
+text = "  Глубина истории событий: "
+
+[node name="HistoryDepthEdit" type="LineEdit" parent="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/HistoryDepthContainer"]
+layout_mode = 2
+script = ExtResource("12_x6i6f")
+
+[node name="ColorSubmenu" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="ColorContainer" type="HBoxContainer" parent="VBoxContainer/ColorSubmenu"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="VBoxContainer/ColorSubmenu/ColorContainer"]
+layout_mode = 2
+text = "  Цвет фона"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="VBoxContainer/ColorSubmenu/ColorContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+edit_alpha = false
+script = ExtResource("13_iwgjq")
+
+[node name="ColorResetButtonButton" type="Button" parent="VBoxContainer/ColorSubmenu/ColorContainer"]
+layout_mode = 2
+text = "По умолчанию"
+
+[node name="WireColorContainer" type="HBoxContainer" parent="VBoxContainer/ColorSubmenu"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="VBoxContainer/ColorSubmenu/WireColorContainer"]
+layout_mode = 2
+text = "  Цвет проводов"
+
+[node name="WireColorPickerButton" type="ColorPickerButton" parent="VBoxContainer/ColorSubmenu/WireColorContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+edit_alpha = false
+script = ExtResource("14_g2wx6")
+
+[node name="WireColorResetButton" type="Button" parent="VBoxContainer/ColorSubmenu/WireColorContainer"]
+layout_mode = 2
+text = "По умолчанию"
+
+[connection signal="tab_changed" from="VBoxContainer/TabBar" to="VBoxContainer/TabBar" method="_on_tab_changed"]
+[connection signal="toggled" from="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/DoCyclesButton" to="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/DoCyclesButton" method="_on_toggled"]
+[connection signal="pressed" from="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/ShowLastWireButton" to="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/ShowLastWireButton" method="_on_pressed"]
+[connection signal="pressed" from="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/HighlightOutPinsButton" to="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/HighlightOutPinsButton" method="_on_pressed"]
+[connection signal="pressed" from="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/HideTreeButton" to="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/HideTreeButton" method="_on_pressed"]
+[connection signal="toggled" from="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/HideRibbonButton" to="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/HideRibbonButton" method="_on_toggled"]
+[connection signal="pressed" from="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/SettingsOverrideButton" to="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/SettingsOverrideButton" method="_on_pressed"]
+[connection signal="pressed" from="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/TurboModeButton" to="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/TurboModeButton" method="_on_pressed"]
+[connection signal="focus_exited" from="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/HistoryDepthContainer/HistoryDepthEdit" to="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/HistoryDepthContainer/HistoryDepthEdit" method="_on_focus_exited"]
+[connection signal="text_submitted" from="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/HistoryDepthContainer/HistoryDepthEdit" to="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/HistoryDepthContainer/HistoryDepthEdit" method="_on_text_submitted"]
+[connection signal="color_changed" from="VBoxContainer/ColorSubmenu/ColorContainer/ColorPickerButton" to="VBoxContainer/ColorSubmenu/ColorContainer/ColorPickerButton" method="_on_color_changed"]
+[connection signal="pressed" from="VBoxContainer/ColorSubmenu/ColorContainer/ColorResetButtonButton" to="VBoxContainer/ColorSubmenu/ColorContainer/ColorPickerButton" method="reset_color"]
+[connection signal="color_changed" from="VBoxContainer/ColorSubmenu/WireColorContainer/WireColorPickerButton" to="VBoxContainer/ColorSubmenu/WireColorContainer/WireColorPickerButton" method="_on_color_changed"]
+[connection signal="pressed" from="VBoxContainer/ColorSubmenu/WireColorContainer/WireColorResetButton" to="VBoxContainer/ColorSubmenu/WireColorContainer/WireColorPickerButton" method="_on_wire_color_reset_button_pressed"]
