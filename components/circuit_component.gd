@@ -115,8 +115,8 @@ func snap_to_grid():
 	if tween:
 		tween.kill()
 	tween = create_tween()
-	var dx = int(position.x) % 25 if int(position.x) % 25 < (25 - int(position.x) % 25) else int(position.x) % 25 - 25
-	var dy = int(position.y) % 25 if int(position.y) % 25 < (25 - int(position.y) % 25) else int(position.y) % 25 - 25
+	var dx = int(position.x) % 5 if int(position.x) % 5 < (5 - int(position.x) % 5) else int(position.x) % 5 - 5
+	var dy = int(position.y) % 5 if int(position.y) % 5 < (5 - int(position.y) % 5) else int(position.y) % 5 - 5
 	dx += position.x - int(position.x)
 	dy += position.y - int(position.y)
 	tween.tween_property(self,"position",position - Vector2(dx, dy),0.1).set_trans(Tween.TRANS_ELASTIC)

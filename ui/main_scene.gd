@@ -80,7 +80,7 @@ func toggle_graphics_mode():
 	for wire in WireManager.wires:
 		wire.change_color()
 	if GlobalSettings.useDefaultWireColor:
-		get_node("/root/RootNode/UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer/WireColorContainer/WireColorPickerButton")._on_wire_color_reset_button_pressed()
+		get_node("/root/RootNode/UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsWindow/VBoxContainer/ColorSubmenu/WireColorContainer/WireColorPickerButton")._on_wire_color_reset_button_pressed()
 	timer.start()
 	get_node("./GridSprite").visible = GlobalSettings.CurrentGraphicsMode==LegacyGraphicsMode
 	
