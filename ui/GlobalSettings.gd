@@ -3,11 +3,18 @@ extends Node
 var LevelHighlight  = false
 var doCycles = true
 var disableGlobalInput = false
+
+var WireSnap = true
+
 var turbo = false
 
-var historyDepth = 200
 
+var historyDepth = 200
+var ShowSignalsInConnectionTable = false
 var CurrentGraphicsMode = LegacyGraphicsMode
+
+var PinIndexOffset = 5
+
 
 var showLastWire = false
 var highlightOutputPins = false
@@ -19,6 +26,7 @@ var useDefaultWireColor = true
 var allowSettingsOverride = true
 
 var is_selecting = false
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
