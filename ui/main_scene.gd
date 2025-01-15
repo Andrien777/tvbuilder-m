@@ -2,6 +2,7 @@ extends Node2D
 var grid_rect
 var timer
 var memory_viewer
+var selection_area
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	grid_rect = get_node("GridLayer/GridRect")
@@ -13,8 +14,12 @@ func _ready() -> void:
 	GlobalSettings.try_load()
 	get_node("./GridSprite").visible = GlobalSettings.CurrentGraphicsMode==LegacyGraphicsMode
 	get_node("./GridSprite").modulate = GlobalSettings.bg_color
+	selection_area = get_node("SelectionArea")
 
-	
+func _process(delta: float) -> void:
+	if GlobalSettings.is_selecting and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and not GlobalSettings.disableGlobalInput:
+		if not selection_area.is_tracking:
+			selection_area.start_tracking()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
@@ -43,6 +48,19 @@ func _input(event):
 		HistoryBuffer.redo_last_event()
 	elif event.is_action_pressed("abort_wire_creation") or event.is_action_pressed("delete_component"):
 		WireManager.stop_wire_creation()
+	elif event.is_action_pressed("copy") and not GlobalSettings.disableGlobalInput:
+		CopyBuffer.copy(get_global_mouse_position())
+		selection_area.remember_copy_offset(get_global_mouse_position())
+	elif event.is_action_pressed("paste") and not GlobalSettings.disableGlobalInput:
+		CopyBuffer.paste(get_global_mouse_position())
+		selection_area.paste_copy_offset(get_global_mouse_position())
+	elif event.is_action_pressed("select"):
+		get_node("/root/RootNode/UiCanvasLayer/VBoxContainer2/RibbonContainer/SelectionModeButton")._on_pressed()
+	
+	
+	# Has to be in a separate if
+	if event.is_action_pressed("abort_wire_creation"):
+		selection_area.stop_selection()
 
 func toggle_graphics_mode():
 	if GlobalSettings.CurrentGraphicsMode==LegacyGraphicsMode:

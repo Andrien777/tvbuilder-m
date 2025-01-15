@@ -59,8 +59,8 @@ func _ready() -> void:
 func _mouse_enter() -> void:
 	self.line.width = 4
 	self.modulate=Color(0.7,0.7,0.7,1)
-	first_object.modulate=Color(0.7,0.7,0.7,1)
-	second_object.modulate=Color(0.7,0.7,0.7,1)
+	first_object.modulate=Color(0.3,0.3,0.3,1)
+	second_object.modulate=Color(0.3,0.3,0.3,1)
 	is_mouse_over = true
 func _mouse_exit() -> void:
 	self.line.width = 2

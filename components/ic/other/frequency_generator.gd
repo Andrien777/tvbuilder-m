@@ -49,7 +49,7 @@ func _ready() -> void:
 	timer = Timer.new()
 	timer.one_shot = false
 	timer.timeout.connect(on_timer_timeout)
-	timer.wait_time = 1
+	timer.wait_time = 0.5
 	add_child(timer)
 	settings_popup.add_child(text_line)
 	settings_popup.add_child(enable_button)

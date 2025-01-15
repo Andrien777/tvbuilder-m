@@ -65,7 +65,7 @@ func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void
 		
 		
 func _mouse_enter() -> void:
-	self.modulate=Color(0.7,0.7,0.7,1)
+	self.modulate=Color(0.3,0.3,0.3,1)
 	PopupManager.display_hint("Пин: "+str(index)+ " | " + readable_name,description,self.global_position, self.direction)
 	
 func _mouse_exit()->void:
