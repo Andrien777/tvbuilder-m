@@ -27,4 +27,4 @@ func _on_index_pressed(index: int) -> void:
 			get_node("/root/RootNode/SelectionArea").remember_copy_offset(get_node("/root/RootNode/Camera2D").get_screen_center_position())
 		3:
 			CopyBuffer.paste(get_node("/root/RootNode/Camera2D").get_screen_center_position())
-			get_node("/root/RootNode/SelectionArea").rpaste_copy_offset(get_node("/root/RootNode/Camera2D").get_screen_center_position())
+			get_node("/root/RootNode/SelectionArea").paste_copy_offset(get_node("/root/RootNode/Camera2D").get_screen_center_position())
