@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://cd0acvbjpyg0w"]
+[gd_scene load_steps=46 format=3 uid="uid://cd0acvbjpyg0w"]
 
 [ext_resource type="Script" path="res://ui/main_scene.gd" id="1_8vqs3"]
 [ext_resource type="Shader" path="res://shaders/grid.gdshader" id="2_7ckc8"]
@@ -23,11 +23,13 @@
 [ext_resource type="Script" path="res://ui/logic_analyzer/select_pins_button.gd" id="13_o3lk5"]
 [ext_resource type="Script" path="res://ui/logic_analyzer/signals_h_split_container.gd" id="15_7mwtm"]
 [ext_resource type="Script" path="res://ui/logic_analyzer/clear_button.gd" id="15_73c41"]
+[ext_resource type="Script" path="res://ui/show_last_wire_ribbon_button.gd" id="15_abnib"]
 [ext_resource type="Script" path="res://ui/pageControls.gd" id="15_o4npq"]
 [ext_resource type="Texture2D" uid="uid://b1a2ldmw7a02s" path="res://ui/menu_icons/File/NewProject.png" id="16_drtnh"]
 [ext_resource type="Script" path="res://ui/memory_load_file_dialog.gd" id="16_h0gp2"]
 [ext_resource type="Script" path="res://ui/reg_viewer.gd" id="17_2a815"]
 [ext_resource type="Texture2D" uid="uid://bcaxvx8ib8tex" path="res://ui/menu_icons/Edit/ViewLastWire.png" id="17_4cskb"]
+[ext_resource type="Script" path="res://ui/highlight_pins_button.gd" id="17_skpg2"]
 [ext_resource type="Texture2D" uid="uid://tkuyn0xyh17i" path="res://ui/menu_icons/Edit/ColorPin.png" id="18_38rbo"]
 [ext_resource type="FontFile" uid="uid://co86tufoji665" path="res://ui/JetBrainsMonoNL-Regular.ttf" id="18_awkwq"]
 [ext_resource type="Script" path="res://ui/logic_analyzer/start_stop_analysis_button.gd" id="19_gtxal"]
@@ -213,6 +215,7 @@ tooltip_text = "Отображать только последний прово�
 theme_override_styles/pressed = SubResource("StyleBoxFlat_plm8y")
 toggle_mode = true
 icon = ExtResource("17_4cskb")
+script = ExtResource("15_abnib")
 
 [node name="HighlightPinsButton" type="Button" parent="UiCanvasLayer/VBoxContainer2/RibbonContainer"]
 layout_mode = 2
@@ -220,6 +223,7 @@ tooltip_text = "Подсветка \"выходных\" ножек микрос�
 theme_override_styles/pressed = SubResource("StyleBoxFlat_762xe")
 toggle_mode = true
 icon = ExtResource("18_38rbo")
+script = ExtResource("17_skpg2")
 
 [node name="CameraCentreButton" type="Button" parent="UiCanvasLayer/VBoxContainer2/RibbonContainer"]
 layout_mode = 2
@@ -787,6 +791,8 @@ shape = SubResource("RectangleShape2D_y731f")
 [connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/NewButton" to="UiCanvasLayer/VBoxContainer2/MenuContainer/FilePopupMenu" method="_on_clear_button_pressed"]
 [connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/LoadButton" to="LoadFileDialog" method="_on_load_button_pressed"]
 [connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/SaveButton" to="UiCanvasLayer/VBoxContainer2/MenuContainer/FilePopupMenu" method="_on_save_button_pressed"]
+[connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/ShowLastWireRibbonButton" to="UiCanvasLayer/VBoxContainer2/RibbonContainer/ShowLastWireRibbonButton" method="_on_pressed"]
+[connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/HighlightPinsButton" to="UiCanvasLayer/VBoxContainer2/RibbonContainer/HighlightPinsButton" method="_on_pressed"]
 [connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/CameraCentreButton" to="Camera2D" method="move_to_centre"]
 [connection signal="mouse_entered" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/SelectionModeButton" to="UiCanvasLayer/VBoxContainer2/RibbonContainer/SelectionModeButton" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/SelectionModeButton" to="UiCanvasLayer/VBoxContainer2/RibbonContainer/SelectionModeButton" method="_on_mouse_exited"]
