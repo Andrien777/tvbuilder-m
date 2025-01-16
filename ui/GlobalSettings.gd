@@ -33,6 +33,9 @@ var highlightOutputPins = false
 
 var bg_color = Color(0.5, 0.504, 0.004)
 var wire_color = Color(1, 0, 0)
+var highlightedWireColor = Color(0.7,0.7,0.7,1)
+var highlightedPinsColor = Color(0.3,0.3,0.3,1)
+var highlightedLAPinsColor = Color(0, 0.75, 1, 1)
 var useDefaultWireColor = true
 
 var allowSettingsOverride = true

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://r773p6djrrnn"]
+[gd_scene load_steps=18 format=3 uid="uid://r773p6djrrnn"]
 
 [ext_resource type="Script" path="res://ui/settings_window.gd" id="1_wym6i"]
 [ext_resource type="Script" path="res://ui/Settings/settings_tab_bar.gd" id="2_raqp3"]
@@ -14,6 +14,9 @@
 [ext_resource type="Script" path="res://ui/history_depth_edit.gd" id="12_x6i6f"]
 [ext_resource type="Script" path="res://ui/color_picker_button.gd" id="13_iwgjq"]
 [ext_resource type="Script" path="res://ui/wire_color_picker_button.gd" id="14_g2wx6"]
+[ext_resource type="Script" path="res://ui/Settings/wire_highlight_color_picker_button.gd" id="15_6lw4l"]
+[ext_resource type="Script" path="res://ui/Settings/pin_highlight_color_picker_button.gd" id="16_jnvim"]
+[ext_resource type="Script" path="res://ui/Settings/pin_la_highlight_color_picker_button.gd" id="17_4tk73"]
 
 [node name="SettingsWindow" type="Window"]
 auto_translate_mode = 1
@@ -145,6 +148,60 @@ script = ExtResource("14_g2wx6")
 layout_mode = 2
 text = "По умолчанию"
 
+[node name="WireHighlightColorContainer" type="HBoxContainer" parent="VBoxContainer/ColorSubmenu"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="VBoxContainer/ColorSubmenu/WireHighlightColorContainer"]
+layout_mode = 2
+text = "  Цвет выделенных проводов"
+
+[node name="WireHighlightColorPickerButton" type="ColorPickerButton" parent="VBoxContainer/ColorSubmenu/WireHighlightColorContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+edit_alpha = false
+script = ExtResource("15_6lw4l")
+
+[node name="WireHighlightColorResetButton" type="Button" parent="VBoxContainer/ColorSubmenu/WireHighlightColorContainer"]
+layout_mode = 2
+text = "По умолчанию"
+
+[node name="PinHighlightContainer" type="HBoxContainer" parent="VBoxContainer/ColorSubmenu"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="VBoxContainer/ColorSubmenu/PinHighlightContainer"]
+layout_mode = 2
+text = "  Цвет выделенных ножек"
+
+[node name="PinHighlightColorPickerButton" type="ColorPickerButton" parent="VBoxContainer/ColorSubmenu/PinHighlightContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+edit_alpha = false
+script = ExtResource("16_jnvim")
+
+[node name="PinHighlightColorResetButton" type="Button" parent="VBoxContainer/ColorSubmenu/PinHighlightContainer"]
+layout_mode = 2
+text = "По умолчанию"
+
+[node name="PinLAHighlightColorContainer" type="HBoxContainer" parent="VBoxContainer/ColorSubmenu"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="VBoxContainer/ColorSubmenu/PinLAHighlightColorContainer"]
+layout_mode = 2
+text = "  Цвет анализируемых ножек"
+
+[node name="PinLAHighlightColorPickerButton" type="ColorPickerButton" parent="VBoxContainer/ColorSubmenu/PinLAHighlightColorContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+edit_alpha = false
+script = ExtResource("17_4tk73")
+
+[node name="PinLAHighlightColorResetButton" type="Button" parent="VBoxContainer/ColorSubmenu/PinLAHighlightColorContainer"]
+layout_mode = 2
+text = "По умолчанию"
+
 [connection signal="tab_changed" from="VBoxContainer/TabBar" to="VBoxContainer/TabBar" method="_on_tab_changed"]
 [connection signal="toggled" from="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/DoCyclesButton" to="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/DoCyclesButton" method="_on_toggled"]
 [connection signal="pressed" from="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/ShowLastWireButton" to="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/ShowLastWireButton" method="_on_pressed"]
@@ -159,3 +216,9 @@ text = "По умолчанию"
 [connection signal="pressed" from="VBoxContainer/ColorSubmenu/ColorContainer/ColorResetButtonButton" to="VBoxContainer/ColorSubmenu/ColorContainer/ColorPickerButton" method="reset_color"]
 [connection signal="color_changed" from="VBoxContainer/ColorSubmenu/WireColorContainer/WireColorPickerButton" to="VBoxContainer/ColorSubmenu/WireColorContainer/WireColorPickerButton" method="_on_color_changed"]
 [connection signal="pressed" from="VBoxContainer/ColorSubmenu/WireColorContainer/WireColorResetButton" to="VBoxContainer/ColorSubmenu/WireColorContainer/WireColorPickerButton" method="_on_wire_color_reset_button_pressed"]
+[connection signal="color_changed" from="VBoxContainer/ColorSubmenu/WireHighlightColorContainer/WireHighlightColorPickerButton" to="VBoxContainer/ColorSubmenu/WireHighlightColorContainer/WireHighlightColorPickerButton" method="_on_color_changed"]
+[connection signal="pressed" from="VBoxContainer/ColorSubmenu/WireHighlightColorContainer/WireHighlightColorResetButton" to="VBoxContainer/ColorSubmenu/WireHighlightColorContainer/WireHighlightColorPickerButton" method="_on_wire_color_reset_button_pressed"]
+[connection signal="color_changed" from="VBoxContainer/ColorSubmenu/PinHighlightContainer/PinHighlightColorPickerButton" to="VBoxContainer/ColorSubmenu/PinHighlightContainer/PinHighlightColorPickerButton" method="_on_color_changed"]
+[connection signal="pressed" from="VBoxContainer/ColorSubmenu/PinHighlightContainer/PinHighlightColorResetButton" to="VBoxContainer/ColorSubmenu/PinHighlightContainer/PinHighlightColorPickerButton" method="_on_wire_color_reset_button_pressed"]
+[connection signal="color_changed" from="VBoxContainer/ColorSubmenu/PinLAHighlightColorContainer/PinLAHighlightColorPickerButton" to="VBoxContainer/ColorSubmenu/PinLAHighlightColorContainer/PinLAHighlightColorPickerButton" method="_on_color_changed"]
+[connection signal="pressed" from="VBoxContainer/ColorSubmenu/PinLAHighlightColorContainer/PinLAHighlightColorResetButton" to="VBoxContainer/ColorSubmenu/PinLAHighlightColorContainer/PinLAHighlightColorPickerButton" method="_on_wire_color_reset_button_pressed"]

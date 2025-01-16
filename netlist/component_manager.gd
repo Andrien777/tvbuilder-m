@@ -18,8 +18,9 @@ func get_class_path_by_name(name:String):
 	return ALL_COMPONENTS_LIST[name].logic_class_path
 
 func register_object(object: CircuitComponent):
-	object.id = last_id
+	object.id = int(last_id) # It can become float for some ungodly reason
 	last_id += 1
+	last_id = int(last_id) # It can become float for some ungodly reason
 	if not obj_list.is_empty() and get_by_id(object.id) != null:
 		PopupManager.display_error("Попытка добавить дубликат id", "Объект не добавлен", Vector2(100, 100))
 		OS.alert("Обнаружено столкновение идентификаторов","Ошибка добавления объекта",)

@@ -9,7 +9,7 @@ var drag_offset = Vector2(0,0)
 var readable_name:String
 
 var display_name_label = true
-var id
+var id: int
 var fallback_texture = preload("res://components/ic/ic.png")
 var height: float
 var width: float
@@ -87,7 +87,7 @@ func _process(delta: float) -> void:
 	if is_dragged && Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) && GlobalSettings.is_normal_mode():
 		get_node("/root/RootNode/Camera2D").lock_pan = true
 		self.global_position = get_global_mouse_position() + drag_offset
-	elif not now_disabled_drag:
+	elif not now_disabled_drag or not GlobalSettings.is_normal_mode():
 		self.is_dragged = false
 		snap_to_grid()
 		get_node("/root/RootNode/Camera2D").lock_pan = false
