@@ -36,7 +36,7 @@ func _physics_process(delta: float) -> void:
 		position += Vector2.LEFT * 10
 	if Input.is_action_pressed("pan_right"):
 		position += Vector2.RIGHT * 10
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and not lock_pan and not GlobalSettings.disableGlobalInput and get_node("/root/RootNode").get_window().has_focus() and not GlobalSettings.is_selecting:
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and not lock_pan and not GlobalSettings.disableGlobalInput and get_node("/root/RootNode").get_window().has_focus() and not GlobalSettings.is_selecting():
 		if pressed_mmb:
 			position = mouse_offset - get_local_mouse_position()
 			position = Vector2(int(position.x), int(position.y))

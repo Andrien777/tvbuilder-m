@@ -18,14 +18,14 @@ func initialize(object):
 	for wire in WireManager.wires: # Or we could just write some questionable code like this
 		if wire.first_object in object.pins:
 			if connections.has(wire.first_object.index):
-				connections[wire.first_object.index].append({"id": wire.second_object.parent.id,"index": wire.second_object.index})
+				connections[wire.first_object.index].append({"id": wire.second_object.parent.id,"index": wire.second_object.index, "control_points":wire.control_points})
 			else:
-				connections[wire.first_object.index] = [{"id": wire.second_object.parent.id,"index": wire.second_object.index}]
+				connections[wire.first_object.index] = [{"id": wire.second_object.parent.id,"index": wire.second_object.index, "control_points":wire.control_points}]
 		elif wire.second_object in object.pins:
 			if connections.has(wire.second_object.index):
-				connections[wire.second_object.index].append({"id": wire.first_object.parent.id,"index": wire.first_object.index})
+				connections[wire.second_object.index].append({"id": wire.first_object.parent.id,"index": wire.first_object.index, "control_points":wire.control_points})
 			else:
-				connections[wire.second_object.index] = [{"id": wire.first_object.parent.id,"index": wire.first_object.index}]
+				connections[wire.second_object.index] = [{"id": wire.first_object.parent.id,"index": wire.first_object.index, "control_points":wire.control_points}]
 
 func undo():
 	if name == null: return
@@ -41,7 +41,9 @@ func undo():
 	for key in connections:
 		for conn in connections[key]:
 			var other = ComponentManager.get_by_id(conn["id"])
-			WireManager._create_wire(element.pin(key), other.pin(conn["index"]))
+			var wire = WireManager._create_wire(element.pin(key), other.pin(conn["index"]))
+			for point in conn["control_points"]:
+				wire.add_control_point(point)
 
 func redo():
 	if is_instance_valid(object):

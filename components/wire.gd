@@ -145,7 +145,7 @@ func _process(delta: float, force_update = false) -> void:
 		line.set_point_position(dragged_point_index+1, control_points[-1])
 		line.set_point_position(dragged_point_index+2, Vector2(control_points[-1].x,line.get_point_position(dragged_point_index+3).y))
 func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void:
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not GlobalSettings.is_selecting:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not GlobalSettings.is_selecting():
 		get_node("/root/RootNode/Camera2D").lock_pan = true
 		if(event.pressed and control_points.is_empty()): # Limit to one control point for now
 			add_control_point(get_global_mouse_position())
@@ -156,7 +156,7 @@ func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void
 			control_point_dragged_from = get_global_mouse_position()
 			
 func _input(event: InputEvent) -> void: # This need to be like that because event won`t register in _input_event unless the mouse is on the wire
-	if is_dragged and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed==false or GlobalSettings.is_selecting and is_dragged:
+	if is_dragged and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed==false or GlobalSettings.is_selecting() and is_dragged:
 		is_dragged = false
 		get_node("/root/RootNode/Camera2D").lock_pan = false
 		_process(0.0,true) # Recalculate the hitbox

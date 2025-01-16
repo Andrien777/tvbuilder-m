@@ -17,9 +17,11 @@ func _ready() -> void:
 	selection_area = get_node("SelectionArea")
 
 func _process(delta: float) -> void:
-	if GlobalSettings.is_selecting and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and not GlobalSettings.disableGlobalInput:
+	if GlobalSettings.is_selecting() and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and not GlobalSettings.disableGlobalInput:
 		if not selection_area.is_tracking:
 			selection_area.start_tracking()
+	if not GlobalSettings.is_connectivity_mode():
+		Input.set_default_cursor_shape(Input.CURSOR_ARROW)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
@@ -55,7 +57,11 @@ func _input(event):
 		CopyBuffer.paste(get_global_mouse_position())
 		selection_area.paste_copy_offset(get_global_mouse_position())
 	elif event.is_action_pressed("select"):
-		get_node("/root/RootNode/UiCanvasLayer/VBoxContainer2/RibbonContainer/SelectionModeButton")._on_pressed()
+		to_selection_mode()
+	elif event.is_action_pressed("normal"):
+		to_normal_mode()
+	elif event.is_action_pressed("conn_mode"):
+		to_connectivity_mode()
 	
 	
 	# Has to be in a separate if
@@ -101,3 +107,17 @@ func create_selected_element():
 	var event = ComponentCreationEvent.new()
 	event.initialize(element)
 	HistoryBuffer.register_event(event)
+
+func to_normal_mode():
+	GlobalSettings.CursorMode = GlobalSettings.CURSOR_MODES.NORMAL
+	get_node("./Camera2D").lock_pan = false
+	get_node("./Camera2D").pressed_mmb = false
+
+func to_connectivity_mode():
+	GlobalSettings.CursorMode = GlobalSettings.CURSOR_MODES.CONNECTIVITY_MODE
+	get_node("./Camera2D").lock_pan = false
+	get_node("./Camera2D").pressed_mmb = false
+
+func to_selection_mode():
+	GlobalSettings.CursorMode = GlobalSettings.CURSOR_MODES.SELECTION
+	get_node("./Camera2D").lock_pan = true

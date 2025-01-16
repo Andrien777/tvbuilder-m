@@ -13,6 +13,18 @@ var historyDepth = 200
 var ShowSignalsInConnectionTable = false
 var CurrentGraphicsMode = LegacyGraphicsMode
 
+enum CURSOR_MODES {NORMAL, SELECTION, CONNECTIVITY_MODE}
+var CursorMode = CURSOR_MODES.NORMAL
+
+func is_normal_mode():
+	return CursorMode == CURSOR_MODES.NORMAL
+
+func is_selecting():
+	return CursorMode == CURSOR_MODES.SELECTION
+
+func is_connectivity_mode():
+	return CursorMode == CURSOR_MODES.CONNECTIVITY_MODE
+
 var PinIndexOffset = 5
 
 
@@ -24,8 +36,6 @@ var wire_color = Color(1, 0, 0)
 var useDefaultWireColor = true
 
 var allowSettingsOverride = true
-
-var is_selecting = false
 
 
 # Called when the node enters the scene tree for the first time.
