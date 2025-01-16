@@ -127,15 +127,7 @@ func fully_delete():
 
 
 func delete_self():
-	Input.action_release("delete_component")
-	ComponentManager.remove_object(self)
-	var event = ComponentDeletionEvent.new()
-	event.initialize(self)
-	HistoryBuffer.register_event(event)
-	for wire: Wire in WireManager.wires:
-		if wire.first_object in pins or wire.second_object in pins:
-			WireManager._delete_wire(wire)
-	queue_free()
+	ComponentManager.add_to_deletion_queue(self)
 
 func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not GlobalSettings.is_selecting():
