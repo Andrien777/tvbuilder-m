@@ -81,7 +81,8 @@ func _process(delta: float, force_update = false) -> void:
 			line.set_point_position(0, first_object.global_position)
 			line.set_point_position(1, first_object.global_position+get_pin_offset(first_object))
 			
-			apply_advanced_routing()
+			if control_points.is_empty():
+				apply_advanced_routing()
 			
 			#min(line.get_point_position(2).x,line.get_point_position(line.get_point_count()-3).x)
 			line.set_point_position(line.get_point_count()-4,line.get_point_position(line.get_point_count()-3))
@@ -135,7 +136,7 @@ func _process(delta: float, force_update = false) -> void:
 		WireManager._delete_wire(self)
 		var event = WireDeletionEvent.new() # We are doing it there (and not in WireManager)
 		# to prevent events creating from the HistoryEvent.undo() call 
-		event.initialize(self.first_object, self.second_object)
+		event.initialize(self.first_object, self.second_object, self.control_points)
 		HistoryBuffer.register_event(event)
 	if(is_dragged) and control_points.size() > 0:
 		control_points[-1] = snap_to_grid(get_global_mouse_position() + control_point_drag_offset) if GlobalSettings.WireSnap else get_global_mouse_position() + control_point_drag_offset

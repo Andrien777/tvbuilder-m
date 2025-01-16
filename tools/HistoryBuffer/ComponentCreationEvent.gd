@@ -17,14 +17,14 @@ func initialize(object):
 	for wire in WireManager.wires: # Or we could just write some questionable code like this
 		if wire.first_object in object.pins:
 			if connections.has(wire.first_object.index):
-				connections[wire.first_object.index].append({"id": wire.second_object.parent.id,"index": wire.second_object.index, "control_points":wire.control_points})
+				connections[wire.first_object.index].append({"id": wire.second_object.parent.id,"index": wire.second_object.index, "control_points":wire.control_points, "reverse": false})
 			else:
-				connections[wire.first_object.index] = [{"id": wire.second_object.parent.id,"index": wire.second_object.index, "control_points":wire.control_points}]
+				connections[wire.first_object.index] = [{"id": wire.second_object.parent.id,"index": wire.second_object.index, "control_points":wire.control_points, "reverse": false}]
 		elif wire.second_object in object.pins:
 			if connections.has(wire.second_object.index):
-				connections[wire.second_object.index].append({"id": wire.first_object.parent.id,"index": wire.first_object.index, "control_points":wire.control_points})
+				connections[wire.second_object.index].append({"id": wire.first_object.parent.id,"index": wire.first_object.index, "control_points":wire.control_points, "reverse": true})
 			else:
-				connections[wire.second_object.index] = [{"id": wire.first_object.parent.id,"index": wire.first_object.index, "control_points":wire.control_points}]
+				connections[wire.second_object.index] = [{"id": wire.first_object.parent.id,"index": wire.first_object.index, "control_points":wire.control_points, "reverse": true}]
 	
 func undo():
 	if is_instance_valid(object):
@@ -46,6 +46,14 @@ func redo():
 	for key in connections:
 		for conn in connections[key]:
 			var other = ComponentManager.get_by_id(conn["id"])
-			var wire = WireManager._create_wire(element.pin(key), other.pin(conn["index"]))
-			for point in conn["control_points"]:
-				wire.add_control_point(point)
+			if conn["reverse"]:
+				if not conn["control_points"].is_empty():
+					var wire = WireManager._create_wire(other.pin(conn["index"]), element.pin(key), conn["control_points"])
+				else:
+					WireManager._create_wire(other.pin(conn["index"]), element.pin(key))
+			else:
+				if not conn["control_points"].is_empty():
+					var wire = WireManager._create_wire(element.pin(key), other.pin(conn["index"]), conn["control_points"])
+				else:
+					WireManager._create_wire(element.pin(key), other.pin(conn["index"]))
+	WireManager.force_update_wires()
