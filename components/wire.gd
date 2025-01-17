@@ -81,8 +81,7 @@ func _process(delta: float, force_update = false) -> void:
 			line.set_point_position(0, first_object.global_position)
 			line.set_point_position(1, first_object.global_position+get_pin_offset(first_object))
 			
-			if control_points.is_empty():
-				apply_advanced_routing()
+			apply_advanced_routing()
 			
 			#min(line.get_point_position(2).x,line.get_point_position(line.get_point_count()-3).x)
 			line.set_point_position(line.get_point_count()-4,line.get_point_position(line.get_point_count()-3))

@@ -29,4 +29,7 @@ func paste(mouse_pos: Vector2):
 		for key in item.connections_with_old_ids:
 			for conn in item.connections_with_old_ids[key]:
 				var other = ComponentManager.get_by_id(id_change_lut[conn["id"]])
-				WireManager._create_wire(element.pin(key), other.pin(conn["index"]))
+				var control_points = conn["control_points"].duplicate(true)
+				for i in range(control_points.size()):
+					control_points[i] += mouse_pos
+				WireManager._create_wire(element.pin(key), other.pin(conn["index"]), control_points)

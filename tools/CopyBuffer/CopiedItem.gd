@@ -25,15 +25,13 @@ func copy(obj: CircuitComponent, mouse_pos: Vector2):
 		content = obj.label.text
 	for wire in WireManager.wires:
 		if wire.first_object in obj.pins and wire.second_object.parent.is_selected:
+			var control_points = wire.control_points.duplicate(true)
+			for i in range(control_points.size()):
+				control_points[i] -= mouse_pos
 			if connections_with_old_ids.has(wire.first_object.index):
-				connections_with_old_ids[wire.first_object.index].append({"id": wire.second_object.parent.id,"index": wire.second_object.index})
+				connections_with_old_ids[wire.first_object.index].append({"id": wire.second_object.parent.id,"index": wire.second_object.index, "control_points": control_points})
 			else:
-				connections_with_old_ids[wire.first_object.index] = [{"id": wire.second_object.parent.id,"index": wire.second_object.index}]
-		elif wire.second_object in obj.pins and wire.first_object.parent.is_selected:
-			if connections_with_old_ids.has(wire.second_object.index):
-				connections_with_old_ids[wire.second_object.index].append({"id": wire.first_object.parent.id,"index": wire.first_object.index})
-			else:
-				connections_with_old_ids[wire.second_object.index] = [{"id": wire.first_object.parent.id,"index": wire.first_object.index}]
+				connections_with_old_ids[wire.first_object.index] = [{"id": wire.second_object.parent.id,"index": wire.second_object.index, "control_points": control_points}]
 
 func paste(mouse_pos: Vector2):
 	if item_name == null: return
