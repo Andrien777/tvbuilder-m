@@ -29,6 +29,11 @@ func _on_index_pressed(index: int) -> void:
 func _on_clear_button_pressed():
 	ComponentManager.clear()
 	SaveManager.last_path = ""
+	GlobalSettings.bg_color = GlobalSettings.bg_color_global
+	GlobalSettings.wire_color = GlobalSettings.wire_color_global
+	for wire in WireManager.wires:
+		wire.change_color()
+	get_node("/root/RootNode/GridSprite").modulate = GlobalSettings.bg_color
 
 func _on_save_button_pressed():
 	if SaveManager.last_path == "":
