@@ -1,5 +1,7 @@
 extends Node2D
 var wires: Array[Wire]
+var buses: Array[Bus]
+var current_bus = null
 var first_wire_point = null
 var second_wire_point = null
 var timer: Timer
@@ -115,6 +117,9 @@ func clear():
 	for wire in wires:
 		wire.queue_free()
 	wires.clear()
+	for bus in buses:
+		bus.queue_free()
+	buses.clear()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -154,3 +159,21 @@ func force_update_wires_after_delay():
 func force_update_wires():
 	for wire in wires:
 		wire._process(0.0,true)
+		
+func _create_bus(initial_point = Vector2(0,0)):
+	var bus = Bus.new()
+	bus.initialize([initial_point])
+	buses.append(bus)
+	add_child(bus)
+	return bus
+	
+func register_bus_point(point:Vector2):
+	if !current_bus:
+		current_bus = _create_bus(point)
+	else:
+		current_bus.add_point(point)
+	
+func _delete_bus(bus):
+	if bus in buses:
+		buses.erase(bus)
+		bus.queue_free()

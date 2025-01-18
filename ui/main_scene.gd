@@ -43,6 +43,8 @@ func _input(event):
 		HistoryBuffer.redo_last_event()
 	elif event.is_action_pressed("abort_wire_creation") or event.is_action_pressed("delete_component"):
 		WireManager.stop_wire_creation()
+	elif event.is_action_pressed("create_bus"):
+		WireManager.register_bus_point(get_global_mouse_position())
 
 func toggle_graphics_mode():
 	if GlobalSettings.CurrentGraphicsMode==LegacyGraphicsMode:
