@@ -130,7 +130,7 @@ func delete_self():
 	ComponentManager.add_to_deletion_queue(self)
 
 func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void:
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not GlobalSettings.is_selecting():
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not GlobalSettings.is_selecting() and not GlobalSettings.disableGlobalInput:
 		get_node("/root/RootNode/Camera2D").lock_pan = true
 		if(event.pressed):
 			_lmb_action()

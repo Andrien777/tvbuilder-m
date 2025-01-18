@@ -35,20 +35,20 @@ func _physics_process(delta: float) -> void:
 func _input(event):
 	if (GlobalSettings.disableGlobalInput):
 		return
-	if event.is_action_pressed("add_new_ic_element"):
+	if event.is_action_pressed("add_new_ic_element") and not GlobalSettings.disableGlobalInput:
 		create_selected_element()
-	elif event.is_action_pressed("save_scheme"):
+	elif event.is_action_pressed("save_scheme") and not GlobalSettings.disableGlobalInput:
 		if SaveManager.last_path == "":
 			get_node("SaveAsFileDialog")._on_save_as_button_pressed()
 		else:
 			SaveManager._on_autosave()
-	elif event.is_action_pressed("load_scheme"):
+	elif event.is_action_pressed("load_scheme") and not GlobalSettings.disableGlobalInput:
 		get_node("LoadFileDialog")._on_load_button_pressed()
-	elif event.is_action_pressed("undo"):
+	elif event.is_action_pressed("undo") and not GlobalSettings.disableGlobalInput:
 		HistoryBuffer.undo_last_event()
-	elif event.is_action_pressed("redo"):
+	elif event.is_action_pressed("redo") and not GlobalSettings.disableGlobalInput:
 		HistoryBuffer.redo_last_event()
-	elif event.is_action_pressed("abort_wire_creation") or event.is_action_pressed("delete_component"):
+	elif (event.is_action_pressed("abort_wire_creation") or event.is_action_pressed("delete_component")) and not GlobalSettings.disableGlobalInput:
 		WireManager.stop_wire_creation()
 	elif event.is_action_pressed("copy") and not GlobalSettings.disableGlobalInput:
 		CopyBuffer.copy(get_global_mouse_position())
@@ -56,16 +56,16 @@ func _input(event):
 	elif event.is_action_pressed("paste") and not GlobalSettings.disableGlobalInput:
 		CopyBuffer.paste(get_global_mouse_position())
 		selection_area.paste_copy_offset(get_global_mouse_position())
-	elif event.is_action_pressed("select"):
+	elif event.is_action_pressed("select") and not GlobalSettings.disableGlobalInput:
 		to_selection_mode()
-	elif event.is_action_pressed("normal"):
+	elif event.is_action_pressed("normal") and not GlobalSettings.disableGlobalInput:
 		to_normal_mode()
-	elif event.is_action_pressed("conn_mode"):
+	elif event.is_action_pressed("conn_mode") and not GlobalSettings.disableGlobalInput:
 		to_connectivity_mode()
 	
 	
 	# Has to be in a separate if
-	if event.is_action_pressed("abort_wire_creation"):
+	if event.is_action_pressed("abort_wire_creation") and not GlobalSettings.disableGlobalInput:
 		selection_area.stop_selection()
 
 func toggle_graphics_mode():

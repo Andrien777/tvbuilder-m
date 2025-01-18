@@ -1167,7 +1167,7 @@ public:
         if (!interrupted) {
             waitClocksCount += 1;
             interruptState = 0;
-            setStatus("Interrupted: division by zero (code 0)");
+            setStatus(L"Прерывание: деление на ноль (код 0)");
             interrupted = true;
         }
 
@@ -1178,7 +1178,7 @@ public:
         if (!interrupted) {
             waitClocksCount += 1;
             interruptState = 0;
-            setStatus("Interrupted: TRAP (code 1)");
+            setStatus(L"Прерывание: TRAP (код 1)");
             interrupted = true;
         }
 

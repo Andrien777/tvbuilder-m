@@ -128,7 +128,7 @@ func _process(delta: float, force_update = false) -> void:
 				control_point_drag_offset = Vector2.ZERO
 	else:
 		WireManager._delete_wire(self)
-	if Input.is_action_pressed("delete_component") and self.is_mouse_over:
+	if Input.is_action_pressed("delete_component") and self.is_mouse_over and not GlobalSettings.disableGlobalInput:
 		Input.action_release("delete_component")
 		first_object.modulate=Color(1,1,1,1)
 		second_object.modulate=Color(1,1,1,1)
@@ -145,7 +145,7 @@ func _process(delta: float, force_update = false) -> void:
 		line.set_point_position(dragged_point_index+1, control_points[-1])
 		line.set_point_position(dragged_point_index+2, Vector2(control_points[-1].x,line.get_point_position(dragged_point_index+3).y))
 func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void:
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not GlobalSettings.is_selecting():
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not GlobalSettings.is_selecting() and not GlobalSettings.disableGlobalInput:
 		get_node("/root/RootNode/Camera2D").lock_pan = true
 		if(event.pressed and control_points.is_empty()): # Limit to one control point for now
 			add_control_point(get_global_mouse_position())

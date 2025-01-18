@@ -5327,7 +5327,7 @@ bool IProc_8088::opcode_0xCC() {
     if (!interrupted) {
         waitClocksCount += 1;
         interruptState = 0;
-        setStatus("Interrupted: breakpoint (code 3)");
+        setStatus(L"Прерывание: breakpoint (код 3)");
         interrupted = true;
     }
 
@@ -5348,7 +5348,7 @@ bool IProc_8088::opcode_0xCE() {
     if (opcodeState == 1) {
         if (!interrupted) {
             interruptState = 0;
-            setStatus("Interrupted: overflow (code 4)");
+            setStatus(L"Прерывание: переполнение (код 4)");
             interrupted = true;
         }
         return interruptHandler(4); // interrupt on overflow
@@ -5368,7 +5368,7 @@ bool IProc_8088::opcode_0xCD() {
     if (opcodeState == 1) {
         if (!interrupted) {
             interruptState = 0;
-            setStatus("Interrupted: custom (code " + godot::String(std::to_string(opcodeResult).c_str()) + ")");
+            setStatus(L"Прерывание: пользовательское (код " + godot::String(std::to_string(opcodeResult).c_str()) + ")");
             interrupted = true;
         }
 
