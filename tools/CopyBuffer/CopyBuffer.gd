@@ -15,11 +15,18 @@ func _process(delta: float) -> void:
 func copy(mouse_pos: Vector2):
 	buffer.clear()
 	for obj in ComponentManager.obj_list.values():
-		if obj.is_selected or obj.is_mouse_over:
+		if obj.is_selected:
 			var item = CopiedItem.new()
 			item.copy(obj, mouse_pos)
 			buffer.append(item)
 			id_change_lut[obj.id] = -1
+	if buffer.is_empty():
+		for obj in ComponentManager.obj_list.values():
+			if obj.is_mouse_over:
+				var item = CopiedItem.new()
+				item.copy(obj, mouse_pos)
+				buffer.append(item)
+				id_change_lut[obj.id] = -1
 
 func paste(mouse_pos: Vector2):
 	for item in buffer:
