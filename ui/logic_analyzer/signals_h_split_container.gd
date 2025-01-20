@@ -69,7 +69,13 @@ func add_signal(pin: Pin):
 			pin.index
 			)
 		signals.append(sig)
+		
 		line_edit_menu.add_item("Прекратить отслеживание", 2281337)
+		line_edit_menu.always_on_top = true
+		line_edit_menu.close_requested.connect(
+			func():
+				line_edit_menu.always_on_top = false 
+		) # It crashes out when closing LogicAnalyzerWindow wihtout that line
 		line_edit_menu.id_pressed.connect(
 			func(id): 
 				if (id == 2281337):
