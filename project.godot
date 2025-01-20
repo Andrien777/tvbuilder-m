@@ -149,6 +149,11 @@ conn_mode={
 ]
 }
 
+[physics]
+
+common/physics_ticks_per_second=1000
+common/max_physics_steps_per_frame=20
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

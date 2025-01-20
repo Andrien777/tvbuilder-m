@@ -3,6 +3,7 @@ var grid_rect
 var timer
 var memory_viewer
 var selection_area
+var freq_label: Label
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	grid_rect = get_node("GridLayer/GridRect")
@@ -15,6 +16,7 @@ func _ready() -> void:
 	get_node("./GridSprite").visible = GlobalSettings.CurrentGraphicsMode==LegacyGraphicsMode
 	get_node("./GridSprite").modulate = GlobalSettings.bg_color
 	selection_area = get_node("SelectionArea")
+	freq_label = get_node("UiCanvasLayer/VBoxContainer2/RibbonContainer/FreqLabel")
 
 func _process(delta: float) -> void:
 	if GlobalSettings.is_selecting() and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and not GlobalSettings.disableGlobalInput:
@@ -27,8 +29,6 @@ func _process(delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	NetlistClass.propagate_signal()
 	if GlobalSettings.turbo:
-		NetlistClass.propagate_signal()
-		NetlistClass.propagate_signal()
 		NetlistClass.propagate_signal()
 		NetlistClass.propagate_signal()
 
