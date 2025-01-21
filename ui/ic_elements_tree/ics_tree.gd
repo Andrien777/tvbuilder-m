@@ -40,6 +40,7 @@ func _on_item_mouse_selected(mouse_position: Vector2, _mouse_button_index: int) 
 	ICsTreeManager.selected_item = item
 	old_mouse_position = get_global_mouse_position()
 	timer.start()
+	get_node("/root/RootNode").to_normal_mode()
 	get_node("/root/RootNode/Camera2D").lock_pan = true
 
 func _on_nothing_selected() -> void:

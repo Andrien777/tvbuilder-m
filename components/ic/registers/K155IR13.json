@@ -26,8 +26,8 @@
 			"index": 2,
 			"direction": "DIRECTION_INPUT",
 			"position": "BOTTOM",
-			"readable_name": "DSR",
-			"description": "Вход сдвига вправо",
+			"readable_name": "DSL",
+			"description": "Вход сдвига влево",
 			"dependencies": []
 		},{
 			"index": 3,
@@ -121,8 +121,8 @@
 			"index": 22,
 			"direction": "DIRECTION_INPUT",
 			"position": "TOP",
-			"readable_name": "DSL",
-			"description": "Вход сдвига влево",
+			"readable_name": "DSR",
+			"description": "Вход сдвига вправо",
 			"dependencies": []
 		},{
 			"index": 21,

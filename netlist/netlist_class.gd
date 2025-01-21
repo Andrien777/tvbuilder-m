@@ -29,6 +29,7 @@ func clear():
 	nodes.clear()
 
 func propagate_signal() -> void:
+	ComponentManager.clear_deletion_queue()
 	if nodes.is_empty():
 		return
 	var visited: Dictionary
@@ -173,6 +174,8 @@ func propagate_signal() -> void:
 				else:
 					PopupManager.display_error("Короткое замыкание", "В этом месте произошло КЗ", pin.pin.global_position)
 					#print("Short circuit")
+
+func process_components():
 	for key in nodes.keys():
 		if key.direction == NetConstants.DIRECTION.DIRECTION_INPUT_OUTPUT and not GlobalSettings.doCycles:
 			key.parent._process_signal()

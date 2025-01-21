@@ -13,6 +13,18 @@ var historyDepth = 200
 var ShowSignalsInConnectionTable = false
 var CurrentGraphicsMode = LegacyGraphicsMode
 
+enum CURSOR_MODES {NORMAL, SELECTION, CONNECTIVITY_MODE}
+var CursorMode = CURSOR_MODES.NORMAL
+
+func is_normal_mode():
+	return CursorMode == CURSOR_MODES.NORMAL
+
+func is_selecting():
+	return CursorMode == CURSOR_MODES.SELECTION
+
+func is_connectivity_mode():
+	return CursorMode == CURSOR_MODES.CONNECTIVITY_MODE
+
 var PinIndexOffset = 5
 
 
@@ -21,11 +33,14 @@ var highlightOutputPins = false
 
 var bg_color = Color("999902")
 var wire_color = Color(1, 0, 0)
+var bg_color_global = Color(0.5, 0.504, 0.004)
+var wire_color_global = Color(1, 0, 0)
+var highlightedWireColor = Color(0.7,0.7,0.7,1)
+var highlightedPinsColor = Color(0.3,0.3,0.3,1)
+var highlightedLAPinsColor = Color(0, 0.75, 1, 1)
 var useDefaultWireColor = true
 
 var allowSettingsOverride = true
-
-var is_selecting = false
 
 
 # Called when the node enters the scene tree for the first time.
@@ -60,13 +75,19 @@ func try_load():
 			if parsed.has("ShowLastWire"):
 				showLastWire = parsed["ShowLastWire"] as bool
 			if parsed.has("BgColor"):
-				bg_color = Color(parsed["BgColor"])
+				bg_color_global = Color(parsed["BgColor"])
 			if parsed.has("WireColor"):
-				wire_color = Color(parsed["WireColor"])
+				wire_color_global = Color(parsed["WireColor"])
 			if parsed.has("DefaultWireColor"):
 				useDefaultWireColor = parsed["DefaultWireColor"] as bool
 			if parsed.has("SettingsOverride"):
 				allowSettingsOverride = parsed["SettingsOverride"] as bool
+			if parsed.has("HighlightedWireColor"):
+				wire_color = Color(parsed["HighlightedWireColor"])
+			if parsed.has("HighlightedPinColor"):
+				wire_color = Color(parsed["HighlightedPinColor"])
+			if parsed.has("HighlightedLAPinColor"):
+				wire_color = Color(parsed["HighlightedLAPinColor"])
 				
 
 func save():
@@ -81,10 +102,13 @@ func save():
 		DefaultGraphicsMode:
 			json_object["GraphicsMode"] = "DefaultGraphicsMode"
 	json_object["ShowLastWire"] = showLastWire as int
-	json_object["BgColor"] = bg_color.to_html(false)
-	json_object["WireColor"] = wire_color.to_html(false)
+	json_object["BgColor"] = bg_color_global.to_html(false)
+	json_object["WireColor"] = wire_color_global.to_html(false)
 	json_object["DefaultWireColor"] = useDefaultWireColor as int
 	json_object["SettingsOverride"] = allowSettingsOverride as int
+	json_object["HighlightedWireColor"] = highlightedWireColor.to_html(false)
+	json_object["HighlightedPinColor"] = highlightedPinsColor.to_html(false)
+	json_object["HighlightedLAPinColor"] = highlightedLAPinsColor.to_html(false)
 	file.store_string(JSON.stringify(json_object, "\t"))
 	file.close()
 

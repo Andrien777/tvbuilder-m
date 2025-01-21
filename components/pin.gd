@@ -55,7 +55,7 @@ func _process(delta: float) -> void:
 		else:
 			self.modulate = Color(1,0.3,1,1)
 	if is_tracked:
-		self.modulate = Color(0, 0.75, 1, 1)
+		self.modulate = GlobalSettings.highlightedLAPinsColor
 
 func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.pressed and Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
@@ -65,7 +65,7 @@ func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void
 		
 		
 func _mouse_enter() -> void:
-	self.modulate=Color(0.3,0.3,0.3,1)
+	self.modulate=GlobalSettings.highlightedPinsColor
 	PopupManager.display_hint("Пин: "+str(index)+ " | " + readable_name,description,self.global_position, self.direction)
 	
 func _mouse_exit()->void:

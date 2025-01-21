@@ -69,11 +69,17 @@ func add_signal(pin: Pin):
 			pin.index
 			)
 		signals.append(sig)
+		
 		line_edit_menu.add_item("Прекратить отслеживание", 2281337)
+		line_edit_menu.always_on_top = true
+		line_edit_menu.close_requested.connect(
+			func():
+				line_edit_menu.always_on_top = false 
+		) # It crashes out when closing LogicAnalyzerWindow wihtout that line
 		line_edit_menu.id_pressed.connect(
 			func(id): 
 				if (id == 2281337):
-					remove_signal(sig, pin)
+					remove_signal(sig)
 		)
 		clear_signal_values()
 	
@@ -120,14 +126,15 @@ func draw_new_signal_value(sig: LA_Signal, signal_index: int, time_delta: float)
 
 
 func get_current_signal_value(sig: LA_Signal) -> NetConstants.LEVEL:
-	for i: Pin in NetlistClass.nodes.keys():
-		if i.index == sig.pin_index && i.parent.id == sig.ic_id:
-			return i.state
+	var ic = ComponentManager.get_by_id(sig.ic_id)
+	if is_instance_valid(ic) and ic != null:
+		return ic.pin(sig.pin_index).state
 	push_error("Logic Analyzer couldn't find Pin " + str(sig) + " in the netlist")
 	return NetConstants.LEVEL.LEVEL_Z # Pin is inexistent
 
 
-func remove_signal(sig_to_del: LA_Signal, pin: Pin):
+func remove_signal(sig_to_del: LA_Signal):
+	var pin = ComponentManager.get_by_id(sig_to_del.ic_id).pin(sig_to_del.pin_index)
 	if is_instance_valid(pin):
 		pin.modulate = Color(1, 1, 1, 1)
 		pin.toggle_output_highlight()

@@ -23,11 +23,11 @@ func _process_signal() -> void:
 			elif (s0.high and s1.low): # Left shift
 				for i in range(len(outputs)-1,0,-1):
 					outputs[i].state = outputs[i-1].state
-				outputs[0].state = pin(22).state # TODO: Make it .high_or_z
+				outputs[0].state = pin(2).state # TODO: Make it .high_or_z
 			elif (s0.low and s1.high): # Right shift
 				for i in range(1, len(outputs)):
 					outputs[i-1].state = outputs[i].state
-				outputs[-1].state = pin(2).state #TODO: .high_or_z
+				outputs[-1].state = pin(22).state #TODO: .high_or_z
 			elif (s0.high and s1.high): # Load
 				outputs[0].state = pin(3).state
 				outputs[1].state = pin(5).state

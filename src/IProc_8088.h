@@ -8,6 +8,7 @@
 #include <stdexcept>
 #include <string>
 #include <godot_cpp/classes/ref_counted.hpp>
+#include <godot_cpp/variant/string.hpp>
 
 namespace godot {
 
@@ -370,6 +371,10 @@ protected:
         ClassDB::bind_method(D_METHOD("getEs"), &IProc_8088::getEs);
 		ClassDB::bind_method(D_METHOD("setEs", "value"), &IProc_8088::setEs);
 		ADD_PROPERTY(PropertyInfo(Variant::INT, "es"), "setEs", "getEs");
+
+        ClassDB::bind_method(D_METHOD("getStatus"), &IProc_8088::getStatus);
+		ClassDB::bind_method(D_METHOD("setStatus", "value"), &IProc_8088::setStatus);
+		ADD_PROPERTY(PropertyInfo(Variant::STRING, "status"), "setStatus", "getStatus");
 	};
 	
 private:
@@ -410,6 +415,11 @@ void setBitByIdx_s(word* n, int bitIdx, int value)
 }
 	
 public:
+
+    godot::String status = "OK";
+    godot::String getStatus () const {return status;}
+    void setStatus (const godot::String value) {status = value;}
+
     bool prevClock; // Clock at previous state
 
     static const word DEFAULT_FLAGS = 0xF000;
@@ -1157,7 +1167,7 @@ public:
         if (!interrupted) {
             waitClocksCount += 1;
             interruptState = 0;
-            throw std::logic_error("�������� ����������: ������� �� ����!");
+            setStatus(L"Прерывание: деление на ноль (код 0)");
             interrupted = true;
         }
 
@@ -1168,7 +1178,7 @@ public:
         if (!interrupted) {
             waitClocksCount += 1;
             interruptState = 0;
-            throw std::logic_error("�������� ����������: TRAP!");
+            setStatus(L"Прерывание: TRAP (код 1)");
             interrupted = true;
         }
 

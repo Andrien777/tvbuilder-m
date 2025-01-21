@@ -59,9 +59,9 @@ func _ready() -> void:
 
 func _mouse_enter() -> void:
 	self.line.width = 4
-	self.modulate=Color(0.7,0.7,0.7,1)
-	first_object.modulate=Color(0.3,0.3,0.3,1)
-	second_object.modulate=Color(0.3,0.3,0.3,1)
+	self.modulate=GlobalSettings.highlightedWireColor
+	first_object.modulate=GlobalSettings.highlightedPinsColor
+	second_object.modulate=GlobalSettings.highlightedPinsColor
 	is_mouse_over = true
 func _mouse_exit() -> void:
 	self.line.width = 2
@@ -128,14 +128,14 @@ func _process(delta: float, force_update = false) -> void:
 				control_point_drag_offset = Vector2.ZERO
 	else:
 		WireManager._delete_wire(self)
-	if Input.is_action_pressed("delete_component") and self.is_mouse_over:
+	if Input.is_action_pressed("delete_component") and self.is_mouse_over and not GlobalSettings.disableGlobalInput:
 		Input.action_release("delete_component")
 		first_object.modulate=Color(1,1,1,1)
 		second_object.modulate=Color(1,1,1,1)
 		WireManager._delete_wire(self)
 		var event = WireDeletionEvent.new() # We are doing it there (and not in WireManager)
 		# to prevent events creating from the HistoryEvent.undo() call 
-		event.initialize(self.first_object, self.second_object)
+		event.initialize(self.first_object, self.second_object, self.control_points)
 		HistoryBuffer.register_event(event)
 	if(is_dragged) and control_points.size() > 0:
 		control_points[-1] = snap_to_grid(get_global_mouse_position() + control_point_drag_offset) if GlobalSettings.WireSnap else get_global_mouse_position() + control_point_drag_offset
@@ -145,7 +145,7 @@ func _process(delta: float, force_update = false) -> void:
 		line.set_point_position(dragged_point_index+1, control_points[-1])
 		line.set_point_position(dragged_point_index+2, Vector2(control_points[-1].x,line.get_point_position(dragged_point_index+3).y))
 func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void:
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not GlobalSettings.is_selecting:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not GlobalSettings.is_selecting() and not GlobalSettings.disableGlobalInput:
 		get_node("/root/RootNode/Camera2D").lock_pan = true
 		if(event.pressed and control_points.is_empty()): # Limit to one control point for now
 			add_control_point(get_global_mouse_position())
@@ -156,7 +156,7 @@ func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void
 			control_point_dragged_from = get_global_mouse_position()
 			
 func _input(event: InputEvent) -> void: # This need to be like that because event won`t register in _input_event unless the mouse is on the wire
-	if is_dragged and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed==false or GlobalSettings.is_selecting and is_dragged:
+	if is_dragged and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed==false or GlobalSettings.is_selecting() and is_dragged:
 		is_dragged = false
 		get_node("/root/RootNode/Camera2D").lock_pan = false
 		_process(0.0,true) # Recalculate the hitbox

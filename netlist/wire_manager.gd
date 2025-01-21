@@ -58,6 +58,7 @@ func _delete_wire(wire):
 				wires.back().visible = true
 				wires.back().input_pickable = true
 		wire.queue_free()
+		
 func find_wire_by_ends(from, to):
 	var res_wire
 	for wire in wires:

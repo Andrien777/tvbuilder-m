@@ -29,7 +29,7 @@ func _process(delta: float) -> void:
 	elif is_tracking:
 		is_tracking = false
 		input_pickable = true
-	is_tracking = is_tracking and GlobalSettings.is_selecting
+	is_tracking = is_tracking and GlobalSettings.is_selecting()
 	if is_dragged && Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		get_node("/root/RootNode/Camera2D").lock_pan = true
 		var offset = hitbox.position
@@ -56,7 +56,7 @@ func is_in(obj: CircuitComponent):
 	and ((line.points[0].y <= obj.position.y) and ((obj.position.y + obj.hitbox.shape.size.y) <= line.points[2].y))
 
 func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void:
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not GlobalSettings.is_selecting:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and GlobalSettings.is_normal_mode():
 		get_node("/root/RootNode/Camera2D").lock_pan = true
 		if(event.pressed):
 			for obj in ComponentManager.obj_list.values():

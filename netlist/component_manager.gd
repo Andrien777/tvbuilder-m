@@ -9,6 +9,8 @@ var ALL_COMPONENTS_LIST
 
 var selection_area
 
+var deletion_queue: Array[CircuitComponent] = []
+
 func get_config_path_by_name(name:String):
 	return ALL_COMPONENTS_LIST[name].config_path
 
@@ -16,8 +18,9 @@ func get_class_path_by_name(name:String):
 	return ALL_COMPONENTS_LIST[name].logic_class_path
 
 func register_object(object: CircuitComponent):
-	object.id = last_id
+	object.id = int(last_id) # It can become float for some ungodly reason
 	last_id += 1
+	last_id = int(last_id) # It can become float for some ungodly reason
 	if not obj_list.is_empty() and get_by_id(object.id) != null:
 		PopupManager.display_error("Попытка добавить дубликат id", "Объект не добавлен", Vector2(100, 100))
 		OS.alert("Обнаружено столкновение идентификаторов","Ошибка добавления объекта",)
@@ -26,7 +29,15 @@ func register_object(object: CircuitComponent):
 
 func remove_object(object: CircuitComponent):
 	obj_list.erase(object.id)
-	
+
+func add_to_deletion_queue(object: CircuitComponent):
+	deletion_queue.append(object)
+
+func clear_deletion_queue():
+	for obj in deletion_queue:
+		obj.fully_delete()
+	deletion_queue.clear()
+
 func get_by_id(id: int) -> CircuitComponent:
 	return obj_list.get(id)
 	
