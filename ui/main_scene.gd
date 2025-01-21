@@ -25,16 +25,10 @@ func _process(delta: float) -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
-	NetlistClass.propagate_signal()
-	NetlistClass.process_components()
-	NetlistClass.propagate_signal()
+	NetlistClass.process_scheme()
 	if GlobalSettings.turbo:
-		NetlistClass.propagate_signal()
-		NetlistClass.process_components()
-		NetlistClass.propagate_signal()
-		NetlistClass.propagate_signal()
-		NetlistClass.process_components()
-		NetlistClass.propagate_signal()
+		NetlistClass.process_scheme()
+		NetlistClass.process_scheme()
 
 func _input(event):
 	if (GlobalSettings.disableGlobalInput):

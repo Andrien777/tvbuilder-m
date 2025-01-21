@@ -28,6 +28,11 @@ func delete_connection(pin1, pin2)->void:
 func clear():
 	nodes.clear()
 
+func process_scheme():
+	propagate_signal()
+	process_components()
+	propagate_signal()
+
 func propagate_signal() -> void:
 	ComponentManager.clear_deletion_queue()
 	if nodes.is_empty():
