@@ -32,14 +32,16 @@
 [ext_resource type="Script" path="res://ui/highlight_pins_button.gd" id="17_skpg2"]
 [ext_resource type="Texture2D" uid="uid://tkuyn0xyh17i" path="res://ui/menu_icons/Edit/ColorPin.png" id="18_38rbo"]
 [ext_resource type="FontFile" uid="uid://co86tufoji665" path="res://ui/JetBrainsMonoNL-Regular.ttf" id="18_awkwq"]
-[ext_resource type="Texture2D" uid="uid://dkpyuckbkwm3n" path="res://ui/menu_icons/cursor.png" id="19_4o625"]
 [ext_resource type="Script" path="res://ui/logic_analyzer/start_stop_analysis_button.gd" id="19_gtxal"]
-[ext_resource type="Texture2D" uid="uid://dkpyuckbkwm3n" path="res://ui/menu_icons/cursor.png" id="19_h0305"]
 [ext_resource type="Texture2D" uid="uid://m6615xpuyo5e" path="res://ui/tile.png" id="19_xavts"]
 [ext_resource type="Script" path="res://ui/usual_mode_button.gd" id="20_irwob"]
 [ext_resource type="Script" path="res://ui/logic_analyzer/zoom_out_button.gd" id="21_16sfj"]
+[ext_resource type="Texture2D" uid="uid://bj5r1k8bf0r7n" path="res://ui/menu_icons/select.png" id="21_b5oi8"]
 [ext_resource type="Texture2D" uid="uid://c1lrw4fvr8awx" path="res://ui/menu_icons/camera-focus.png" id="22_8cmxa"]
 [ext_resource type="Script" path="res://ui/logic_analyzer/zoom_in_button.gd" id="22_bntlu"]
+[ext_resource type="Texture2D" uid="uid://b1rpgeq2toymq" path="res://ui/menu_icons/help.png" id="23_aids2"]
+[ext_resource type="Script" path="res://ui/conn_mode_button.gd" id="24_c307o"]
+[ext_resource type="Texture2D" uid="uid://dkpyuckbkwm3n" path="res://ui/menu_icons/cursor.png" id="27_2hiqc"]
 [ext_resource type="Script" path="res://ui/selection_mode_button.gd" id="28_o75gi"]
 [ext_resource type="Script" path="res://ui/logic_analyzer/start_for_button.gd" id="33_503t8"]
 [ext_resource type="Script" path="res://ui/logic_analyzer/start_for_line_edit.gd" id="34_3a6np"]
@@ -268,7 +270,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_j2kb7")
 toggle_mode = true
 shortcut_feedback = false
 shortcut_in_tooltip = false
-icon = ExtResource("19_h0305")
+icon = ExtResource("27_2hiqc")
 script = ExtResource("20_irwob")
 
 [node name="SelectionModeButton" type="Button" parent="UiCanvasLayer/VBoxContainer2/RibbonContainer"]
@@ -276,7 +278,7 @@ layout_mode = 2
 tooltip_text = "Режим выделения"
 theme_override_styles/pressed = SubResource("StyleBoxFlat_14ih4")
 toggle_mode = true
-icon = ExtResource("27_2hiqc")
+icon = ExtResource("21_b5oi8")
 script = ExtResource("28_o75gi")
 
 [node name="ConnModeButton" type="Button" parent="UiCanvasLayer/VBoxContainer2/RibbonContainer"]
