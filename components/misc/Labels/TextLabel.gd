@@ -76,9 +76,6 @@ func _input(event):
 		#queue_free()
 		#
 func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void: # TODO: Remove this overload
-	if event.is_action_pressed("toggle_grid"):
-		print(event)
-		viewport.set_input_as_handled()
 	super._input_event(viewport, event, shape_idx)
 	if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_RIGHT:
 		popup.global_position = get_global_mouse_position()

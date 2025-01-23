@@ -197,18 +197,19 @@ func get_json_adjacency():
 			if neighbour.pin in visited:
 				continue
 			var wire = WireManager.find_wire_by_ends(node, neighbour.pin)
-			edges.append({
-				"from": {
-					"ic": node.parent.id,
-					"pin": node.index
-				},
-				"to": {
-					"ic": neighbour.pin.parent.id,
-					"pin": neighbour.pin.index
-				},
-				"wire":{
-					"control_points":wire.control_points,
-					"color":null
-				}
-			})
+			if is_instance_valid(wire):
+				edges.append({
+					"from": {
+						"ic": node.parent.id,
+						"pin": node.index
+					},
+					"to": {
+						"ic": neighbour.pin.parent.id,
+						"pin": neighbour.pin.index
+					},
+					"wire":{
+						"control_points":wire.control_points,
+						"color":null
+					}
+				})
 	return edges
