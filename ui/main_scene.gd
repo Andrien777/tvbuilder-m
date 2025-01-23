@@ -48,6 +48,7 @@ func _input(event):
 		HistoryBuffer.redo_last_event()
 	elif (event.is_action_pressed("abort_wire_creation") or event.is_action_pressed("delete_component")) and not GlobalSettings.disableGlobalInput:
 		WireManager.stop_wire_creation()
+
 	elif event.is_action_pressed("copy") and not GlobalSettings.disableGlobalInput:
 		CopyBuffer.copy(get_global_mouse_position())
 		selection_area.remember_copy_offset(get_global_mouse_position())
@@ -65,6 +66,10 @@ func _input(event):
 	# Has to be in a separate if
 	if event.is_action_pressed("abort_wire_creation") and not GlobalSettings.disableGlobalInput:
 		selection_area.stop_selection()
+
+	elif event.is_action_pressed("create_bus"):
+		WireManager.register_bus_point(get_global_mouse_position())
+
 
 func toggle_graphics_mode():
 	if GlobalSettings.CurrentGraphicsMode==LegacyGraphicsMode:

@@ -1,5 +1,7 @@
 extends Node2D
 var wires: Array[Wire]
+var buses: Array[Bus]
+var current_bus = null
 var first_wire_point = null
 var second_wire_point = null
 var timer: Timer
@@ -50,8 +52,12 @@ func _delete_wire(wire):
 		NetlistClass.delete_connection(wire.first_object, wire.second_object)
 		if is_instance_valid(wire.first_object):
 			(wire.first_object as Pin).state = NetConstants.LEVEL.LEVEL_Z
+			if(wire.first_object.parent is BusComponent): # TODO: Maybe this should be a signal going to the pin
+				wire.first_object.parent.delete_connection(wire.first_object)
 		if is_instance_valid(wire.second_object):
 			(wire.second_object as Pin).state = NetConstants.LEVEL.LEVEL_Z
+			if(wire.second_object.parent is BusComponent):
+				wire.second_object.parent.delete_connection(wire.second_object)
 		wires.erase(wire)
 		if GlobalSettings.showLastWire:
 			if not wires.is_empty():
@@ -77,8 +83,12 @@ func _delete_wire_by_ends(from, to): #Slow and questionable, but should work fin
 	NetlistClass.delete_connection(wire_to_delete.first_object, wire_to_delete.second_object)
 	if is_instance_valid(wire_to_delete.first_object):
 		(wire_to_delete.first_object as Pin).state = NetConstants.LEVEL.LEVEL_Z
+		if(wire_to_delete.first_object.parent is BusComponent): # TODO: Maybe this should be a signal going to the pin
+			wire_to_delete.first_object.parent.delete_connection(wire_to_delete.first_object)
 	if is_instance_valid(wire_to_delete.second_object):
 		(wire_to_delete.second_object as Pin).state = NetConstants.LEVEL.LEVEL_Z
+		if(wire_to_delete.second_object.parent is BusComponent):
+			wire_to_delete.second_object.parent.delete_connection(wire_to_delete.second_object)
 	wires.erase(wire_to_delete)
 	if GlobalSettings.showLastWire:
 		if not wires.is_empty():
@@ -124,6 +134,9 @@ func clear():
 	for wire in wires:
 		wire.queue_free()
 	wires.clear()
+	for bus in buses:
+		bus.queue_free()
+	buses.clear()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -163,3 +176,29 @@ func force_update_wires_after_delay():
 func force_update_wires():
 	for wire in wires:
 		wire._process(0.0,true)
+		
+func _create_bus(initial_point = Vector2(0,0)):
+	var bus = Bus.new()
+	bus.initialize([initial_point])
+	buses.append(bus)
+	add_child(bus)
+	return bus
+func register_bus(bus:Bus):
+	buses.append(bus)
+	add_child(bus)
+func register_bus_point(point:Vector2):
+	if !current_bus:
+		current_bus = _create_bus(point)
+	else:
+		current_bus.add_point(point)
+	
+func _delete_bus(bus):
+	if bus in buses:
+		buses.erase(bus)
+		bus.queue_free()
+
+func buses_to_json():
+	var json = []
+	for bus in buses:
+		json.append(bus.component.to_json_object())
+	return json

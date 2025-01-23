@@ -1,4 +1,6 @@
+
 [gd_scene load_steps=57 format=3 uid="uid://cd0acvbjpyg0w"]
+
 
 [ext_resource type="Script" path="res://ui/main_scene.gd" id="1_8vqs3"]
 [ext_resource type="Shader" path="res://shaders/grid.gdshader" id="2_7ckc8"]
@@ -32,6 +34,7 @@
 [ext_resource type="Script" path="res://ui/highlight_pins_button.gd" id="17_skpg2"]
 [ext_resource type="Texture2D" uid="uid://tkuyn0xyh17i" path="res://ui/menu_icons/Edit/ColorPin.png" id="18_38rbo"]
 [ext_resource type="FontFile" uid="uid://co86tufoji665" path="res://ui/JetBrainsMonoNL-Regular.ttf" id="18_awkwq"]
+[ext_resource type="Script" path="res://ui/global_input.gd" id="18_yrb2u"]
 [ext_resource type="Script" path="res://ui/logic_analyzer/start_stop_analysis_button.gd" id="19_gtxal"]
 [ext_resource type="Texture2D" uid="uid://m6615xpuyo5e" path="res://ui/tile.png" id="19_xavts"]
 [ext_resource type="Script" path="res://ui/usual_mode_button.gd" id="20_irwob"]
@@ -312,6 +315,28 @@ tooltip_text = "Tooltip"
 mouse_force_pass_scroll_events = false
 hide_root = true
 script = ExtResource("3_q10ex")
+
+[node name="GlobalInput" type="BoxContainer" parent="UiCanvasLayer"]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -301.0
+offset_top = -201.0
+offset_right = 399.0
+offset_bottom = -151.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+script = ExtResource("18_yrb2u")
+
+[node name="LineEdit" type="LineEdit" parent="UiCanvasLayer/GlobalInput"]
+custom_minimum_size = Vector2(700, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
 
 [node name="SaveAsFileDialog" type="FileDialog" parent="."]
 auto_translate_mode = 1

@@ -21,12 +21,15 @@ func add_connection(pin1: Pin, pin2: Pin) -> void:
 	nodes[pin2].neighbours.append(nodes[pin1])
 	
 func delete_connection(pin1, pin2)->void:
-	nodes[pin1].neighbours.erase(nodes[pin2])
-	nodes[pin2].neighbours.erase(nodes[pin1])
-	if nodes[pin1].neighbours.is_empty():
-		nodes.erase(pin1)
-	if nodes[pin2].neighbours.is_empty():
-		nodes.erase(pin2)
+	if nodes.has(pin1) and nodes.has(pin2):
+		if nodes[pin2] in nodes[pin1].neighbours:
+			nodes[pin1].neighbours.erase(nodes[pin2])
+		if nodes[pin1] in nodes[pin2].neighbours:
+			nodes[pin2].neighbours.erase(nodes[pin1])
+		if nodes[pin1].neighbours.is_empty():
+			nodes.erase(pin1)
+		if nodes[pin2].neighbours.is_empty():
+			nodes.erase(pin2)
 
 func clear():
 	nodes.clear()
@@ -202,7 +205,11 @@ func get_json_adjacency():
 			if neighbour.pin in visited:
 				continue
 			var wire = WireManager.find_wire_by_ends(node, neighbour.pin)
+
 			if is_instance_valid(wire):
+
+			if wire: # This can happen if "invisible link" was created. For example, pins in a bus are connected this way
+
 				edges.append({
 					"from": {
 						"ic": node.parent.id,
