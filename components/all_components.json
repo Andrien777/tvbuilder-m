@@ -31,6 +31,18 @@
 		"config_path": "res://components/ic/other/led.json",
 		"logic_class_path": "res://components/ic/other/led.gd"
 	},
+	"Светодиод (кр.)": {
+		"config_path": "res://components/ic/other/led.json",
+		"logic_class_path": "res://components/ic/other/led_red.gd"
+	},
+	"Светодиод (жел.)": {
+		"config_path": "res://components/ic/other/led.json",
+		"logic_class_path": "res://components/ic/other/led_yellow.gd"
+	},
+	"Светодиод (син.)": {
+		"config_path": "res://components/ic/other/led.json",
+		"logic_class_path": "res://components/ic/other/led_blue.gd"
+	},
 	"Буфер с 3-м состоянием": {
 		"config_path": "res://components/ic/other/tristate.json",
 		"logic_class_path": "res://components/ic/other/tristate.gd"
