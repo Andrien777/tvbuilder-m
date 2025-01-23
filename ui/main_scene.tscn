@@ -1,6 +1,4 @@
-
-[gd_scene load_steps=57 format=3 uid="uid://cd0acvbjpyg0w"]
-
+[gd_scene load_steps=58 format=3 uid="uid://cd0acvbjpyg0w"]
 
 [ext_resource type="Script" path="res://ui/main_scene.gd" id="1_8vqs3"]
 [ext_resource type="Shader" path="res://shaders/grid.gdshader" id="2_7ckc8"]

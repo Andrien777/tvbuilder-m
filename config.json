@@ -1,11 +1,14 @@
 {
 	"AltAlgo": 0,
-	"BgColor": "058101",
+	"BgColor": "2b2a25",
 	"DefaultWireColor": 0,
 	"GraphicsMode": "LegacyGraphicsMode",
+	"HighlightedLAPinColor": "00bfff",
+	"HighlightedPinColor": "20f132",
+	"HighlightedWireColor": "b3b3b3",
 	"HistoryDepth": 200,
 	"LevelHighlight": 0,
 	"SettingsOverride": 1,
 	"ShowLastWire": 0,
-	"WireColor": "384bb2"
+	"WireColor": "93f5f3"
 }

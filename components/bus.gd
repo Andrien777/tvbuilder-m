@@ -26,6 +26,7 @@ func _init()->void:
 	component = BusComponent.new()
 	component.bus = self
 	component.readable_name = "Шина"
+	
 	ComponentManager.register_object(component)
 	SaveManager.do_not_save(component.id)
 func initialize(control_points: Array[Vector2]):
@@ -34,6 +35,7 @@ func initialize(control_points: Array[Vector2]):
 			line.add_point(Vector2(line.get_point_position(line.get_point_count()-1).x, p.y))
 		self.control_points.append(p)
 		line.add_point(p)
+	
 	update_hitbox()
 
 
@@ -62,7 +64,8 @@ func _process(delta: float) -> void:
 			for j in connection_pins:
 				NetlistClass.delete_connection(i, j) # Its sub-optimal. I don`t care
 		for i in connection_pins:
-			i.queue_free() # Just to be safe
+			if is_instance_valid(i):
+				i.queue_free() # Just to be safe
 		WireManager._delete_bus(self)
 		#var event = WireDeletionEvent.new() #TODO: Bus events
 		#event.initialize(self.first_object, self.second_object)
@@ -160,3 +163,5 @@ func update_hitbox():
 				hitbox_part.position = Vector2(0.5 * (line.points[i].x + line.points[i + 1].x),
 					0.5 * (line.points[i].y + line.points[i + 1].y))
 				hitbox.append(hitbox_part)
+		if not hitbox.is_empty():
+			component.hitbox = self.hitbox[0]

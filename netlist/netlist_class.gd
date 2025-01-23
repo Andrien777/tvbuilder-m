@@ -206,10 +206,7 @@ func get_json_adjacency():
 				continue
 			var wire = WireManager.find_wire_by_ends(node, neighbour.pin)
 
-			if is_instance_valid(wire):
-
 			if wire: # This can happen if "invisible link" was created. For example, pins in a bus are connected this way
-
 				edges.append({
 					"from": {
 						"ic": node.parent.id,
