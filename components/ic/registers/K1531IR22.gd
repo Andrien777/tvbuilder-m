@@ -6,7 +6,7 @@ var inputs: Array
 var outputs: Array
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	inputs = [3, 4, 7, 8, 11, 14, 17, 18]
+	inputs = [3, 4, 7, 8, 13, 14, 17, 18]
 	outputs = [2, 5, 6, 9, 12, 15, 16, 19]
 	state = [0, 0, 0, 0, 0, 0, 0, 0]
 	
@@ -26,7 +26,7 @@ func _process_signal():
 	pin(10).set_low()
 	pin(20).set_high()
 	if (pin(1).low):
-		if pin(13).high:
+		if pin(11).high:
 			save_state()
 		load_state()
 	else:

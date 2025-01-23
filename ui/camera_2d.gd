@@ -24,6 +24,8 @@ func _process(delta: float) -> void:
 			change_zoom(Vector2(-0.1,-0.1))
 	if Input.is_action_pressed("focus_camera") and get_window().has_focus() and not GlobalSettings.disableGlobalInput:
 		move_to_centre()
+	if not get_window().has_focus():
+		pressed_mmb = false
 
 func _physics_process(delta: float) -> void:
 	if(GlobalSettings.disableGlobalInput):
@@ -36,7 +38,7 @@ func _physics_process(delta: float) -> void:
 		position += Vector2.LEFT * 10
 	if Input.is_action_pressed("pan_right"):
 		position += Vector2.RIGHT * 10
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and not lock_pan and not GlobalSettings.disableGlobalInput and get_node("/root/RootNode").get_window().has_focus():
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and not lock_pan and not GlobalSettings.disableGlobalInput and get_node("/root/RootNode").get_window().has_focus() and not GlobalSettings.is_selecting():
 		if pressed_mmb:
 			position = mouse_offset - get_local_mouse_position()
 			position = Vector2(int(position.x), int(position.y))

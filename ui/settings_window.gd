@@ -25,6 +25,9 @@ func open_window():
 	get_node("VBoxContainer/ColorSubmenu/ColorContainer/ColorPickerButton").color = get_node('/root/RootNode/GridSprite').modulate
 	get_node("VBoxContainer/ColorSubmenu/WireColorContainer/WireColorPickerButton").color = GlobalSettings.wire_color
 	get_node("VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/TurboModeButton").button_pressed = GlobalSettings.turbo
+	get_node("VBoxContainer/ColorSubmenu/WireHighlightColorContainer/WireHighlightColorPickerButton").color = GlobalSettings.highlightedWireColor
+	get_node("VBoxContainer/ColorSubmenu/PinHighlightContainer/PinHighlightColorPickerButton").color = GlobalSettings.highlightedPinsColor
+	get_node("VBoxContainer/ColorSubmenu/PinLAHighlightColorContainer/PinLAHighlightColorPickerButton").color = GlobalSettings.highlightedLAPinsColor
 
 func close():
 	GlobalSettings.save()

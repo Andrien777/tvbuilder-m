@@ -9,6 +9,7 @@ func _ready():
 	proc_impl.cx = 0
 	proc_impl.dx = 0
 	reg_viewer = get_node("/root/RootNode/RegViewer")
+	proc_impl.status = "OK"
 
 func _rmb_action():
 	reg_viewer.set_proc(self)
@@ -95,4 +96,7 @@ func _process_signal():
 	proc_impl.Perform_work()
 	read_pins()
 	# Read the output
+	if proc_impl.status != "OK":
+		OS.alert(proc_impl.status, "Статус процессора")
+		proc_impl.status = "OK"
  

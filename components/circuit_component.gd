@@ -9,7 +9,7 @@ var drag_offset = Vector2(0,0)
 var readable_name:String
 
 var display_name_label = true
-var id
+var id: int
 var fallback_texture = preload("res://components/ic/ic.png")
 var height: float
 var width: float
@@ -20,6 +20,8 @@ var ic_texture = null
 var sprite = null
 var hitbox: CollisionShape2D
 var name_label = Label.new()
+var is_selected = false
+
 func initialize(spec: ComponentSpecification, ic = null)->void: # Ic field holds saved state and is component-specific
 	self.readable_name = spec.name
 	self.input_pickable = true
@@ -82,59 +84,63 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if is_dragged && Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+	if is_dragged && Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) && GlobalSettings.is_normal_mode():
 		get_node("/root/RootNode/Camera2D").lock_pan = true
 		self.global_position = get_global_mouse_position() + drag_offset
-	elif not now_disabled_drag:
+	elif not now_disabled_drag or not GlobalSettings.is_normal_mode():
 		self.is_dragged = false
 		snap_to_grid()
 		get_node("/root/RootNode/Camera2D").lock_pan = false
 		now_disabled_drag = true
 	if Input.is_action_pressed("delete_component") and not GlobalSettings.disableGlobalInput:
 		if self.is_mouse_over:
-			Input.action_release("delete_component")
-			ComponentManager.remove_object(self)
-			var event = ComponentDeletionEvent.new()
-			event.initialize(self)
-			HistoryBuffer.register_event(event)
-			for wire: Wire in WireManager.wires:
-				if wire.first_object in pins or wire.second_object in pins:
-					WireManager._delete_wire(wire)
-			queue_free()
-	if Input.is_action_pressed("show_connection_table") and not GlobalSettings.disableGlobalInput:
-		if self.is_mouse_over:
-			Input.action_release("show_connection_table")
-			var conn_table = load("res://tools/ConnectionTable/ConnectionTable.tscn").instantiate()
-			conn_table.ic = self
-			add_child(conn_table)
-			conn_table.get_connections(self)
-			conn_table.display_connections()
-			
-			
+			delete_self()
+	is_selected = ComponentManager.selection_area.is_in(self)
+	if is_selected or (is_mouse_over and GlobalSettings.is_selecting()):
+		self.modulate = Color(0.7, 0.7, 1)
+	else:
+		self.modulate = Color(1, 1, 1)
+
 		
 var tween
 func snap_to_grid():
 	if tween:
 		tween.kill()
 	tween = create_tween()
-	var dx = int(position.x) % 25 if int(position.x) % 25 < (25 - int(position.x) % 25) else int(position.x) % 25 - 25
-	var dy = int(position.y) % 25 if int(position.y) % 25 < (25 - int(position.y) % 25) else int(position.y) % 25 - 25
+	var dx = int(position.x) % 5 if int(position.x) % 5 < (5 - int(position.x) % 5) else int(position.x) % 5 - 5
+	var dy = int(position.y) % 5 if int(position.y) % 5 < (5 - int(position.y) % 5) else int(position.y) % 5 - 5
 	dx += position.x - int(position.x)
 	dy += position.y - int(position.y)
 	tween.tween_property(self,"position",position - Vector2(dx, dy),0.1).set_trans(Tween.TRANS_ELASTIC)
 	
-	
+
+func fully_delete():
+	Input.action_release("delete_component")
+	ComponentManager.remove_object(self)
+	var event = ComponentDeletionEvent.new()
+	event.initialize(self)
+	HistoryBuffer.register_event(event)
+	for wire: Wire in WireManager.wires:
+		if wire.first_object in pins or wire.second_object in pins:
+			WireManager._delete_wire(wire)
+	queue_free()
+
+
+func delete_self():
+	ComponentManager.add_to_deletion_queue(self)
+
 func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void:
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not GlobalSettings.is_selecting() and not GlobalSettings.disableGlobalInput:
 		get_node("/root/RootNode/Camera2D").lock_pan = true
 		if(event.pressed):
 			_lmb_action()
-			drag_offset = global_position - get_global_mouse_position()
-			viewport.set_input_as_handled()
-			now_disabled_drag = false
-			var move_event = MoveEvent.new()
-			move_event.initialize(self.global_position, self)
-			HistoryBuffer.register_event(move_event)
+			if GlobalSettings.is_normal_mode():
+				drag_offset = global_position - get_global_mouse_position()
+				viewport.set_input_as_handled()
+				now_disabled_drag = false
+				var move_event = MoveEvent.new()
+				move_event.initialize(self.global_position, self)
+				HistoryBuffer.register_event(move_event)
 		is_dragged = event.pressed
 		
 		if (is_dragged==false):
@@ -145,7 +151,14 @@ func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void
 		if(event.pressed):
 			_rmb_action()
 func _lmb_action():
-	pass
+	if GlobalSettings.is_connectivity_mode():
+		if self.is_mouse_over:
+			Input.action_release("show_connection_table")
+			var conn_table = load("res://tools/ConnectionTable/ConnectionTable.tscn").instantiate()
+			conn_table.ic = self
+			add_child(conn_table)
+			conn_table.get_connections(self)
+			conn_table.display_connections()
 func _rmb_action():
 	pass
 func _process_signal():
@@ -153,9 +166,12 @@ func _process_signal():
 
 func _mouse_enter() -> void:
 	is_mouse_over = true
+	if GlobalSettings.is_connectivity_mode():
+		Input.set_default_cursor_shape(Input.CURSOR_HELP)
 	
 func _mouse_exit() -> void:
 	is_mouse_over = false
+	Input.set_default_cursor_shape(Input.CURSOR_ARROW)
 
 static func pin_comparator(a,b):
 	if a is Pin and b is Pin:
@@ -212,41 +228,41 @@ func update_pins(pins:Array, ic_shape:Vector2):
 			match _pin.ic_position:
 				"TOP":
 					_pin.position = Vector2(ic_shape.x/2,
-					-4)
+					-5)
 				"BOTTOM":
 					_pin.rotation_degrees =180
 					_pin.position = Vector2(ic_shape.x/2, 
-					ic_shape.y+4)
+					ic_shape.y+5)
 				"LEFT":
 					_pin.rotation_degrees =270
-					_pin.position = Vector2(-4 , 
+					_pin.position = Vector2(-5 , 
 					ic_shape.y/2)
 				"RIGHT":
 					_pin.rotation_degrees =90
-					_pin.position = Vector2(ic_shape.x+4 , 
+					_pin.position = Vector2(ic_shape.x+5 , 
 					ic_shape.y/2)
 		else:
 			match _pin.ic_position:
 				"TOP":
 					_pin.position = Vector2(side_padding+ 
 					side_margin[_pin.ic_position]*(side_count[_pin.ic_position] - side_index[_pin.ic_position]-1), # TODO: Please think of something better
-					-4)
+					-5)
 					side_index[_pin.ic_position]+=1
 				"BOTTOM":
 					_pin.rotation_degrees =180
 					_pin.position = Vector2(side_padding+ 
 					side_margin[_pin.ic_position]*side_index[_pin.ic_position], 
-					ic_shape.y+4)
+					ic_shape.y+5)
 					side_index[_pin.ic_position]+=1
 				"LEFT":
 					_pin.rotation_degrees =270
-					_pin.position = Vector2(-4 , 
+					_pin.position = Vector2(-5 , 
 					side_padding+
 					side_margin[_pin.ic_position]*side_index[_pin.ic_position])
 					side_index[_pin.ic_position]+=1	
 				"RIGHT":
 					_pin.rotation_degrees =90
-					_pin.position = Vector2(ic_shape.x+4, 
+					_pin.position = Vector2(ic_shape.x+5, 
 					side_padding+
 					side_margin[_pin.ic_position]*(side_count[_pin.ic_position] - side_index[_pin.ic_position]-1))
 					side_index[_pin.ic_position]+=1

@@ -14,6 +14,7 @@ var dragged_point_index = 0
 var last_point_index = 4
 var control_points: Array[Vector2]
 var control_point_dragged_from
+var control_point_drag_offset = Vector2.ZERO
 func initialize(first_object:Node2D, second_object:Node2D)->void:
 	line.clear_points()
 
@@ -58,9 +59,9 @@ func _ready() -> void:
 
 func _mouse_enter() -> void:
 	self.line.width = 4
-	self.modulate=Color(0.7,0.7,0.7,1)
-	first_object.modulate=Color(0.7,0.7,0.7,1)
-	second_object.modulate=Color(0.7,0.7,0.7,1)
+	self.modulate=GlobalSettings.highlightedWireColor
+	first_object.modulate=GlobalSettings.highlightedPinsColor
+	second_object.modulate=GlobalSettings.highlightedPinsColor
 	is_mouse_over = true
 func _mouse_exit() -> void:
 	self.line.width = 2
@@ -118,6 +119,13 @@ func _process(delta: float, force_update = false) -> void:
 						hitbox.append(hitbox_part)
 		first_object_last_position = first_object.global_position
 		second_object_last_position = second_object.global_position
+		if first_object is Pin and second_object is Pin:
+			if first_object.parent.is_selected and second_object.parent.is_selected and first_object.parent.is_dragged:
+				is_dragged = true
+				if control_point_drag_offset == Vector2.ZERO and control_points.size() != 0:
+					control_point_drag_offset = control_points[-1] - get_global_mouse_position()
+			else:
+				control_point_drag_offset = Vector2.ZERO
 	else:
 		WireManager._delete_wire(self)
 	if Input.is_action_pressed("delete_component") and self.is_mouse_over and not GlobalSettings.disableGlobalInput:
@@ -127,16 +135,17 @@ func _process(delta: float, force_update = false) -> void:
 		WireManager._delete_wire(self)
 		var event = WireDeletionEvent.new() # We are doing it there (and not in WireManager)
 		# to prevent events creating from the HistoryEvent.undo() call 
-		event.initialize(self.first_object, self.second_object)
+		event.initialize(self.first_object, self.second_object, self.control_points)
 		HistoryBuffer.register_event(event)
-	if(is_dragged):
-		control_points[-1] = snap_to_grid(get_global_mouse_position()) if GlobalSettings.WireSnap else get_global_mouse_position()
+	if(is_dragged) and control_points.size() > 0:
+		control_points[-1] = snap_to_grid(get_global_mouse_position() + control_point_drag_offset) if GlobalSettings.WireSnap else get_global_mouse_position() + control_point_drag_offset
+		is_dragged = Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)
 	for point in control_points: # TODO: do something for every point
 		line.set_point_position(dragged_point_index, Vector2(line.get_point_position(dragged_point_index-1).x,control_points[-1].y))
 		line.set_point_position(dragged_point_index+1, control_points[-1])
 		line.set_point_position(dragged_point_index+2, Vector2(control_points[-1].x,line.get_point_position(dragged_point_index+3).y))
 func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void:
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not GlobalSettings.is_selecting() and not GlobalSettings.disableGlobalInput:
 		get_node("/root/RootNode/Camera2D").lock_pan = true
 		if(event.pressed and control_points.is_empty()): # Limit to one control point for now
 			add_control_point(get_global_mouse_position())
@@ -147,7 +156,7 @@ func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void
 			control_point_dragged_from = get_global_mouse_position()
 			
 func _input(event: InputEvent) -> void: # This need to be like that because event won`t register in _input_event unless the mouse is on the wire
-	if is_dragged and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed==false:
+	if is_dragged and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed==false or GlobalSettings.is_selecting() and is_dragged:
 		is_dragged = false
 		get_node("/root/RootNode/Camera2D").lock_pan = false
 		_process(0.0,true) # Recalculate the hitbox
@@ -171,13 +180,13 @@ func get_pin_offset(pin:Node2D):
 		return Vector2.ZERO
 	match pin.ic_position:
 		"TOP":
-			return Vector2.UP*(pin_offset + pin.index*GlobalSettings.PinIndexOffset)
+			return Vector2.UP*(pin_offset + (pin.parent.pins.size() - pin.index + 1)*GlobalSettings.PinIndexOffset)
 		"BOTTOM":
 			return Vector2.DOWN*(pin_offset+ pin.index*GlobalSettings.PinIndexOffset)
 		"LEFT":
-			return Vector2.LEFT*pin_offset
+			return Vector2.LEFT*(pin_offset+ pin.index*GlobalSettings.PinIndexOffset)
 		"RIGHT":
-			return Vector2.RIGHT*pin_offset
+			return Vector2.RIGHT*(pin_offset + (pin.parent.pins.size() - pin.index + 1)*GlobalSettings.PinIndexOffset)
 		
 func change_color():
 	if (GlobalSettings.CurrentGraphicsMode==LegacyGraphicsMode) and GlobalSettings.useDefaultWireColor:

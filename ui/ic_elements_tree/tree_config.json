@@ -202,9 +202,29 @@
 					"logic_class_path": "res://components/ic/other/button.gd"
 				},
 				{
-					"ic_name": "Светодиод",
+					"ic_name": "Светодиод (зеленый)",
 					"config_path": "res://components/ic/other/led.json",
 					"logic_class_path": "res://components/ic/other/led.gd"
+				},
+				{
+					"ic_name": "Светодиод (красный)",
+					"config_path": "res://components/ic/other/led.json",
+					"logic_class_path": "res://components/ic/other/led_red.gd"
+				},
+				{
+					"ic_name": "Светодиод (синий)",
+					"config_path": "res://components/ic/other/led.json",
+					"logic_class_path": "res://components/ic/other/led_blue.gd"
+				},
+				{
+					"ic_name": "Светодиод (желтый)",
+					"config_path": "res://components/ic/other/led.json",
+					"logic_class_path": "res://components/ic/other/led_yellow.gd"
+				},
+				{
+					"ic_name": "Кварцевый резонатор",
+					"config_path": "res://components/ic/other/quartz.json",
+					"logic_class_path": "res://components/ic/other/quartz.gd"
 				},
 				{
 					"ic_name": "Генератор частоты",
@@ -227,6 +247,10 @@
 					"ic_name": "Логический ноль (GND)",
 					"config_path": "res://components/ic/other/constant0.json",
 					"logic_class_path": "res://components/ic/other/constant0.gd"
+				},{
+					"ic_name": "Резистор (510 Ом)",
+					"config_path": "res://components/misc/resistor.json",
+					"logic_class_path": "res://components/misc/resistor.gd"
 				}
 				
 			]

@@ -5327,7 +5327,7 @@ bool IProc_8088::opcode_0xCC() {
     if (!interrupted) {
         waitClocksCount += 1;
         interruptState = 0;
-        throw std::logic_error("Возникло прерывание: breakpoint!");
+        setStatus(L"РџСЂРµСЂС‹РІР°РЅРёРµ: breakpoint (РєРѕРґ 3)");
         interrupted = true;
     }
 
@@ -5348,7 +5348,7 @@ bool IProc_8088::opcode_0xCE() {
     if (opcodeState == 1) {
         if (!interrupted) {
             interruptState = 0;
-            throw std::logic_error("Возникло прерывание: переполнение!");
+            setStatus(L"РџСЂРµСЂС‹РІР°РЅРёРµ: РїРµСЂРµРїРѕР»РЅРµРЅРёРµ (РєРѕРґ 4)");
             interrupted = true;
         }
         return interruptHandler(4); // interrupt on overflow
@@ -5368,7 +5368,7 @@ bool IProc_8088::opcode_0xCD() {
     if (opcodeState == 1) {
         if (!interrupted) {
             interruptState = 0;
-            throw std::logic_error("Возникло прерывание типа " + std::to_string(opcodeResult));
+            setStatus(L"РџСЂРµСЂС‹РІР°РЅРёРµ: РїРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРѕРµ (РєРѕРґ " + godot::String(std::to_string(opcodeResult).c_str()) + ")");
             interrupted = true;
         }
 

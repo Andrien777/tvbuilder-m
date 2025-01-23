@@ -1,6 +1,9 @@
 extends Node
 # Netlist
 
+signal scheme_processed
+
+
 var nodes: Dictionary # Pin -> NetlistNode
 
 func add_connection(pin1: Pin, pin2: Pin) -> void:
@@ -31,7 +34,13 @@ func delete_connection(pin1, pin2)->void:
 func clear():
 	nodes.clear()
 
+func process_scheme():
+	propagate_signal()
+	process_components()
+	propagate_signal()
+
 func propagate_signal() -> void:
+	ComponentManager.clear_deletion_queue()
 	if nodes.is_empty():
 		return
 	var visited: Dictionary
@@ -158,7 +167,7 @@ func propagate_signal() -> void:
 						stack.push_back(neighbour)
 	if not late_propagation.is_empty():
 		for pin in late_propagation:
-			if pin.pin.output():
+			if pin.pin.output() and not GlobalSettings.doCycles:
 				pin.pin.parent._process_signal()
 			else:
 				var state = pin.neighbours[0].pin.state
@@ -166,22 +175,26 @@ func propagate_signal() -> void:
 				for neighbour in pin.neighbours:
 					if neighbour not in resolved:
 						continue
-					if neighbour.pin.state != state and neighbour.pin.state != NetConstants.LEVEL.LEVEL_Z:
+					if neighbour.pin.state != state and neighbour.pin.state != NetConstants.LEVEL.LEVEL_Z :
 						if state == NetConstants.LEVEL.LEVEL_Z:
 							state = neighbour.pin.state
 						else:
 							ok = false
-				if ok:
+				if ok or pin.pin.parent.readable_name == "Резистор": #TODO: Change that...
 					pin.pin.state = state
 				else:
 					PopupManager.display_error("Короткое замыкание", "В этом месте произошло КЗ", pin.pin.global_position)
 					#print("Short circuit")
+
+func process_components():
 	for key in nodes.keys():
 		if key.direction == NetConstants.DIRECTION.DIRECTION_INPUT_OUTPUT and not GlobalSettings.doCycles:
 			key.parent._process_signal()
 	if GlobalSettings.doCycles:
 		for ic in ComponentManager.obj_list.values():
 			ic._process_signal()
+
+	scheme_processed.emit()
 
 func get_json_adjacency():
 	var visited: Array[Pin]
@@ -192,7 +205,11 @@ func get_json_adjacency():
 			if neighbour.pin in visited:
 				continue
 			var wire = WireManager.find_wire_by_ends(node, neighbour.pin)
+
+			if is_instance_valid(wire):
+
 			if wire: # This can happen if "invisible link" was created. For example, pins in a bus are connected this way
+
 				edges.append({
 					"from": {
 						"ic": node.parent.id,
