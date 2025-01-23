@@ -1,14 +1,16 @@
 {
 	"AltAlgo": 0,
-	"BgColor": "2b2a25",
+	"BgColor": "56a7f6",
+	"BusColor": "00edff",
 	"DefaultWireColor": 0,
 	"GraphicsMode": "LegacyGraphicsMode",
+	"HighlightedBusColor": "b3b3b3",
 	"HighlightedLAPinColor": "00bfff",
-	"HighlightedPinColor": "20f132",
-	"HighlightedWireColor": "b3b3b3",
+	"HighlightedPinColor": "ff0000",
+	"HighlightedWireColor": "20ff00",
 	"HistoryDepth": 200,
 	"LevelHighlight": 0,
 	"SettingsOverride": 1,
 	"ShowLastWire": 0,
-	"WireColor": "93f5f3"
+	"WireColor": "ff0000"
 }

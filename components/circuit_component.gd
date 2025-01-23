@@ -189,6 +189,7 @@ func pin(i:int):
 	return self.pins[i-1] 
 
 func change_graphics_mode(mode):
+	if sprite==null: return
 	if(self.textures.has(mode.texture_tag)):
 		sprite.texture = self.textures[mode.texture_tag]
 	else:

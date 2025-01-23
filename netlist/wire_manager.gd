@@ -183,9 +183,11 @@ func _create_bus(initial_point = Vector2(0,0)):
 	buses.append(bus)
 	add_child(bus)
 	return bus
+	
 func register_bus(bus:Bus):
 	buses.append(bus)
 	add_child(bus)
+
 func register_bus_point(point:Vector2):
 	if !current_bus:
 		current_bus = _create_bus(point)

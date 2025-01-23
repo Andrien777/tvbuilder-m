@@ -16,8 +16,6 @@ func _input(event):
 			callback.call(textfield.text)
 		self.hide()
 		GlobalSettings.disableGlobalInput = false
-	#if event.is_action_pressed("delete_component"):
-		#Input.action_release("delete_component")
 	
 func ask_for_input(placeholder:String, callback:Callable, clear_content=true, text = ""):
 	if(clear_content):

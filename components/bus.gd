@@ -35,7 +35,7 @@ func initialize(control_points: Array[Vector2]):
 			line.add_point(Vector2(line.get_point_position(line.get_point_count()-1).x, p.y))
 		self.control_points.append(p)
 		line.add_point(p)
-	
+	change_color()
 	update_hitbox()
 
 
@@ -47,12 +47,12 @@ func _ready() -> void:
 
 func _mouse_enter() -> void:
 	self.line.width = highlit_line_width
-	self.modulate=Color(0.7,0.7,0.7,1)
+	self.modulate=GlobalSettings.highlightedBusColor
 	is_mouse_over = true
 
 func _mouse_exit() -> void:
 	self.line.width = default_line_width
-	self.modulate=Color(1,1,1,1)
+	change_color()
 	is_mouse_over = false
 
 
@@ -165,3 +165,13 @@ func update_hitbox():
 				hitbox.append(hitbox_part)
 		if not hitbox.is_empty():
 			component.hitbox = self.hitbox[0]
+
+func change_color():
+	if (GlobalSettings.CurrentGraphicsMode==LegacyGraphicsMode) and GlobalSettings.useDefaultWireColor:
+		self.modulate=Color(1,0,0,1)
+		GlobalSettings.bus_color = Color(1,0,0,1)
+	elif GlobalSettings.useDefaultWireColor:
+		self.modulate=Color(1,1,1,1)
+		GlobalSettings.bus_color = Color(1,1,1,1)
+	else:
+		self.modulate = GlobalSettings.bus_color
