@@ -19,9 +19,11 @@ func _input(event):
 	#if event.is_action_pressed("delete_component"):
 		#Input.action_release("delete_component")
 	
-func ask_for_input(placeholder:String, callback:Callable, clear_content=true):
+func ask_for_input(placeholder:String, callback:Callable, clear_content=true, text = ""):
 	if(clear_content):
 		textfield.text = ""
+	if text!="":
+		textfield.text = text
 	self.show()
 	self.callback = callback
 	

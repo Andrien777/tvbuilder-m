@@ -120,7 +120,7 @@ func _process(delta: float, force_update = false) -> void:
 		second_object_last_position = second_object.global_position
 	else:
 		WireManager._delete_wire(self)
-	if Input.is_action_pressed("delete_component") and self.is_mouse_over:
+	if Input.is_action_pressed("delete_component") and self.is_mouse_over and not GlobalSettings.disableGlobalInput:
 		Input.action_release("delete_component")
 		first_object.modulate=Color(1,1,1,1)
 		second_object.modulate=Color(1,1,1,1)

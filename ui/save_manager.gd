@@ -4,6 +4,7 @@ var last_path: String = ""
 
 var autosave_timer = Timer.new()
 var autosave_interval = 60 # seconds
+var do_not_save_ids: Array[int] = []
 
 func _on_autosave():
 	if last_path != "":
@@ -18,13 +19,16 @@ func save(path: String) -> void:
 		if(!is_instance_valid(ic)):
 			PopupManager.display_error("Что-то пошло не так", "Да, это тот самый баг.", Vector2(100,100))
 			continue
+		if ic.id in do_not_save_ids:
+			continue
 		json_list_ic.append(ic.to_json_object())
 	var json = JSON.new()
 	var file = FileAccess.open(path, FileAccess.WRITE)
 	file.store_string(json.stringify({
 		"components": json_list_ic,
 		"netlist": NetlistClass.get_json_adjacency(),
-		"config": GlobalSettings.get_object_to_save()
+		"config": GlobalSettings.get_object_to_save(),
+		"buses": WireManager.buses_to_json()
 	}, "\t"))
 	file.close()
 
@@ -59,6 +63,8 @@ func load(scene: Node2D, path: String):
 		var y = float(pos[1].replace(")", ""))
 		component.position = Vector2(x, y)
 		#ic_list.append(component) # Component already appends itself during initialization
+	if parsed.has("buses"):
+		load_buses(parsed.buses, scene)
 	for edge in parsed.netlist:
 		var from_ic = ComponentManager.get_by_id(edge.from.ic)
 		var from_pin: Pin
@@ -66,7 +72,7 @@ func load(scene: Node2D, path: String):
 			if pin.index == edge.from.pin:
 				from_pin = pin
 		if from_pin == null:
-			print("error")
+			print("Error. Could not find 'from' pin or ic")
 			continue
 		var to_ic = ComponentManager.get_by_id(edge.to.ic)
 		var to_pin: Pin
@@ -74,7 +80,7 @@ func load(scene: Node2D, path: String):
 			if pin.index == edge.to.pin:
 				to_pin = pin
 		if to_pin == null:
-			print("error")
+			print("Error. Could not find 'to' pin or ic")
 			continue
 		if "wire" in edge:
 			if "control_points" in edge.wire:
@@ -103,3 +109,30 @@ func load(scene: Node2D, path: String):
 func _init():
 	add_child(autosave_timer)
 	autosave_timer.timeout.connect(_on_autosave)
+
+func do_not_save(id:int):
+	if id not in do_not_save_ids:
+		do_not_save_ids.append(id)
+		
+func load_buses(json, scene):
+	for _bus in json:
+		var bus = Bus.new()
+		var control_points: Array[Vector2] = []
+		for p in _bus.control_points:
+			control_points.append(parse_Vector2(p))
+		bus.initialize(control_points)
+		ComponentManager.change_id(bus.component, _bus.id)
+		ComponentManager.last_id = max(ComponentManager.last_id, _bus.id) + 1
+		do_not_save(_bus.id)
+		WireManager.register_bus(bus)
+		# DO NOT ADD BUS TO THE SCENE. IT IS HANDLED BY THE WIRE MANAGER
+		#scene.add_child(bus)
+		for conn in _bus.connections:
+			for pin in conn.pins:
+				bus.add_connection(conn.name, pin.index, parse_Vector2(pin.position))
+
+func parse_Vector2(s:String):
+	var pos = s.split(",")
+	var x = float(pos[0].replace("(", ""))
+	var y = float(pos[1].replace(")", ""))
+	return Vector2(x, y)

@@ -77,16 +77,18 @@ func _input(event):
 		#
 func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void: # TODO: Remove this overload
 	if event.is_action_pressed("toggle_grid"):
-		print(event)
 		viewport.set_input_as_handled()
 	super._input_event(viewport, event, shape_idx)
 	if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_RIGHT:
-		popup.global_position = get_global_mouse_position()
-		popup.visible =!popup.visible
-		if(popup.visible):
-			GlobalSettings.disableGlobalInput = true
-		else:
-			GlobalSettings.disableGlobalInput = false
+		#popup.global_position = get_global_mouse_position()
+		#popup.visible =!popup.visible
+		#if(popup.visible):
+			#GlobalSettings.disableGlobalInput = true
+		#else:
+			#GlobalSettings.disableGlobalInput = false
+		get_node("/root/RootNode/UiCanvasLayer/GlobalInput").ask_for_input(
+			"Номер провода в шине", Callable(self, "on_text_update"), true, self.label.text)
+
 	
 		
 func on_text_update(new_text:String):
