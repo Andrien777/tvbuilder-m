@@ -146,5 +146,11 @@
 	},"8088":{
 		"config_path": "res://components/ic/proc/I8088.json",
 		"logic_class_path": "res://components/ic/proc/I8088.gd"
+	},"Кварцевый резонатор": {
+		"config_path": "res://components/ic/other/quartz.json",
+		"logic_class_path": "res://components/ic/other/quartz.gd"
+	},"Резистор": {
+		"config_path": "res://components/misc/resistor.json",
+		"logic_class_path": "res://components/misc/resistor.gd"
 	}
 }

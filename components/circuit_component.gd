@@ -228,41 +228,41 @@ func update_pins(pins:Array, ic_shape:Vector2):
 			match _pin.ic_position:
 				"TOP":
 					_pin.position = Vector2(ic_shape.x/2,
-					-4)
+					-5)
 				"BOTTOM":
 					_pin.rotation_degrees =180
 					_pin.position = Vector2(ic_shape.x/2, 
-					ic_shape.y+4)
+					ic_shape.y+5)
 				"LEFT":
 					_pin.rotation_degrees =270
-					_pin.position = Vector2(-4 , 
+					_pin.position = Vector2(-5 , 
 					ic_shape.y/2)
 				"RIGHT":
 					_pin.rotation_degrees =90
-					_pin.position = Vector2(ic_shape.x+4 , 
+					_pin.position = Vector2(ic_shape.x+5 , 
 					ic_shape.y/2)
 		else:
 			match _pin.ic_position:
 				"TOP":
 					_pin.position = Vector2(side_padding+ 
 					side_margin[_pin.ic_position]*(side_count[_pin.ic_position] - side_index[_pin.ic_position]-1), # TODO: Please think of something better
-					-4)
+					-5)
 					side_index[_pin.ic_position]+=1
 				"BOTTOM":
 					_pin.rotation_degrees =180
 					_pin.position = Vector2(side_padding+ 
 					side_margin[_pin.ic_position]*side_index[_pin.ic_position], 
-					ic_shape.y+4)
+					ic_shape.y+5)
 					side_index[_pin.ic_position]+=1
 				"LEFT":
 					_pin.rotation_degrees =270
-					_pin.position = Vector2(-4 , 
+					_pin.position = Vector2(-5 , 
 					side_padding+
 					side_margin[_pin.ic_position]*side_index[_pin.ic_position])
 					side_index[_pin.ic_position]+=1	
 				"RIGHT":
 					_pin.rotation_degrees =90
-					_pin.position = Vector2(ic_shape.x+4, 
+					_pin.position = Vector2(ic_shape.x+5, 
 					side_padding+
 					side_margin[_pin.ic_position]*(side_count[_pin.ic_position] - side_index[_pin.ic_position]-1))
 					side_index[_pin.ic_position]+=1

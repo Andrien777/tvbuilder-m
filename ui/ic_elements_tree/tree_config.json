@@ -207,6 +207,11 @@
 					"logic_class_path": "res://components/ic/other/led.gd"
 				},
 				{
+					"ic_name": "Кварцевый резонатор",
+					"config_path": "res://components/ic/other/quartz.json",
+					"logic_class_path": "res://components/ic/other/quartz.gd"
+				},
+				{
 					"ic_name": "Генератор частоты",
 					"config_path": "res://components/ic/other/frequency_generator.json",
 					"logic_class_path": "res://components/ic/other/frequency_generator.gd"
@@ -227,6 +232,10 @@
 					"ic_name": "Логический ноль (GND)",
 					"config_path": "res://components/ic/other/constant0.json",
 					"logic_class_path": "res://components/ic/other/constant0.gd"
+				},{
+					"ic_name": "Резистор (510 Ом)",
+					"config_path": "res://components/misc/resistor.json",
+					"logic_class_path": "res://components/misc/resistor.gd"
 				}
 				
 			]

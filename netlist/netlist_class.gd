@@ -161,7 +161,7 @@ func propagate_signal() -> void:
 						stack.push_back(neighbour)
 	if not late_propagation.is_empty():
 		for pin in late_propagation:
-			if pin.pin.output():
+			if pin.pin.output() and not GlobalSettings.doCycles:
 				pin.pin.parent._process_signal()
 			else:
 				var state = pin.neighbours[0].pin.state
@@ -169,12 +169,12 @@ func propagate_signal() -> void:
 				for neighbour in pin.neighbours:
 					if neighbour not in resolved:
 						continue
-					if neighbour.pin.state != state and neighbour.pin.state != NetConstants.LEVEL.LEVEL_Z:
+					if neighbour.pin.state != state and neighbour.pin.state != NetConstants.LEVEL.LEVEL_Z :
 						if state == NetConstants.LEVEL.LEVEL_Z:
 							state = neighbour.pin.state
 						else:
 							ok = false
-				if ok:
+				if ok or pin.pin.parent.readable_name == "Резистор": #TODO: Change that...
 					pin.pin.state = state
 				else:
 					PopupManager.display_error("Короткое замыкание", "В этом месте произошло КЗ", pin.pin.global_position)
