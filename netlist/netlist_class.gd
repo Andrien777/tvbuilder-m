@@ -1,6 +1,9 @@
 extends Node
 # Netlist
 
+signal scheme_processed
+
+
 var nodes: Dictionary # Pin -> NetlistNode
 
 func add_connection(pin1: Pin, pin2: Pin) -> void:
@@ -187,6 +190,8 @@ func process_components():
 	if GlobalSettings.doCycles:
 		for ic in ComponentManager.obj_list.values():
 			ic._process_signal()
+
+	scheme_processed.emit()
 
 func get_json_adjacency():
 	var visited: Array[Pin]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://cd0acvbjpyg0w"]
+[gd_scene load_steps=57 format=3 uid="uid://cd0acvbjpyg0w"]
 
 [ext_resource type="Script" path="res://ui/main_scene.gd" id="1_8vqs3"]
 [ext_resource type="Shader" path="res://shaders/grid.gdshader" id="2_7ckc8"]
@@ -45,6 +45,8 @@
 [ext_resource type="Script" path="res://ui/selection_mode_button.gd" id="28_o75gi"]
 [ext_resource type="Script" path="res://ui/logic_analyzer/start_for_button.gd" id="33_503t8"]
 [ext_resource type="Script" path="res://ui/logic_analyzer/start_for_line_edit.gd" id="34_3a6np"]
+[ext_resource type="Script" path="res://ui/logic_analyzer/simulate_button.gd" id="37_7766m"]
+[ext_resource type="Script" path="res://ui/logic_analyzer/simulation_accept_dialog.gd" id="39_1y2mv"]
 [ext_resource type="Script" path="res://ui/selection_area.gd" id="46_0mty4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7n0h1"]
@@ -426,12 +428,19 @@ tooltip_text = "Приблизить полученные значения"
 text = "+"
 script = ExtResource("22_bntlu")
 
+[node name="SimulateButton" type="Button" parent="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer"]
+layout_mode = 2
+tooltip_text = "Приблизить полученные значения"
+text = "Симуляция"
+script = ExtResource("37_7766m")
+
 [node name="ScrollContainer" type="ScrollContainer" parent="LogicAnalyzerWindow/RootVBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
 
 [node name="SignalsHSplitContainer" type="HSplitContainer" parent="LogicAnalyzerWindow/RootVBoxContainer/ScrollContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -456,6 +465,13 @@ vertical_scroll_mode = 0
 
 [node name="SignalsVBoxContainer" type="VBoxContainer" parent="LogicAnalyzerWindow/RootVBoxContainer/ScrollContainer/SignalsHSplitContainer/SignalsPanelContainer/SignalsScrollContainer"]
 layout_mode = 2
+
+[node name="SimulationAcceptDialog" type="AcceptDialog" parent="LogicAnalyzerWindow"]
+title = "Симуляция"
+initial_position = 4
+size = Vector2i(300, 100)
+ok_button_text = "Начать симуляцию"
+script = ExtResource("39_1y2mv")
 
 [node name="MemoryViewer" type="Window" parent="."]
 auto_translate_mode = 1
@@ -888,6 +904,7 @@ shape = SubResource("RectangleShape2D_y731f")
 [connection signal="pressed" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/ClearButton" to="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/ClearButton" method="_on_pressed"]
 [connection signal="pressed" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/ZoomOutButton" to="LogicAnalyzerWindow/RootVBoxContainer/ScrollContainer/SignalsHSplitContainer" method="_on_zoom_out_button_pressed"]
 [connection signal="pressed" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/ZoomInButton" to="LogicAnalyzerWindow/RootVBoxContainer/ScrollContainer/SignalsHSplitContainer" method="_on_zoom_in_button_pressed"]
+[connection signal="pressed" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/SimulateButton" to="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/SimulateButton" method="_on_pressed"]
 [connection signal="pressed" from="MemoryViewer/VBoxContainer/HBoxContainer2/ContinuousUpdate" to="MemoryViewer/VBoxContainer/HBoxContainer" method="_on_continuous_update_pressed"]
 [connection signal="mouse_entered" from="SelectionArea" to="SelectionArea" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="SelectionArea" to="SelectionArea" method="_on_mouse_exited"]

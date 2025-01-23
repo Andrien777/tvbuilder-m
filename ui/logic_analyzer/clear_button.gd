@@ -1,7 +1,7 @@
 extends Button
 
 
-@onready var signals_h_split_container = get_node("/root/RootNode/LogicAnalyzerWindow/RootVBoxContainer/ScrollContainer/SignalsHSplitContainer")
+@onready var signals_h_split_container = %SignalsHSplitContainer
 
 func _on_pressed() -> void:
 	signals_h_split_container.clear_signal_values()
