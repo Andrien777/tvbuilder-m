@@ -82,7 +82,7 @@ script = ExtResource("7_7lpxt")
 
 [node name="SettingsOverrideButton" type="CheckButton" parent="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer"]
 layout_mode = 2
-text = "Разрешить перезапись настроек цвета из сохранения"
+text = "Разрешить загрузку настроек цвета из сохранения"
 script = ExtResource("8_s2k1a")
 
 [node name="TurboModeButton" type="CheckButton" parent="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer"]

@@ -1,10 +1,10 @@
 {
 	"AltAlgo": 0,
 	"BgColor": "56a7f6",
-	"BusColor": "ff0000",
+	"BusColor": "ff8000",
 	"DefaultWireColor": 1,
 	"GraphicsMode": "LegacyGraphicsMode",
-	"HighlightedBusColor": "0010fb",
+	"HighlightedBusColor": "0e00ff",
 	"HighlightedLAPinColor": "00bfff",
 	"HighlightedPinColor": "ff0000",
 	"HighlightedWireColor": "20ff00",

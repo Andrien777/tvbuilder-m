@@ -98,6 +98,7 @@ func try_load():
 				highlightedLAPinsColor = Color(parsed["HighlightedLAPinColor"])
 			if parsed.has("BusColor"):
 				bus_color = Color(parsed["BusColor"])
+				bus_color_global = bus_color
 			if parsed.has("HighlightedBusColor"):
 				highlightedBusColor = Color(parsed["HighlightedBusColor"])
 				
@@ -121,7 +122,7 @@ func save():
 	json_object["HighlightedWireColor"] = highlightedWireColor.to_html(false)
 	json_object["HighlightedPinColor"] = highlightedPinsColor.to_html(false)
 	json_object["HighlightedLAPinColor"] = highlightedLAPinsColor.to_html(false)
-	json_object["BusColor"] = bus_color.to_html(false)
+	json_object["BusColor"] = bus_color_global.to_html(false)
 	json_object["HighlightedBusColor"] = highlightedBusColor.to_html(false)
 	file.store_string(JSON.stringify(json_object, "\t"))
 	file.close()

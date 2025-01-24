@@ -70,19 +70,25 @@ func load(scene: Node2D, path: String):
 	for edge in parsed.netlist:
 		var from_ic = ComponentManager.get_by_id(edge.from.ic)
 		var from_pin: Pin
+		if from_ic == null:
+			InfoManager.write_error("Ошибка. Не удалось найти компонент с id = %d при загрузке провода" % [edge.from.ic])
+			continue
 		for pin in from_ic.pins:
 			if pin.index == edge.from.pin:
 				from_pin = pin
 		if from_pin == null:
-			InfoManager.write_error("Ошибка. Не удалось найти поле 'from' при загрузке провода")
+			InfoManager.write_error("Ошибка. Не удалось найти поле 'from', id = %d при загрузке провода" % [edge.from.ic])
 			continue
 		var to_ic = ComponentManager.get_by_id(edge.to.ic)
 		var to_pin: Pin
+		if to_ic == null:
+			InfoManager.write_error("Ошибка. Не удалось найти компонент с id = %d при загрузке провода" % [edge.to.ic])
+			continue
 		for pin in to_ic.pins:
 			if pin.index == edge.to.pin:
 				to_pin = pin
 		if to_pin == null:
-			InfoManager.write_error("Ошибка. Не удалось найти поле 'to' при загрузке провода")
+			InfoManager.write_error("Ошибка. Не удалось найти поле 'to', id = %d при загрузке провода" % [edge.to.ic])
 			continue
 		if "wire" in edge:
 			if "control_points" in edge.wire:

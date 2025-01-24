@@ -53,6 +53,8 @@ func clear():
 	WireManager.clear()
 	NetlistClass.clear()
 	ComponentManager.last_id = 0
+	SaveManager.do_not_save_ids = []
+	
 	
 func _ready() -> void:
 	var json = JSON.new()
