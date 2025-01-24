@@ -22,8 +22,7 @@ func register_object(object: CircuitComponent):
 	last_id += 1
 	last_id = int(last_id) # It can become float for some ungodly reason
 	if not obj_list.is_empty() and get_by_id(object.id) != null:
-		PopupManager.display_error("Попытка добавить дубликат id", "Объект не добавлен", Vector2(100, 100))
-		OS.alert("Обнаружено столкновение идентификаторов","Ошибка добавления объекта",)
+		InfoManager.write_error("Попытка добавить объект с повторяющимся id. Объект не будет добавлен")
 	else:
 		obj_list[object.id] = object
 
@@ -47,6 +46,7 @@ func change_id(component: CircuitComponent, new_id: int):
 	obj_list[new_id] = component
 	
 func clear():
+	InfoManager.write_info("Поле очищено")
 	for comp in obj_list.values():
 		comp.queue_free()
 	obj_list.clear()

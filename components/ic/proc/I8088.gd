@@ -97,6 +97,6 @@ func _process_signal():
 	read_pins()
 	# Read the output
 	if proc_impl.status != "OK":
-		OS.alert(proc_impl.status, "Статус процессора")
+		InfoManager.write_warning("Статус процессора: %s" % [proc_impl.status])
 		proc_impl.status = "OK"
  

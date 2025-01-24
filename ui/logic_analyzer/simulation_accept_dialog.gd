@@ -13,10 +13,10 @@ func _ready() -> void:
 	line_edit.text = str(sim_time_ms)
 	line_edit.text_changed.connect(
 		func(text: String):
-			print(text)
+			#print(text)
 			if text.is_valid_float():
 				sim_time_ms = float(text)
-			print(sim_time_ms)
+			#print(sim_time_ms)
 	)
 	container.add_child(label)
 	container.add_child(line_edit)

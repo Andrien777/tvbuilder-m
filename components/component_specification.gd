@@ -30,7 +30,7 @@ func initialize_from_json(path: String) -> void:
 			spec.initialize(pin.index, NetConstants.parse_direction(pin.direction), pin.position, pin.readable_name, pin.description, pin.dependencies)
 			self.pinSpecifications.append(spec)
 	else:
-		print("Component Specification parse error")
+		InfoManager.write_error("Ошибка распознавания спецификации компонента: %s" % [path])
 		
 var name: String
 var num_pins: int

@@ -31,6 +31,8 @@ func undo():
 		self.position = object.get_global_position()
 		ComponentManager.remove_object(object)
 		object.queue_free()
+	else:
+		InfoManager.write_error("Не удалось отменить создание компонента")
 
 func redo():
 	if name == null: return

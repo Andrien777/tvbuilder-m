@@ -12,6 +12,8 @@ func _ready() -> void:
 	timer.timeout.connect(WireManager.force_update_wires)
 	add_child(timer)
 	GlobalSettings.try_load()
+	InfoManager.bind_console(get_node("./UiCanvasLayer/ConsoleContainer"))
+	InfoManager.bind_indicator(get_node("/root/RootNode/UiCanvasLayer/VBoxContainer2/RibbonContainer/OpenConsoleButton"))
 	get_node("./GridSprite").visible = GlobalSettings.CurrentGraphicsMode==LegacyGraphicsMode
 	get_node("./GridSprite").modulate = GlobalSettings.bg_color
 	selection_area = get_node("SelectionArea")

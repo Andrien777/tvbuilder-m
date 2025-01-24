@@ -203,11 +203,12 @@ func simulate(time_ms: float):
 	clear_signal_values()
 	var generator = find_generator()
 	if generator == null:
-		PopupManager.display_error(
-			"Отсутсвует генератор", 
-			"Для симуляции необходимо иметь генератор", 
-			get_global_mouse_position()
-			)
+		#PopupManager.display_error(
+			#"Отсутсвует генератор", 
+			#"Для симуляции необходимо иметь генератор", 
+			#get_global_mouse_position()
+			#)
+		InfoManager.write_error("Отсутствет генератор. Для проведения симуляции необходимо наличие генератора в схеме")
 		return
 	var was_generator_enabled = generator.enabled
 	generator.enabled = false

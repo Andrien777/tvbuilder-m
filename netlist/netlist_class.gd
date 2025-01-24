@@ -108,7 +108,7 @@ func propagate_signal() -> void:
 							if neighbour.pin.output():
 								if neighbour in resolved and neighbour.pin.state != current.pin.state:
 									if not neighbour.pin.z and not current.pin.z:
-										PopupManager.display_error("Соединены два выхода", "Вы делаете что-то странное", current.pin.global_position)
+										PopupManager.display_error("Короткое замыкание", "Соединены два выхода с разными сигналами", current.pin.global_position)
 										#print("Two outputs short circuited")
 							if neighbour != current:
 								stack.push_back(neighbour)
@@ -125,7 +125,7 @@ func propagate_signal() -> void:
 						if neighbour.pin.output():
 							if neighbour in resolved and neighbour.pin.state != current.pin.state:
 								if not neighbour.pin.z and not current.pin.z:
-									PopupManager.display_error("Соединены два выхода", "Вы делаете что-то странное", current.pin.global_position)
+									PopupManager.display_error("Короткое замыкание", "Соединены два выхода с разными сигналами", current.pin.global_position)
 									#print("Two outputs short circuited")
 						if neighbour != current:
 							stack.push_back(neighbour)

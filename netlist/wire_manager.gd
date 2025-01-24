@@ -39,11 +39,9 @@ func register_wire_point(object:Node2D):
 		second_wire_point = object
 		if Input.is_key_pressed(KEY_SHIFT):
 			for wire in wires:
-				print(wire)
 				if(wire.first_object==first_wire_point and wire.second_object==second_wire_point) or (wire.first_object==second_wire_point and wire.second_object==first_wire_point):
 					_delete_wire(wire)
 		else:
-			# TODO: Check if creation is possible
 			var event = WireCreationEvent.new()
 			event.initialize(_create_wire(first_wire_point, second_wire_point)) # TODO: Kind of ugly side effect use
 			HistoryBuffer.register_event(event)
@@ -113,7 +111,7 @@ func _create_wire(first_object:Node2D, second_object:Node2D, control_points = []
 	if found:
 		return
 	if first_object==second_object:
-		print("Соединение с самим собой")
+		InfoManager.write_error("Попытка соединения провода с одной и той же точкой")
 		return
 	var wire = Wire.new()
 	wire.initialize(first_object,second_object)

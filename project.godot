@@ -31,6 +31,7 @@ GlobalSettings="*res://ui/GlobalSettings.gd"
 ComponentManager="*res://netlist/component_manager.gd"
 HistoryBuffer="*res://tools/HistoryBuffer/HistoryBuffer.gd"
 CopyBuffer="*res://tools/CopyBuffer/CopyBuffer.gd"
+InfoManager="*res://ui/InfoManager/info_manager.gd"
 
 [display]
 

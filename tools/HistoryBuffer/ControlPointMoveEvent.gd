@@ -29,6 +29,13 @@ func undo():
 				else:
 					wire.control_points[0] = from_pos
 				WireManager.force_update_wires()
+			else:
+				InfoManager.write_error("Не удалось найти провод для перемещения (3)")
+		else:
+			InfoManager.write_error("Не удалось найти провод для перемещения (2)")
+	else:
+		InfoManager.write_error("Не удалось найти провод для перемещения (1)")
+
 
 func redo():
 	var from = ComponentManager.get_by_id(from_id)
@@ -44,3 +51,9 @@ func redo():
 				else:
 					wire.control_points[0] = to_pos
 				WireManager.force_update_wires()
+			else:
+				InfoManager.write_error("Не удалось найти провод для перемещения (3)")
+		else:
+			InfoManager.write_error("Не удалось найти провод для перемещения (2)")
+	else:
+		InfoManager.write_error("Не удалось найти провод для перемещения (1)")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://cd0acvbjpyg0w"]
+[gd_scene load_steps=71 format=3 uid="uid://cd0acvbjpyg0w"]
 
 [ext_resource type="Script" path="res://ui/main_scene.gd" id="1_8vqs3"]
 [ext_resource type="Shader" path="res://shaders/grid.gdshader" id="2_7ckc8"]
@@ -48,8 +48,13 @@
 [ext_resource type="Texture2D" uid="uid://drbgycjhi2upp" path="res://ui/menu_icons/Edit/green_checkmark.png" id="27_pjgs7"]
 [ext_resource type="Script" path="res://ui/selection_mode_button.gd" id="28_o75gi"]
 [ext_resource type="Script" path="res://ui/bus_finish_button.gd" id="28_sag5d"]
+[ext_resource type="Texture2D" uid="uid://d35ocflcklcyn" path="res://ui/menu_icons/Edit/terminal.png" id="29_ma251"]
+[ext_resource type="Script" path="res://ui/Ribbon/console_open_button.gd" id="29_y107i"]
+[ext_resource type="Script" path="res://ui/console.gd" id="31_rtmb3"]
+[ext_resource type="Texture2D" uid="uid://cgvgy3p2b8i4f" path="res://ui/menu_icons/Edit/red_cross.png" id="32_sk2vu"]
 [ext_resource type="Script" path="res://ui/logic_analyzer/start_for_button.gd" id="33_503t8"]
 [ext_resource type="Script" path="res://ui/logic_analyzer/start_for_line_edit.gd" id="34_3a6np"]
+[ext_resource type="Texture2D" uid="uid://wtdwwavg1wpy" path="res://ui/menu_icons/Edit/sweep.png" id="35_rnlu2"]
 [ext_resource type="Script" path="res://ui/logic_analyzer/simulate_button.gd" id="37_7766m"]
 [ext_resource type="Script" path="res://ui/logic_analyzer/simulation_accept_dialog.gd" id="39_1y2mv"]
 [ext_resource type="Script" path="res://ui/selection_area.gd" id="46_0mty4"]
@@ -107,6 +112,59 @@ corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
+
+[sub_resource type="Animation" id="Animation_435t7"]
+resource_name = "button_pulse_red"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.466667, 0.666667, 0.933333),
+"transitions": PackedFloat32Array(4.14106, 4.14106, 4.14106, 4.14106, 4.14106),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0.33, 0.33, 1), Color(1, 1, 1, 1), Color(1, 0.33, 0.33, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_df11e"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_05i7o"]
+resource_name = "button_pulse_yellow"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(4.14106, 4.14106, 4.14106),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0.916667, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pljh1"]
+_data = {
+"RESET": SubResource("Animation_df11e"),
+"button_pulse_red": SubResource("Animation_435t7"),
+"button_pulse_yellow": SubResource("Animation_05i7o")
+}
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y731f"]
 
@@ -310,9 +368,23 @@ visible = false
 layout_mode = 2
 tooltip_text = "Режим создания шин"
 theme_override_styles/pressed = SubResource("StyleBoxFlat_xrbmq")
-toggle_mode = true
 icon = ExtResource("27_pjgs7")
 script = ExtResource("28_sag5d")
+
+[node name="VSeparator2" type="VSeparator" parent="UiCanvasLayer/VBoxContainer2/RibbonContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="OpenConsoleButton" type="Button" parent="UiCanvasLayer/VBoxContainer2/RibbonContainer"]
+layout_mode = 2
+tooltip_text = "Консоль"
+icon = ExtResource("29_ma251")
+script = ExtResource("29_y107i")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UiCanvasLayer/VBoxContainer2/RibbonContainer/OpenConsoleButton"]
+libraries = {
+"": SubResource("AnimationLibrary_pljh1")
+}
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UiCanvasLayer"]
 anchors_preset = 9
@@ -357,6 +429,68 @@ script = ExtResource("18_yrb2u")
 custom_minimum_size = Vector2(700, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
+
+[node name="ConsoleContainer" type="PanelContainer" parent="UiCanvasLayer"]
+visible = false
+clip_contents = true
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -850.0
+offset_top = -159.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 3
+mouse_force_pass_scroll_events = false
+script = ExtResource("31_rtmb3")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UiCanvasLayer/ConsoleContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UiCanvasLayer/ConsoleContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="Label" type="Label" parent="UiCanvasLayer/ConsoleContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("18_awkwq")
+text = "Консоль"
+
+[node name="VSeparator" type="VSeparator" parent="UiCanvasLayer/ConsoleContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="ClearButton" type="Button" parent="UiCanvasLayer/ConsoleContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+tooltip_text = "Очистить консоль"
+focus_mode = 0
+theme_override_styles/pressed = SubResource("StyleBoxFlat_xrbmq")
+icon = ExtResource("35_rnlu2")
+
+[node name="VSeparator2" type="VSeparator" parent="UiCanvasLayer/ConsoleContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="CloseButton" type="Button" parent="UiCanvasLayer/ConsoleContainer/VBoxContainer/HBoxContainer"]
+layout_direction = 3
+layout_mode = 2
+tooltip_text = "Закрыть"
+focus_mode = 0
+icon = ExtResource("32_sk2vu")
+flat = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UiCanvasLayer/ConsoleContainer/VBoxContainer"]
+custom_minimum_size = Vector2(400, 200)
+layout_mode = 2
+size_flags_vertical = 3
+focus_mode = 2
+theme_override_fonts/normal_font = ExtResource("18_awkwq")
+scroll_following = true
+threaded = true
+selection_enabled = true
+visible_characters = 100000
 
 [node name="SaveAsFileDialog" type="FileDialog" parent="."]
 auto_translate_mode = 1
@@ -411,6 +545,7 @@ mode = 1
 title = "Логический Анализатор"
 initial_position = 4
 size = Vector2i(900, 600)
+visible = false
 always_on_top = true
 script = ExtResource("12_ngdkd")
 
@@ -938,10 +1073,21 @@ shape = SubResource("RectangleShape2D_y731f")
 [connection signal="mouse_entered" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/BusFinishButton" to="UiCanvasLayer/VBoxContainer2/RibbonContainer/BusFinishButton" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/BusFinishButton" to="UiCanvasLayer/VBoxContainer2/RibbonContainer/BusFinishButton" method="_on_mouse_exited"]
 [connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/BusFinishButton" to="UiCanvasLayer/VBoxContainer2/RibbonContainer/BusFinishButton" method="_on_pressed"]
+[connection signal="mouse_entered" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/OpenConsoleButton" to="UiCanvasLayer/VBoxContainer2/RibbonContainer/OpenConsoleButton" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/OpenConsoleButton" to="UiCanvasLayer/VBoxContainer2/RibbonContainer/OpenConsoleButton" method="_on_mouse_exited"]
+[connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/OpenConsoleButton" to="UiCanvasLayer/VBoxContainer2/RibbonContainer/OpenConsoleButton" method="_on_pressed"]
 [connection signal="item_mouse_selected" from="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_item_mouse_selected"]
 [connection signal="mouse_entered" from="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_mouse_exited"]
 [connection signal="nothing_selected" from="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_nothing_selected"]
+[connection signal="focus_entered" from="UiCanvasLayer/ConsoleContainer" to="UiCanvasLayer/ConsoleContainer" method="_on_focus_entered"]
+[connection signal="focus_exited" from="UiCanvasLayer/ConsoleContainer" to="UiCanvasLayer/ConsoleContainer" method="_on_focus_exited"]
+[connection signal="mouse_entered" from="UiCanvasLayer/ConsoleContainer" to="UiCanvasLayer/ConsoleContainer" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="UiCanvasLayer/ConsoleContainer" to="UiCanvasLayer/ConsoleContainer" method="_on_mouse_exited"]
+[connection signal="pressed" from="UiCanvasLayer/ConsoleContainer/VBoxContainer/HBoxContainer/ClearButton" to="UiCanvasLayer/ConsoleContainer" method="_on_clear_button_pressed"]
+[connection signal="pressed" from="UiCanvasLayer/ConsoleContainer/VBoxContainer/HBoxContainer/CloseButton" to="UiCanvasLayer/ConsoleContainer" method="_on_button_pressed"]
+[connection signal="mouse_entered" from="UiCanvasLayer/ConsoleContainer/VBoxContainer/RichTextLabel" to="UiCanvasLayer/ConsoleContainer" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="UiCanvasLayer/ConsoleContainer/VBoxContainer/RichTextLabel" to="UiCanvasLayer/ConsoleContainer" method="_on_mouse_exited"]
 [connection signal="file_selected" from="SaveAsFileDialog" to="SaveAsFileDialog" method="_on_file_selected"]
 [connection signal="file_selected" from="LoadFileDialog" to="LoadFileDialog" method="_on_file_selected"]
 [connection signal="about_to_popup" from="LogicAnalyzerWindow" to="LogicAnalyzerWindow" method="_on_about_to_popup"]
