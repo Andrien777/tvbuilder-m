@@ -17,7 +17,7 @@ func save(path: String) -> void:
 	var json_list_ic: Array
 	for ic in ComponentManager.obj_list.values():
 		if(!is_instance_valid(ic)):
-			PopupManager.display_error("Что-то пошло не так", "Да, это тот самый баг.", Vector2(100,100))
+			InfoManager.write_error("При сохранении был найден неверный объект. Данный объект не будет сохранён.")
 			continue
 		if ic.id in do_not_save_ids:
 			continue
