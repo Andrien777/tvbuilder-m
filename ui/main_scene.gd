@@ -72,8 +72,10 @@ func _input(event):
 	if event.is_action_pressed("abort_wire_creation") and not GlobalSettings.disableGlobalInput:
 		selection_area.stop_selection()
 
-	elif event.is_action_pressed("create_bus"):
+	elif event.is_action_pressed("create_bus") and not GlobalSettings.disableGlobalInput:
 		WireManager.register_bus_point(get_global_mouse_position())
+	elif event.is_action_pressed("bus_mode") and not GlobalSettings.disableGlobalInput:
+		to_bus_mode()
 
 
 func toggle_graphics_mode():
