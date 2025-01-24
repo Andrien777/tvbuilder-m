@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://r773p6djrrnn"]
+[gd_scene load_steps=21 format=3 uid="uid://r773p6djrrnn"]
 
 [ext_resource type="Script" path="res://ui/settings_window.gd" id="1_wym6i"]
 [ext_resource type="Script" path="res://ui/Settings/settings_tab_bar.gd" id="2_raqp3"]
@@ -19,6 +19,7 @@
 [ext_resource type="Script" path="res://ui/Settings/bus_color_picker.gd" id="16_xfdfr"]
 [ext_resource type="Script" path="res://ui/Settings/pin_la_highlight_color_picker_button.gd" id="17_4tk73"]
 [ext_resource type="Script" path="res://ui/Settings/highlighted_bus_color_picker.gd" id="17_q5trn"]
+[ext_resource type="Script" path="res://ui/Settings/KeyBindingButton.gd" id="20_8geak"]
 
 [node name="SettingsWindow" type="Window"]
 auto_translate_mode = 1
@@ -240,6 +241,24 @@ script = ExtResource("17_4tk73")
 layout_mode = 2
 text = "По умолчанию"
 
+[node name="KeyBindingsContainer" type="ScrollContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(400, 600)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/KeyBindingsContainer"]
+layout_mode = 2
+
+[node name="DeleteKeyBinding" type="HBoxContainer" parent="VBoxContainer/KeyBindingsContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/KeyBindingsContainer/VBoxContainer/DeleteKeyBinding"]
+layout_mode = 2
+text = "Удаление объекта"
+
+[node name="Button" type="Button" parent="VBoxContainer/KeyBindingsContainer/VBoxContainer/DeleteKeyBinding"]
+layout_mode = 2
+script = ExtResource("20_8geak")
+
 [connection signal="tab_changed" from="VBoxContainer/TabBar" to="VBoxContainer/TabBar" method="_on_tab_changed"]
 [connection signal="toggled" from="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/DoCyclesButton" to="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/DoCyclesButton" method="_on_toggled"]
 [connection signal="pressed" from="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/ShowLastWireButton" to="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/ShowLastWireButton" method="_on_pressed"]
@@ -264,3 +283,4 @@ text = "По умолчанию"
 [connection signal="pressed" from="VBoxContainer/ColorSubmenu/PinHighlightContainer/PinHighlightColorResetButton" to="VBoxContainer/ColorSubmenu/PinHighlightContainer/PinHighlightColorPickerButton" method="_on_wire_color_reset_button_pressed"]
 [connection signal="color_changed" from="VBoxContainer/ColorSubmenu/PinLAHighlightColorContainer/PinLAHighlightColorPickerButton" to="VBoxContainer/ColorSubmenu/PinLAHighlightColorContainer/PinLAHighlightColorPickerButton" method="_on_color_changed"]
 [connection signal="pressed" from="VBoxContainer/ColorSubmenu/PinLAHighlightColorContainer/PinLAHighlightColorResetButton" to="VBoxContainer/ColorSubmenu/PinLAHighlightColorContainer/PinLAHighlightColorPickerButton" method="_on_wire_color_reset_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/KeyBindingsContainer/VBoxContainer/DeleteKeyBinding/Button" to="VBoxContainer/KeyBindingsContainer/VBoxContainer/DeleteKeyBinding/Button" method="_on_pressed"]

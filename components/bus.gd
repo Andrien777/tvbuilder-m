@@ -15,6 +15,7 @@ var current_label
 var current_pin
 var last_pin_index = 0
 var component
+var deleted_pins = []
 func _init()->void:
 	line = Line2D.new()
 	line.width = default_line_width
@@ -66,6 +67,7 @@ func _process(delta: float) -> void:
 		for i in connection_pins:
 			if is_instance_valid(i):
 				i.queue_free() # Just to be safe
+		ComponentManager.remove_object(component)
 		WireManager._delete_bus(self)
 		#var event = WireDeletionEvent.new() #TODO: Bus events
 		#event.initialize(self.first_object, self.second_object)
@@ -104,6 +106,7 @@ func register_connection(name:String):
 	add_child(current_pin)
 	add_child(current_label)
 
+
 func add_connection(name:String,index,  position:Vector2):
 	var pin = Pin.new()
 	var spec = PinSpecification.new()
@@ -121,6 +124,7 @@ func add_connection(name:String,index,  position:Vector2):
 	current_pin = pin
 	current_label.text = name
 	register_connection(name)
+	return current_pin
 	
 func add_point(point:Vector2):
 	control_points.append(point)
@@ -135,7 +139,13 @@ func delete_connection(pin):
 			for node in connections[name]: # Delete all connections to this pin
 				NetlistClass.delete_connection(pin, node)
 			self.component.pins.erase(pin)
+			connection_pins.erase(pin)
 			connections[name].erase(pin)
+			deleted_pins.append([name, pin.index, pin.position]) # I already hate how this bus is implemented, so I dont really care
+			
+			if deleted_pins.size() > GlobalSettings.historyDepth: # Bus has to track its pin history to be able to restore them at request
+				deleted_pins.pop_front()
+				
 			if is_instance_valid(labels[pin]):
 				labels[pin].queue_free()
 				labels.erase(pin)

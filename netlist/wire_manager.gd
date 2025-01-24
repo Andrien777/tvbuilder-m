@@ -204,3 +204,6 @@ func buses_to_json():
 	for bus in buses:
 		json.append(bus.component.to_json_object())
 	return json
+
+func finish_current_bus():
+	current_bus = null

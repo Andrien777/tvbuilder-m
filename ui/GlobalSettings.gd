@@ -13,7 +13,7 @@ var historyDepth = 200
 var ShowSignalsInConnectionTable = false
 var CurrentGraphicsMode = LegacyGraphicsMode
 
-enum CURSOR_MODES {NORMAL, SELECTION, CONNECTIVITY_MODE}
+enum CURSOR_MODES {NORMAL, SELECTION, CONNECTIVITY_MODE, BUS}
 var CursorMode = CURSOR_MODES.NORMAL
 
 func is_normal_mode():
@@ -25,9 +25,11 @@ func is_selecting():
 func is_connectivity_mode():
 	return CursorMode == CURSOR_MODES.CONNECTIVITY_MODE
 
+func is_bus_mode():
+	return CursorMode==CURSOR_MODES.BUS
+	
+	
 var PinIndexOffset = 5
-
-
 var showLastWire = false
 var highlightOutputPins = false
 

@@ -22,7 +22,8 @@ func _process(delta: float) -> void:
 			selection_area.start_tracking()
 	if not GlobalSettings.is_connectivity_mode():
 		Input.set_default_cursor_shape(Input.CURSOR_ARROW)
-
+	if GlobalSettings.is_bus_mode() and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and not GlobalSettings.disableGlobalInput:
+		WireManager.register_bus_point(get_global_mouse_position())
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
 	NetlistClass.process_scheme()
@@ -124,3 +125,8 @@ func to_connectivity_mode():
 func to_selection_mode():
 	GlobalSettings.CursorMode = GlobalSettings.CURSOR_MODES.SELECTION
 	get_node("./Camera2D").lock_pan = true
+
+func to_bus_mode():
+	GlobalSettings.CursorMode = GlobalSettings.CURSOR_MODES.BUS
+	get_node("./Camera2D").lock_pan = false
+	get_node("./Camera2D").pressed_mmb = false
