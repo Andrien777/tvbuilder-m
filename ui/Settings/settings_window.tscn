@@ -258,6 +258,103 @@ text = "Удаление объекта"
 [node name="Button" type="Button" parent="VBoxContainer/KeyBindingsContainer/VBoxContainer/DeleteKeyBinding"]
 layout_mode = 2
 script = ExtResource("20_8geak")
+action_name = "delete_component"
+
+[node name="ConfirmKeyBinding" type="HBoxContainer" parent="VBoxContainer/KeyBindingsContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/KeyBindingsContainer/VBoxContainer/ConfirmKeyBinding"]
+layout_mode = 2
+text = "Подтвердить"
+
+[node name="Button" type="Button" parent="VBoxContainer/KeyBindingsContainer/VBoxContainer/ConfirmKeyBinding"]
+layout_mode = 2
+script = ExtResource("20_8geak")
+action_name = "confirm"
+
+[node name="ZoomInKeyBinding" type="HBoxContainer" parent="VBoxContainer/KeyBindingsContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/KeyBindingsContainer/VBoxContainer/ZoomInKeyBinding"]
+layout_mode = 2
+text = "Приблизить"
+
+[node name="Button" type="Button" parent="VBoxContainer/KeyBindingsContainer/VBoxContainer/ZoomInKeyBinding"]
+layout_mode = 2
+script = ExtResource("20_8geak")
+action_name = "ZoomUp"
+
+[node name="ZoomOutKeyBinding" type="HBoxContainer" parent="VBoxContainer/KeyBindingsContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/KeyBindingsContainer/VBoxContainer/ZoomOutKeyBinding"]
+layout_mode = 2
+text = "Отдалить"
+
+[node name="Button" type="Button" parent="VBoxContainer/KeyBindingsContainer/VBoxContainer/ZoomOutKeyBinding"]
+layout_mode = 2
+script = ExtResource("20_8geak")
+action_name = "ZoomDown"
+
+[node name="EndWireKeyBinding" type="HBoxContainer" parent="VBoxContainer/KeyBindingsContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/KeyBindingsContainer/VBoxContainer/EndWireKeyBinding"]
+layout_mode = 2
+text = "Закончить ведение провода"
+
+[node name="Button" type="Button" parent="VBoxContainer/KeyBindingsContainer/VBoxContainer/EndWireKeyBinding"]
+layout_mode = 2
+script = ExtResource("20_8geak")
+action_name = "abort_wire_creation"
+
+[node name="SelectionModeKeyBinding" type="HBoxContainer" parent="VBoxContainer/KeyBindingsContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/KeyBindingsContainer/VBoxContainer/SelectionModeKeyBinding"]
+layout_mode = 2
+text = "Режим выбора объектов"
+
+[node name="Button" type="Button" parent="VBoxContainer/KeyBindingsContainer/VBoxContainer/SelectionModeKeyBinding"]
+layout_mode = 2
+script = ExtResource("20_8geak")
+action_name = "select"
+
+[node name="NormalModeKeyBinding" type="HBoxContainer" parent="VBoxContainer/KeyBindingsContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/KeyBindingsContainer/VBoxContainer/NormalModeKeyBinding"]
+layout_mode = 2
+text = "Обычный режим"
+
+[node name="Button" type="Button" parent="VBoxContainer/KeyBindingsContainer/VBoxContainer/NormalModeKeyBinding"]
+layout_mode = 2
+script = ExtResource("20_8geak")
+action_name = "normal"
+
+[node name="InfoModeKeyBinding" type="HBoxContainer" parent="VBoxContainer/KeyBindingsContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/KeyBindingsContainer/VBoxContainer/InfoModeKeyBinding"]
+layout_mode = 2
+text = "Режим информации об объекте"
+
+[node name="Button" type="Button" parent="VBoxContainer/KeyBindingsContainer/VBoxContainer/InfoModeKeyBinding"]
+layout_mode = 2
+script = ExtResource("20_8geak")
+action_name = "conn_mode"
+
+[node name="BusModeKeyBinding" type="HBoxContainer" parent="VBoxContainer/KeyBindingsContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/KeyBindingsContainer/VBoxContainer/BusModeKeyBinding"]
+layout_mode = 2
+text = "Режим создания шин"
+
+[node name="Button" type="Button" parent="VBoxContainer/KeyBindingsContainer/VBoxContainer/BusModeKeyBinding"]
+layout_mode = 2
+script = ExtResource("20_8geak")
+action_name = "bus_mode"
 
 [connection signal="tab_changed" from="VBoxContainer/TabBar" to="VBoxContainer/TabBar" method="_on_tab_changed"]
 [connection signal="toggled" from="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/DoCyclesButton" to="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/DoCyclesButton" method="_on_toggled"]
@@ -284,3 +381,11 @@ script = ExtResource("20_8geak")
 [connection signal="color_changed" from="VBoxContainer/ColorSubmenu/PinLAHighlightColorContainer/PinLAHighlightColorPickerButton" to="VBoxContainer/ColorSubmenu/PinLAHighlightColorContainer/PinLAHighlightColorPickerButton" method="_on_color_changed"]
 [connection signal="pressed" from="VBoxContainer/ColorSubmenu/PinLAHighlightColorContainer/PinLAHighlightColorResetButton" to="VBoxContainer/ColorSubmenu/PinLAHighlightColorContainer/PinLAHighlightColorPickerButton" method="_on_wire_color_reset_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/KeyBindingsContainer/VBoxContainer/DeleteKeyBinding/Button" to="VBoxContainer/KeyBindingsContainer/VBoxContainer/DeleteKeyBinding/Button" method="_on_pressed"]
+[connection signal="pressed" from="VBoxContainer/KeyBindingsContainer/VBoxContainer/ConfirmKeyBinding/Button" to="VBoxContainer/KeyBindingsContainer/VBoxContainer/ConfirmKeyBinding/Button" method="_on_pressed"]
+[connection signal="pressed" from="VBoxContainer/KeyBindingsContainer/VBoxContainer/ZoomInKeyBinding/Button" to="VBoxContainer/KeyBindingsContainer/VBoxContainer/ZoomInKeyBinding/Button" method="_on_pressed"]
+[connection signal="pressed" from="VBoxContainer/KeyBindingsContainer/VBoxContainer/ZoomOutKeyBinding/Button" to="VBoxContainer/KeyBindingsContainer/VBoxContainer/ZoomOutKeyBinding/Button" method="_on_pressed"]
+[connection signal="pressed" from="VBoxContainer/KeyBindingsContainer/VBoxContainer/EndWireKeyBinding/Button" to="VBoxContainer/KeyBindingsContainer/VBoxContainer/EndWireKeyBinding/Button" method="_on_pressed"]
+[connection signal="pressed" from="VBoxContainer/KeyBindingsContainer/VBoxContainer/SelectionModeKeyBinding/Button" to="VBoxContainer/KeyBindingsContainer/VBoxContainer/SelectionModeKeyBinding/Button" method="_on_pressed"]
+[connection signal="pressed" from="VBoxContainer/KeyBindingsContainer/VBoxContainer/NormalModeKeyBinding/Button" to="VBoxContainer/KeyBindingsContainer/VBoxContainer/NormalModeKeyBinding/Button" method="_on_pressed"]
+[connection signal="pressed" from="VBoxContainer/KeyBindingsContainer/VBoxContainer/InfoModeKeyBinding/Button" to="VBoxContainer/KeyBindingsContainer/VBoxContainer/InfoModeKeyBinding/Button" method="_on_pressed"]
+[connection signal="pressed" from="VBoxContainer/KeyBindingsContainer/VBoxContainer/BusModeKeyBinding/Button" to="VBoxContainer/KeyBindingsContainer/VBoxContainer/BusModeKeyBinding/Button" method="_on_pressed"]

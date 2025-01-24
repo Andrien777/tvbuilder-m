@@ -17,6 +17,7 @@ func pin(index:int):
 	for i in range(bus.deleted_pins.size()-1,-1, -1):
 		var p = bus.deleted_pins[i]
 		if p[1] == index: # [1] is the pin index
+			bus.deleted_pins.pop_at(i)
 			return bus.add_connection(p[0], p[1], p[2]) # Name, index, position
 
 	return null

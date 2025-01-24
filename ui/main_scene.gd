@@ -49,6 +49,8 @@ func _input(event):
 		HistoryBuffer.redo_last_event()
 	elif (event.is_action_pressed("abort_wire_creation") or event.is_action_pressed("delete_component")) and not GlobalSettings.disableGlobalInput:
 		WireManager.stop_wire_creation()
+		if GlobalSettings.is_bus_mode():
+			WireManager.finish_current_bus()
 
 	elif event.is_action_pressed("copy") and not GlobalSettings.disableGlobalInput:
 		CopyBuffer.copy(get_global_mouse_position())

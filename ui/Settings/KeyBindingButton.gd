@@ -1,8 +1,9 @@
 extends Button
+class_name KeyBindButton
 var is_listening = false
-var mouse_bindable = false
-var keyboard_bindable = true
-var action_name = "delete_component"
+@export var mouse_bindable = false
+@export var keyboard_bindable = true
+@export var action_name = ""
 var action = null
 var current_event = null
 # Called when the node enters the scene tree for the first time.
@@ -17,6 +18,7 @@ func _ready() -> void:
 			else:
 				self.text = "Не назначено"
 	if self.text=="":
+		self.disabled = true
 		self.text = "Нет назначения с таким именем"
 
 
@@ -36,7 +38,7 @@ func _on_pressed() -> void:
 	is_listening = true
 
 func bind_to_action(event:InputEvent):
-	if action:
+	if action: # TODO: Save to GlobalSettings
 		if current_event:
 			InputMap.action_erase_event(action,current_event)
 		InputMap.action_add_event(action, event)

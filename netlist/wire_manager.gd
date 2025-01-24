@@ -7,6 +7,7 @@ var second_wire_point = null
 var timer: Timer
 var wire_ghost_pointer = Node2D.new()
 var wire_ghost = Wire.new()
+var bus_ghost = BusGhost.new()
 
 func _init():
 	wire_ghost.visible = false
@@ -18,7 +19,10 @@ func _init():
 	timer.wait_time = 0.1
 	timer.timeout.connect(force_update_wires)
 	add_child(timer)
-
+	bus_ghost.visible =false
+	bus_ghost.line.modulate =Color(0.8,0.8,0.8,1)
+	bus_ghost.has_hitbox = false
+	add_child(bus_ghost)
 func stop_wire_creation():
 	wire_ghost.visible = false
 	first_wire_point = null
@@ -191,8 +195,11 @@ func register_bus(bus:Bus):
 func register_bus_point(point:Vector2):
 	if !current_bus:
 		current_bus = _create_bus(point)
+		bus_ghost.control_points[0] = point
+		bus_ghost.visible = true
 	else:
 		current_bus.add_point(point)
+		bus_ghost.control_points[0] = point
 	
 func _delete_bus(bus):
 	if bus in buses:
@@ -207,3 +214,4 @@ func buses_to_json():
 
 func finish_current_bus():
 	current_bus = null
+	bus_ghost.visible = false
