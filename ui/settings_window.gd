@@ -28,6 +28,9 @@ func open_window():
 	get_node("VBoxContainer/ColorSubmenu/WireHighlightColorContainer/WireHighlightColorPickerButton").color = GlobalSettings.highlightedWireColor
 	get_node("VBoxContainer/ColorSubmenu/PinHighlightContainer/PinHighlightColorPickerButton").color = GlobalSettings.highlightedPinsColor
 	get_node("VBoxContainer/ColorSubmenu/PinLAHighlightColorContainer/PinLAHighlightColorPickerButton").color = GlobalSettings.highlightedLAPinsColor
+	get_node("VBoxContainer/ColorSubmenu/BusColorContainer/BusColorPicker").color = GlobalSettings.bus_color
+	get_node("VBoxContainer/ColorSubmenu/HighlightedBusColorContainer/BusColorPicker").color = GlobalSettings.highlightedBusColor
+
 
 func close():
 	GlobalSettings.save()

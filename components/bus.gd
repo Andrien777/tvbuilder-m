@@ -74,11 +74,11 @@ func _process(delta: float) -> void:
 		#HistoryBuffer.register_event(event)
 
 func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void:
-	if event is InputEventMouseButton and event.pressed and Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
+	if event is InputEventMouseButton and event.pressed and Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT) and not GlobalSettings.disableWireConnection:
 		var pin = Pin.new()
 		var spec = PinSpecification.new()
 		spec.initialize(last_pin_index,NetConstants.DIRECTION.DIRECTION_INPUT,"TOP", "Шина", "Шина", [])
-		 #TODO: Init pin
+		# TODO: Init pin
 		last_pin_index += 1
 		
 		var label = Label.new()

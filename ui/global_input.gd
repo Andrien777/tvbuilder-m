@@ -16,6 +16,7 @@ func _input(event):
 			callback.call(textfield.text)
 		self.hide()
 		GlobalSettings.disableGlobalInput = false
+		GlobalSettings.disableWireConnection = false
 	
 func ask_for_input(placeholder:String, callback:Callable, clear_content=true, text = ""):
 	if(clear_content):
@@ -28,4 +29,6 @@ func ask_for_input(placeholder:String, callback:Callable, clear_content=true, te
 	textfield.grab_focus()
 	textfield.placeholder_text = placeholder
 	GlobalSettings.disableGlobalInput = true
+	GlobalSettings.disableWireConnection = true
+
 	

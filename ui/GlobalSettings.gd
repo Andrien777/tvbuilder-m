@@ -3,7 +3,7 @@ extends Node
 var LevelHighlight  = false
 var doCycles = true
 var disableGlobalInput = false
-
+var disableWireConnection = false
 var WireSnap = true
 
 var turbo = false
