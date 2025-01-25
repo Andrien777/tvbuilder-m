@@ -1,10 +1,13 @@
 extends Node2D
 var wires: Array[Wire]
+var buses: Array[Bus]
+var current_bus = null
 var first_wire_point = null
 var second_wire_point = null
 var timer: Timer
 var wire_ghost_pointer = Node2D.new()
 var wire_ghost = Wire.new()
+var bus_ghost = BusGhost.new()
 
 func _init():
 	wire_ghost.visible = false
@@ -16,7 +19,10 @@ func _init():
 	timer.wait_time = 0.1
 	timer.timeout.connect(force_update_wires)
 	add_child(timer)
-
+	bus_ghost.visible =false
+	bus_ghost.line.modulate =Color(0.8,0.8,0.8,1)
+	bus_ghost.has_hitbox = false
+	add_child(bus_ghost)
 func stop_wire_creation():
 	wire_ghost.visible = false
 	first_wire_point = null
@@ -33,11 +39,9 @@ func register_wire_point(object:Node2D):
 		second_wire_point = object
 		if Input.is_key_pressed(KEY_SHIFT):
 			for wire in wires:
-				print(wire)
 				if(wire.first_object==first_wire_point and wire.second_object==second_wire_point) or (wire.first_object==second_wire_point and wire.second_object==first_wire_point):
 					_delete_wire(wire)
 		else:
-			# TODO: Check if creation is possible
 			var event = WireCreationEvent.new()
 			event.initialize(_create_wire(first_wire_point, second_wire_point)) # TODO: Kind of ugly side effect use
 			HistoryBuffer.register_event(event)
@@ -50,8 +54,12 @@ func _delete_wire(wire):
 		NetlistClass.delete_connection(wire.first_object, wire.second_object)
 		if is_instance_valid(wire.first_object):
 			(wire.first_object as Pin).state = NetConstants.LEVEL.LEVEL_Z
+			if(wire.first_object.parent is BusComponent): # TODO: Maybe this should be a signal going to the pin
+				wire.first_object.parent.delete_connection(wire.first_object)
 		if is_instance_valid(wire.second_object):
 			(wire.second_object as Pin).state = NetConstants.LEVEL.LEVEL_Z
+			if(wire.second_object.parent is BusComponent):
+				wire.second_object.parent.delete_connection(wire.second_object)
 		wires.erase(wire)
 		if GlobalSettings.showLastWire:
 			if not wires.is_empty():
@@ -77,8 +85,12 @@ func _delete_wire_by_ends(from, to): #Slow and questionable, but should work fin
 	NetlistClass.delete_connection(wire_to_delete.first_object, wire_to_delete.second_object)
 	if is_instance_valid(wire_to_delete.first_object):
 		(wire_to_delete.first_object as Pin).state = NetConstants.LEVEL.LEVEL_Z
+		if(wire_to_delete.first_object.parent is BusComponent): # TODO: Maybe this should be a signal going to the pin
+			wire_to_delete.first_object.parent.delete_connection(wire_to_delete.first_object)
 	if is_instance_valid(wire_to_delete.second_object):
 		(wire_to_delete.second_object as Pin).state = NetConstants.LEVEL.LEVEL_Z
+		if(wire_to_delete.second_object.parent is BusComponent):
+			wire_to_delete.second_object.parent.delete_connection(wire_to_delete.second_object)
 	wires.erase(wire_to_delete)
 	if GlobalSettings.showLastWire:
 		if not wires.is_empty():
@@ -99,7 +111,7 @@ func _create_wire(first_object:Node2D, second_object:Node2D, control_points = []
 	if found:
 		return
 	if first_object==second_object:
-		print("Соединение с самим собой")
+		InfoManager.write_error("Попытка соединения провода с одной и той же точкой")
 		return
 	var wire = Wire.new()
 	wire.initialize(first_object,second_object)
@@ -124,6 +136,9 @@ func clear():
 	for wire in wires:
 		wire.queue_free()
 	wires.clear()
+	for bus in buses:
+		bus.queue_free()
+	buses.clear()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -163,3 +178,38 @@ func force_update_wires_after_delay():
 func force_update_wires():
 	for wire in wires:
 		wire._process(0.0,true)
+		
+func _create_bus(initial_point = Vector2(0,0)):
+	var bus = Bus.new()
+	bus.initialize([initial_point])
+	buses.append(bus)
+	add_child(bus)
+	return bus
+	
+func register_bus(bus:Bus):
+	buses.append(bus)
+	add_child(bus)
+
+func register_bus_point(point:Vector2):
+	if !current_bus:
+		current_bus = _create_bus(point)
+		bus_ghost.control_points[0] = point
+		bus_ghost.visible = true
+	else:
+		current_bus.add_point(point)
+		bus_ghost.control_points[0] = point
+	
+func _delete_bus(bus):
+	if bus in buses:
+		buses.erase(bus)
+		bus.queue_free()
+
+func buses_to_json():
+	var json = []
+	for bus in buses:
+		json.append(bus.component.to_json_object())
+	return json
+
+func finish_current_bus():
+	current_bus = null
+	bus_ghost.visible = false

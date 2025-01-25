@@ -52,6 +52,12 @@ func _on_index_pressed(index: int) -> void:
 				self.set_item_checked(4, true)
 		5:
 			GlobalSettings.turbo = not GlobalSettings.turbo
+			if GlobalSettings.turbo:
+				Engine.physics_ticks_per_second = 500
+				Engine.max_physics_steps_per_frame = 9
+			else:
+				Engine.physics_ticks_per_second = 60
+				Engine.max_physics_steps_per_frame = 8
 			self.set_item_checked(5, GlobalSettings.turbo)
 			if GlobalSettings.turbo:
 				Engine.physics_ticks_per_second = 500
