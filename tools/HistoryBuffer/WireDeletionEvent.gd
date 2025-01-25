@@ -15,6 +15,8 @@ func initialize(from, to, control_points = []):
 		self.to_id = to.parent.id
 		self.from_index = from.index
 		self.to_index = to.index
+	else:
+		InfoManager.write_error("Не удалось записать событие удаления провода")
 	self.control_points = control_points
 	
 func undo():

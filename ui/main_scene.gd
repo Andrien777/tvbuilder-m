@@ -12,6 +12,8 @@ func _ready() -> void:
 	timer.timeout.connect(WireManager.force_update_wires)
 	add_child(timer)
 	GlobalSettings.try_load()
+	InfoManager.bind_console(get_node("./UiCanvasLayer/ConsoleContainer"))
+	InfoManager.bind_indicator(get_node("/root/RootNode/UiCanvasLayer/VBoxContainer2/RibbonContainer/OpenConsoleButton"))
 	get_node("./GridSprite").visible = GlobalSettings.CurrentGraphicsMode==LegacyGraphicsMode
 	get_node("./GridSprite").modulate = GlobalSettings.bg_color
 	selection_area = get_node("SelectionArea")
@@ -22,7 +24,8 @@ func _process(delta: float) -> void:
 			selection_area.start_tracking()
 	if not GlobalSettings.is_connectivity_mode():
 		Input.set_default_cursor_shape(Input.CURSOR_ARROW)
-
+	if GlobalSettings.is_bus_mode() and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and not GlobalSettings.disableGlobalInput:
+		WireManager.register_bus_point(get_global_mouse_position())
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
 	NetlistClass.process_scheme()
@@ -48,6 +51,8 @@ func _input(event):
 		HistoryBuffer.redo_last_event()
 	elif (event.is_action_pressed("abort_wire_creation") or event.is_action_pressed("delete_component")) and not GlobalSettings.disableGlobalInput:
 		WireManager.stop_wire_creation()
+		if GlobalSettings.is_bus_mode():
+			WireManager.finish_current_bus()
 
 	elif event.is_action_pressed("copy") and not GlobalSettings.disableGlobalInput:
 		CopyBuffer.copy(get_global_mouse_position())
@@ -67,8 +72,10 @@ func _input(event):
 	if event.is_action_pressed("abort_wire_creation") and not GlobalSettings.disableGlobalInput:
 		selection_area.stop_selection()
 
-	elif event.is_action_pressed("create_bus"):
+	elif event.is_action_pressed("create_bus") and not GlobalSettings.disableGlobalInput:
 		WireManager.register_bus_point(get_global_mouse_position())
+	elif event.is_action_pressed("bus_mode") and not GlobalSettings.disableGlobalInput:
+		to_bus_mode()
 
 
 func toggle_graphics_mode():
@@ -124,3 +131,8 @@ func to_connectivity_mode():
 func to_selection_mode():
 	GlobalSettings.CursorMode = GlobalSettings.CURSOR_MODES.SELECTION
 	get_node("./Camera2D").lock_pan = true
+
+func to_bus_mode():
+	GlobalSettings.CursorMode = GlobalSettings.CURSOR_MODES.BUS
+	get_node("./Camera2D").lock_pan = false
+	get_node("./Camera2D").pressed_mmb = false

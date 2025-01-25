@@ -7,6 +7,7 @@ var second_wire_point = null
 var timer: Timer
 var wire_ghost_pointer = Node2D.new()
 var wire_ghost = Wire.new()
+var bus_ghost = BusGhost.new()
 
 func _init():
 	wire_ghost.visible = false
@@ -18,7 +19,10 @@ func _init():
 	timer.wait_time = 0.1
 	timer.timeout.connect(force_update_wires)
 	add_child(timer)
-
+	bus_ghost.visible =false
+	bus_ghost.line.modulate =Color(0.8,0.8,0.8,1)
+	bus_ghost.has_hitbox = false
+	add_child(bus_ghost)
 func stop_wire_creation():
 	wire_ghost.visible = false
 	first_wire_point = null
@@ -35,11 +39,9 @@ func register_wire_point(object:Node2D):
 		second_wire_point = object
 		if Input.is_key_pressed(KEY_SHIFT):
 			for wire in wires:
-				print(wire)
 				if(wire.first_object==first_wire_point and wire.second_object==second_wire_point) or (wire.first_object==second_wire_point and wire.second_object==first_wire_point):
 					_delete_wire(wire)
 		else:
-			# TODO: Check if creation is possible
 			var event = WireCreationEvent.new()
 			event.initialize(_create_wire(first_wire_point, second_wire_point)) # TODO: Kind of ugly side effect use
 			HistoryBuffer.register_event(event)
@@ -109,7 +111,7 @@ func _create_wire(first_object:Node2D, second_object:Node2D, control_points = []
 	if found:
 		return
 	if first_object==second_object:
-		print("Соединение с самим собой")
+		InfoManager.write_error("Попытка соединения провода с одной и той же точкой")
 		return
 	var wire = Wire.new()
 	wire.initialize(first_object,second_object)
@@ -183,14 +185,19 @@ func _create_bus(initial_point = Vector2(0,0)):
 	buses.append(bus)
 	add_child(bus)
 	return bus
+	
 func register_bus(bus:Bus):
 	buses.append(bus)
 	add_child(bus)
+
 func register_bus_point(point:Vector2):
 	if !current_bus:
 		current_bus = _create_bus(point)
+		bus_ghost.control_points[0] = point
+		bus_ghost.visible = true
 	else:
 		current_bus.add_point(point)
+		bus_ghost.control_points[0] = point
 	
 func _delete_bus(bus):
 	if bus in buses:
@@ -202,3 +209,7 @@ func buses_to_json():
 	for bus in buses:
 		json.append(bus.component.to_json_object())
 	return json
+
+func finish_current_bus():
+	current_bus = null
+	bus_ghost.visible = false

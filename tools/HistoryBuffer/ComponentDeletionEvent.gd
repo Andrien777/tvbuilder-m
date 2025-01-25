@@ -57,3 +57,5 @@ func redo():
 	if is_instance_valid(object):
 		ComponentManager.remove_object(object)
 		object.queue_free()
+	else:
+		InfoManager.write_error("Не удалось отменить создание компонента")

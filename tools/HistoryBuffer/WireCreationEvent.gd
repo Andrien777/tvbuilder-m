@@ -16,6 +16,8 @@ func initialize(object):
 		self.to_id = object.second_object.parent.id
 		self.to_index = object.second_object.index
 		self.control_points = object.control_points
+	else:
+		InfoManager.write_error("Не удалось записать событие создания провода")
 
 func undo():
 	if is_instance_valid(from) and is_instance_valid(to):

@@ -15,6 +15,7 @@ var current_label
 var current_pin
 var last_pin_index = 0
 var component
+var deleted_pins = []
 func _init()->void:
 	line = Line2D.new()
 	line.width = default_line_width
@@ -26,6 +27,7 @@ func _init()->void:
 	component = BusComponent.new()
 	component.bus = self
 	component.readable_name = "Шина"
+	
 	ComponentManager.register_object(component)
 	SaveManager.do_not_save(component.id)
 func initialize(control_points: Array[Vector2]):
@@ -34,6 +36,7 @@ func initialize(control_points: Array[Vector2]):
 			line.add_point(Vector2(line.get_point_position(line.get_point_count()-1).x, p.y))
 		self.control_points.append(p)
 		line.add_point(p)
+	change_color()
 	update_hitbox()
 
 
@@ -45,12 +48,12 @@ func _ready() -> void:
 
 func _mouse_enter() -> void:
 	self.line.width = highlit_line_width
-	self.modulate=Color(0.7,0.7,0.7,1)
+	self.modulate=GlobalSettings.highlightedBusColor
 	is_mouse_over = true
 
 func _mouse_exit() -> void:
 	self.line.width = default_line_width
-	self.modulate=Color(1,1,1,1)
+	change_color()
 	is_mouse_over = false
 
 
@@ -62,18 +65,20 @@ func _process(delta: float) -> void:
 			for j in connection_pins:
 				NetlistClass.delete_connection(i, j) # Its sub-optimal. I don`t care
 		for i in connection_pins:
-			i.queue_free() # Just to be safe
+			if is_instance_valid(i):
+				i.queue_free() # Just to be safe
+		ComponentManager.remove_object(component)
 		WireManager._delete_bus(self)
 		#var event = WireDeletionEvent.new() #TODO: Bus events
 		#event.initialize(self.first_object, self.second_object)
 		#HistoryBuffer.register_event(event)
 
 func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void:
-	if event is InputEventMouseButton and event.pressed and Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
+	if event is InputEventMouseButton and event.pressed and Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT) and not GlobalSettings.disableWireConnection:
 		var pin = Pin.new()
 		var spec = PinSpecification.new()
 		spec.initialize(last_pin_index,NetConstants.DIRECTION.DIRECTION_INPUT,"TOP", "Шина", "Шина", [])
-		 #TODO: Init pin
+		# TODO: Init pin
 		last_pin_index += 1
 		
 		var label = Label.new()
@@ -101,6 +106,7 @@ func register_connection(name:String):
 	add_child(current_pin)
 	add_child(current_label)
 
+
 func add_connection(name:String,index,  position:Vector2):
 	var pin = Pin.new()
 	var spec = PinSpecification.new()
@@ -118,6 +124,7 @@ func add_connection(name:String,index,  position:Vector2):
 	current_pin = pin
 	current_label.text = name
 	register_connection(name)
+	return current_pin
 	
 func add_point(point:Vector2):
 	control_points.append(point)
@@ -132,7 +139,13 @@ func delete_connection(pin):
 			for node in connections[name]: # Delete all connections to this pin
 				NetlistClass.delete_connection(pin, node)
 			self.component.pins.erase(pin)
+			connection_pins.erase(pin)
 			connections[name].erase(pin)
+			deleted_pins.append([name, pin.index, pin.position]) # I already hate how this bus is implemented, so I dont really care
+			
+			if deleted_pins.size() > GlobalSettings.historyDepth: # Bus has to track its pin history to be able to restore them at request
+				deleted_pins.pop_front()
+				
 			if is_instance_valid(labels[pin]):
 				labels[pin].queue_free()
 				labels.erase(pin)
@@ -160,3 +173,15 @@ func update_hitbox():
 				hitbox_part.position = Vector2(0.5 * (line.points[i].x + line.points[i + 1].x),
 					0.5 * (line.points[i].y + line.points[i + 1].y))
 				hitbox.append(hitbox_part)
+		if not hitbox.is_empty():
+			component.hitbox = self.hitbox[0]
+
+func change_color():
+	if (GlobalSettings.CurrentGraphicsMode==LegacyGraphicsMode) and GlobalSettings.useDefaultWireColor:
+		self.modulate=Color(1,0,0,1)
+		GlobalSettings.bus_color = Color(1,0,0,1)
+	elif GlobalSettings.useDefaultWireColor:
+		self.modulate=Color(1,1,1,1)
+		GlobalSettings.bus_color = Color(1,1,1,1)
+	else:
+		self.modulate = GlobalSettings.bus_color

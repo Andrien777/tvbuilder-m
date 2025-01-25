@@ -108,7 +108,7 @@ func propagate_signal() -> void:
 							if neighbour.pin.output():
 								if neighbour in resolved and neighbour.pin.state != current.pin.state:
 									if not neighbour.pin.z and not current.pin.z:
-										PopupManager.display_error("Соединены два выхода", "Вы делаете что-то странное", current.pin.global_position)
+										PopupManager.display_error("Короткое замыкание", "Соединены два выхода с разными сигналами", current.pin.global_position)
 										#print("Two outputs short circuited")
 							if neighbour != current:
 								stack.push_back(neighbour)
@@ -125,7 +125,7 @@ func propagate_signal() -> void:
 						if neighbour.pin.output():
 							if neighbour in resolved and neighbour.pin.state != current.pin.state:
 								if not neighbour.pin.z and not current.pin.z:
-									PopupManager.display_error("Соединены два выхода", "Вы делаете что-то странное", current.pin.global_position)
+									PopupManager.display_error("Короткое замыкание", "Соединены два выхода с разными сигналами", current.pin.global_position)
 									#print("Two outputs short circuited")
 						if neighbour != current:
 							stack.push_back(neighbour)
@@ -206,10 +206,7 @@ func get_json_adjacency():
 				continue
 			var wire = WireManager.find_wire_by_ends(node, neighbour.pin)
 
-			if is_instance_valid(wire):
-
 			if wire: # This can happen if "invisible link" was created. For example, pins in a bus are connected this way
-
 				edges.append({
 					"from": {
 						"ic": node.parent.id,

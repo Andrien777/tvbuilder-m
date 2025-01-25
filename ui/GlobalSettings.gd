@@ -3,7 +3,7 @@ extends Node
 var LevelHighlight  = false
 var doCycles = true
 var disableGlobalInput = false
-
+var disableWireConnection = false
 var WireSnap = true
 
 var turbo = false
@@ -13,7 +13,7 @@ var historyDepth = 200
 var ShowSignalsInConnectionTable = false
 var CurrentGraphicsMode = LegacyGraphicsMode
 
-enum CURSOR_MODES {NORMAL, SELECTION, CONNECTIVITY_MODE}
+enum CURSOR_MODES {NORMAL, SELECTION, CONNECTIVITY_MODE, BUS}
 var CursorMode = CURSOR_MODES.NORMAL
 
 func is_normal_mode():
@@ -25,9 +25,11 @@ func is_selecting():
 func is_connectivity_mode():
 	return CursorMode == CURSOR_MODES.CONNECTIVITY_MODE
 
+func is_bus_mode():
+	return CursorMode==CURSOR_MODES.BUS
+	
+	
 var PinIndexOffset = 5
-
-
 var showLastWire = false
 var highlightOutputPins = false
 
@@ -38,6 +40,10 @@ var wire_color_global = Color(1, 0, 0)
 var highlightedWireColor = Color(0.7,0.7,0.7,1)
 var highlightedPinsColor = Color(0.3,0.3,0.3,1)
 var highlightedLAPinsColor = Color(0, 0.75, 1, 1)
+var highlightedBusColor = Color(0.7,0.7,0.7)
+var bus_color_global = Color(1,0.5,0)
+var bus_color = Color(1,0.5,0)
+
 var useDefaultWireColor = true
 
 var allowSettingsOverride = true
@@ -76,18 +82,25 @@ func try_load():
 				showLastWire = parsed["ShowLastWire"] as bool
 			if parsed.has("BgColor"):
 				bg_color_global = Color(parsed["BgColor"])
+				bg_color = bg_color_global
 			if parsed.has("WireColor"):
 				wire_color_global = Color(parsed["WireColor"])
+				wire_color = wire_color_global
 			if parsed.has("DefaultWireColor"):
 				useDefaultWireColor = parsed["DefaultWireColor"] as bool
 			if parsed.has("SettingsOverride"):
 				allowSettingsOverride = parsed["SettingsOverride"] as bool
 			if parsed.has("HighlightedWireColor"):
-				wire_color = Color(parsed["HighlightedWireColor"])
+				highlightedWireColor = Color(parsed["HighlightedWireColor"])
 			if parsed.has("HighlightedPinColor"):
-				wire_color = Color(parsed["HighlightedPinColor"])
+				highlightedPinsColor = Color(parsed["HighlightedPinColor"])
 			if parsed.has("HighlightedLAPinColor"):
-				wire_color = Color(parsed["HighlightedLAPinColor"])
+				highlightedLAPinsColor = Color(parsed["HighlightedLAPinColor"])
+			if parsed.has("BusColor"):
+				bus_color = Color(parsed["BusColor"])
+				bus_color_global = bus_color
+			if parsed.has("HighlightedBusColor"):
+				highlightedBusColor = Color(parsed["HighlightedBusColor"])
 				
 
 func save():
@@ -109,6 +122,8 @@ func save():
 	json_object["HighlightedWireColor"] = highlightedWireColor.to_html(false)
 	json_object["HighlightedPinColor"] = highlightedPinsColor.to_html(false)
 	json_object["HighlightedLAPinColor"] = highlightedLAPinsColor.to_html(false)
+	json_object["BusColor"] = bus_color_global.to_html(false)
+	json_object["HighlightedBusColor"] = highlightedBusColor.to_html(false)
 	file.store_string(JSON.stringify(json_object, "\t"))
 	file.close()
 

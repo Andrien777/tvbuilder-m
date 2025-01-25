@@ -17,7 +17,7 @@ func save(path: String) -> void:
 	var json_list_ic: Array
 	for ic in ComponentManager.obj_list.values():
 		if(!is_instance_valid(ic)):
-			PopupManager.display_error("Что-то пошло не так", "Да, это тот самый баг.", Vector2(100,100))
+			InfoManager.write_error("При сохранении был найден неверный объект. Данный объект не будет сохранён.")
 			continue
 		if ic.id in do_not_save_ids:
 			continue
@@ -31,6 +31,8 @@ func save(path: String) -> void:
 		"buses": WireManager.buses_to_json()
 	}, "\t"))
 	file.close()
+	InfoManager.write_info("Файл %s сохранён" % [path])
+
 
 func load(scene: Node2D, path: String):
 	last_path = path
@@ -42,12 +44,12 @@ func load(scene: Node2D, path: String):
 	var parsed = json.parse_string(file)
 	var parsed_ids = []
 	if parsed == null:
-		print("error")
+		InfoManager.write_error("Не удалось считать открываемый файл")
 		return
 	for ic in parsed.components:
 		if(ic.id in parsed_ids):
-			PopupManager.display_error("Во время открытия произошла ошибка, но файл все равно откроется", "В файле найдены дублированные сохранения. Это известный баг, который мы решаем.", Vector2(100,100))
-			continue # TODO: Throw an error
+			InfoManager.write_error("В файле найден дубликат элемента. Файл все равно откроется, но его содержимое может не отображаться корректно")
+			continue
 		else:
 			parsed_ids.append(ic.id)
 		var component: CircuitComponent
@@ -68,19 +70,25 @@ func load(scene: Node2D, path: String):
 	for edge in parsed.netlist:
 		var from_ic = ComponentManager.get_by_id(edge.from.ic)
 		var from_pin: Pin
+		if from_ic == null:
+			InfoManager.write_error("Ошибка. Не удалось найти компонент с id = %d при загрузке провода" % [edge.from.ic])
+			continue
 		for pin in from_ic.pins:
 			if pin.index == edge.from.pin:
 				from_pin = pin
 		if from_pin == null:
-			print("Error. Could not find 'from' pin or ic")
+			InfoManager.write_error("Ошибка. Не удалось найти поле 'from', id = %d при загрузке провода" % [edge.from.ic])
 			continue
 		var to_ic = ComponentManager.get_by_id(edge.to.ic)
 		var to_pin: Pin
+		if to_ic == null:
+			InfoManager.write_error("Ошибка. Не удалось найти компонент с id = %d при загрузке провода" % [edge.to.ic])
+			continue
 		for pin in to_ic.pins:
 			if pin.index == edge.to.pin:
 				to_pin = pin
 		if to_pin == null:
-			print("Error. Could not find 'to' pin or ic")
+			InfoManager.write_error("Ошибка. Не удалось найти поле 'to', id = %d при загрузке провода" % [edge.to.ic])
 			continue
 		if "wire" in edge:
 			if "control_points" in edge.wire:
@@ -104,6 +112,8 @@ func load(scene: Node2D, path: String):
 				GlobalSettings.useDefaultWireColor = parsed.config["DefaultWireColor"] as bool
 				for wire in WireManager.wires:
 					wire.change_color()
+	InfoManager.write_info("Файл %s загружен" % [path])
+
 
 		
 func _init():
