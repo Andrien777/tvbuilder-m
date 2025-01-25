@@ -253,7 +253,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/KeyBindingsContainer/VBoxContainer/DeleteKeyBinding"]
 layout_mode = 2
-text = "Удаление объекта"
+text = "  Удаление объекта"
 
 [node name="Button" type="Button" parent="VBoxContainer/KeyBindingsContainer/VBoxContainer/DeleteKeyBinding"]
 layout_mode = 2
@@ -265,7 +265,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/KeyBindingsContainer/VBoxContainer/ConfirmKeyBinding"]
 layout_mode = 2
-text = "Подтвердить"
+text = "  Подтвердить"
 
 [node name="Button" type="Button" parent="VBoxContainer/KeyBindingsContainer/VBoxContainer/ConfirmKeyBinding"]
 layout_mode = 2
@@ -277,7 +277,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/KeyBindingsContainer/VBoxContainer/ZoomInKeyBinding"]
 layout_mode = 2
-text = "Приблизить"
+text = "  Приблизить"
 
 [node name="Button" type="Button" parent="VBoxContainer/KeyBindingsContainer/VBoxContainer/ZoomInKeyBinding"]
 layout_mode = 2
@@ -289,7 +289,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/KeyBindingsContainer/VBoxContainer/ZoomOutKeyBinding"]
 layout_mode = 2
-text = "Отдалить"
+text = "  Отдалить"
 
 [node name="Button" type="Button" parent="VBoxContainer/KeyBindingsContainer/VBoxContainer/ZoomOutKeyBinding"]
 layout_mode = 2
@@ -301,7 +301,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/KeyBindingsContainer/VBoxContainer/EndWireKeyBinding"]
 layout_mode = 2
-text = "Закончить ведение провода"
+text = "  Закончить ведение провода"
 
 [node name="Button" type="Button" parent="VBoxContainer/KeyBindingsContainer/VBoxContainer/EndWireKeyBinding"]
 layout_mode = 2
@@ -313,7 +313,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/KeyBindingsContainer/VBoxContainer/SelectionModeKeyBinding"]
 layout_mode = 2
-text = "Режим выбора объектов"
+text = "  Режим выбора объектов"
 
 [node name="Button" type="Button" parent="VBoxContainer/KeyBindingsContainer/VBoxContainer/SelectionModeKeyBinding"]
 layout_mode = 2
@@ -325,7 +325,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/KeyBindingsContainer/VBoxContainer/NormalModeKeyBinding"]
 layout_mode = 2
-text = "Обычный режим"
+text = "  Обычный режим"
 
 [node name="Button" type="Button" parent="VBoxContainer/KeyBindingsContainer/VBoxContainer/NormalModeKeyBinding"]
 layout_mode = 2
@@ -337,7 +337,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/KeyBindingsContainer/VBoxContainer/InfoModeKeyBinding"]
 layout_mode = 2
-text = "Режим информации об объекте"
+text = "  Режим информации об объекте"
 
 [node name="Button" type="Button" parent="VBoxContainer/KeyBindingsContainer/VBoxContainer/InfoModeKeyBinding"]
 layout_mode = 2
@@ -349,7 +349,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/KeyBindingsContainer/VBoxContainer/BusModeKeyBinding"]
 layout_mode = 2
-text = "Режим создания шин"
+text = "  Режим создания шин"
 
 [node name="Button" type="Button" parent="VBoxContainer/KeyBindingsContainer/VBoxContainer/BusModeKeyBinding"]
 layout_mode = 2
