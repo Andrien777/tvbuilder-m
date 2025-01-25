@@ -11,13 +11,13 @@ config_version=5
 [application]
 
 config/name="TVBuilder"
-config/version="1.0"
+config/version="1.4"
 run/main_scene="res://ui/main_scene.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 boot_splash/bg_color=Color(0.762404, 0.762404, 0.762404, 1)
 boot_splash/image="res://ui/tvb_splash.png"
 boot_splash/fullsize=false
-config/icon="res://icon.svg"
+config/icon="res://ui/tvb_logo.png"
 
 [autoload]
 
@@ -151,8 +151,7 @@ conn_mode={
 
 [physics]
 
-common/physics_ticks_per_second=500
-common/max_physics_steps_per_frame=9
+common/physics_ticks_per_second=200
 
 [rendering]
 

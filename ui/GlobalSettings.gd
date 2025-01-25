@@ -76,18 +76,20 @@ func try_load():
 				showLastWire = parsed["ShowLastWire"] as bool
 			if parsed.has("BgColor"):
 				bg_color_global = Color(parsed["BgColor"])
+				bg_color = bg_color_global
 			if parsed.has("WireColor"):
 				wire_color_global = Color(parsed["WireColor"])
+				wire_color = wire_color_global
 			if parsed.has("DefaultWireColor"):
 				useDefaultWireColor = parsed["DefaultWireColor"] as bool
 			if parsed.has("SettingsOverride"):
 				allowSettingsOverride = parsed["SettingsOverride"] as bool
 			if parsed.has("HighlightedWireColor"):
-				wire_color = Color(parsed["HighlightedWireColor"])
+				highlightedWireColor = Color(parsed["HighlightedWireColor"])
 			if parsed.has("HighlightedPinColor"):
-				wire_color = Color(parsed["HighlightedPinColor"])
+				highlightedPinsColor = Color(parsed["HighlightedPinColor"])
 			if parsed.has("HighlightedLAPinColor"):
-				wire_color = Color(parsed["HighlightedLAPinColor"])
+				highlightedLAPinsColor = Color(parsed["HighlightedLAPinColor"])
 				
 
 func save():

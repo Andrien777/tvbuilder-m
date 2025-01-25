@@ -15,6 +15,7 @@ func _ready() -> void:
 	get_node("./GridSprite").visible = GlobalSettings.CurrentGraphicsMode==LegacyGraphicsMode
 	get_node("./GridSprite").modulate = GlobalSettings.bg_color
 	selection_area = get_node("SelectionArea")
+	get_window().title = "TVBuilder - New Project"
 
 func _process(delta: float) -> void:
 	if GlobalSettings.is_selecting() and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and not GlobalSettings.disableGlobalInput:

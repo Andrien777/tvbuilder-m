@@ -14,3 +14,9 @@ func _process(delta: float) -> void:
 func _on_pressed() -> void:
 	GlobalSettings.turbo = not GlobalSettings.turbo
 	button_pressed = GlobalSettings.turbo
+	if GlobalSettings.turbo:
+		Engine.physics_ticks_per_second = 500
+		Engine.max_physics_steps_per_frame = 9
+	else:
+		Engine.physics_ticks_per_second = 200
+		Engine.max_physics_steps_per_frame = 8

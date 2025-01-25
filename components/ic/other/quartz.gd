@@ -15,17 +15,17 @@ func _ready() -> void:
 	pin(2).set_high()
 
 func initialize(spec: ComponentSpecification, ic = null)->void:
-	freq_label.text = str(Engine.physics_ticks_per_second) + " Гц"
+	freq_label.text = str(Engine.physics_ticks_per_second / 2) + " Гц"
 	super.initialize(spec, ic)
 	freq_label.position = hitbox.shape.size / 2 - freq_label.get_theme_default_font().get_string_size(freq_label.text) / 2
 
 func _process(delta: float) -> void:
 	super._process(delta)
 	if GlobalSettings.turbo:
-		freq_label.text = str(Engine.physics_ticks_per_second * 3) + " Гц"
+		freq_label.text = str(Engine.physics_ticks_per_second * 3 / 2) + " Гц"
 		freq_label.position = hitbox.shape.size / 2 - freq_label.get_theme_default_font().get_string_size(freq_label.text) / 2
 	else:
-		freq_label.text = str(Engine.physics_ticks_per_second) + " Гц"
+		freq_label.text = str(Engine.physics_ticks_per_second / 2) + " Гц"
 		freq_label.position = hitbox.shape.size / 2 - freq_label.get_theme_default_font().get_string_size(freq_label.text) / 2
 
 func _process_signal():

@@ -479,6 +479,7 @@ title = "Просмотр содержимого памяти"
 initial_position = 1
 size = Vector2i(500, 550)
 visible = false
+unresizable = true
 always_on_top = true
 min_size = Vector2i(250, 250)
 script = ExtResource("12_wwdn8")
@@ -491,6 +492,7 @@ offset_left = 10.0
 offset_top = 10.0
 grow_horizontal = 2
 grow_vertical = 2
+focus_mode = 2
 alignment = 1
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="MemoryViewer/VBoxContainer"]
@@ -498,6 +500,7 @@ layout_mode = 2
 
 [node name="RamNameLabel" type="Label" parent="MemoryViewer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
+focus_mode = 2
 text = "Имя элемента памяти"
 
 [node name="ContinuousUpdate" type="CheckBox" parent="MemoryViewer/VBoxContainer/HBoxContainer2"]
@@ -506,6 +509,7 @@ text = "Постоянное обновление"
 
 [node name="GridContainer" type="GridContainer" parent="MemoryViewer/VBoxContainer"]
 layout_mode = 2
+focus_mode = 2
 columns = 17
 script = ExtResource("13_jjv1i")
 

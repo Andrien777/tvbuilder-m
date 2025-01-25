@@ -27,6 +27,7 @@ func save(path: String) -> void:
 		"config": GlobalSettings.get_object_to_save()
 	}, "\t"))
 	file.close()
+	get_window().title = "TVBuilder - " + path.get_file().get_basename()
 
 func load(scene: Node2D, path: String):
 	last_path = path
@@ -98,6 +99,7 @@ func load(scene: Node2D, path: String):
 				GlobalSettings.useDefaultWireColor = parsed.config["DefaultWireColor"] as bool
 				for wire in WireManager.wires:
 					wire.change_color()
+	get_window().title = "TVBuilder - " + path.get_file().get_basename()
 
 		
 func _init():
