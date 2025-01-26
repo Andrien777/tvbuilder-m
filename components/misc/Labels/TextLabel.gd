@@ -15,6 +15,7 @@ func _init():
 	label = Label.new()
 	label.text = "Метка"
 	label.position = Vector2(0,0)
+	label.z_index = 100500
 	label.add_theme_font_size_override("font_size",24)
 	hitbox = CollisionShape2D.new()
 	var shape = RectangleShape2D.new()
