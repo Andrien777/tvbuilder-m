@@ -43,10 +43,14 @@ var highlightedLAPinsColor = Color(0, 0.75, 1, 1)
 var highlightedBusColor = Color(0.7,0.7,0.7)
 var bus_color_global = Color(1,0.5,0)
 var bus_color = Color(1,0.5,0)
+var label_color_global = Color(1,1,1)
+var label_color = Color(1,1,1)
 
 var useDefaultWireColor = true
 
 var allowSettingsOverride = true
+
+var tps = 200
 
 
 # Called when the node enters the scene tree for the first time.
@@ -101,6 +105,13 @@ func try_load():
 				bus_color_global = bus_color
 			if parsed.has("HighlightedBusColor"):
 				highlightedBusColor = Color(parsed["HighlightedBusColor"])
+			if parsed.has("tps"):
+				tps = parsed["tps"]
+				Engine.physics_ticks_per_second = tps
+				Engine.max_physics_steps_per_frame = ceili(tps/60)
+			if parsed.has("LabelColor"):
+				label_color = Color(parsed["LabelColor"])
+				label_color_global = label_color
 				
 
 func save():
@@ -124,13 +135,17 @@ func save():
 	json_object["HighlightedLAPinColor"] = highlightedLAPinsColor.to_html(false)
 	json_object["BusColor"] = bus_color_global.to_html(false)
 	json_object["HighlightedBusColor"] = highlightedBusColor.to_html(false)
+	json_object["LabelColor"] = label_color_global.to_html(false)
+	json_object["tps"] = tps
 	file.store_string(JSON.stringify(json_object, "\t"))
 	file.close()
 
 func get_object_to_save():
 	var json_object = {}
-	json_object["version"] = 1
+	json_object["version"] = 2
 	json_object["BgColor"] = bg_color.to_html(false)
 	json_object["WireColor"] = wire_color.to_html(false)
 	json_object["DefaultWireColor"] = useDefaultWireColor as int
+	json_object["BusColor"] = bus_color.to_html(false)
+	json_object["LabelColor"] = label_color.to_html(false)
 	return json_object

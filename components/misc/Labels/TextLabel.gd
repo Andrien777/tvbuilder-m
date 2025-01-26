@@ -109,3 +109,6 @@ func to_json_object() -> Dictionary:
 	}
 func change_graphics_mode(mode):
 	pass
+
+func change_color():
+	label.add_theme_color_override('font_color', GlobalSettings.label_color)

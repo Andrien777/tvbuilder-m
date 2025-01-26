@@ -12,20 +12,15 @@ func _process(delta: float) -> void:
 
 
 func _on_color_changed(color: Color) -> void:
-	GlobalSettings.bus_color = color
-	GlobalSettings.bus_color_global = color
-	GlobalSettings.useDefaultWireColor = false
-	for bus in WireManager.buses:
-		bus.change_color()
+	GlobalSettings.label_color = color
+	GlobalSettings.label_color_global = color
+	for component in ComponentManager.obj_list.values():
+		component.change_color()
 
 
 func _on_wire_color_reset_button_pressed() -> void:
-	GlobalSettings.useDefaultWireColor = true
-	if GlobalSettings.CurrentGraphicsMode == LegacyGraphicsMode:
-		color = Color(1, 0, 0)
-	else:
-		color = Color(1, 1, 1)
-	GlobalSettings.bus_color = color
-	GlobalSettings.bus_color_global = color
-	for bus in WireManager.buses:
-		bus.change_color()
+	color = Color(1, 1, 1)
+	GlobalSettings.label_color = color
+	GlobalSettings.label_color_global = color
+	for component in ComponentManager.obj_list.values():
+		component.change_color()

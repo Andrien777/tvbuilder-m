@@ -113,6 +113,14 @@ func load(scene: Node2D, path: String):
 				GlobalSettings.useDefaultWireColor = parsed.config["DefaultWireColor"] as bool
 				for wire in WireManager.wires:
 					wire.change_color()
+		if parsed.config.version >= 2:
+			if GlobalSettings.allowSettingsOverride:
+				GlobalSettings.bus_color = Color(parsed.config["BusColor"])
+				GlobalSettings.label_color = Color(parsed.config["LabelColor"])
+				for bus in WireManager.buses:
+					bus.change_color()
+				for component in ComponentManager.obj_list.values():
+					component.change_color()
 	get_window().title = "TVBuilder - " + path.get_file().get_basename()
 	InfoManager.write_info("Файл %s загружен" % [path])
 

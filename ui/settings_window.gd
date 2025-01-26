@@ -22,6 +22,7 @@ func open_window():
 	get_node("VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/SettingsOverrideButton").button_pressed = GlobalSettings.allowSettingsOverride
 	get_node("VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/HideTreeButton").button_pressed = not get_node("/root/RootNode/UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree").tree_visible
 	get_node("VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/HideRibbonButton").button_pressed = not get_node("/root/RootNode/UiCanvasLayer/VBoxContainer2/RibbonContainer").visible
+	get_node("VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/TPSContainer/TPSEdit").text = str(GlobalSettings.tps)
 	get_node("VBoxContainer/ColorSubmenu/ColorContainer/ColorPickerButton").color = get_node('/root/RootNode/GridSprite').modulate
 	get_node("VBoxContainer/ColorSubmenu/WireColorContainer/WireColorPickerButton").color = GlobalSettings.wire_color
 	get_node("VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/TurboModeButton").button_pressed = GlobalSettings.turbo
@@ -30,6 +31,7 @@ func open_window():
 	get_node("VBoxContainer/ColorSubmenu/PinLAHighlightColorContainer/PinLAHighlightColorPickerButton").color = GlobalSettings.highlightedLAPinsColor
 	get_node("VBoxContainer/ColorSubmenu/BusColorContainer/BusColorPicker").color = GlobalSettings.bus_color
 	get_node("VBoxContainer/ColorSubmenu/HighlightedBusColorContainer/BusColorPicker").color = GlobalSettings.highlightedBusColor
+	get_node("VBoxContainer/ColorSubmenu/LabelColorContainer/LabelColorPicker").color = GlobalSettings.label_color
 
 
 func close():

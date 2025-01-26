@@ -9,8 +9,10 @@
 	"HighlightedPinColor": "4d4d4d",
 	"HighlightedWireColor": "b3b3b3",
 	"HistoryDepth": 200,
+	"LabelColor": "ffffff",
 	"LevelHighlight": 0,
 	"SettingsOverride": 1,
 	"ShowLastWire": 0,
-	"WireColor": "ff0000"
+	"WireColor": "ff0000",
+	"tps": 200
 }

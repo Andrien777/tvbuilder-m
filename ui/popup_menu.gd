@@ -31,8 +31,8 @@ func _on_clear_button_pressed():
 	SaveManager.last_path = ""
 	GlobalSettings.bg_color = GlobalSettings.bg_color_global
 	GlobalSettings.wire_color = GlobalSettings.wire_color_global
-	for wire in WireManager.wires:
-		wire.change_color()
+	GlobalSettings.bus_color = GlobalSettings.bus_color_global
+	GlobalSettings.label_color = GlobalSettings.label_color_global
 	get_node("/root/RootNode/GridSprite").modulate = GlobalSettings.bg_color
 	get_node("/root/RootNode").get_window().title = "TVBuilder - New Project"
 

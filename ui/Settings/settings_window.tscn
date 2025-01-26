@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://r773p6djrrnn"]
+[gd_scene load_steps=22 format=3 uid="uid://r773p6djrrnn"]
 
 [ext_resource type="Script" path="res://ui/settings_window.gd" id="1_wym6i"]
 [ext_resource type="Script" path="res://ui/Settings/settings_tab_bar.gd" id="2_raqp3"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://ui/Settings/show_signals_in_connection_table_check_button.gd" id="11_xvqeq"]
 [ext_resource type="Script" path="res://ui/history_depth_edit.gd" id="12_x6i6f"]
 [ext_resource type="Script" path="res://ui/color_picker_button.gd" id="13_iwgjq"]
+[ext_resource type="Script" path="res://ui/Settings/tps_edit.gd" id="13_rsss4"]
 [ext_resource type="Script" path="res://ui/wire_color_picker_button.gd" id="14_g2wx6"]
 [ext_resource type="Script" path="res://ui/Settings/wire_highlight_color_picker_button.gd" id="15_6lw4l"]
 [ext_resource type="Script" path="res://ui/Settings/pin_highlight_color_picker_button.gd" id="16_jnvim"]
@@ -111,6 +112,18 @@ text = "  Глубина истории событий: "
 [node name="HistoryDepthEdit" type="LineEdit" parent="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/HistoryDepthContainer"]
 layout_mode = 2
 script = ExtResource("12_x6i6f")
+
+[node name="TPSContainer" type="HBoxContainer" parent="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/TPSContainer"]
+layout_mode = 2
+text = "  Частота симуляции, Гц: "
+
+[node name="TPSEdit" type="LineEdit" parent="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/TPSContainer"]
+layout_mode = 2
+script = ExtResource("13_rsss4")
 
 [node name="ColorSubmenu" type="VBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -241,6 +254,24 @@ script = ExtResource("17_4tk73")
 layout_mode = 2
 text = "По умолчанию"
 
+[node name="LabelColorContainer" type="HBoxContainer" parent="VBoxContainer/ColorSubmenu"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="VBoxContainer/ColorSubmenu/LabelColorContainer"]
+layout_mode = 2
+text = "  Цвет меток"
+
+[node name="LabelColorPicker" type="ColorPickerButton" parent="VBoxContainer/ColorSubmenu/LabelColorContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+edit_alpha = false
+script = ExtResource("16_xfdfr")
+
+[node name="LabelColorResetButton" type="Button" parent="VBoxContainer/ColorSubmenu/LabelColorContainer"]
+layout_mode = 2
+text = "По умолчанию"
+
 [node name="KeyBindingsContainer" type="ScrollContainer" parent="VBoxContainer"]
 custom_minimum_size = Vector2(400, 600)
 layout_mode = 2
@@ -366,6 +397,8 @@ action_name = "bus_mode"
 [connection signal="pressed" from="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/TurboModeButton" to="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/TurboModeButton" method="_on_pressed"]
 [connection signal="focus_exited" from="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/HistoryDepthContainer/HistoryDepthEdit" to="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/HistoryDepthContainer/HistoryDepthEdit" method="_on_focus_exited"]
 [connection signal="text_submitted" from="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/HistoryDepthContainer/HistoryDepthEdit" to="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/HistoryDepthContainer/HistoryDepthEdit" method="_on_text_submitted"]
+[connection signal="focus_exited" from="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/TPSContainer/TPSEdit" to="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/TPSContainer/TPSEdit" method="_on_focus_exited"]
+[connection signal="text_submitted" from="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/TPSContainer/TPSEdit" to="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/TPSContainer/TPSEdit" method="_on_text_submitted"]
 [connection signal="color_changed" from="VBoxContainer/ColorSubmenu/ColorContainer/ColorPickerButton" to="VBoxContainer/ColorSubmenu/ColorContainer/ColorPickerButton" method="_on_color_changed"]
 [connection signal="pressed" from="VBoxContainer/ColorSubmenu/ColorContainer/ColorResetButtonButton" to="VBoxContainer/ColorSubmenu/ColorContainer/ColorPickerButton" method="reset_color"]
 [connection signal="color_changed" from="VBoxContainer/ColorSubmenu/WireColorContainer/WireColorPickerButton" to="VBoxContainer/ColorSubmenu/WireColorContainer/WireColorPickerButton" method="_on_color_changed"]
@@ -380,6 +413,8 @@ action_name = "bus_mode"
 [connection signal="pressed" from="VBoxContainer/ColorSubmenu/PinHighlightContainer/PinHighlightColorResetButton" to="VBoxContainer/ColorSubmenu/PinHighlightContainer/PinHighlightColorPickerButton" method="_on_wire_color_reset_button_pressed"]
 [connection signal="color_changed" from="VBoxContainer/ColorSubmenu/PinLAHighlightColorContainer/PinLAHighlightColorPickerButton" to="VBoxContainer/ColorSubmenu/PinLAHighlightColorContainer/PinLAHighlightColorPickerButton" method="_on_color_changed"]
 [connection signal="pressed" from="VBoxContainer/ColorSubmenu/PinLAHighlightColorContainer/PinLAHighlightColorResetButton" to="VBoxContainer/ColorSubmenu/PinLAHighlightColorContainer/PinLAHighlightColorPickerButton" method="_on_wire_color_reset_button_pressed"]
+[connection signal="color_changed" from="VBoxContainer/ColorSubmenu/LabelColorContainer/LabelColorPicker" to="VBoxContainer/ColorSubmenu/LabelColorContainer/LabelColorPicker" method="_on_color_changed"]
+[connection signal="pressed" from="VBoxContainer/ColorSubmenu/LabelColorContainer/LabelColorResetButton" to="VBoxContainer/ColorSubmenu/LabelColorContainer/LabelColorPicker" method="_on_wire_color_reset_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/KeyBindingsContainer/VBoxContainer/DeleteKeyBinding/Button" to="VBoxContainer/KeyBindingsContainer/VBoxContainer/DeleteKeyBinding/Button" method="_on_pressed"]
 [connection signal="pressed" from="VBoxContainer/KeyBindingsContainer/VBoxContainer/ConfirmKeyBinding/Button" to="VBoxContainer/KeyBindingsContainer/VBoxContainer/ConfirmKeyBinding/Button" method="_on_pressed"]
 [connection signal="pressed" from="VBoxContainer/KeyBindingsContainer/VBoxContainer/ZoomInKeyBinding/Button" to="VBoxContainer/KeyBindingsContainer/VBoxContainer/ZoomInKeyBinding/Button" method="_on_pressed"]

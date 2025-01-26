@@ -271,3 +271,6 @@ func update_pins(pins:Array, ic_shape:Vector2):
 func toggle_output_highlight():
 	for pin in pins:
 		pin.toggle_output_highlight()
+	
+func change_color():
+	pass
