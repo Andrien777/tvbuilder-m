@@ -195,6 +195,9 @@ func register_bus_point(point:Vector2):
 		current_bus = _create_bus(point)
 		bus_ghost.control_points[0] = point
 		bus_ghost.visible = true
+		var event = BusCreationEvent.new()
+		event.initialize(current_bus)
+		HistoryBuffer.register_event(event)
 	else:
 		current_bus.add_point(point)
 		bus_ghost.control_points[0] = point
@@ -211,5 +214,8 @@ func buses_to_json():
 	return json
 
 func finish_current_bus():
+
 	current_bus = null
 	bus_ghost.visible = false
+
+	

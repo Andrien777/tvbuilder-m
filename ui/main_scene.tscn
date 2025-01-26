@@ -113,21 +113,6 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
-[sub_resource type="Animation" id="Animation_435t7"]
-resource_name = "button_pulse_red"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.466667, 0.666667, 0.933333),
-"transitions": PackedFloat32Array(4.14106, 4.14106, 4.14106, 4.14106, 4.14106),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 0.33, 0.33, 1), Color(1, 1, 1, 1), Color(1, 0.33, 0.33, 1), Color(1, 1, 1, 1)]
-}
-
 [sub_resource type="Animation" id="Animation_df11e"]
 length = 0.001
 tracks/0/type = "value"
@@ -141,6 +126,21 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_435t7"]
+resource_name = "button_pulse_red"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.466667, 0.666667, 0.933333),
+"transitions": PackedFloat32Array(4.14106, 4.14106, 4.14106, 4.14106, 4.14106),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0.33, 0.33, 1), Color(1, 1, 1, 1), Color(1, 0.33, 0.33, 1), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_05i7o"]
