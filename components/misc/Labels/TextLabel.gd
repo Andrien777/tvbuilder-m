@@ -92,9 +92,13 @@ func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void
 		
 func on_text_update(new_text:String):
 	if(new_text!=""):
+		var event = LabelTextChangeEvent.new()
+		event.initialize(self, new_text)
+		HistoryBuffer.register_event(event)
 		label.text = new_text
 		hitbox.shape.size = label.get_rect().size + Vector2(30,0)
 		hitbox.position = hitbox.shape.size / 2
+		
 	
 #func _mouse_enter() -> void:
 	#is_mouse_over = true

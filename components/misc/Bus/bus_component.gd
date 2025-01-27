@@ -51,3 +51,9 @@ func jsonify_connections():
 			"pins":pins
 		})
 	return connections
+
+func fully_delete():
+	bus.fully_delete()
+
+func delete_self():
+	bus.delete_self()

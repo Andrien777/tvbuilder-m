@@ -1,6 +1,6 @@
 extends StaticBody2D
 class_name Bus
-var control_points = []
+var control_points:Array[Vector2] = []
 var line
 var is_mouse_over = false
 var has_hitbox = true
@@ -48,7 +48,7 @@ func _ready() -> void:
 
 func _mouse_enter() -> void:
 	self.line.width = highlit_line_width
-	self.modulate=GlobalSettings.highlightedBusColor
+	self.line.modulate=GlobalSettings.highlightedBusColor
 	is_mouse_over = true
 
 func _mouse_exit() -> void:
@@ -60,18 +60,7 @@ func _mouse_exit() -> void:
 func _process(delta: float) -> void:
 	if Input.is_action_pressed("delete_component") and self.is_mouse_over and not GlobalSettings.disableGlobalInput:
 		Input.action_release("delete_component")
-		# Delete all connections from netlist
-		for i in connection_pins:
-			for j in connection_pins:
-				NetlistClass.delete_connection(i, j) # Its sub-optimal. I don`t care
-		for i in connection_pins:
-			if is_instance_valid(i):
-				i.queue_free() # Just to be safe
-		ComponentManager.remove_object(component)
-		WireManager._delete_bus(self)
-		#var event = WireDeletionEvent.new() #TODO: Bus events
-		#event.initialize(self.first_object, self.second_object)
-		#HistoryBuffer.register_event(event)
+		delete_self()
 
 func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.pressed and Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT) and not GlobalSettings.disableWireConnection:
@@ -88,6 +77,10 @@ func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void
 		WireManager.register_wire_point(pin)
 		connection_pins.append(pin)
 		label.global_position = pin.global_position
+		label.add_theme_font_size_override("font_size",20)
+		label.z_index = 2
+		# TODO: Set label color to the label color variable, which does not exist yet
+
 		get_node("/root/RootNode/UiCanvasLayer/GlobalInput").ask_for_input("Номер провода в шине", Callable(self, "register_connection"), false)
 		current_label = label
 		current_pin = pin
@@ -111,7 +104,6 @@ func add_connection(name:String,index,  position:Vector2):
 	var pin = Pin.new()
 	var spec = PinSpecification.new()
 	spec.initialize(index,NetConstants.DIRECTION.DIRECTION_INPUT,"TOP", "Шина", "Шина", [])
-	 #TODO: Init pin
 	last_pin_index  = max(last_pin_index, index)+1
 	
 	var label = Label.new()
@@ -123,6 +115,10 @@ func add_connection(name:String,index,  position:Vector2):
 	current_label = label
 	current_pin = pin
 	current_label.text = name
+	label.global_position = pin.global_position
+	label.add_theme_font_size_override("font_size",20)
+	label.z_index = 2
+	# TODO: Set label color to the label color variable, which does not exist yet
 	register_connection(name)
 	return current_pin
 	
@@ -178,10 +174,27 @@ func update_hitbox():
 
 func change_color():
 	if (GlobalSettings.CurrentGraphicsMode==LegacyGraphicsMode) and GlobalSettings.useDefaultWireColor:
-		self.modulate=Color(1,0,0,1)
+		self.line.modulate=Color(1,0,0,1)
 		GlobalSettings.bus_color = Color(1,0,0,1)
 	elif GlobalSettings.useDefaultWireColor:
-		self.modulate=Color(1,1,1,1)
+		self.line.modulate=Color(1,1,1,1)
 		GlobalSettings.bus_color = Color(1,1,1,1)
 	else:
-		self.modulate = GlobalSettings.bus_color
+		self.line.modulate = GlobalSettings.bus_color
+
+func delete_self():
+	ComponentManager.add_to_deletion_queue(self.component)
+
+func fully_delete():
+		# Delete all connections from netlist
+	for i in connection_pins:
+		for j in connection_pins:
+			NetlistClass.delete_connection(i, j) # Its sub-optimal. I don`t care
+	for i in connection_pins:
+		if is_instance_valid(i):
+			i.queue_free() # Just to be safe
+	ComponentManager.remove_object(component)
+	WireManager._delete_bus(self)
+	var event = BusDeletionEvent.new() 
+	event.initialize(self)
+	HistoryBuffer.register_event(event)

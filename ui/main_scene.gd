@@ -67,6 +67,8 @@ func _input(event):
 		to_normal_mode()
 	elif event.is_action_pressed("conn_mode") and not GlobalSettings.disableGlobalInput:
 		to_connectivity_mode()
+	elif event.is_action_pressed("open_history_viewer") and not GlobalSettings.disableGlobalInput:
+		$HistoryViewerWindow.visible = not $HistoryViewerWindow.visible
 	
 	
 	# Has to be in a separate if

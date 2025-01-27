@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=3 uid="uid://cd0acvbjpyg0w"]
+[gd_scene load_steps=74 format=3 uid="uid://cd0acvbjpyg0w"]
 
 [ext_resource type="Script" path="res://ui/main_scene.gd" id="1_8vqs3"]
 [ext_resource type="Shader" path="res://shaders/grid.gdshader" id="2_7ckc8"]
@@ -58,6 +58,9 @@
 [ext_resource type="Script" path="res://ui/logic_analyzer/simulate_button.gd" id="37_7766m"]
 [ext_resource type="Script" path="res://ui/logic_analyzer/simulation_accept_dialog.gd" id="39_1y2mv"]
 [ext_resource type="Script" path="res://ui/selection_area.gd" id="46_0mty4"]
+[ext_resource type="Script" path="res://ui/history_viewer.gd" id="59_1u0lp"]
+[ext_resource type="Texture2D" uid="uid://bxctkpjxqbsxt" path="res://ui/menu_icons/Edit/undo.png" id="60_afg32"]
+[ext_resource type="Texture2D" uid="uid://bcwd3wfryima0" path="res://ui/menu_icons/Edit/redo.png" id="61_0xmdj"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7n0h1"]
 shader = ExtResource("2_7ckc8")
@@ -1039,6 +1042,39 @@ default_color = Color(0, 0.729412, 1, 1)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SelectionArea"]
 shape = SubResource("RectangleShape2D_y731f")
 
+[node name="HistoryViewerWindow" type="Window" parent="."]
+title = "История событий"
+position = Vector2i(200, 200)
+size = Vector2i(400, 400)
+visible = false
+script = ExtResource("59_1u0lp")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HistoryViewerWindow"]
+offset_right = 40.0
+offset_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TabBar" type="TabBar" parent="HistoryViewerWindow/VBoxContainer"]
+layout_mode = 2
+current_tab = 0
+tab_count = 2
+tab_0/title = "Буфер Undo"
+tab_0/icon = ExtResource("60_afg32")
+tab_1/title = "Буфер Redo"
+tab_1/icon = ExtResource("61_0xmdj")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HistoryViewerWindow/VBoxContainer"]
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HistoryViewerWindow/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
 [connection signal="mouse_entered" from="UiCanvasLayer/VBoxContainer2/MenuContainer/FileButton" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="UiCanvasLayer/VBoxContainer2/MenuContainer/FileButton" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_mouse_exited"]
 [connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/MenuContainer/FileButton" to="UiCanvasLayer/VBoxContainer2/MenuContainer/FilePopupMenu" method="_on_file_button_pressed"]
@@ -1109,3 +1145,5 @@ shape = SubResource("RectangleShape2D_y731f")
 [connection signal="pressed" from="MemoryViewer/VBoxContainer/HBoxContainer2/ContinuousUpdate" to="MemoryViewer/VBoxContainer/HBoxContainer" method="_on_continuous_update_pressed"]
 [connection signal="mouse_entered" from="SelectionArea" to="SelectionArea" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="SelectionArea" to="SelectionArea" method="_on_mouse_exited"]
+[connection signal="close_requested" from="HistoryViewerWindow" to="HistoryViewerWindow" method="_on_close_requested"]
+[connection signal="tab_changed" from="HistoryViewerWindow/VBoxContainer/TabBar" to="HistoryViewerWindow" method="_on_tab_bar_tab_changed"]
