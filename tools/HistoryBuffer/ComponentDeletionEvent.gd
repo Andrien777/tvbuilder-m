@@ -55,7 +55,13 @@ func undo():
 
 func redo():
 	if is_instance_valid(object):
+		self.position = object.get_global_position()
 		ComponentManager.remove_object(object)
 		object.queue_free()
 	else:
-		InfoManager.write_error("Не удалось отменить создание компонента")
+		var _object = ComponentManager.get_by_id(self.id)
+		if is_instance_valid(_object):
+			ComponentManager.remove_object(_object)
+			_object.queue_free()
+		else:
+			InfoManager.write_error("Не удалось отменить создание компонента")
