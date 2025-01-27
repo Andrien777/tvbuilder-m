@@ -2,7 +2,7 @@
 	"AltAlgo": 0,
 	"BgColor": "999902",
 	"BusColor": "ff0000",
-	"DefaultWireColor": 1,
+	"DefaultWireColor": 0,
 	"GraphicsMode": "LegacyGraphicsMode",
 	"HighlightedBusColor": "b3b3b3",
 	"HighlightedLAPinColor": "00bfff",

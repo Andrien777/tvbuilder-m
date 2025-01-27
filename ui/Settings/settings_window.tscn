@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://r773p6djrrnn"]
+[gd_scene load_steps=23 format=3 uid="uid://r773p6djrrnn"]
 
 [ext_resource type="Script" path="res://ui/settings_window.gd" id="1_wym6i"]
 [ext_resource type="Script" path="res://ui/Settings/settings_tab_bar.gd" id="2_raqp3"]
@@ -21,6 +21,7 @@
 [ext_resource type="Script" path="res://ui/Settings/pin_la_highlight_color_picker_button.gd" id="17_4tk73"]
 [ext_resource type="Script" path="res://ui/Settings/highlighted_bus_color_picker.gd" id="17_q5trn"]
 [ext_resource type="Script" path="res://ui/Settings/KeyBindingButton.gd" id="20_8geak"]
+[ext_resource type="Script" path="res://ui/Settings/label_color_picker.gd" id="21_on5ig"]
 
 [node name="SettingsWindow" type="Window"]
 auto_translate_mode = 1
@@ -266,7 +267,7 @@ text = "  Цвет меток"
 layout_mode = 2
 size_flags_horizontal = 3
 edit_alpha = false
-script = ExtResource("16_xfdfr")
+script = ExtResource("21_on5ig")
 
 [node name="LabelColorResetButton" type="Button" parent="VBoxContainer/ColorSubmenu/LabelColorContainer"]
 layout_mode = 2

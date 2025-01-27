@@ -14,7 +14,7 @@ namespace godot {
 
 #define PREFETCH_QUEUE_8086_MAX_SIZE 4
 
-using word = unsigned __int16;
+typedef uint16_t word;
 typedef uint8_t byte;
 
 // TW is T Wait - possibly not used in emu
@@ -155,7 +155,7 @@ private:
  *     39 | VCC                   |           |
 */
 class IProc_8088 : public RefCounted {
-	GDCLASS(IProc_8088, RefCounted)
+	GDCLASS(IProc_8088, RefCounted);
 	
 protected:
     static void _bind_methods() {
@@ -661,7 +661,7 @@ public:
     void setA19Pin(const bool value) { a_pins[19] = value; }
 	bool getA19Pin() const { return a_pins[19]; }
 
-    void setAPins(__int32 value) {
+    void setAPins(int32_t value) {
         setA0Pin(isActiveBitByIdx(value, 0));
         setA1Pin(isActiveBitByIdx(value, 1));
         setA2Pin(isActiveBitByIdx(value, 2));
@@ -958,7 +958,7 @@ public:
     bool effectiveAddressIsRegister;
 	SegmentRegister effectiveAddressSegment;
 	bool segmentRegSpecified = false;
-    unsigned __int16 effectiveAddress;
+    uint16_t effectiveAddress;
     bool doCalculateEffectiveAddress;
     bool effectiveAddressCalculationFinished;
     EffectiveAddressState effectiveAddressState;

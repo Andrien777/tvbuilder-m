@@ -181,6 +181,8 @@ func change_color():
 		GlobalSettings.bus_color = Color(1,1,1,1)
 	else:
 		self.line.modulate = GlobalSettings.bus_color
+	for label in labels.values():
+		label.add_theme_color_override('font_color', GlobalSettings.label_color)
 
 func delete_self():
 	ComponentManager.add_to_deletion_queue(self.component)
