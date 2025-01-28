@@ -12,7 +12,7 @@ func _ready() -> void:
 		if action==action_name:
 			self.action = action
 			if not InputMap.action_get_events(action).is_empty():
-				var event =  InputMap.action_get_events(action)[0]
+				var event =  InputMap.action_get_events(action)[-1]
 				current_event = event
 				self.text = event.as_text()
 			else:
@@ -38,7 +38,7 @@ func _on_pressed() -> void:
 	is_listening = true
 
 func bind_to_action(event:InputEvent):
-	if action: # TODO: Save to GlobalSettings
+	if action:
 		if current_event:
 			InputMap.action_erase_event(action,current_event)
 		InputMap.action_add_event(action, event)

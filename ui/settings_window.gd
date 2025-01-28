@@ -32,6 +32,15 @@ func open_window():
 	get_node("VBoxContainer/ColorSubmenu/BusColorContainer/BusColorPicker").color = GlobalSettings.bus_color
 	get_node("VBoxContainer/ColorSubmenu/HighlightedBusColorContainer/BusColorPicker").color = GlobalSettings.highlightedBusColor
 	get_node("VBoxContainer/ColorSubmenu/LabelColorContainer/LabelColorPicker").color = GlobalSettings.label_color
+	get_node("VBoxContainer/KeyBindingsContainer/VBoxContainer/BusModeKeyBinding/Button")._ready()
+	get_node("VBoxContainer/KeyBindingsContainer/VBoxContainer/DeleteKeyBinding/Button")._ready()
+	get_node("VBoxContainer/KeyBindingsContainer/VBoxContainer/ConfirmKeyBinding/Button")._ready()
+	get_node("VBoxContainer/KeyBindingsContainer/VBoxContainer/ZoomInKeyBinding/Button")._ready()
+	get_node("VBoxContainer/KeyBindingsContainer/VBoxContainer/ZoomOutKeyBinding/Button")._ready()
+	get_node("VBoxContainer/KeyBindingsContainer/VBoxContainer/EndWireKeyBinding/Button")._ready()
+	get_node("VBoxContainer/KeyBindingsContainer/VBoxContainer/SelectionModeKeyBinding/Button")._ready()
+	get_node("VBoxContainer/KeyBindingsContainer/VBoxContainer/NormalModeKeyBinding/Button")._ready()
+	get_node("VBoxContainer/KeyBindingsContainer/VBoxContainer/InfoModeKeyBinding/Button")._ready()
 
 
 func close():
