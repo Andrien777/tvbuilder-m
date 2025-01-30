@@ -1,5 +1,5 @@
 extends AcceptDialog
-var file_path
+var file_path: String
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -18,7 +18,10 @@ func _process(delta: float) -> void:
 
 func _on_help_button_pressed() -> void:
 	if file_path and FileAccess.file_exists(file_path):
-		OS.shell_open("file://" + file_path)
+		if OS.get_name() == "Windows":
+			OS.shell_open(".\\" + file_path.replace("/", "\\"))
+		else:
+			OS.shell_open("./" + file_path)
 	else:
 		OS.alert("Не удалось открыть документацию. Отсутствуют необходимые ресурсы для загрузки.", "Ошибка")
 		InfoManager.write_error("Не удалось загрузить документацию. Файл не найден.")
