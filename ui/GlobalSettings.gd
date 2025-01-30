@@ -16,6 +16,8 @@ var CurrentGraphicsMode = LegacyGraphicsMode
 enum CURSOR_MODES {NORMAL, SELECTION, CONNECTIVITY_MODE, BUS}
 var CursorMode = CURSOR_MODES.NORMAL
 
+var is_LA_always_on_top = false
+
 func is_normal_mode():
 	return CursorMode == CURSOR_MODES.NORMAL
 
@@ -51,8 +53,6 @@ var useDefaultWireColor = true
 var allowSettingsOverride = true
 
 var tps = 200
-
-const ACTION_TO_SAVE = ["delete_component", "confirm", "ZoomUp", "ZoomDown", "abort_wire_creation", "select", "normal", "conn_mode", "bus_mode"]
 
 
 # Called when the node enters the scene tree for the first time.
@@ -114,17 +114,8 @@ func try_load():
 			if parsed.has("LabelColor"):
 				label_color = Color(parsed["LabelColor"])
 				label_color_global = label_color
-			if parsed.has("keybinds"):
-				for action in parsed["keybinds"].keys():
-					for inp_action in InputMap.get_actions():
-						if action==inp_action:
-							var keybind_action = inp_action
-							var event = InputEventKey.new()
-							event.keycode = OS.find_keycode_from_string(parsed["keybinds"][action])
-							if not InputMap.action_get_events(keybind_action).is_empty():
-								InputMap.action_erase_event(action,InputMap.action_get_events(keybind_action)[-1])
-							if event.keycode != KEY_NONE:
-								InputMap.action_add_event(keybind_action, event)
+			if parsed.has("is_LA_always_on_top"):
+				is_LA_always_on_top = parsed["is_LA_always_on_top"] as bool
 				
 
 func save():
@@ -150,24 +141,7 @@ func save():
 	json_object["HighlightedBusColor"] = highlightedBusColor.to_html(false)
 	json_object["LabelColor"] = label_color_global.to_html(false)
 	json_object["tps"] = tps
-	var keybinds = {}
-	for action in ACTION_TO_SAVE:
-		var keybind_action
-		for inp_action in InputMap.get_actions():
-			if action==inp_action:
-				keybind_action = inp_action
-				if not InputMap.action_get_events(keybind_action).is_empty():
-					var event =  InputMap.action_get_events(keybind_action)[-1]
-					if event is InputEventKey:
-						if event.get_keycode_with_modifiers() == 0:
-							keybinds[action] = OS.get_keycode_string(event.get_physical_keycode_with_modifiers())
-						else:
-							keybinds[action] = OS.get_keycode_string(event.get_keycode_with_modifiers())
-					else:
-						keybinds[action] = "Не назначено"
-				else:
-					keybinds[action] = "Не назначено"
-	json_object["keybinds"] = keybinds
+	json_object["is_LA_always_on_top"] = is_LA_always_on_top as int
 	file.store_string(JSON.stringify(json_object, "\t"))
 	file.close()
 

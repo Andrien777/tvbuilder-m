@@ -14,16 +14,6 @@
 	"SettingsOverride": 1,
 	"ShowLastWire": 0,
 	"WireColor": "ff0000",
-	"keybinds": {
-		"ZoomDown": "Minus",
-		"ZoomUp": "Equal",
-		"abort_wire_creation": "Escape",
-		"bus_mode": "B",
-		"confirm": "Enter",
-		"conn_mode": "T",
-		"delete_component": "Delete",
-		"normal": "X",
-		"select": "Q"
-	},
+	"is_LA_always_on_top": 1,
 	"tps": 200
 }

@@ -3,21 +3,21 @@ extends HSplitContainer
 const SIGNAL_ROW_HEIGHT = 70
 const SIGNAL_COLORS: Array[Color] = [
 	Color(1,1,1),
-	Color(0.069, 0.048, 0.609),
+	Color(0.16862746, 0.5254902, 0.8784314),
 	Color(0.820, 0.097, 0.060),
-	Color(0.587, 0.528, 0.102),
-	Color(0.120, 0.557, 0.283),
-	Color(0.304, 0.075, 0.764),
+	Color(0.7764706, 0.7019608, 0.13333334),
+	Color(0.0, 0.8117647, 0.32156864),
+	Color(0.45490196, 0.22352941, 0.92941177),
 	Color(0.994, 0.561, 0.907),
-	Color(0.013, 0.940, 0.604),
+	Color(0.011764706, 1.0, 0.6431373),
 ]
 var color_index = 0
 var signals: Array[LA_Signal]
 var signal_values_zoom_factor: float = 1.0:
 	set = set_signal_values_zoom_factor
+var is_analysis_in_progress = false
 
 @onready var select_pins_button = get_node("/root/RootNode/LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/SelectPinsButton")
-@onready var start_stop_analysis_button = get_node("/root/RootNode/LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/StartStopAnalysisButton")
 @onready var signal_container = get_node("./SignalsPanelContainer/SignalsScrollContainer/SignalsVBoxContainer")
 @onready var scroll_container = get_node("./SignalsPanelContainer/SignalsScrollContainer")
 @onready var label_container = get_node("./SignalLabelsPanelContainer/SignalLabelsVBoxContainer")
@@ -71,17 +71,21 @@ func add_signal(pin: Pin):
 			)
 		signals.append(sig)
 		
+		# Remove useless menu items
+		for item_index in [15,14,13,12,11,10]:
+			line_edit_menu.remove_item(item_index)
 		line_edit_menu.add_item("Прекратить отслеживание", 2281337)
-		line_edit_menu.always_on_top = true
-		line_edit_menu.transient = false
+		line_edit_menu.always_on_top = GlobalSettings.is_LA_always_on_top
 		line_edit_menu.close_requested.connect(
 			func():
-				line_edit_menu.always_on_top = false 
+				line_edit_menu.always_on_top = false
 		) # It crashes out when closing LogicAnalyzerWindow wihtout that line
 		
-		line_edit_menu.id_pressed.connect(
-			func(id): 
-				if (id == 2281337):
+
+		line_edit_menu.index_pressed.connect(
+			func(index): 
+				print(index)
+				if (line_edit_menu.get_item_id(index) == 2281337):
 					remove_signal(sig)
 		)
 		clear_signal_values()
@@ -89,7 +93,7 @@ func add_signal(pin: Pin):
 
 var last_propagation_time = 0
 func draw_new_signal_values(forced_generator: bool = false) -> void:
-	if (start_stop_analysis_button.is_analysis_in_progress || forced_generator):
+	if is_analysis_in_progress || forced_generator:
 		var current_time = Time.get_unix_time_from_system()
 		var propagation_time_delta: float
 		if forced_generator:
@@ -103,6 +107,8 @@ func draw_new_signal_values(forced_generator: bool = false) -> void:
 		for sig in signals:
 			draw_new_signal_value(sig, current_signal_index, propagation_time_delta)
 			current_signal_index += 1
+	elif !is_analysis_in_progress:
+		last_propagation_time = 0
 
 func draw_new_signal_value(sig: LA_Signal, signal_index: int, time_delta: float):
 	var line = sig.signal_line
