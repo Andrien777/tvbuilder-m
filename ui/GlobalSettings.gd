@@ -56,7 +56,6 @@ var tps = 200
 
 const ACTION_TO_SAVE = ["delete_component", "confirm", "ZoomUp", "ZoomDown", "abort_wire_creation", "select", "normal", "conn_mode", "bus_mode"]
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -129,6 +128,8 @@ func try_load():
 								InputMap.action_erase_event(action,InputMap.action_get_events(keybind_action)[-1])
 							if event.keycode != KEY_NONE:
 								InputMap.action_add_event(keybind_action, event)
+			if parsed.has("is_LA_always_on_top"):
+				is_LA_always_on_top = parsed["is_LA_always_on_top"] as bool
 				
 
 func save():
