@@ -3,11 +3,14 @@ extends GridContainer
 var stylebox_selected: StyleBoxFlat
 var stylebox_weakly_selected: StyleBoxFlat
 var stylebox_addr_selected: StyleBoxFlat
+var stylebox_bold_selected:StyleBoxFlat
 var stylebox_normal: StyleBoxFlat
+var reset_styles_on_page_change = true
 var labels = []
 var memory = null
 var addr = []
 var header = []
+var previous_page
 var font = preload("res://ui/JetBrainsMonoNL-Regular.ttf")
 # Called when the node enters the scene tree for the first time.
 func _init() -> void:
@@ -19,6 +22,8 @@ func _init() -> void:
 	stylebox_weakly_selected.bg_color = Color("3d3d3d")
 	stylebox_addr_selected = StyleBoxFlat.new()
 	stylebox_addr_selected.bg_color = Color("202020")
+	stylebox_bold_selected = StyleBoxFlat.new()
+	stylebox_bold_selected.bg_color = Color.ORANGE_RED
 	for i in range(17): # Creating the table header
 		var label = Label.new()
 		label.add_theme_font_override("font", font)
@@ -38,17 +43,33 @@ func _init() -> void:
 					header[i].add_theme_stylebox_override("normal", stylebox_addr_selected)
 					addr[j].add_theme_stylebox_override("normal", stylebox_addr_selected)
 					for _i in range(j):
-						labels[16 * _i + i - 1].add_theme_stylebox_override("normal", stylebox_weakly_selected)
+						if not labels[16 * _i + i - 1].get_theme_stylebox("normal")==stylebox_bold_selected:
+							labels[16 * _i + i - 1].add_theme_stylebox_override("normal", stylebox_weakly_selected)
 					for _j in range(i):
-						labels[16 * j + _j].add_theme_stylebox_override("normal", stylebox_weakly_selected)
-					label.add_theme_stylebox_override("normal", stylebox_selected))
+						if not labels[16 * j + _j].get_theme_stylebox("normal")==stylebox_bold_selected:
+							labels[16 * j + _j].add_theme_stylebox_override("normal", stylebox_weakly_selected)
+					if not label.get_theme_stylebox("normal")==stylebox_bold_selected:
+						label.add_theme_stylebox_override("normal", stylebox_selected)
+					if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
+						label.add_theme_stylebox_override("normal", stylebox_bold_selected)
+				)
+
 				label.connect("mouse_exited", func(): 
 					header[i].add_theme_stylebox_override("normal", stylebox_normal)
 					addr[j].add_theme_stylebox_override("normal", stylebox_normal)
 					for _i in range(j):
-						labels[16 * _i + i - 1].add_theme_stylebox_override("normal", stylebox_normal)
+						if not labels[16 * _i + i - 1].get_theme_stylebox("normal")==stylebox_bold_selected:
+							labels[16 * _i + i - 1].add_theme_stylebox_override("normal", stylebox_normal)
 					for _j in range(i):
-						labels[16 * j + _j].add_theme_stylebox_override("normal", stylebox_normal))
+						if not labels[16 * j + _j].get_theme_stylebox("normal")==stylebox_bold_selected:
+							labels[16 * j + _j].add_theme_stylebox_override("normal", stylebox_normal))
+				label.connect("gui_input", func(event):
+					if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
+						if not label.get_theme_stylebox("normal")==stylebox_bold_selected:
+							label.add_theme_stylebox_override("normal", stylebox_bold_selected)
+						else:
+							label.add_theme_stylebox_override("normal", stylebox_weakly_selected)
+					)
 			else:
 				addr.append(label) # Address label
 			add_child(label)
@@ -62,6 +83,9 @@ func _process(delta: float) -> void:
 	
 
 func display_page(page: int):
+	if previous_page != page and reset_styles_on_page_change:
+		reset_all_labels_style()
+	previous_page = page
 	for i in range(len(addr)):
 			addr[i].text = "%03x" % ((page*16 + i)*16)
 	display(memory, page)
@@ -80,3 +104,11 @@ func display(memory, page):
 				l.text = "??"
 		else:
 				l.text = "??"
+
+func reset_all_labels_style():
+	for label in labels:
+		label.add_theme_stylebox_override("normal", stylebox_normal)
+
+
+func _on_reset_style_on_page_change_button_toggled(toggled_on: bool) -> void:
+	reset_styles_on_page_change = toggled_on

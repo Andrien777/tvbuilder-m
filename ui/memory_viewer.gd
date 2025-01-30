@@ -23,15 +23,16 @@ func _process(delta: float) -> void:
 func set_page(page):
 	self.page = page
 	update()
-	
+
 func update():
 	list.display_page(page)
 	if is_instance_valid(list.memory):
-		memory_name_label.text = list.memory.readable_name
+		memory_name_label.text = "%s (%d)" % [list.memory.readable_name, list.memory.id]
 	
 func set_memory(memory):
 	if list.memory!=memory:
 		page = 0
 	list.memory = memory
 	update()
+	list.reset_all_labels_style()
 	self.visible = true

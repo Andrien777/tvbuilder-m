@@ -725,7 +725,7 @@ script = ExtResource("39_1y2mv")
 auto_translate_mode = 1
 title = "Просмотр содержимого памяти"
 initial_position = 1
-size = Vector2i(500, 550)
+size = Vector2i(500, 570)
 visible = false
 unresizable = true
 always_on_top = true
@@ -778,18 +778,22 @@ script = ExtResource("15_o4npq")
 
 [node name="BackwardButton" type="Button" parent="MemoryViewer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+focus_mode = 0
 text = "<"
 
 [node name="ForwardButton" type="Button" parent="MemoryViewer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+focus_mode = 0
 text = ">"
 
 [node name="UpdateButton" type="Button" parent="MemoryViewer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+focus_mode = 0
 text = "Обновить"
 
 [node name="LoadButton" type="Button" parent="MemoryViewer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+focus_mode = 0
 text = "Загрузить из файла"
 
 [node name="FileDialog" type="FileDialog" parent="MemoryViewer/VBoxContainer/HBoxContainer"]
@@ -800,6 +804,16 @@ file_mode = 0
 access = 2
 use_native_dialog = true
 script = ExtResource("16_h0gp2")
+
+[node name="ResetSelectionButton" type="Button" parent="MemoryViewer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+text = "Снять выделение"
+
+[node name="ResetStyleOnPageChangeButton" type="CheckButton" parent="MemoryViewer/VBoxContainer"]
+layout_mode = 2
+button_pressed = true
+text = "Снимать выделение при переключении страниц"
 
 [node name="RegViewer" type="Window" parent="."]
 title = "Просмотр содержимого регистров"
@@ -1210,6 +1224,8 @@ size_flags_vertical = 3
 [connection signal="pressed" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/ZoomInButton" to="LogicAnalyzerWindow/RootVBoxContainer/ScrollContainer/SignalsHSplitContainer" method="_on_zoom_in_button_pressed"]
 [connection signal="pressed" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/SimulateButton" to="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/SimulateButton" method="_on_pressed"]
 [connection signal="pressed" from="MemoryViewer/VBoxContainer/HBoxContainer2/ContinuousUpdate" to="MemoryViewer/VBoxContainer/HBoxContainer" method="_on_continuous_update_pressed"]
+[connection signal="pressed" from="MemoryViewer/VBoxContainer/HBoxContainer/ResetSelectionButton" to="MemoryViewer/VBoxContainer/GridContainer" method="reset_all_labels_style"]
+[connection signal="toggled" from="MemoryViewer/VBoxContainer/ResetStyleOnPageChangeButton" to="MemoryViewer/VBoxContainer/GridContainer" method="_on_reset_style_on_page_change_button_toggled"]
 [connection signal="mouse_entered" from="SelectionArea" to="SelectionArea" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="SelectionArea" to="SelectionArea" method="_on_mouse_exited"]
 [connection signal="close_requested" from="HistoryViewerWindow" to="HistoryViewerWindow" method="_on_close_requested"]
