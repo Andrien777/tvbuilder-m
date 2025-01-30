@@ -1,9 +1,11 @@
 extends AcceptDialog
-
+var file_path
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	var file = FileAccess.open("res://doc/Инструкция по использованию.htm", FileAccess.READ)
+	file_path = file.get_path_absolute()
+	file.close()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -12,4 +14,4 @@ func _process(delta: float) -> void:
 
 
 func _on_help_button_pressed() -> void:
-	self.visible = true
+	OS.shell_open("file://" + file_path)
