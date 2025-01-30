@@ -16,6 +16,8 @@ var CurrentGraphicsMode = LegacyGraphicsMode
 enum CURSOR_MODES {NORMAL, SELECTION, CONNECTIVITY_MODE, BUS}
 var CursorMode = CURSOR_MODES.NORMAL
 
+var is_LA_always_on_top = false
+
 func is_normal_mode():
 	return CursorMode == CURSOR_MODES.NORMAL
 
@@ -53,7 +55,6 @@ var allowSettingsOverride = true
 var tps = 200
 
 const ACTION_TO_SAVE = ["delete_component", "confirm", "ZoomUp", "ZoomDown", "abort_wire_creation", "select", "normal", "conn_mode", "bus_mode"]
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -125,6 +126,8 @@ func try_load():
 								InputMap.action_erase_event(action,InputMap.action_get_events(keybind_action)[-1])
 							if event.keycode != KEY_NONE:
 								InputMap.action_add_event(keybind_action, event)
+			if parsed.has("is_LA_always_on_top"):
+				is_LA_always_on_top = parsed["is_LA_always_on_top"] as bool
 				
 
 func save():
@@ -150,6 +153,7 @@ func save():
 	json_object["HighlightedBusColor"] = highlightedBusColor.to_html(false)
 	json_object["LabelColor"] = label_color_global.to_html(false)
 	json_object["tps"] = tps
+	json_object["is_LA_always_on_top"] = is_LA_always_on_top as int
 	var keybinds = {}
 	for action in ACTION_TO_SAVE:
 		var keybind_action

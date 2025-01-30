@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=3 uid="uid://cd0acvbjpyg0w"]
+[gd_scene load_steps=77 format=3 uid="uid://cd0acvbjpyg0w"]
 
 [ext_resource type="Script" path="res://ui/main_scene.gd" id="1_8vqs3"]
 [ext_resource type="Shader" path="res://shaders/grid.gdshader" id="2_7ckc8"]
@@ -52,14 +52,15 @@
 [ext_resource type="Script" path="res://ui/Ribbon/console_open_button.gd" id="29_y107i"]
 [ext_resource type="Script" path="res://ui/console.gd" id="31_rtmb3"]
 [ext_resource type="Texture2D" uid="uid://cgvgy3p2b8i4f" path="res://ui/menu_icons/Edit/red_cross.png" id="32_sk2vu"]
-[ext_resource type="Script" path="res://ui/logic_analyzer/start_for_button.gd" id="33_503t8"]
-[ext_resource type="Script" path="res://ui/logic_analyzer/start_for_line_edit.gd" id="34_3a6np"]
+[ext_resource type="Script" path="res://ui/logic_analyzer/launch_for_button.gd" id="33_503t8"]
 [ext_resource type="Texture2D" uid="uid://wtdwwavg1wpy" path="res://ui/menu_icons/Edit/sweep.png" id="35_rnlu2"]
 [ext_resource type="Script" path="res://ui/logic_analyzer/simulate_button.gd" id="37_7766m"]
 [ext_resource type="Script" path="res://ui/about_window.gd" id="37_lvpgr"]
 [ext_resource type="Texture2D" uid="uid://dftjdo5x81vef" path="res://ui/tvb_logo_small.png" id="38_x8br3"]
 [ext_resource type="Script" path="res://ui/logic_analyzer/simulation_accept_dialog.gd" id="39_1y2mv"]
 [ext_resource type="Script" path="res://ui/selection_area.gd" id="46_0mty4"]
+[ext_resource type="Script" path="res://ui/logic_analyzer/always_on_top_check_box.gd" id="50_xi6xf"]
+[ext_resource type="Script" path="res://ui/logic_analyzer/launch_for_accept_dialog.gd" id="52_mpko7"]
 [ext_resource type="Script" path="res://ui/history_viewer.gd" id="59_1u0lp"]
 [ext_resource type="Texture2D" uid="uid://bxctkpjxqbsxt" path="res://ui/menu_icons/Edit/undo.png" id="60_afg32"]
 [ext_resource type="Texture2D" uid="uid://bcwd3wfryima0" path="res://ui/menu_icons/Edit/redo.png" id="61_0xmdj"]
@@ -612,9 +613,8 @@ handle_input_locally = false
 mode = 1
 title = "Логический Анализатор"
 initial_position = 4
-size = Vector2i(900, 600)
+size = Vector2i(1060, 600)
 visible = false
-always_on_top = true
 script = ExtResource("12_ngdkd")
 
 [node name="RootVBoxContainer" type="VBoxContainer" parent="LogicAnalyzerWindow"]
@@ -644,25 +644,22 @@ size_flags_vertical = 0
 text = "Начать"
 script = ExtResource("19_gtxal")
 
-[node name="StartForButton" type="Button" parent="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer"]
+[node name="LaunchForButton" type="Button" parent="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer"]
 layout_mode = 2
-text = "Запустить на "
+text = "Запустить на"
 script = ExtResource("33_503t8")
-
-[node name="StartForLineEdit" type="LineEdit" parent="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer"]
-layout_mode = 2
-text = "1"
-script = ExtResource("34_3a6np")
-
-[node name="SecondsLabel" type="Label" parent="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer"]
-layout_mode = 2
-text = "c"
 
 [node name="ClearButton" type="Button" parent="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer"]
 layout_mode = 2
 tooltip_text = "Очистить снятые значения"
 text = "Очистить"
 script = ExtResource("15_73c41")
+
+[node name="SimulateButton" type="Button" parent="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer"]
+layout_mode = 2
+tooltip_text = "Приблизить полученные значения"
+text = "Симуляция"
+script = ExtResource("37_7766m")
 
 [node name="ZoomOutButton" type="Button" parent="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer"]
 layout_mode = 2
@@ -676,11 +673,11 @@ tooltip_text = "Приблизить полученные значения"
 text = "+"
 script = ExtResource("22_bntlu")
 
-[node name="SimulateButton" type="Button" parent="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer"]
+[node name="AlwaysOnTopCheckBox" type="CheckBox" parent="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer"]
 layout_mode = 2
-tooltip_text = "Приблизить полученные значения"
-text = "Симуляция"
-script = ExtResource("37_7766m")
+tooltip_text = "ВНИМАНИЕ! При отмеченной галочке приложение может вылетать при закрытии этого окна. Это будет исправлено в будущем"
+text = "Всегда поверх других окон"
+script = ExtResource("50_xi6xf")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="LogicAnalyzerWindow/RootVBoxContainer"]
 layout_mode = 2
@@ -720,6 +717,14 @@ initial_position = 4
 size = Vector2i(300, 100)
 ok_button_text = "Начать симуляцию"
 script = ExtResource("39_1y2mv")
+
+[node name="LaunchForAcceptDialog" type="AcceptDialog" parent="LogicAnalyzerWindow"]
+auto_translate_mode = 1
+title = "Симуляция"
+initial_position = 4
+size = Vector2i(300, 100)
+ok_button_text = "Начать симуляцию"
+script = ExtResource("52_mpko7")
 
 [node name="MemoryViewer" type="Window" parent="."]
 auto_translate_mode = 1
@@ -1216,13 +1221,12 @@ size_flags_vertical = 3
 [connection signal="visibility_changed" from="LogicAnalyzerWindow" to="LogicAnalyzerWindow" method="_on_visibility_changed"]
 [connection signal="pressed" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/SelectPinsButton" to="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/SelectPinsButton" method="_on_pressed"]
 [connection signal="pressed" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/StartStopAnalysisButton" to="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/StartStopAnalysisButton" method="_on_pressed"]
-[connection signal="pressed" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/StartForButton" to="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/StartForButton" method="_on_pressed"]
-[connection signal="focus_exited" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/StartForLineEdit" to="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/StartForLineEdit" method="_on_focus_exited"]
-[connection signal="text_submitted" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/StartForLineEdit" to="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/StartForLineEdit" method="_on_text_submitted"]
+[connection signal="pressed" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/LaunchForButton" to="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/LaunchForButton" method="_on_pressed"]
 [connection signal="pressed" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/ClearButton" to="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/ClearButton" method="_on_pressed"]
+[connection signal="pressed" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/SimulateButton" to="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/SimulateButton" method="_on_pressed"]
 [connection signal="pressed" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/ZoomOutButton" to="LogicAnalyzerWindow/RootVBoxContainer/ScrollContainer/SignalsHSplitContainer" method="_on_zoom_out_button_pressed"]
 [connection signal="pressed" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/ZoomInButton" to="LogicAnalyzerWindow/RootVBoxContainer/ScrollContainer/SignalsHSplitContainer" method="_on_zoom_in_button_pressed"]
-[connection signal="pressed" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/SimulateButton" to="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/SimulateButton" method="_on_pressed"]
+[connection signal="pressed" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/AlwaysOnTopCheckBox" to="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/AlwaysOnTopCheckBox" method="_on_pressed"]
 [connection signal="pressed" from="MemoryViewer/VBoxContainer/HBoxContainer2/ContinuousUpdate" to="MemoryViewer/VBoxContainer/HBoxContainer" method="_on_continuous_update_pressed"]
 [connection signal="pressed" from="MemoryViewer/VBoxContainer/HBoxContainer/ResetSelectionButton" to="MemoryViewer/VBoxContainer/GridContainer" method="reset_all_labels_style"]
 [connection signal="toggled" from="MemoryViewer/VBoxContainer/ResetStyleOnPageChangeButton" to="MemoryViewer/VBoxContainer/GridContainer" method="_on_reset_style_on_page_change_button_toggled"]
