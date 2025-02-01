@@ -41,6 +41,48 @@ func register_wire_point(object:Node2D):
 			for wire in wires:
 				if(wire.first_object==first_wire_point and wire.second_object==second_wire_point) or (wire.first_object==second_wire_point and wire.second_object==first_wire_point):
 					_delete_wire(wire)
+		elif Input.is_key_pressed(KEY_ALT):
+			if first_wire_point is Pin and second_wire_point is Pin and first_wire_point.parent is CircuitComponent and second_wire_point.parent is CircuitComponent:
+				var callback = func(str:String):
+					var regex = RegEx.new()
+					regex.compile("(((\\d+:\\d+);|(\\d+-\\d+:\\d+-\\d+);)+)?((\\d+:\\d+);?|(\\d+-\\d+:\\d+-\\d+);?)+")
+					var result = regex.search(str)
+					if (result):
+						var s = result.get_string()
+						for spec in s.split(";"):
+							if spec=="":
+								continue # Trailing semicolon
+							if "-" in spec:
+								var lrange = spec.split(":")[0]
+								var rrange = spec.split(":")[1]
+								var l1 = int(lrange.split("-")[0])
+								var l2 = int(lrange.split("-")[1])
+								var delta = l2 - l1
+								var r1 = int(rrange.split("-")[0])
+								var r2 = int(rrange.split("-")[1])
+								if r2-r1 != delta:
+									InfoManager.write_error("Не удалось создать запрошенное соединение: Введены диапазоны номеров разной длины:  %s" % [spec])
+								if delta <=0:
+									InfoManager.write_error("Не удалось создать запрошенное соединение: Поддерживаются только возрастающие диапазоны:  %s" % [spec])
+								if l1 >0 and l2 <= first_wire_point.parent.pins.size() and \
+								r1 > 0 and r2 <= second_wire_point.parent.pins.size():
+									for i in range(0,delta+1):
+										_create_wire(first_wire_point.parent.pin(l1+i), second_wire_point.parent.pin(r1+i))
+							else:
+								var op = spec.split(":")
+								var left = int(op[0])
+								var right = int(op[1])
+								if left <= first_wire_point.parent.pins.size() and right <= second_wire_point.parent.pins.size() \
+								and left>0 and right >0:
+									_create_wire(first_wire_point.parent.pin(left), second_wire_point.parent.pin(right))
+								else:
+									InfoManager.write_error("Не удалось создать запрошенное соединение: На одной из микросхем нет ножки с таким номером:  %s" % [spec])
+					else:
+						InfoManager.write_error("Формат соединений не распознан")
+					first_wire_point = null
+					second_wire_point = null
+				get_node("/root/RootNode/UiCanvasLayer/GlobalInput").ask_for_input("Введите список соединений", callback, true, "")
+				return
 		else:
 			var event = WireCreationEvent.new()
 			event.initialize(_create_wire(first_wire_point, second_wire_point)) # TODO: Kind of ugly side effect use
