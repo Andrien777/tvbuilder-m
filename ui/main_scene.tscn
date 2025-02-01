@@ -505,7 +505,7 @@ visible_characters = 100000
 [node name="AboutWindow" type="Window" parent="."]
 title = "О программе"
 initial_position = 2
-size = Vector2i(250, 525)
+size = Vector2i(300, 650)
 visible = false
 transient = true
 exclusive = true
@@ -546,18 +546,21 @@ text = "
 Гогоберидзе А.Г.
 Горьков Н.Я.
 Плеханов А.Е.
-Соколов Д. С."
+Соколов Д. С.
+
+Разработано в
+Санкт-Петербургском Политехническом Университете Петра Великого"
 horizontal_alignment = 1
 autowrap_mode = 3
 
 [node name="Label3" type="Label" parent="AboutWindow/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 10
-text = "Attribution:
-
-Icons from:
+text = "
+Application uses icons from:
 - www.flaticon.com
 - fonts.google.com/icons
+
 Created with Godot Engine"
 autowrap_mode = 3
 
