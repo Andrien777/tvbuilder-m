@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bihbv20ikc5jx"]
 
-[ext_resource type="Script" path="res://tools/ConnectionTable/connection_table.gd" id="1_3cvae"]
+[ext_resource type="Script" uid="uid://drlbbn0hgykf2" path="res://tools/ConnectionTable/connection_table.gd" id="1_3cvae"]
 [ext_resource type="FontFile" uid="uid://co86tufoji665" path="res://ui/JetBrainsMonoNL-Regular.ttf" id="2_hc8qw"]
 
 [node name="ConnectionTable" type="Node2D"]
