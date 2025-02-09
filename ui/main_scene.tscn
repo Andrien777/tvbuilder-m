@@ -676,7 +676,7 @@ script = ExtResource("22_bntlu")
 
 [node name="AlwaysOnTopCheckBox" type="CheckBox" parent="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer"]
 layout_mode = 2
-tooltip_text = "ВНИМАНИЕ! При отмеченной галочке приложение может вылетать при закрытии этого окна. Это будет исправлено в будущем"
+tooltip_text = "Держать это окно поверх остальных окон"
 text = "Всегда поверх других окон"
 script = ExtResource("50_xi6xf")
 

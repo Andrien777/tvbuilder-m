@@ -75,16 +75,9 @@ func add_signal(pin: Pin):
 		for item_index in [15,14,13,12,11,10]:
 			line_edit_menu.remove_item(item_index)
 		line_edit_menu.add_item("Прекратить отслеживание", 2281337)
-		line_edit_menu.always_on_top = GlobalSettings.is_LA_always_on_top
-		line_edit_menu.close_requested.connect(
-			func():
-				line_edit_menu.always_on_top = false
-		) # It crashes out when closing LogicAnalyzerWindow wihtout that line
-		
 
 		line_edit_menu.index_pressed.connect(
-			func(index): 
-				print(index)
+			func(index):
 				if (line_edit_menu.get_item_id(index) == 2281337):
 					remove_signal(sig)
 		)
