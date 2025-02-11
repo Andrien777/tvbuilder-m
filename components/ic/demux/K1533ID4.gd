@@ -3,31 +3,58 @@ class_name K1533ID4
 
 
 func _process_signal():
-	pins[7].set_low()
-	pins[15].set_high()
-	if pins[0].low:
-		if (pins[2].high_or_z and pins[12].high_or_z):
-			pins[6].set_high()
-			pins[5].set_high()
-			pins[4].set_high()
-			pins[3].set_low()
-		if (pins[2].state==NetConstants.LEVEL.LEVEL_HIGH and pins[12].state==NetConstants.LEVEL.LEVEL_LOW):
-			pins[6].state = NetConstants.LEVEL.LEVEL_HIGH
-			pins[5].state = NetConstants.LEVEL.LEVEL_HIGH
-			pins[4].state = NetConstants.LEVEL.LEVEL_LOW
-			pins[3].state = NetConstants.LEVEL.LEVEL_HIGH
-		if (pins[2].state==NetConstants.LEVEL.LEVEL_LOW and pins[12].state==NetConstants.LEVEL.LEVEL_HIGH):
-			pins[6].state = NetConstants.LEVEL.LEVEL_HIGH
-			pins[5].state = NetConstants.LEVEL.LEVEL_LOW
-			pins[4].state = NetConstants.LEVEL.LEVEL_HIGH
-			pins[3].state = NetConstants.LEVEL.LEVEL_HIGH
-		if (pins[2].state==NetConstants.LEVEL.LEVEL_LOW and pins[12].state==NetConstants.LEVEL.LEVEL_LOW):
-			pins[6].state = NetConstants.LEVEL.LEVEL_LOW
-			pins[5].state = NetConstants.LEVEL.LEVEL_HIGH
-			pins[4].state = NetConstants.LEVEL.LEVEL_HIGH
-			pins[3].state = NetConstants.LEVEL.LEVEL_HIGH
+	pin(8).set_low()
+	pin(16).set_high()
+	if pin(1).low: # Bottom half enabled
+		if (pin(3).high_or_z and pin(13).high_or_z):
+			pin(7).set_high()
+			pin(6).set_high()
+			pin(5).set_high()
+			pin(4).set_low()
+		if (pin(3).high_or_z and pin(13).low):
+			pin(7).set_high()
+			pin(6).set_high()
+			pin(5).set_low()
+			pin(4).set_high()
+		if (pin(3).low and pin(13).high_or_z):
+			pin(7).set_high()
+			pin(6).set_low()
+			pin(5).set_high()
+			pin(4).set_high()
+		if (pin(3).low and pin(13).low):
+			pin(7).set_low()
+			pin(6).set_high()
+			pin(5).set_high()
+			pin(4).set_high()
 	else:
-		pins[6].set_z()
-		pins[5].set_z()
-		pins[4].set_z()
-		pins[3].set_z()
+		pin(7).set_high()
+		pin(6).set_high()
+		pin(5).set_high()
+		pin(4).set_high()
+
+	if pin(15).low: # Upper half enabled
+		if (pin(3).high_or_z and pin(13).high_or_z):
+			pin(9).set_high()
+			pin(10).set_high()
+			pin(11).set_high()
+			pin(12).set_low()
+		if (pin(3).high_or_z and pin(13).low):
+			pin(9).set_high()
+			pin(10).set_high()
+			pin(11).set_low()
+			pin(12).set_high()
+		if (pin(3).low and pin(13).high_or_z):
+			pin(9).set_high()
+			pin(10).set_low()
+			pin(11).set_high()
+			pin(12).set_high()
+		if (pin(3).low and pin(13).low):
+			pin(9).set_low()
+			pin(10).set_high()
+			pin(11).set_high()
+			pin(12).set_high()
+	else:
+		pin(9).set_high()
+		pin(10).set_high()
+		pin(11).set_high()
+		pin(12).set_high()

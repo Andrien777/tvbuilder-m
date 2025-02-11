@@ -27,7 +27,7 @@ func display_connections():
 			for conn_point in connections[pin_num]:
 				var pin_label = Label.new()
 				pin_label.text = str(pin_num)+ " - "+ ic.pin(pin_num).readable_name
-				grid_container.add_child(pin_label)
+				#grid_container.add_child(pin_label)
 				var target_ic = ComponentManager.get_by_id(conn_point.id)
 				var target_ic_name_label = Label.new()
 				target_ic_name_label.text = target_ic.readable_name

@@ -153,7 +153,7 @@ func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void
 func _lmb_action():
 	if GlobalSettings.is_connectivity_mode():
 		if self.is_mouse_over:
-			Input.action_release("show_connection_table")
+			#Input.action_release("show_connection_table")
 			var conn_table = load("res://tools/ConnectionTable/ConnectionTable.tscn").instantiate()
 			conn_table.ic = self
 			add_child(conn_table)
