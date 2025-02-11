@@ -60,10 +60,12 @@ func redo():
 
 func undo():
 	if is_instance_valid(object):
-		WireManager._delete_bus(object)
+		object.delete_self()
+		#WireManager._delete_bus(object) # This causes a memory leak
 	else:
 		var bus = ComponentManager.get_by_id(self.id)
 		if is_instance_valid(bus):
-			WireManager._delete_bus(bus)
+			#WireManager._delete_bus(bus)
+			bus.delete_self()
 		else:
 			InfoManager.write_error("Не удалось отменить создание шины")

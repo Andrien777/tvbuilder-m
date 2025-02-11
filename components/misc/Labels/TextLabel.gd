@@ -100,6 +100,10 @@ func on_text_update(new_text:String):
 		hitbox.position = hitbox.shape.size / 2
 		
 	
+func _exit_tree() -> void:
+	self.name_label.queue_free()
+	
+	
 #func _mouse_enter() -> void:
 	#is_mouse_over = true
 	#

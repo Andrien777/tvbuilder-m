@@ -505,7 +505,7 @@ visible_characters = 100000
 [node name="AboutWindow" type="Window" parent="."]
 title = "О программе"
 initial_position = 2
-size = Vector2i(300, 650)
+size = Vector2i(250, 525)
 visible = false
 transient = true
 exclusive = true
@@ -546,21 +546,18 @@ text = "
 Гогоберидзе А.Г.
 Горьков Н.Я.
 Плеханов А.Е.
-Соколов Д. С.
-
-Разработано в
-Санкт-Петербургском Политехническом Университете Петра Великого"
+Соколов Д. С."
 horizontal_alignment = 1
 autowrap_mode = 3
 
 [node name="Label3" type="Label" parent="AboutWindow/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 10
-text = "
-Application uses icons from:
+text = "Attribution:
+
+Icons from:
 - www.flaticon.com
 - fonts.google.com/icons
-
 Created with Godot Engine"
 autowrap_mode = 3
 
@@ -652,16 +649,17 @@ layout_mode = 2
 text = "Запустить на"
 script = ExtResource("33_503t8")
 
-[node name="SimulateButton" type="Button" parent="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer"]
-layout_mode = 2
-text = "Симуляция"
-script = ExtResource("37_7766m")
-
 [node name="ClearButton" type="Button" parent="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer"]
 layout_mode = 2
 tooltip_text = "Очистить снятые значения"
 text = "Очистить"
 script = ExtResource("15_73c41")
+
+[node name="SimulateButton" type="Button" parent="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer"]
+layout_mode = 2
+tooltip_text = "Приблизить полученные значения"
+text = "Симуляция"
+script = ExtResource("37_7766m")
 
 [node name="ZoomOutButton" type="Button" parent="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer"]
 layout_mode = 2
@@ -722,10 +720,10 @@ script = ExtResource("39_1y2mv")
 
 [node name="LaunchForAcceptDialog" type="AcceptDialog" parent="LogicAnalyzerWindow"]
 auto_translate_mode = 1
-title = "Запуск на время"
+title = "Симуляция"
 initial_position = 4
 size = Vector2i(300, 100)
-ok_button_text = "Запустить на это время"
+ok_button_text = "Начать симуляцию"
 script = ExtResource("52_mpko7")
 
 [node name="MemoryViewer" type="Window" parent="."]
@@ -1224,8 +1222,8 @@ size_flags_vertical = 3
 [connection signal="pressed" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/SelectPinsButton" to="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/SelectPinsButton" method="_on_pressed"]
 [connection signal="pressed" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/StartStopAnalysisButton" to="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/StartStopAnalysisButton" method="_on_pressed"]
 [connection signal="pressed" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/LaunchForButton" to="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/LaunchForButton" method="_on_pressed"]
-[connection signal="pressed" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/SimulateButton" to="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/SimulateButton" method="_on_pressed"]
 [connection signal="pressed" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/ClearButton" to="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/ClearButton" method="_on_pressed"]
+[connection signal="pressed" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/SimulateButton" to="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/SimulateButton" method="_on_pressed"]
 [connection signal="pressed" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/ZoomOutButton" to="LogicAnalyzerWindow/RootVBoxContainer/ScrollContainer/SignalsHSplitContainer" method="_on_zoom_out_button_pressed"]
 [connection signal="pressed" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/ZoomInButton" to="LogicAnalyzerWindow/RootVBoxContainer/ScrollContainer/SignalsHSplitContainer" method="_on_zoom_in_button_pressed"]
 [connection signal="pressed" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/AlwaysOnTopCheckBox" to="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/AlwaysOnTopCheckBox" method="_on_pressed"]
