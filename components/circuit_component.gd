@@ -41,7 +41,9 @@ func initialize(spec: ComponentSpecification, ic = null)->void: # Ic field holds
 	add_child(hitbox)
 	add_child(sprite)
 	initialize_pins(spec.pinSpecifications, shape.size)
-	name_label = Label.new()
+	if is_instance_valid(name_label):
+		name_label.queue_free()
+		name_label = Label.new()
 	name_label.position = Vector2(10,shape.size.y/2 - name_label.get_line_height()/2)
 	name_label.text = self.readable_name
 	add_child(name_label)
@@ -153,7 +155,7 @@ func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void
 func _lmb_action():
 	if GlobalSettings.is_connectivity_mode():
 		if self.is_mouse_over:
-			Input.action_release("show_connection_table")
+			#Input.action_release("show_connection_table")
 			var conn_table = load("res://tools/ConnectionTable/ConnectionTable.tscn").instantiate()
 			conn_table.ic = self
 			add_child(conn_table)

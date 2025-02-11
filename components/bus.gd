@@ -196,6 +196,8 @@ func fully_delete():
 		if is_instance_valid(i):
 			i.queue_free() # Just to be safe
 	ComponentManager.remove_object(component)
+	component.queue_free()
+	component.name_label.queue_free()
 	WireManager._delete_bus(self)
 	var event = BusDeletionEvent.new() 
 	event.initialize(self)

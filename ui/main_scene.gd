@@ -74,6 +74,7 @@ func _input(event):
 	# Has to be in a separate if
 	if event.is_action_pressed("abort_wire_creation") and not GlobalSettings.disableGlobalInput:
 		selection_area.stop_selection()
+		print_orphan_nodes()
 
 	elif event.is_action_pressed("create_bus") and not GlobalSettings.disableGlobalInput:
 		WireManager.register_bus_point(get_global_mouse_position())

@@ -35,6 +35,8 @@ func add_to_deletion_queue(object: CircuitComponent):
 func clear_deletion_queue():
 	for obj in deletion_queue:
 		obj.fully_delete()
+	if not deletion_queue.is_empty():
+		NetlistClass.pause_time()
 	deletion_queue.clear()
 
 func get_by_id(id: int) -> CircuitComponent:
