@@ -3,8 +3,28 @@ extends Node
 
 signal scheme_processed
 
+var paused = false
+var timer: Timer
+
+func pause():
+	paused = true
+
+func pause_time():
+	paused = true
+	timer.start()
+
+func unpause():
+	paused = false
+
 
 var nodes: Dictionary # Pin -> NetlistNode
+
+func _ready() -> void:
+	timer = Timer.new()
+	timer.wait_time = 0.2
+	timer.one_shot = true
+	timer.timeout.connect(unpause)
+	add_child(timer)
 
 func add_connection(pin1: Pin, pin2: Pin) -> void:
 	if pin1 == pin2:
@@ -35,12 +55,13 @@ func clear():
 	nodes.clear()
 
 func process_scheme():
-	propagate_signal()
-	process_components()
-	propagate_signal()
+	if !paused:
+		propagate_signal()
+		process_components()
+		propagate_signal()
+	ComponentManager.clear_deletion_queue()
 
 func propagate_signal() -> void:
-	ComponentManager.clear_deletion_queue()
 	if nodes.is_empty():
 		return
 	var visited: Dictionary

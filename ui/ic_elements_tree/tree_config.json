@@ -77,7 +77,7 @@
 							"logic_class_path": "res://components/ic/demux/74485.gd"
 						},
 						{
-							"ic_name": "7448",
+							"ic_name": "К555ИД18",
 							"config_path": "res://components/ic/demux/7448.json",
 							"logic_class_path": "res://components/ic/demux/7448.gd"
 						}
