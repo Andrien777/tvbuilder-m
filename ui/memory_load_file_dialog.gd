@@ -5,7 +5,7 @@ var handler
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# TODO: make it remember last load location; doesn't seem to work with native dialogs
-	load_file_dialog.current_dir = "/"
+	load_file_dialog.current_dir = "user://"
 	handler = get_node("./../")
 	file_selected.connect(_on_file_selected)
 func _on_load_button_pressed() -> void:

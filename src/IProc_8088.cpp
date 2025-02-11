@@ -79,7 +79,7 @@ void IProc_8088::BIU_cycle() {
             setDENPin(1);
             setOutputEnabledD(false); // IT MUST BE BEFORE setOutputEnabledA(true)! due to override
 
-            __int32 address = BIUDoOpcodeFetchCycle ? ((cs << 4) + BIUPrefetchQueueAddress) : (getBIURegValue() << 4) + BIUAddress;
+            int32_t address = BIUDoOpcodeFetchCycle ? ((cs << 4) + BIUPrefetchQueueAddress) : (getBIURegValue() << 4) + BIUAddress;
             // set address
             setOutputEnabledA(true);
             setAPins(address);
@@ -648,14 +648,14 @@ word IProc_8088::addWords(word data1, word data2, bool withCarry, bool inc) {
     if (!inc) setFlagCarry(0);
 
     byte nibbleResult;
-    unsigned __int32 wordResult;
+    uint32_t wordResult;
 
     if (withCarry) {
 		nibbleResult = (0x0F & data1) + (0x0F & data2) + carry;
-		wordResult = (unsigned __int32) data1 + (unsigned __int32) data2 + carry;
+		wordResult = (uint32_t) data1 + (uint32_t) data2 + carry;
 	} else {
         nibbleResult = (0x0F & data1) + (0x0F & data2);
-        wordResult = (unsigned __int32) data1 + (unsigned __int32) data2;
+        wordResult = (uint32_t) data1 + (uint32_t) data2;
     }
 
     if (nibbleResult > 0x0F) setFlagAuxiliaryCarry(1);
@@ -1131,14 +1131,14 @@ word IProc_8088::subWords(word data1, word data2, bool withCarry, bool dec) {
     if (!dec) setFlagCarry(0);
 
     byte nibbleResult;
-    unsigned __int32 wordResult;
+    uint32_t wordResult;
 
     if (withCarry) {
 		nibbleResult = (0x0F & data1) - (0x0F & data2) - carry;
-		wordResult = (unsigned __int32) data1 - (unsigned __int32) data2 - carry;
+		wordResult = (uint32_t) data1 - (uint32_t) data2 - carry;
     } else {
         nibbleResult = (0x0F & data1) - (0x0F & data2);
-        wordResult = (unsigned __int32) data1 - (unsigned __int32) data2;
+        wordResult = (uint32_t) data1 - (uint32_t) data2;
     }
 
     if (nibbleResult > 0x0F) setFlagAuxiliaryCarry(1);
@@ -4706,7 +4706,7 @@ bool IProc_8088::opcode_0xF6() {
             case 5: {
                 waitClocksCount += effectiveAddressIsRegister ? 79 : 85; // IMUL
                 writeRegister(Register::AX, effectiveAddressFetchedData * (fetchRegister(Register::AX) & 0xFF));
-                __int16 tempAX = (__int16) ax;
+                int16_t tempAX = (int16_t) ax;
                 if (tempAX > 255 || tempAX <= -256) {
                     setFlagOverflow(1);
                     setFlagCarry(1);
@@ -4733,11 +4733,11 @@ bool IProc_8088::opcode_0xF6() {
             case 7: {
                 if (!interrupted)
                     waitClocksCount += effectiveAddressIsRegister ? 97 : 104; // IDIV
-                __int8 signedDivr = (__int8) effectiveAddressFetchedData;
+                int8_t signedDivr = (int8_t) effectiveAddressFetchedData;
                 if (signedDivr == 0) return div0InterruptHandler();
                 else {
-                    __int8 signedQuo = (__int8)(((__int16) ax) / signedDivr);
-                    __int8 signedRem = (__int8)(((__int16) ax) % signedDivr);
+                    int8_t signedQuo = (int8_t)(((int16_t) ax) / signedDivr);
+                    int8_t signedRem = (int8_t)(((int16_t) ax) % signedDivr);
                     ax = (word) (signedRem << 8); // AH
                     writeRegister(Register::AL, (byte) signedQuo);
                 }
@@ -4777,7 +4777,7 @@ bool IProc_8088::opcode_0xF7() {
     }
 
 	if (opcodeState == 3) {
-		unsigned __int32 res;
+		uint32_t res;
         switch (getREGField()) {
             case 0: // duplicate with 1
             case 1: {
@@ -4801,7 +4801,7 @@ bool IProc_8088::opcode_0xF7() {
                 break;
             case 4: {
                 waitClocksCount += effectiveAddressIsRegister ? 110 : 121; // MUL
-                res = (unsigned __int32) effectiveAddressFetchedData * (unsigned __int32) ax;
+                res = (uint32_t) effectiveAddressFetchedData * (uint32_t) ax;
                 dx = (word) (res >> 16);
                 ax = (word) (res & 0x0000FFFF);
 
@@ -4819,9 +4819,9 @@ bool IProc_8088::opcode_0xF7() {
             case 5: {
                 waitClocksCount += effectiveAddressIsRegister ? 131 : 137; // IMUL
                 word fetched = effectiveAddressFetchedData;
-                unsigned __int32 fetchedPositive;
-                unsigned __int32 axPositive;
-                unsigned __int32 resPositive;
+                uint32_t fetchedPositive;
+                uint32_t axPositive;
+                uint32_t resPositive;
 
                 fetchedPositive = (0x8000 & fetched) ? (~fetched) + 1 : fetched;
                 axPositive = (0x8000 & ax) ? (~ax) + 1 : ax;
@@ -4834,7 +4834,7 @@ bool IProc_8088::opcode_0xF7() {
                     setFlagOverflow(0);
                 }
 
-                res = (unsigned __int32) ((__int16) fetched * (__int16) ax);
+                res = (uint32_t) ((int16_t) fetched * (int16_t) ax);
                 dx = (word) (res >> 16);
                 ax = (word) (res & 0x0000FFFF);
 
@@ -4844,12 +4844,12 @@ bool IProc_8088::opcode_0xF7() {
             case 6: {
                 if (!interrupted)
                     waitClocksCount += effectiveAddressIsRegister ? 143 : 157; // DIV
-                unsigned __int32 numr;
-                unsigned __int16 divr;
+               uint32_t numr;
+                uint16_t divr;
 
 //                numr = ((unsigned __int32)dx << 16) | (unsigned __int32) ax; WTF?
-                numr = (unsigned __int32) ax;
-                divr = (unsigned __int32) effectiveAddressFetchedData;
+                numr = (uint32_t) ax;
+                divr = (uint32_t) effectiveAddressFetchedData;
 
                 if (divr == 0) return div0InterruptHandler();
                 else {
@@ -4862,8 +4862,8 @@ bool IProc_8088::opcode_0xF7() {
                 if (!interrupted)
                     waitClocksCount += effectiveAddressIsRegister ? 97 : 104; // IDIV
 //                __int32 numrSigned = ((__int32) dx << 16) | (__int32) ax; WTF?
-                __int32 numrSigned = (__int32) ax;
-                __int16 divrSigned = (__int16) effectiveAddressFetchedData;
+                int32_t numrSigned = (int32_t) ax;
+                int16_t divrSigned = (int16_t) effectiveAddressFetchedData;
 
                 if (divrSigned == 0) return div0InterruptHandler();
                 else {
@@ -5327,7 +5327,7 @@ bool IProc_8088::opcode_0xCC() {
     if (!interrupted) {
         waitClocksCount += 1;
         interruptState = 0;
-        throw std::logic_error("Возникло прерывание: breakpoint!");
+        setStatus(L"РџСЂРµСЂС‹РІР°РЅРёРµ: breakpoint (РєРѕРґ 3)");
         interrupted = true;
     }
 
@@ -5348,7 +5348,7 @@ bool IProc_8088::opcode_0xCE() {
     if (opcodeState == 1) {
         if (!interrupted) {
             interruptState = 0;
-            throw std::logic_error("Возникло прерывание: переполнение!");
+            setStatus(L"РџСЂРµСЂС‹РІР°РЅРёРµ: РїРµСЂРµРїРѕР»РЅРµРЅРёРµ (РєРѕРґ 4)");
             interrupted = true;
         }
         return interruptHandler(4); // interrupt on overflow
@@ -5368,7 +5368,7 @@ bool IProc_8088::opcode_0xCD() {
     if (opcodeState == 1) {
         if (!interrupted) {
             interruptState = 0;
-            throw std::logic_error("Возникло прерывание типа " + std::to_string(opcodeResult));
+            setStatus(L"РџСЂРµСЂС‹РІР°РЅРёРµ: РїРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРѕРµ (РєРѕРґ " + godot::String(std::to_string(opcodeResult).c_str()) + ")");
             interrupted = true;
         }
 

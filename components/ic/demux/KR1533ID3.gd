@@ -13,5 +13,4 @@ func _process_signal():
 		var a = ((pin(23).high as int)) | ((pin(22).high as int)<<1) | ((pin(21).high as int)<<2) | ((pin(20).high as int)<<3) 
 		for out in outputs:
 			pin(out).set_high()
-		if (a != 0):
-			pin(outputs[a - 1]).set_low()
+		pin(outputs[a]).set_low()

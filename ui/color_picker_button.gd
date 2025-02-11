@@ -15,8 +15,10 @@ func _process(delta: float) -> void:
 func _on_color_changed(color: Color) -> void:
 	background_sprite.modulate = color
 	GlobalSettings.bg_color = color
+	GlobalSettings.bg_color_global = color
 
 func reset_color():
-	color = Color(0.5, 0.504, 0.004)
+	color = Color("999902")
 	background_sprite.modulate = color
+	GlobalSettings.bg_color_global = color
 	GlobalSettings.bg_color = color

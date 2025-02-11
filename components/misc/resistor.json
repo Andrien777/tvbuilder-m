@@ -1,0 +1,34 @@
+{
+	"name":"Резистор",
+	"num_pins": 2,
+	"height": 25,
+	"width": 25,
+	"textures": [
+		{
+			"name":"LEGACY", 
+			"path":"res://graphics/legacy/resistor.png"
+		},
+		{
+			"name":"DEFAULT", 
+			"path":"res://graphics/legacy/resistor.png"
+		}
+		],
+	"pinSpecifications": [
+		{
+			"index": 1,
+			"direction": "DIRECTION_INPUT",
+			"position": "LEFT",
+			"readable_name": "A",
+			"description": "",
+			"dependencies": []
+		},
+		{
+			"index": 2,
+			"direction": "DIRECTION_INPUT",
+			"position": "RIGHT",
+			"readable_name": "B",
+			"description": "",
+			"dependencies": []
+		}
+	]
+}

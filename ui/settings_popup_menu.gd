@@ -53,6 +53,12 @@ func _on_index_pressed(index: int) -> void:
 		5:
 			GlobalSettings.turbo = not GlobalSettings.turbo
 			self.set_item_checked(5, GlobalSettings.turbo)
+			if GlobalSettings.turbo:
+				Engine.physics_ticks_per_second = max(500, GlobalSettings.tps)
+				Engine.max_physics_steps_per_frame = max(9, ceili(GlobalSettings.tps/60))
+			else:
+				Engine.physics_ticks_per_second = GlobalSettings.tps
+				Engine.max_physics_steps_per_frame = ceili(GlobalSettings.tps/60)
 		6:
 			get_node("../SettingsWindow").open_window()
 			self.hide()

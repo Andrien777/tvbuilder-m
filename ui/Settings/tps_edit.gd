@@ -1,0 +1,33 @@
+extends LineEdit
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	self.text = str(GlobalSettings.tps)
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+
+
+func _on_text_submitted(new_text: String) -> void:
+	GlobalSettings.tps = max(int(new_text), 0)
+	self.text = str(GlobalSettings.tps)
+	if GlobalSettings.turbo:
+		Engine.physics_ticks_per_second = max(500, GlobalSettings.tps)
+		Engine.max_physics_steps_per_frame = max(9, ceili(GlobalSettings.tps/60))
+	else:
+		Engine.physics_ticks_per_second = GlobalSettings.tps
+		Engine.max_physics_steps_per_frame = ceili(GlobalSettings.tps/60)
+
+
+func _on_focus_exited() -> void:
+	GlobalSettings.historyDepth = max(int(self.text), 0)
+	self.text = str(GlobalSettings.tps)
+	if GlobalSettings.turbo:
+		Engine.physics_ticks_per_second = max(500, GlobalSettings.tps)
+		Engine.max_physics_steps_per_frame = max(9, ceili(GlobalSettings.tps/60))
+	else:
+		Engine.physics_ticks_per_second = GlobalSettings.tps
+		Engine.max_physics_steps_per_frame = ceili(GlobalSettings.tps/60)

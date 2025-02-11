@@ -6,7 +6,8 @@ var from_id
 var to_id
 var from_index
 var to_index
-func initialize(from, to):
+var control_points
+func initialize(from, to, control_points = []):
 	self.from = from
 	self.to = to
 	if is_instance_valid(from) and is_instance_valid(to): # For some reason this can happen
@@ -14,14 +15,17 @@ func initialize(from, to):
 		self.to_id = to.parent.id
 		self.from_index = from.index
 		self.to_index = to.index
+	else:
+		InfoManager.write_error("Не удалось записать событие удаления провода")
+	self.control_points = control_points
 	
 func undo():
 	if is_instance_valid(from) and is_instance_valid(to):
-		WireManager._create_wire(from, to)
+		WireManager._create_wire(from, to, control_points)
 	else:
 		var from_ic = ComponentManager.get_by_id(from_id)
 		var to_ic = ComponentManager.get_by_id(to_id)
-		WireManager._create_wire(from_ic.pin(from_index), to_ic.pin(to_index))
+		WireManager._create_wire(from_ic.pin(from_index), to_ic.pin(to_index), control_points)
 func redo():
 	if is_instance_valid(from) and is_instance_valid(to):
 		WireManager._delete_wire_by_ends(from, to)

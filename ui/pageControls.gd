@@ -32,6 +32,11 @@ func _on_mem_load(path):
 		addr+=1
 	file.close()
 	mem_viewer.update()
+	var grid = get_node("./../GridContainer/")
+	if grid and is_instance_valid(grid):
+		grid.reset_all_labels_style()
+	else:
+		InfoManager.write_error("Не удалось очистить выделение в просмотрщике памяти")
 
 
 func _on_continuous_update_pressed() -> void:

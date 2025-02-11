@@ -3,21 +3,21 @@ extends HSplitContainer
 const SIGNAL_ROW_HEIGHT = 70
 const SIGNAL_COLORS: Array[Color] = [
 	Color(1,1,1),
-	Color(0.069, 0.048, 0.609),
+	Color(0.16862746, 0.5254902, 0.8784314),
 	Color(0.820, 0.097, 0.060),
-	Color(0.587, 0.528, 0.102),
-	Color(0.120, 0.557, 0.283),
-	Color(0.304, 0.075, 0.764),
+	Color(0.7764706, 0.7019608, 0.13333334),
+	Color(0.0, 0.8117647, 0.32156864),
+	Color(0.45490196, 0.22352941, 0.92941177),
 	Color(0.994, 0.561, 0.907),
-	Color(0.013, 0.940, 0.604),
+	Color(0.011764706, 1.0, 0.6431373),
 ]
 var color_index = 0
 var signals: Array[LA_Signal]
 var signal_values_zoom_factor: float = 1.0:
 	set = set_signal_values_zoom_factor
+var is_analysis_in_progress = false
 
 @onready var select_pins_button = get_node("/root/RootNode/LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/SelectPinsButton")
-@onready var start_stop_analysis_button = get_node("/root/RootNode/LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/StartStopAnalysisButton")
 @onready var signal_container = get_node("./SignalsPanelContainer/SignalsScrollContainer/SignalsVBoxContainer")
 @onready var scroll_container = get_node("./SignalsPanelContainer/SignalsScrollContainer")
 @onready var label_container = get_node("./SignalLabelsPanelContainer/SignalLabelsVBoxContainer")
@@ -43,13 +43,14 @@ class LA_Signal:
 	func _to_string() -> String:
 		return "Parent ic's id = " + str(ic_id) + "; Pin_index = " + str(pin_index)	
 
+func _ready() -> void:
+	NetlistClass.scheme_processed.connect(draw_new_signal_values)
 
 func add_signal(pin: Pin):
 	if select_pins_button.is_add_pins_mode_on:
 		var line_edit = LineEdit.new()
 		line_edit.custom_minimum_size = Vector2(0, SIGNAL_ROW_HEIGHT - 4)
 		line_edit.size.y = SIGNAL_ROW_HEIGHT - 4
-		line_edit.text_changed.connect(_on_text_submitted.bind(1))
 		line_edit.text = pin.readable_name
 		var line_edit_menu = line_edit.get_menu()
 		label_container.add_child(line_edit)
@@ -69,24 +70,45 @@ func add_signal(pin: Pin):
 			pin.index
 			)
 		signals.append(sig)
+		
+		# Remove useless menu items
+		for item_index in [15,14,13,12,11,10]:
+			line_edit_menu.remove_item(item_index)
 		line_edit_menu.add_item("Прекратить отслеживание", 2281337)
-		line_edit_menu.id_pressed.connect(
-			func(id): 
-				if (id == 2281337):
-					remove_signal(sig, pin)
+		line_edit_menu.always_on_top = GlobalSettings.is_LA_always_on_top
+		line_edit_menu.close_requested.connect(
+			func():
+				line_edit_menu.always_on_top = false
+		) # It crashes out when closing LogicAnalyzerWindow wihtout that line
+		
+
+		line_edit_menu.index_pressed.connect(
+			func(index): 
+				print(index)
+				if (line_edit_menu.get_item_id(index) == 2281337):
+					remove_signal(sig)
 		)
 		clear_signal_values()
-	
-func _on_text_submitted(text, id):
-	pass
 
 
-func _process(delta: float) -> void:
-	if (start_stop_analysis_button.is_analysis_in_progress):
+var last_propagation_time = 0
+func draw_new_signal_values(forced_generator: bool = false) -> void:
+	if is_analysis_in_progress || forced_generator:
+		var current_time = Time.get_unix_time_from_system()
+		var propagation_time_delta: float
+		if forced_generator:
+			propagation_time_delta = 0.1
+		elif last_propagation_time == 0:
+			propagation_time_delta = 0
+		else:
+			propagation_time_delta = current_time - last_propagation_time 
+		last_propagation_time = current_time
 		var current_signal_index = 0
 		for sig in signals:
-			draw_new_signal_value(sig, current_signal_index, delta)
+			draw_new_signal_value(sig, current_signal_index, propagation_time_delta)
 			current_signal_index += 1
+	elif !is_analysis_in_progress:
+		last_propagation_time = 0
 
 func draw_new_signal_value(sig: LA_Signal, signal_index: int, time_delta: float):
 	var line = sig.signal_line
@@ -94,6 +116,7 @@ func draw_new_signal_value(sig: LA_Signal, signal_index: int, time_delta: float)
 	var prev_point = points[points.size()-1]
 	
 	var val = get_current_signal_value(sig)
+	var name: String
 	
 	line.position.y = SIGNAL_ROW_HEIGHT * signal_index
 	
@@ -120,14 +143,15 @@ func draw_new_signal_value(sig: LA_Signal, signal_index: int, time_delta: float)
 
 
 func get_current_signal_value(sig: LA_Signal) -> NetConstants.LEVEL:
-	for i: Pin in NetlistClass.nodes.keys():
-		if i.index == sig.pin_index && i.parent.id == sig.ic_id:
-			return i.state
+	var ic = ComponentManager.get_by_id(sig.ic_id)
+	if is_instance_valid(ic) and ic != null:
+		return ic.pin(sig.pin_index).state
 	push_error("Logic Analyzer couldn't find Pin " + str(sig) + " in the netlist")
 	return NetConstants.LEVEL.LEVEL_Z # Pin is inexistent
 
 
-func remove_signal(sig_to_del: LA_Signal, pin: Pin):
+func remove_signal(sig_to_del: LA_Signal):
+	var pin = ComponentManager.get_by_id(sig_to_del.ic_id).pin(sig_to_del.pin_index)
 	if is_instance_valid(pin):
 		pin.modulate = Color(1, 1, 1, 1)
 		pin.toggle_output_highlight()
@@ -171,7 +195,6 @@ func set_signal_values_zoom_factor(factor: float):
 				func():
 					scroll_container.scroll_horizontal = scroll_container.get_h_scroll_bar().max_value
 			)
-	
 
 
 func _on_zoom_out_button_pressed() -> void:
@@ -180,3 +203,49 @@ func _on_zoom_out_button_pressed() -> void:
 
 func _on_zoom_in_button_pressed() -> void:
 	signal_values_zoom_factor = signal_values_zoom_factor * 4 / 3
+
+
+func simulate(time_ms: float):
+	clear_signal_values()
+	var generator = find_generator()
+	if generator == null:
+		#PopupManager.display_error(
+			#"Отсутсвует генератор", 
+			#"Для симуляции необходимо иметь генератор", 
+			#get_global_mouse_position()
+			#)
+		InfoManager.write_error("Отсутствет генератор. Для проведения симуляции необходимо наличие генератора в схеме")
+		return
+	var was_generator_enabled = generator.enabled
+	generator.enabled = false
+	GlobalSettings.disableGlobalInput = true
+	
+	var generator_freq_text = generator.text_line.text
+	var freq_hz = .0
+	if generator_freq_text.is_valid_float():
+		freq_hz = float(generator_freq_text)
+		
+	var clock_cycles: float = time_ms * .001 * freq_hz
+	var clock_cycle_time = time_ms / clock_cycles
+	draw_new_signal_values(true)
+	
+	for i in range(clock_cycles*2-1):
+		if generator.pin(1).high:
+			generator.pin(1).set_low()
+			generator.pin(2).set_high()
+		else:
+			generator.pin(1).set_high()
+			generator.pin(2).set_low()
+		NetlistClass.process_scheme()
+		draw_new_signal_values(true)
+	
+	last_propagation_time = 0
+	generator.enabled = was_generator_enabled
+	GlobalSettings.disableGlobalInput = false
+
+
+func find_generator() -> FrequencyGenerator:
+	for pin: Pin in NetlistClass.nodes.keys():
+		if pin.parent is FrequencyGenerator:
+			return pin.parent
+	return null

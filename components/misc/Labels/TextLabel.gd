@@ -15,6 +15,7 @@ func _init():
 	label = Label.new()
 	label.text = "Метка"
 	label.position = Vector2(0,0)
+	label.z_index = RenderingServer.CANVAS_ITEM_Z_MAX
 	label.add_theme_font_size_override("font_size",24)
 	hitbox = CollisionShape2D.new()
 	var shape = RectangleShape2D.new()
@@ -76,24 +77,32 @@ func _input(event):
 		#queue_free()
 		#
 func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void: # TODO: Remove this overload
-	if event.is_action_pressed("toggle_grid"):
-		print(event)
-		viewport.set_input_as_handled()
 	super._input_event(viewport, event, shape_idx)
 	if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_RIGHT:
-		popup.global_position = get_global_mouse_position()
-		popup.visible =!popup.visible
-		if(popup.visible):
-			GlobalSettings.disableGlobalInput = true
-		else:
-			GlobalSettings.disableGlobalInput = false
+		#popup.global_position = get_global_mouse_position()
+		#popup.visible =!popup.visible
+		#if(popup.visible):
+			#GlobalSettings.disableGlobalInput = true
+		#else:
+			#GlobalSettings.disableGlobalInput = false
+		get_node("/root/RootNode/UiCanvasLayer/GlobalInput").ask_for_input(
+			"Текст метки", Callable(self, "on_text_update"), true, self.label.text)
+
 	
 		
 func on_text_update(new_text:String):
 	if(new_text!=""):
+		var event = LabelTextChangeEvent.new()
+		event.initialize(self, new_text)
+		HistoryBuffer.register_event(event)
 		label.text = new_text
 		hitbox.shape.size = label.get_rect().size + Vector2(30,0)
 		hitbox.position = hitbox.shape.size / 2
+		
+	
+func _exit_tree() -> void:
+	self.name_label.queue_free()
+	
 	
 #func _mouse_enter() -> void:
 	#is_mouse_over = true
@@ -109,3 +118,6 @@ func to_json_object() -> Dictionary:
 	}
 func change_graphics_mode(mode):
 	pass
+
+func change_color():
+	label.add_theme_color_override('font_color', GlobalSettings.label_color)

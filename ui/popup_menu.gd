@@ -29,6 +29,12 @@ func _on_index_pressed(index: int) -> void:
 func _on_clear_button_pressed():
 	ComponentManager.clear()
 	SaveManager.last_path = ""
+	GlobalSettings.bg_color = GlobalSettings.bg_color_global
+	GlobalSettings.wire_color = GlobalSettings.wire_color_global
+	GlobalSettings.bus_color = GlobalSettings.bus_color_global
+	GlobalSettings.label_color = GlobalSettings.label_color_global
+	get_node("/root/RootNode/GridSprite").modulate = GlobalSettings.bg_color
+	get_node("/root/RootNode").get_window().title = "TVBuilder - New Project"
 
 func _on_save_button_pressed():
 	if SaveManager.last_path == "":

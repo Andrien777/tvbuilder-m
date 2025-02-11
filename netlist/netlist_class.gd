@@ -1,7 +1,30 @@
 extends Node
 # Netlist
 
+signal scheme_processed
+
+var paused = false
+var timer: Timer
+
+func pause():
+	paused = true
+
+func pause_time():
+	paused = true
+	timer.start()
+
+func unpause():
+	paused = false
+
+
 var nodes: Dictionary # Pin -> NetlistNode
+
+func _ready() -> void:
+	timer = Timer.new()
+	timer.wait_time = 0.2
+	timer.one_shot = true
+	timer.timeout.connect(unpause)
+	add_child(timer)
 
 func add_connection(pin1: Pin, pin2: Pin) -> void:
 	if pin1 == pin2:
@@ -18,15 +41,25 @@ func add_connection(pin1: Pin, pin2: Pin) -> void:
 	nodes[pin2].neighbours.append(nodes[pin1])
 	
 func delete_connection(pin1, pin2)->void:
-	nodes[pin1].neighbours.erase(nodes[pin2])
-	nodes[pin2].neighbours.erase(nodes[pin1])
-	if nodes[pin1].neighbours.is_empty():
-		nodes.erase(pin1)
-	if nodes[pin2].neighbours.is_empty():
-		nodes.erase(pin2)
+	if nodes.has(pin1) and nodes.has(pin2):
+		if nodes[pin2] in nodes[pin1].neighbours:
+			nodes[pin1].neighbours.erase(nodes[pin2])
+		if nodes[pin1] in nodes[pin2].neighbours:
+			nodes[pin2].neighbours.erase(nodes[pin1])
+		if nodes[pin1].neighbours.is_empty():
+			nodes.erase(pin1)
+		if nodes[pin2].neighbours.is_empty():
+			nodes.erase(pin2)
 
 func clear():
 	nodes.clear()
+
+func process_scheme():
+	if !paused:
+		propagate_signal()
+		process_components()
+		propagate_signal()
+	ComponentManager.clear_deletion_queue()
 
 func propagate_signal() -> void:
 	if nodes.is_empty():
@@ -96,7 +129,7 @@ func propagate_signal() -> void:
 							if neighbour.pin.output():
 								if neighbour in resolved and neighbour.pin.state != current.pin.state:
 									if not neighbour.pin.z and not current.pin.z:
-										PopupManager.display_error("Соединены два выхода", "Вы делаете что-то странное", current.pin.global_position)
+										PopupManager.display_error("Короткое замыкание", "Соединены два выхода с разными сигналами", current.pin.global_position)
 										#print("Two outputs short circuited")
 							if neighbour != current:
 								stack.push_back(neighbour)
@@ -113,7 +146,7 @@ func propagate_signal() -> void:
 						if neighbour.pin.output():
 							if neighbour in resolved and neighbour.pin.state != current.pin.state:
 								if not neighbour.pin.z and not current.pin.z:
-									PopupManager.display_error("Соединены два выхода", "Вы делаете что-то странное", current.pin.global_position)
+									PopupManager.display_error("Короткое замыкание", "Соединены два выхода с разными сигналами", current.pin.global_position)
 									#print("Two outputs short circuited")
 						if neighbour != current:
 							stack.push_back(neighbour)
@@ -155,7 +188,7 @@ func propagate_signal() -> void:
 						stack.push_back(neighbour)
 	if not late_propagation.is_empty():
 		for pin in late_propagation:
-			if pin.pin.output():
+			if pin.pin.output() and not GlobalSettings.doCycles:
 				pin.pin.parent._process_signal()
 			else:
 				var state = pin.neighbours[0].pin.state
@@ -163,22 +196,26 @@ func propagate_signal() -> void:
 				for neighbour in pin.neighbours:
 					if neighbour not in resolved:
 						continue
-					if neighbour.pin.state != state and neighbour.pin.state != NetConstants.LEVEL.LEVEL_Z:
+					if neighbour.pin.state != state and neighbour.pin.state != NetConstants.LEVEL.LEVEL_Z :
 						if state == NetConstants.LEVEL.LEVEL_Z:
 							state = neighbour.pin.state
 						else:
 							ok = false
-				if ok:
+				if ok or pin.pin.parent.readable_name == "Резистор": #TODO: Change that...
 					pin.pin.state = state
 				else:
 					PopupManager.display_error("Короткое замыкание", "В этом месте произошло КЗ", pin.pin.global_position)
 					#print("Short circuit")
+
+func process_components():
 	for key in nodes.keys():
 		if key.direction == NetConstants.DIRECTION.DIRECTION_INPUT_OUTPUT and not GlobalSettings.doCycles:
 			key.parent._process_signal()
 	if GlobalSettings.doCycles:
 		for ic in ComponentManager.obj_list.values():
 			ic._process_signal()
+
+	scheme_processed.emit()
 
 func get_json_adjacency():
 	var visited: Array[Pin]
@@ -189,18 +226,20 @@ func get_json_adjacency():
 			if neighbour.pin in visited:
 				continue
 			var wire = WireManager.find_wire_by_ends(node, neighbour.pin)
-			edges.append({
-				"from": {
-					"ic": node.parent.id,
-					"pin": node.index
-				},
-				"to": {
-					"ic": neighbour.pin.parent.id,
-					"pin": neighbour.pin.index
-				},
-				"wire":{
-					"control_points":wire.control_points,
-					"color":null
-				}
-			})
+
+			if wire: # This can happen if "invisible link" was created. For example, pins in a bus are connected this way
+				edges.append({
+					"from": {
+						"ic": node.parent.id,
+						"pin": node.index
+					},
+					"to": {
+						"ic": neighbour.pin.parent.id,
+						"pin": neighbour.pin.index
+					},
+					"wire":{
+						"control_points":wire.control_points,
+						"color":null
+					}
+				})
 	return edges

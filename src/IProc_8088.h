@@ -8,12 +8,13 @@
 #include <stdexcept>
 #include <string>
 #include <godot_cpp/classes/ref_counted.hpp>
+#include <godot_cpp/variant/string.hpp>
 
 namespace godot {
 
 #define PREFETCH_QUEUE_8086_MAX_SIZE 4
 
-using word = unsigned __int16;
+typedef uint16_t word;
 typedef uint8_t byte;
 
 // TW is T Wait - possibly not used in emu
@@ -154,7 +155,7 @@ private:
  *     39 | VCC                   |           |
 */
 class IProc_8088 : public RefCounted {
-	GDCLASS(IProc_8088, RefCounted)
+	GDCLASS(IProc_8088, RefCounted);
 	
 protected:
     static void _bind_methods() {
@@ -370,6 +371,10 @@ protected:
         ClassDB::bind_method(D_METHOD("getEs"), &IProc_8088::getEs);
 		ClassDB::bind_method(D_METHOD("setEs", "value"), &IProc_8088::setEs);
 		ADD_PROPERTY(PropertyInfo(Variant::INT, "es"), "setEs", "getEs");
+
+        ClassDB::bind_method(D_METHOD("getStatus"), &IProc_8088::getStatus);
+		ClassDB::bind_method(D_METHOD("setStatus", "value"), &IProc_8088::setStatus);
+		ADD_PROPERTY(PropertyInfo(Variant::STRING, "status"), "setStatus", "getStatus");
 	};
 	
 private:
@@ -410,6 +415,11 @@ void setBitByIdx_s(word* n, int bitIdx, int value)
 }
 	
 public:
+
+    godot::String status = "OK";
+    godot::String getStatus () const {return status;}
+    void setStatus (const godot::String value) {status = value;}
+
     bool prevClock; // Clock at previous state
 
     static const word DEFAULT_FLAGS = 0xF000;
@@ -651,7 +661,7 @@ public:
     void setA19Pin(const bool value) { a_pins[19] = value; }
 	bool getA19Pin() const { return a_pins[19]; }
 
-    void setAPins(__int32 value) {
+    void setAPins(int32_t value) {
         setA0Pin(isActiveBitByIdx(value, 0));
         setA1Pin(isActiveBitByIdx(value, 1));
         setA2Pin(isActiveBitByIdx(value, 2));
@@ -948,7 +958,7 @@ public:
     bool effectiveAddressIsRegister;
 	SegmentRegister effectiveAddressSegment;
 	bool segmentRegSpecified = false;
-    unsigned __int16 effectiveAddress;
+    uint16_t effectiveAddress;
     bool doCalculateEffectiveAddress;
     bool effectiveAddressCalculationFinished;
     EffectiveAddressState effectiveAddressState;
@@ -1157,7 +1167,7 @@ public:
         if (!interrupted) {
             waitClocksCount += 1;
             interruptState = 0;
-            throw std::logic_error("�������� ����������: ������� �� ����!");
+            setStatus(L"Прерывание: деление на ноль (код 0)");
             interrupted = true;
         }
 
@@ -1168,7 +1178,7 @@ public:
         if (!interrupted) {
             waitClocksCount += 1;
             interruptState = 0;
-            throw std::logic_error("�������� ����������: TRAP!");
+            setStatus(L"Прерывание: TRAP (код 1)");
             interrupted = true;
         }
 

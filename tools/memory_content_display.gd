@@ -6,6 +6,7 @@ func _init() -> void:
 	for i in range(16):
 		var label = Label.new()
 		labels.append(label)
+		label.focus_mode = Control.FOCUS_ALL
 		#self.add_item(label)
 		#add_child(label)
 func _ready() -> void:

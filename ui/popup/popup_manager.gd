@@ -59,6 +59,8 @@ func display_error(heading:String, description:String, position:Vector2):
 	if(position!=last_error_position or error_popup.modulate[3]<0.1): # If the popup has moved or is invisible
 		
 		#error_popup.position = position
+		if position!=last_error_position:
+			InfoManager.write_error(heading +' :: '+ description)
 		error_popup.visible=true
 		error_popup.display(heading, description, position, Color(1,0.8,0.8,0.9))
 		last_error_position = position
