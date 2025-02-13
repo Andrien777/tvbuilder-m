@@ -60,7 +60,7 @@ func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void
 		get_node("/root/RootNode/Camera2D").lock_pan = true
 		if(event.pressed):
 			for obj in ComponentManager.obj_list.values():
-				if obj.is_selected:
+				if obj.is_selected and not is_dragged:
 					obj.drag_offset = obj.global_position - get_global_mouse_position()
 					obj.is_dragged = true
 					var move_event = MoveEvent.new()
