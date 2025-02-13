@@ -89,7 +89,7 @@ func propagate_signal() -> void:
 			else:
 				visited[current] += 1
 			if visited[current] >= 5:
-				if current.pin.input():
+				if is_instance_valid(current.pin) and current.pin.input():
 					var i = stack.size() - 2
 					var found_out = false
 					while stack[i] != current:
@@ -107,7 +107,7 @@ func propagate_signal() -> void:
 				#print("Could not resolve component:")
 				#print(current)
 				continue
-			if current.pin.output():
+			if is_instance_valid(current.pin) and current.pin.output():
 				if not current.pin.dependencies.is_empty() and not GlobalSettings.doCycles:
 					var dependencies_resolved = true
 					for dep in current.pin.dependencies:
@@ -126,6 +126,8 @@ func propagate_signal() -> void:
 						stack.pop_back()
 						resolved.append(current)
 						for neighbour in current.neighbours:
+							if not is_instance_valid(neighbour.pin):
+								continue
 							if neighbour.pin.output():
 								if neighbour in resolved and neighbour.pin.state != current.pin.state:
 									if not neighbour.pin.z and not current.pin.z:
@@ -134,7 +136,7 @@ func propagate_signal() -> void:
 							if neighbour != current:
 								stack.push_back(neighbour)
 				else:
-					if not GlobalSettings.doCycles:
+					if not GlobalSettings.doCycles and is_instance_valid(current.pin):
 						current.pin.parent._process_signal()
 					else:
 						for dep in current.pin.dependencies:
@@ -143,6 +145,8 @@ func propagate_signal() -> void:
 					stack.pop_back()
 					resolved.append(current)
 					for neighbour in current.neighbours:
+						if not is_instance_valid(neighbour.pin):
+							continue
 						if neighbour.pin.output():
 							if neighbour in resolved and neighbour.pin.state != current.pin.state:
 								if not neighbour.pin.z and not current.pin.z:
@@ -153,6 +157,8 @@ func propagate_signal() -> void:
 			elif current.pin.input():
 				var counter = 0
 				for neighbour in current.neighbours:
+					if not is_instance_valid(neighbour.pin):
+						continue
 					if neighbour.pin.output():
 						counter += 1
 					elif neighbour.pin.input():
@@ -168,6 +174,8 @@ func propagate_signal() -> void:
 							stack.push_back(neighbour)
 					continue
 				for neighbour in current.neighbours:
+					if not is_instance_valid(neighbour.pin):
+						continue
 					if neighbour in late_propagation:
 						late_propagation.append(current)
 						break
@@ -188,12 +196,16 @@ func propagate_signal() -> void:
 						stack.push_back(neighbour)
 	if not late_propagation.is_empty():
 		for pin in late_propagation:
+			if not is_instance_valid(pin.pin):
+				continue
 			if pin.pin.output() and not GlobalSettings.doCycles:
 				pin.pin.parent._process_signal()
 			else:
 				var state = pin.neighbours[0].pin.state
 				var ok = true
 				for neighbour in pin.neighbours:
+					if not is_instance_valid(neighbour.pin):
+						continue
 					if neighbour not in resolved:
 						continue
 					if neighbour.pin.state != state and neighbour.pin.state != NetConstants.LEVEL.LEVEL_Z :
