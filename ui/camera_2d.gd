@@ -32,7 +32,7 @@ func _physics_process(delta: float) -> void:
 		return
 	if Input.is_action_pressed("pan_up"):
 		position += Vector2.UP * 10
-	if Input.is_action_pressed("pan_down"):
+	if Input.is_action_pressed("pan_down") and not Input.is_key_pressed(KEY_CTRL):
 		position += Vector2.DOWN * 10
 	if Input.is_action_pressed("pan_left"):
 		position += Vector2.LEFT * 10
