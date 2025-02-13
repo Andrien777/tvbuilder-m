@@ -7,7 +7,7 @@ var autosave_interval = 60 # seconds
 var do_not_save_ids: Array[int] = []
 
 func _on_autosave():
-	if last_path != "":
+	if last_path != "" and not OS.has_feature("web"):
 		save(last_path)
 
 func save(path: String) -> void:
@@ -23,14 +23,22 @@ func save(path: String) -> void:
 			continue
 		json_list_ic.append(ic.to_json_object())
 	var json = JSON.new()
-	var file = FileAccess.open(path, FileAccess.WRITE)
-	file.store_string(json.stringify({
-		"components": json_list_ic,
-		"netlist": NetlistClass.get_json_adjacency(),
-		"config": GlobalSettings.get_object_to_save(),
-		"buses": WireManager.buses_to_json()
-	}, "\t"))
-	file.close()
+	if OS.has_feature("web"):
+		JavaScriptBridge.download_buffer(json.stringify({
+			"components": json_list_ic,
+			"netlist": NetlistClass.get_json_adjacency(),
+			"config": GlobalSettings.get_object_to_save(),
+			"buses": WireManager.buses_to_json()
+		}, "\t").to_utf8_buffer(), path.get_file(), "application/json")
+	else:
+		var file = FileAccess.open(path, FileAccess.WRITE)
+		file.store_string(json.stringify({
+			"components": json_list_ic,
+			"netlist": NetlistClass.get_json_adjacency(),
+			"config": GlobalSettings.get_object_to_save(),
+			"buses": WireManager.buses_to_json()
+		}, "\t"))
+		file.close()
 	get_window().title = "TVBuilder - " + path.get_file().get_basename()
 	InfoManager.write_info("Файл %s сохранён" % [path])
 
@@ -40,8 +48,11 @@ func load(scene: Node2D, path: String):
 	autosave_timer.stop()
 	autosave_timer.start(autosave_interval)
 	ComponentManager.clear()
-	var json = JSON.new()
 	var file = FileAccess.open(path, FileAccess.READ).get_as_text()
+	parse_save_str(scene, file, path)
+	
+func parse_save_str(scene: Node2D, file: String, path="LoadedProject.json"):
+	var json = JSON.new()
 	var parsed = json.parse_string(file)
 	var parsed_ids = []
 	if parsed == null:
@@ -123,7 +134,6 @@ func load(scene: Node2D, path: String):
 					component.change_color()
 	get_window().title = "TVBuilder - " + path.get_file().get_basename()
 	InfoManager.write_info("Файл %s загружен" % [path])
-
 		
 func _init():
 	add_child(autosave_timer)

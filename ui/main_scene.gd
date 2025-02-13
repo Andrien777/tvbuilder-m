@@ -18,6 +18,8 @@ func _ready() -> void:
 	get_node("./GridSprite").modulate = GlobalSettings.bg_color
 	selection_area = get_node("SelectionArea")
 	get_window().title = "TVBuilder - New Project"
+	if OS.has_feature("web"):
+		Engine.physics_ticks_per_second = 100
 
 func _process(delta: float) -> void:
 	if GlobalSettings.is_selecting() and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and not GlobalSettings.disableGlobalInput:
