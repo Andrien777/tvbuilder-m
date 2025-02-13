@@ -506,7 +506,7 @@ visible_characters = 100000
 [node name="AboutWindow" type="Window" parent="."]
 title = "О программе"
 initial_position = 2
-size = Vector2i(250, 525)
+size = Vector2i(250, 575)
 visible = false
 transient = true
 exclusive = true
