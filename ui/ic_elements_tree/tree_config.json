@@ -166,16 +166,6 @@
 						}
 					]
 				},{
-					"group_name": "Индикаторы",
-					"subelements": [
-						{
-							"ic_name": "АЛС324А",
-							"config_path": "res://components/ic/indicators/ALS324A.json",
-							"logic_class_path": "res://components/ic/indicators/ALS324A.gd"
-						}
-					]
-				}
-				,{
 					"group_name": "Микропроцессоры",
 					"subelements": [
 						{
@@ -220,6 +210,11 @@
 					"ic_name": "Светодиод (желтый)",
 					"config_path": "res://components/ic/other/led.json",
 					"logic_class_path": "res://components/ic/other/led_yellow.gd"
+				},
+				{
+					"ic_name": "АЛС324А",
+					"config_path": "res://components/ic/indicators/ALS324A.json",
+					"logic_class_path": "res://components/ic/indicators/ALS324A.gd"
 				},
 				{
 					"ic_name": "Кварцевый резонатор",

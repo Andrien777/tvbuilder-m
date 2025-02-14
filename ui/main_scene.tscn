@@ -530,7 +530,7 @@ texture = ExtResource("38_x8br3")
 
 [node name="Label" type="Label" parent="AboutWindow/VBoxContainer"]
 layout_mode = 2
-text = "Technology Virtual Builder
+text = "Technical Virtual Builder
 version 1.0
 "
 horizontal_alignment = 1
