@@ -58,7 +58,6 @@ func process_scheme():
 	if !paused:
 		propagate_signal()
 		process_components()
-		propagate_signal()
 	ComponentManager.clear_deletion_queue()
 
 func propagate_signal() -> void:
@@ -88,7 +87,7 @@ func propagate_signal() -> void:
 				visited[current] = 1
 			else:
 				visited[current] += 1
-			if visited[current] >= 5:
+			if visited[current] > 2:
 				if is_instance_valid(current.pin) and current.pin.input():
 					var i = stack.size() - 2
 					var found_out = false
@@ -103,15 +102,19 @@ func propagate_signal() -> void:
 						stack.pop_back()
 						continue
 				stack.pop_back()
+				#late_propagation.append(current)
 				PopupManager.display_error("Не удалось просчитать данный компонент", "Мы очень пытались. Честно.", current.pin.global_position)
 				#print("Could not resolve component:")
-				#print(current)
+				##print(current)
 				continue
 			if is_instance_valid(current.pin) and current.pin.output():
 				if not current.pin.dependencies.is_empty() and not GlobalSettings.doCycles:
 					var dependencies_resolved = true
 					for dep in current.pin.dependencies:
 						if dep in nodes.keys():
+							if nodes[dep] in visited:
+								if visited.get(nodes[dep]) > 2:
+									continue
 							if nodes[dep] not in resolved:
 								dependencies_resolved = false
 								stack.push_back(nodes[dep])
@@ -137,7 +140,12 @@ func propagate_signal() -> void:
 								stack.push_back(neighbour)
 				else:
 					if not GlobalSettings.doCycles and is_instance_valid(current.pin):
-						current.pin.parent._process_signal()
+						if current.pin.parent.readable_name in ["Кварцевый резонатор", "Генератор частоты"] and current.pin.parent in processed_ics:
+							pass
+						else:
+							current.pin.parent._process_signal()
+							if current.pin.parent.readable_name in ["Кварцевый резонатор", "Генератор частоты"]:
+								processed_ics.append(current.pin.parent)
 					else:
 						for dep in current.pin.dependencies:
 							if dep not in nodes.keys():
@@ -218,6 +226,8 @@ func propagate_signal() -> void:
 				else:
 					PopupManager.display_error("Короткое замыкание", "В этом месте произошло КЗ", pin.pin.global_position)
 					#print("Short circuit")
+	if not GlobalSettings.doCycles:
+		scheme_processed.emit()
 
 func process_components():
 	for key in nodes.keys():
