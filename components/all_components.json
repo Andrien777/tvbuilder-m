@@ -59,6 +59,10 @@
 		"config_path": "res://components/ic/demux/7448.json",
 		"logic_class_path": "res://components/ic/demux/7448.gd"
 	},
+	"К555ИД18":{
+		"config_path": "res://components/ic/demux/7448.json",
+		"logic_class_path": "res://components/ic/demux/7448.gd"
+	},
 	"531ИП3":{
 		"config_path": "res://components/ic/alu/531IP3.json",
 		"logic_class_path": "res://components/ic/alu/K531IP3.gd"

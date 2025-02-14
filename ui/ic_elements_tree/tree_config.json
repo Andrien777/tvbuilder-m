@@ -72,14 +72,14 @@
 							"logic_class_path": "res://components/ic/demux/KR1533ID3.gd"
 						},
 						{
-							"ic_name": "74485",
-							"config_path": "res://components/ic/demux/74485.json",
-							"logic_class_path": "res://components/ic/demux/74485.gd"
-						},
-						{
 							"ic_name": "К555ИД18",
 							"config_path": "res://components/ic/demux/7448.json",
 							"logic_class_path": "res://components/ic/demux/7448.gd"
+						},
+						{
+							"ic_name": "74485",
+							"config_path": "res://components/ic/demux/74485.json",
+							"logic_class_path": "res://components/ic/demux/74485.gd"
 						}
 					]
 				},
