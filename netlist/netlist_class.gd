@@ -87,7 +87,7 @@ func propagate_signal() -> void:
 				visited[current] = 1
 			else:
 				visited[current] += 1
-			if visited[current] > 2:
+			if visited[current] > 5:
 				if is_instance_valid(current.pin) and current.pin.input():
 					var i = stack.size() - 2
 					var found_out = false
@@ -101,20 +101,22 @@ func propagate_signal() -> void:
 						resolved.append(current)
 						stack.pop_back()
 						continue
-				stack.pop_back()
-				#late_propagation.append(current)
-				PopupManager.display_error("Не удалось просчитать данный компонент", "Мы очень пытались. Честно.", current.pin.global_position)
-				#print("Could not resolve component:")
+				#stack.pop_back()
+				##late_propagation.append(current)
+				#PopupManager.display_error("Не удалось просчитать данный компонент", "Мы очень пытались. Честно.", current.pin.global_position)
+				##print("Could not resolve component:")
 				##print(current)
-				continue
+				#continue
 			if is_instance_valid(current.pin) and current.pin.output():
 				if not current.pin.dependencies.is_empty() and not GlobalSettings.doCycles:
 					var dependencies_resolved = true
 					for dep in current.pin.dependencies:
 						if dep in nodes.keys():
 							if nodes[dep] in visited:
-								if visited.get(nodes[dep]) > 2:
-									continue
+								if visited.get(nodes[dep]) > 5:
+									late_propagation.append(current)
+									stack.pop_back()
+									break
 							if nodes[dep] not in resolved:
 								dependencies_resolved = false
 								stack.push_back(nodes[dep])
