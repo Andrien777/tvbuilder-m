@@ -61,6 +61,7 @@ func process_scheme():
 			process_components()
 		else:
 			propagate_signal()
+			process_components()
 	ComponentManager.clear_deletion_queue()
 
 func propagate_signal() -> void:
