@@ -105,6 +105,11 @@
 							"ic_name": "К1810ВА86",
 							"config_path": "res://components/ic/buffer/K1810VA86.json",
 							"logic_class_path": "res://components/ic/buffer/K1810VA86.gd"
+						},
+						{
+							"ic_name": "DS1008",
+							"config_path": "res://components/ic/buffer/DS1008.json",
+							"logic_class_path": "res://components/ic/buffer/DS1008.gd"
 						}
 					]
 				},{
