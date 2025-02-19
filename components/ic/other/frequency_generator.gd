@@ -32,6 +32,7 @@ func _ready() -> void:
 	settings_popup.size = Vector2(250,150)
 	settings_popup.add_theme_stylebox_override("panel", popup_style)
 	settings_popup.visible = false
+	settings_popup.z_index = 5
 	
 	text_line = LineEdit.new()
 	text_line.context_menu_enabled = false
@@ -39,10 +40,12 @@ func _ready() -> void:
 	text_line.text = "1"
 	text_line.text_changed.connect(on_text_update)
 	text_line.position = Vector2(20,100)
+	text_line.z_index = 6
 	
 	hz_label = Label.new()
 	hz_label.text = "Гц"
 	hz_label.position = Vector2(90,105)
+	hz_label.z_index = 6
 	
 	imp_line = LineEdit.new()
 	imp_line.context_menu_enabled = false
@@ -50,20 +53,24 @@ func _ready() -> void:
 	imp_line.text = ""
 	imp_line.text_changed.connect(on_imp_text_update)
 	imp_line.position = Vector2(20,60)
+	imp_line.z_index = 6
 	
 	imp_label = Label.new()
 	imp_label.text = "импульсов"
 	imp_label.position = Vector2(90,65)
+	imp_label.z_index = 6
 	
 	enable_button = CheckButton.new()
 	enable_button.pressed.connect(on_enable_button_press)
 	enable_button.position = Vector2(15,0)
 	enable_button.text = "Включить "
+	enable_button.z_index = 6
 	
 	turbo_button = CheckButton.new()
 	turbo_button.pressed.connect(on_turbo_button_press)
 	turbo_button.position = Vector2(15,30)
 	turbo_button.text = "Макс. частота "
+	turbo_button.z_index = 6
 	
 	timer = Timer.new()
 	timer.one_shot = false

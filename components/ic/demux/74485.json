@@ -54,31 +54,31 @@
 			"index": 6,
 			"direction": "DIRECTION_OUTPUT",
 			"position": "BOTTOM",
-			"readable_name": "Q1",
-			"description": "Выход Q1",
+			"readable_name": "Q0",
+			"description": "Выход Q0",
 			"dependencies": [-1]
 		}
 		,{
 			"index": 7,
 			"direction": "DIRECTION_OUTPUT",
 			"position": "BOTTOM",
-			"readable_name": "Q2",
-			"description": "Выход Q2",
+			"readable_name": "Q1",
+			"description": "Выход Q1",
 			"dependencies": [-1]
 		}
 		,{
 			"index": 8,
 			"direction": "DIRECTION_OUTPUT",
 			"position": "BOTTOM",
-			"readable_name": "Q3",
-			"description": "Выход Q3",
+			"readable_name": "Q2",
+			"description": "Выход Q2",
 			"dependencies": [-1]
 		},{
 			"index": 9,
 			"direction": "DIRECTION_OUTPUT",
 			"position": "BOTTOM",
-			"readable_name": "Q4",
-			"description": "Выход Q4",
+			"readable_name": "Q3",
+			"description": "Выход Q3",
 			"dependencies": [-1]
 		}
 		,{
@@ -139,30 +139,30 @@
 			"index": 14,
 			"direction": "DIRECTION_OUTPUT",
 			"position": "TOP",
-			"readable_name": "Q8",
-			"description": "Вывод Q8",
+			"readable_name": "Q7",
+			"description": "Вывод Q7",
 			"dependencies": [-1]
 		},{
 			"index": 13,
 			"direction": "DIRECTION_OUTPUT",
 			"position": "TOP",
-			"readable_name": "Q7",
-			"description": "Вывод Q7",
+			"readable_name": "Q6",
+			"description": "Вывод Q6",
 			"dependencies": [-1]
 		},{
 			"index": 12,
 			"direction": "DIRECTION_OUTPUT",
 			"position": "TOP",
-			"readable_name": "Q6",
-			"description": "Вывод Q6",
+			"readable_name": "Q5",
+			"description": "Вывод Q5",
 			"dependencies": [-1]
 		}
 		,{
 			"index": 11,
 			"direction": "DIRECTION_OUTPUT",
 			"position": "TOP",
-			"readable_name": "Q5",
-			"description": "Вывод Q5",
+			"readable_name": "Q4",
+			"description": "Вывод Q4",
 			"dependencies": [-1]
 		}
 	]

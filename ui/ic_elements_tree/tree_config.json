@@ -72,14 +72,14 @@
 							"logic_class_path": "res://components/ic/demux/KR1533ID3.gd"
 						},
 						{
-							"ic_name": "74485",
-							"config_path": "res://components/ic/demux/74485.json",
-							"logic_class_path": "res://components/ic/demux/74485.gd"
-						},
-						{
 							"ic_name": "К555ИД18",
 							"config_path": "res://components/ic/demux/7448.json",
 							"logic_class_path": "res://components/ic/demux/7448.gd"
+						},
+						{
+							"ic_name": "74485",
+							"config_path": "res://components/ic/demux/74485.json",
+							"logic_class_path": "res://components/ic/demux/74485.gd"
 						}
 					]
 				},
@@ -105,6 +105,11 @@
 							"ic_name": "К1810ВА86",
 							"config_path": "res://components/ic/buffer/K1810VA86.json",
 							"logic_class_path": "res://components/ic/buffer/K1810VA86.gd"
+						},
+						{
+							"ic_name": "DS1008",
+							"config_path": "res://components/ic/buffer/DS1008.json",
+							"logic_class_path": "res://components/ic/buffer/DS1008.gd"
 						}
 					]
 				},{
@@ -166,16 +171,6 @@
 						}
 					]
 				},{
-					"group_name": "Индикаторы",
-					"subelements": [
-						{
-							"ic_name": "АЛС324А",
-							"config_path": "res://components/ic/indicators/ALS324A.json",
-							"logic_class_path": "res://components/ic/indicators/ALS324A.gd"
-						}
-					]
-				}
-				,{
 					"group_name": "Микропроцессоры",
 					"subelements": [
 						{
@@ -220,6 +215,11 @@
 					"ic_name": "Светодиод (желтый)",
 					"config_path": "res://components/ic/other/led.json",
 					"logic_class_path": "res://components/ic/other/led_yellow.gd"
+				},
+				{
+					"ic_name": "АЛС324А",
+					"config_path": "res://components/ic/indicators/ALS324A.json",
+					"logic_class_path": "res://components/ic/indicators/ALS324A.gd"
 				},
 				{
 					"ic_name": "Кварцевый резонатор",

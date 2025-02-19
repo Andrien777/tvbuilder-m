@@ -17,9 +17,10 @@ func _init():
 	label.position = Vector2(0,0)
 	label.z_index = RenderingServer.CANVAS_ITEM_Z_MAX
 	label.add_theme_font_size_override("font_size",24)
+	label.resized.connect(update_hibox)
 	hitbox = CollisionShape2D.new()
 	var shape = RectangleShape2D.new()
-	shape.size = label.get_rect().size + Vector2(30,0)
+	shape.size = label.get_rect().size
 	hitbox.shape = shape
 	hitbox.position = shape.size / 2
 	self.input_pickable = true
@@ -96,8 +97,6 @@ func on_text_update(new_text:String):
 		event.initialize(self, new_text)
 		HistoryBuffer.register_event(event)
 		label.text = new_text
-		hitbox.shape.size = label.get_rect().size + Vector2(30,0)
-		hitbox.position = hitbox.shape.size / 2
 		
 	
 func _exit_tree() -> void:
@@ -118,6 +117,10 @@ func to_json_object() -> Dictionary:
 	}
 func change_graphics_mode(mode):
 	pass
+
+func update_hibox():
+	hitbox.shape.size = label.get_rect().size
+	hitbox.position = hitbox.shape.size / 2
 
 func change_color():
 	label.add_theme_color_override('font_color', GlobalSettings.label_color)

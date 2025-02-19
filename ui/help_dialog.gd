@@ -17,6 +17,9 @@ func _process(delta: float) -> void:
 
 
 func _on_help_button_pressed() -> void:
+	if OS. has_feature("web"):
+		JavaScriptBridge.eval("window.open('doc/Инструкция по использованию.htm', '_blank').focus();", true)
+		return
 	if file_path and FileAccess.file_exists(file_path):
 		if OS.get_name() == "Windows":
 			OS.shell_open(".\\" + file_path.replace("/", "\\"))

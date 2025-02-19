@@ -531,7 +531,7 @@ texture = ExtResource("38_x8br3")
 
 [node name="Label" type="Label" parent="AboutWindow/VBoxContainer"]
 layout_mode = 2
-text = "Technology Virtual Builder
+text = "Technical Virtual Builder
 version 1.0
 "
 horizontal_alignment = 1
@@ -701,14 +701,22 @@ size_flags_vertical = 3
 
 [node name="SignalsPanelContainer" type="PanelContainer" parent="LogicAnalyzerWindow/RootVBoxContainer/ScrollContainer/SignalsHSplitContainer"]
 layout_mode = 2
+mouse_filter = 1
+
+[node name="Cursor" type="Line2D" parent="LogicAnalyzerWindow/RootVBoxContainer/ScrollContainer/SignalsHSplitContainer/SignalsPanelContainer"]
+points = PackedVector2Array(0, 0, 0, 2800)
+width = 3.0
+default_color = Color(0.556953, 0.556953, 0.556953, 1)
 
 [node name="SignalsScrollContainer" type="ScrollContainer" parent="LogicAnalyzerWindow/RootVBoxContainer/ScrollContainer/SignalsHSplitContainer/SignalsPanelContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+mouse_filter = 2
 vertical_scroll_mode = 0
 
 [node name="SignalsVBoxContainer" type="VBoxContainer" parent="LogicAnalyzerWindow/RootVBoxContainer/ScrollContainer/SignalsHSplitContainer/SignalsPanelContainer/SignalsScrollContainer"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="SimulationAcceptDialog" type="AcceptDialog" parent="LogicAnalyzerWindow"]
 title = "Симуляция"

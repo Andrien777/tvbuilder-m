@@ -132,6 +132,8 @@ func _process(delta: float, force_update = false) -> void:
 		Input.action_release("delete_component")
 		first_object.modulate=Color(1,1,1,1)
 		second_object.modulate=Color(1,1,1,1)
+		first_object.toggle_output_highlight()
+		second_object.toggle_output_highlight()
 		WireManager._delete_wire(self)
 		var event = WireDeletionEvent.new() # We are doing it there (and not in WireManager)
 		# to prevent events creating from the HistoryEvent.undo() call 

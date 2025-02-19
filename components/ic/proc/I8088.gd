@@ -81,7 +81,7 @@ func read_pins():
 	pin(27).state = proc_impl.dt_nr_pin
 	pin(29).state = proc_impl.wr_pin
 	pin(32).state = proc_impl.rd_pin
-	#pin(28).state = proc_impl.hlda_pin # Not implemented
+	pin(28).state = proc_impl.io_np_pin # Not implemented
 	#pin(34).state = proc_impl.ss0_pin # Not implemented
 	pin(35).state = proc_impl.a19_pin
 	pin(36).state = proc_impl.a18_pin

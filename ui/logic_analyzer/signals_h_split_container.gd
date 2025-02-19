@@ -242,3 +242,10 @@ func find_generator() -> FrequencyGenerator:
 		if pin.parent is FrequencyGenerator:
 			return pin.parent
 	return null
+	
+	
+@onready var cursor_line: Line2D = get_node("./SignalsPanelContainer/Cursor")
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		cursor_line.global_position = Vector2(get_global_mouse_position().x, cursor_line.global_position.y)
+		
