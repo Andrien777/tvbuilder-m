@@ -4,6 +4,11 @@ class_name CONST_0
 func _process_signal():
 	pin(1).set_low()
 
+func initialize(spec: ComponentSpecification, ic = null)->void:
+	super.initialize(spec, ic)
+	sprite.texture.normal_texture = preload("res://graphics/Metal_Galvanized_001_normal.jpg")
+	sprite.texture.specular_texture = preload("res://graphics/Metal_Galvanized_001_roughness.jpg")
+
 func change_graphics_mode(mode):
 	super.change_graphics_mode(mode)
 

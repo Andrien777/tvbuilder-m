@@ -16,6 +16,7 @@ func _ready() -> void:
 	InfoManager.bind_indicator(get_node("/root/RootNode/UiCanvasLayer/VBoxContainer2/RibbonContainer/OpenConsoleButton"))
 	get_node("./GridSprite").visible = GlobalSettings.CurrentGraphicsMode==LegacyGraphicsMode
 	get_node("./GridSprite").modulate = GlobalSettings.bg_color
+	get_node("./GridSprite").modulate = Color(GlobalSettings.bg_color, 0.7)
 	selection_area = get_node("SelectionArea")
 	get_window().title = "TVBuilder - New Project"
 	if OS.has_feature("web"):
