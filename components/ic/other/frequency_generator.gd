@@ -90,7 +90,7 @@ func _ready() -> void:
 
 func initialize(spec: ComponentSpecification, ic = null)->void:
 	super.initialize(spec, ic)
-	sprite.texture.normal_texture = preload("res://graphics/Metal_Galvanized_001_normal.jpg")
+	sprite.texture.normal_texture = preload("res://graphics/metal_normal.jpg")
 	sprite.texture.specular_texture = preload("res://graphics/Metal_Galvanized_001_roughness.jpg")
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta: float) -> void:

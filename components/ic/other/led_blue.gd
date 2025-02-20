@@ -17,15 +17,15 @@ func initialize(spec: ComponentSpecification, ic = null)->void:
 	light.energy = 0.006
 	light.light_mask = 1
 	light.shadow_enabled = true
-	light.height = 3
+	light.height = 10
 	light.shadow_filter = Light2D.SHADOW_FILTER_PCF5
 	light.enabled = false
 	led_sprite = Sprite2D.new()
 	super.initialize(spec)
-	sprite.texture.normal_texture = preload("res://graphics/Metal_Galvanized_001_normal.jpg")
+	sprite.texture.normal_texture = preload("res://graphics/metal_normal.jpg")
 	sprite.texture.specular_texture = preload("res://graphics/Metal_Galvanized_001_roughness.jpg")
 	occluder.occluder_light_mask = 2
-	light.offset = hitbox.shape.size / 2
+	light.position = hitbox.shape.size / 2
 	led_sprite.position = sprite.texture.get_size() / 2
 	if(GlobalSettings.CurrentGraphicsMode==DefaultGraphicsMode):
 		led_sprite.texture = ic_texture
@@ -67,6 +67,6 @@ func change_graphics_mode(mode):
 		sprite.modulate = Color(1,1,1,1)
 		led_sprite.modulate = Color(1, 1, 1, 1)
 		led_sprite.texture = texture_off
-	light.offset = hitbox.shape.size / 2
+	light.position = hitbox.shape.size / 2
 
 	

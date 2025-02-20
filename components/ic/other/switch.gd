@@ -22,7 +22,7 @@ func initialize(spec: ComponentSpecification, ic = null)->void:
 	button = SwitchButton.new()
 	button.initialize(self)
 	super.initialize(spec)
-	sprite.texture.normal_texture = preload("res://graphics/Metal_Galvanized_001_normal.jpg")
+	sprite.texture.normal_texture = preload("res://graphics/metal_normal.jpg")
 	sprite.texture.specular_texture = preload("res://graphics/Metal_Galvanized_001_roughness.jpg")
 	button.position = sprite.texture.get_size() / 2
 	add_child(button)
