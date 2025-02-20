@@ -40,3 +40,6 @@ func paste(mouse_pos: Vector2):
 				for i in range(control_points.size()):
 					control_points[i] += mouse_pos
 				WireManager._create_wire(element.pin(key), other.pin(conn["index"]), control_points)
+	var event = NEventsBuffer.new()
+	event.initialize(buffer.size(), [ComponentCreationEvent])
+	HistoryBuffer.register_event(event)
