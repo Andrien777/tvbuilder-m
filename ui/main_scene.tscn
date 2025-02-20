@@ -564,7 +564,6 @@ anchor_bottom = 0.5
 offset_left = -239.0
 grow_horizontal = 0
 grow_vertical = 2
-size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("38_arjyv")
 
@@ -588,7 +587,6 @@ icon = ExtResource("35_rnlu2")
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 0
-horizontal_scroll_mode = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UiCanvasLayer/SnippetPicker/VBoxContainer/ScrollContainer"]
 layout_mode = 2
