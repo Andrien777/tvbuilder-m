@@ -78,6 +78,7 @@ func set_pins_description_table(object):
 		pin_desc_container.add_child(direction_label)
 		for pin in object.pins:
 			index_label = Label.new()
+			index_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 			name_label = Label.new()
 			description_label = Label.new()
 			direction_label = Label.new()
