@@ -105,9 +105,10 @@ func register_wire_point(object:Node2D):
 								event_counter += 1
 							else:
 								InfoManager.write_error("Не удалось создать запрошенное соединение: На одной из микросхем нет ножки с таким номером:  %s" % [spec])
-					var event_buf = NEventsBuffer.new()
-					event_buf.initialize(event_counter, [WireCreationEvent])
-					HistoryBuffer.register_event(event_buf)
+					if event_counter > 0:
+						var event_buf = NEventsBuffer.new()
+						event_buf.initialize(event_counter, [MoveEvent])
+						HistoryBuffer.register_event(event_buf)
 				else:
 					InfoManager.write_error("Формат соединений не распознан")
 				first_wire_point = null
