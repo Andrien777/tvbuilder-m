@@ -17,14 +17,14 @@ func register_event(event:HistoryEvent):
 func undo_last_event():
 	if not history.is_empty():
 		var event = history.pop_back()
-		redo_buffer.append(event)
 		event.undo()
+		redo_buffer.append(event)
 		
 func redo_last_event():
 	if not redo_buffer.is_empty():
 		var event = redo_buffer.pop_back()
-		history.append(event)
 		event.redo()
+		history.append(event)
 		
 		
 # Called every frame. 'delta' is the elapsed time since the previous frame.

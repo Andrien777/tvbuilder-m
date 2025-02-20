@@ -49,6 +49,7 @@ func register_wire_point(object:Node2D):
 				var result = regex.search(str)
 				if (result):
 					var s = result.get_string()
+					var event_counter = 0
 					for spec in s.split(";"):
 						if spec=="":
 							continue # Trailing semicolon
@@ -90,6 +91,7 @@ func register_wire_point(object:Node2D):
 									var event = WireCreationEvent.new()
 									event.initialize(wire) 
 									HistoryBuffer.register_event(event)
+									event_counter += 1
 						else:
 							var op = spec.split(":")
 							var left = int(op[0])
@@ -100,8 +102,12 @@ func register_wire_point(object:Node2D):
 								var event = WireCreationEvent.new()
 								event.initialize(wire) 
 								HistoryBuffer.register_event(event)
+								event_counter += 1
 							else:
 								InfoManager.write_error("Не удалось создать запрошенное соединение: На одной из микросхем нет ножки с таким номером:  %s" % [spec])
+					var event_buf = NEventsBuffer.new()
+					event_buf.initialize(event_counter, [WireCreationEvent])
+					HistoryBuffer.register_event(event_buf)
 				else:
 					InfoManager.write_error("Формат соединений не распознан")
 				first_wire_point = null
