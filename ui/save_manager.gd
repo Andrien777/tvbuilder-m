@@ -175,8 +175,11 @@ func save_snippet(path = "test_snippet.json"):
 		var file = FileAccess.open(path, FileAccess.WRITE)
 		file.store_string(CopyBuffer.copied_to_json())
 		file.close()
-		
+
+var previousDisable
 func load_snippet(mouse_pos, scene, path = "test_snippet.json"):
+	previousDisable = GlobalSettings.disableGlobalInput
+	GlobalSettings.disableGlobalInput = true
 	if not FileAccess.file_exists(path):
 		InfoManager.write_error("Не удалось загрузить сниппет %s: файл не существует" % [path])
 		return
@@ -239,3 +242,4 @@ func load_snippet(mouse_pos, scene, path = "test_snippet.json"):
 			WireManager._create_wire(from_pin, to_pin, points)
 		else:
 			WireManager._create_wire(from_pin, to_pin)
+	GlobalSettings.disableGlobalInput = previousDisable
