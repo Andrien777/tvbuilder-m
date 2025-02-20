@@ -57,24 +57,49 @@ func register_wire_point(object:Node2D):
 							var rrange = spec.split(":")[1]
 							var l1 = int(lrange.split("-")[0])
 							var l2 = int(lrange.split("-")[1])
-							var delta = l2 - l1
+							var l_delta = l2 - l1
 							var r1 = int(rrange.split("-")[0])
 							var r2 = int(rrange.split("-")[1])
-							if r2-r1 != delta:
+							var r_delta = r2 - r1
+							if abs(r_delta) != abs(l_delta):
 								InfoManager.write_error("Не удалось создать запрошенное соединение: Введены диапазоны номеров разной длины:  %s" % [spec])
-							if delta <=0:
-								InfoManager.write_error("Не удалось создать запрошенное соединение: Поддерживаются только возрастающие диапазоны:  %s" % [spec])
+								first_wire_point = null
+								second_wire_point = null
+								return
+								
+							#if l_delta <=0 or r_delta <=0:
+								#InfoManager.write_error("Не удалось создать запрошенное соединение: Поддерживаются только возрастающие диапазоны:  %s" % [spec])
+								#first_wire_point = null
+								#second_wire_point = null
+								#return
+
+							var l_index = l1
+							var r_index = r1
 							if l1 >0 and l2 <= first_wire_point.parent.pins.size() and \
 							r1 > 0 and r2 <= second_wire_point.parent.pins.size():
-								for i in range(0,delta+1):
-									_create_wire(first_wire_point.parent.pin(l1+i), second_wire_point.parent.pin(r1+i))
+								for i in range(0,abs(l_delta)+1):
+									if l_delta >0:
+										l_index = l1 + i
+									else:
+										l_index = l1 - i
+									if r_delta>0: 
+										r_index = r1 + i
+									else:
+										r_index = r1 - i
+									var wire = _create_wire(first_wire_point.parent.pin(l_index), second_wire_point.parent.pin(r_index))
+									var event = WireCreationEvent.new()
+									event.initialize(wire) 
+									HistoryBuffer.register_event(event)
 						else:
 							var op = spec.split(":")
 							var left = int(op[0])
 							var right = int(op[1])
 							if left <= first_wire_point.parent.pins.size() and right <= second_wire_point.parent.pins.size() \
 							and left>0 and right >0:
-								_create_wire(first_wire_point.parent.pin(left), second_wire_point.parent.pin(right))
+								var wire = _create_wire(first_wire_point.parent.pin(left), second_wire_point.parent.pin(right))
+								var event = WireCreationEvent.new()
+								event.initialize(wire) 
+								HistoryBuffer.register_event(event)
 							else:
 								InfoManager.write_error("Не удалось создать запрошенное соединение: На одной из микросхем нет ножки с таким номером:  %s" % [spec])
 				else:
