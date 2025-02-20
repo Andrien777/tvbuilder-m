@@ -59,7 +59,7 @@ func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and GlobalSettings.is_normal_mode():
 		get_node("/root/RootNode/Camera2D").lock_pan = true
 		if(event.pressed):
-			var cnt = 0
+			var event_counter = 0
 			for obj in ComponentManager.obj_list.values():
 				if obj.is_selected and not is_dragged:
 					obj.drag_offset = obj.global_position - get_global_mouse_position()
@@ -67,12 +67,12 @@ func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void
 					var move_event = MoveEvent.new()
 					move_event.initialize(obj.global_position, obj)
 					HistoryBuffer.register_event(move_event)
-					cnt += 1
+					event_counter += 1
 			viewport.set_input_as_handled()
 			drag_offset = hitbox.position - get_global_mouse_position()
 			now_disabled_drag = false
 			var event_buf = NEventsBuffer.new()
-			event_buf.initialize(cnt, [MoveEvent])
+			event_buf.initialize(event_counter, [MoveEvent])
 			HistoryBuffer.register_event(event_buf)
 		else:
 			for obj in ComponentManager.obj_list.values():
@@ -83,14 +83,14 @@ func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void
 		is_dragged = event.pressed
 	if Input.is_action_pressed("delete_component") and not GlobalSettings.disableGlobalInput:
 		if self.is_mouse_over:
-			var cnt = 0
+			var event_counter = 0
 			for obj in ComponentManager.obj_list.values():
 				if obj.is_selected:
 					obj.delete_self()
-					cnt += 1
+					event_counter += 1
 			stop_selection()
 			var event_buf = NEventsBuffer.new()
-			event_buf.initialize(cnt, [ComponentDeletionEvent])
+			event_buf.initialize(event_counter, [ComponentDeletionEvent])
 			HistoryBuffer.register_event(event_buf)
 
 
