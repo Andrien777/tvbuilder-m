@@ -71,9 +71,10 @@ func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void
 			viewport.set_input_as_handled()
 			drag_offset = hitbox.position - get_global_mouse_position()
 			now_disabled_drag = false
-			var event_buf = NEventsBuffer.new()
-			event_buf.initialize(event_counter, [MoveEvent])
-			HistoryBuffer.register_event(event_buf)
+			if event_counter > 0:
+				var event_buf = NEventsBuffer.new()
+				event_buf.initialize(event_counter, [MoveEvent])
+				HistoryBuffer.register_event(event_buf)
 		else:
 			for obj in ComponentManager.obj_list.values():
 				if obj.is_selected:
@@ -89,9 +90,10 @@ func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void
 					obj.delete_self()
 					event_counter += 1
 			stop_selection()
-			var event_buf = NEventsBuffer.new()
-			event_buf.initialize(event_counter, [ComponentDeletionEvent])
-			HistoryBuffer.register_event(event_buf)
+			if event_counter > 0:
+				var event_buf = NEventsBuffer.new()
+				event_buf.initialize(event_counter, [MoveEvent])
+				HistoryBuffer.register_event(event_buf)
 
 
 func _on_mouse_entered() -> void:
