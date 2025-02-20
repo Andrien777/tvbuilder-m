@@ -17,7 +17,7 @@ func _on_add_snippet_button_pressed() -> void:
 	%GlobalInput.ask_for_input("Название сниппета", add_snippet)
 
 func add_snippet(snippet_name: String):
-	if snippet_name.is_valid_filename() and not snippet_name.is_empty():
+	if snippet_name.is_valid_filename() and not snippet_name.is_empty() and not "./snippets/" + snippet_name + ".snippet" in snippets:
 		var path = "./snippets/" + snippet_name + ".snippet"
 		SaveManager.save_snippet(path)
 		snippets.append(path)
@@ -72,6 +72,8 @@ func delete_selected_snippet():
 		var err = dir.remove(selected_snippet)
 		if err != 0:
 			InfoManager.write_error("Ошибка при удалении сниппета: код %d" % [err])
+			find_snippets()
+			update_list()
 			return
 		snippets.erase(selected_snippet)
 		selected_snippet = ""
