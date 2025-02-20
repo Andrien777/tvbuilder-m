@@ -4,6 +4,9 @@ var snippets = []
 var selected_snippet
 
 func _ready() -> void:
+	if OS.has_feature("web"):
+		visible = false
+		return
 	find_snippets()
 	update_list()
 
@@ -57,6 +60,10 @@ func place_snippet(pos):
 		return
 
 func toggle_visibility():
+	if OS.has_feature("web"):
+		visible = false
+		InfoManager.write_warning("Сниппеты не поддерживаются в веб-версии")
+		return
 	visible = !visible
 
 func delete_selected_snippet():
