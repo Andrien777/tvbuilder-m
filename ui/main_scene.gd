@@ -9,7 +9,6 @@ func _ready() -> void:
 	timer = Timer.new() # TODO: This is not good
 	timer.one_shot = true
 	timer.wait_time = 0.1
-	timer.timeout.connect(WireManager.force_update_wires)
 	add_child(timer)
 	GlobalSettings.try_load()
 	InfoManager.bind_console(get_node("./UiCanvasLayer/ConsoleContainer"))
@@ -20,6 +19,10 @@ func _ready() -> void:
 	get_window().title = "TVBuilder - New Project"
 	if OS.has_feature("web"):
 		Engine.physics_ticks_per_second = 100
+	var af = load("res://april_fools.tscn").instantiate()
+	add_child(af)
+	af.commence_tomfoolery()
+	
 
 func _process(delta: float) -> void:
 	if GlobalSettings.is_selecting() and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and not GlobalSettings.disableGlobalInput:
