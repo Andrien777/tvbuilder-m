@@ -26,7 +26,7 @@ func _process(delta: float) -> void:
 	if GlobalSettings.is_selecting() and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and not GlobalSettings.disableGlobalInput:
 		if not selection_area.is_tracking:
 			selection_area.start_tracking()
-	if not GlobalSettings.is_connectivity_mode():
+	if not GlobalSettings.is_connectivity_mode() and not GlobalSettings.is_snippet_mode():
 		Input.set_default_cursor_shape(Input.CURSOR_ARROW)
 	if GlobalSettings.is_bus_mode() and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and not GlobalSettings.disableGlobalInput:
 		WireManager.register_bus_point(get_global_mouse_position())
@@ -49,7 +49,7 @@ func test():
 func _input(event):
 	if (GlobalSettings.disableGlobalInput):
 		return
-	if event.is_action_pressed("add_new_ic_element") and not GlobalSettings.disableGlobalInput:
+	if event.is_action_pressed("add_new_ic_element") and not GlobalSettings.disableGlobalInput and GlobalSettings.is_normal_mode():
 		create_selected_element()
 	elif event.is_action_pressed("save_scheme") and not GlobalSettings.disableGlobalInput:
 		if SaveManager.last_path == "":
@@ -84,7 +84,7 @@ func _input(event):
 		get_node("UiCanvasLayer/VBoxContainer2/MenuContainer/FilePopupMenu")._on_clear_button_pressed()
 	elif event.is_action_pressed("debug_key") and not GlobalSettings.disableGlobalInput:
 		if Input.is_key_label_pressed(KEY_CTRL):
-			SaveManager.load_snippet(get_global_mouse_position(), self)
+			SaveManager.load_snippet(get_global_mouse_position(), get_tree().current_scene)
 		else:
 			SaveManager.save_snippet()
 	
@@ -98,6 +98,8 @@ func _input(event):
 		WireManager.register_bus_point(get_global_mouse_position())
 	elif event.is_action_pressed("bus_mode") and not GlobalSettings.disableGlobalInput:
 		to_bus_mode()
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and GlobalSettings.is_snippet_mode():
+		$UiCanvasLayer/SnippetPicker.place_snippet(get_global_mouse_position())
 
 
 func toggle_graphics_mode():
