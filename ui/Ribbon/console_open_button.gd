@@ -22,10 +22,3 @@ func _on_pressed() -> void:
 			InfoManager.unread_counter = 0
 	else:
 		InfoManager.toggle_console()
-
-
-func _on_mouse_entered() -> void:
-	GlobalSettings.disableGlobalInput = true
-
-func _on_mouse_exited() -> void:
-	GlobalSettings.disableGlobalInput = false
