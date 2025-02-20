@@ -1193,6 +1193,15 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
+[node name="UnsavedProjectDialog" type="ConfirmationDialog" parent="."]
+title = "Подтверждение"
+initial_position = 1
+unresizable = true
+ok_button_text = "Да"
+dialog_text = "Ваш проект не сохранен. Вы точно хотите продолжить?"
+dialog_autowrap = true
+cancel_button_text = "Нет"
+
 [connection signal="mouse_entered" from="UiCanvasLayer/VBoxContainer2/MenuContainer/FileButton" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="UiCanvasLayer/VBoxContainer2/MenuContainer/FileButton" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_mouse_exited"]
 [connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/MenuContainer/FileButton" to="UiCanvasLayer/VBoxContainer2/MenuContainer/FilePopupMenu" method="_on_file_button_pressed"]
@@ -1268,3 +1277,4 @@ size_flags_vertical = 3
 [connection signal="mouse_exited" from="SelectionArea" to="SelectionArea" method="_on_mouse_exited"]
 [connection signal="close_requested" from="HistoryViewerWindow" to="HistoryViewerWindow" method="_on_close_requested"]
 [connection signal="tab_changed" from="HistoryViewerWindow/VBoxContainer/TabBar" to="HistoryViewerWindow" method="_on_tab_bar_tab_changed"]
+[connection signal="confirmed" from="UnsavedProjectDialog" to="UiCanvasLayer/VBoxContainer2/MenuContainer/FilePopupMenu" method="_on_unsaved_project_dialog_confirmed"]
