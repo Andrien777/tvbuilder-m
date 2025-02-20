@@ -82,11 +82,11 @@ func _input(event):
 		$HistoryViewerWindow.visible = not $HistoryViewerWindow.visible
 	elif event.is_action_pressed("new_project") and not GlobalSettings.disableGlobalInput:
 		get_node("UiCanvasLayer/VBoxContainer2/MenuContainer/FilePopupMenu")._on_clear_button_pressed()
-	elif event.is_action_pressed("debug_key") and not GlobalSettings.disableGlobalInput:
-		if Input.is_key_label_pressed(KEY_CTRL):
-			SaveManager.load_snippet(get_global_mouse_position(), get_tree().current_scene)
-		else:
-			SaveManager.save_snippet()
+	#elif event.is_action_pressed("debug_key") and not GlobalSettings.disableGlobalInput:
+		#if Input.is_key_label_pressed(KEY_CTRL):
+			#SaveManager.load_snippet(get_global_mouse_position(), get_tree().current_scene)
+		#else:
+			#SaveManager.save_snippet()
 	
 	
 	# Has to be in a separate if
