@@ -55,9 +55,9 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if is_instance_valid(proc):
+	if is_instance_valid(proc) and visible:
 		update()
-	else:
+	elif visible:
 		ax_val.text = "\t????"
 		bx_val.text = "\t????"
 		cx_val.text = "\t????"
