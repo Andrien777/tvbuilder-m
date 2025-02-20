@@ -92,7 +92,7 @@ func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void
 			stop_selection()
 			if event_counter > 0:
 				var event_buf = NEventsBuffer.new()
-				event_buf.initialize(event_counter, [MoveEvent])
+				event_buf.initialize(event_counter, [ComponentDeletionEvent])
 				HistoryBuffer.register_event(event_buf)
 
 
