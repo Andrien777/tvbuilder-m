@@ -28,7 +28,12 @@ func _on_index_pressed(index: int) -> void:
 		4:
 			get_node("../RecentProjectsPopup")._on_recent_projects_button_pressed()
 
-func _on_clear_button_pressed():
+func _on_clear_button_pressed(confirmed = false):
+	if SaveManager.last_path != "":
+		SaveManager._on_autosave()
+	elif ComponentManager.obj_list.size() > 0 and not confirmed:
+		get_node("/root/RootNode/UnsavedProjectDialog").visible = true
+		return
 	ComponentManager.clear()
 	SaveManager.last_path = ""
 	GlobalSettings.bg_color = GlobalSettings.bg_color_global
@@ -43,3 +48,6 @@ func _on_save_button_pressed():
 		get_node("/root/RootNode/SaveAsFileDialog")._on_save_as_button_pressed()
 	else:
 		SaveManager._on_autosave()
+
+func _on_unsaved_project_dialog_confirmed() -> void:
+	_on_clear_button_pressed(true)

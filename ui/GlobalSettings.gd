@@ -67,7 +67,11 @@ func _process(delta: float) -> void:
 
 
 func try_load():
-	var file = FileAccess.open("config.json", FileAccess.READ)
+	if FileAccess.file_exists("config.json"):
+		var dir = DirAccess.open("")
+		dir.copy("config.json", "user://config.json")
+		dir.remove("config.json")
+	var file = FileAccess.open("user://config.json", FileAccess.READ)
 	if file != null:
 		var json_string = file.get_as_text()
 		file.close()
@@ -136,7 +140,7 @@ func try_load():
 				
 
 func save():
-	var file = FileAccess.open("config.json", FileAccess.WRITE)
+	var file = FileAccess.open("user://config.json", FileAccess.WRITE)
 	var json_object = {}
 	json_object["LevelHighlight"] = LevelHighlight as int
 	json_object["AltAlgo"] = (not doCycles) as int

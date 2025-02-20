@@ -18,6 +18,7 @@ func _ready() -> void:
 	get_node("./GridSprite").modulate = GlobalSettings.bg_color
 	selection_area = get_node("SelectionArea")
 	get_window().title = "TVBuilder - New Project"
+	get_window().close_requested.connect(test)
 	if OS.has_feature("web"):
 		Engine.physics_ticks_per_second = 100
 
@@ -38,6 +39,12 @@ func _physics_process(delta: float) -> void:
 
 func _exit_tree() -> void:
 	GlobalSettings.save()
+	if SaveManager.last_path != "":
+		SaveManager._on_autosave()
+
+func test():
+	print("test")
+	#get_window().
 
 func _input(event):
 	if (GlobalSettings.disableGlobalInput):
@@ -59,7 +66,6 @@ func _input(event):
 		WireManager.stop_wire_creation()
 		if GlobalSettings.is_bus_mode():
 			WireManager.finish_current_bus()
-
 	elif event.is_action_pressed("copy") and not GlobalSettings.disableGlobalInput:
 		CopyBuffer.copy(get_global_mouse_position())
 		selection_area.remember_copy_offset(get_global_mouse_position())
@@ -74,6 +80,8 @@ func _input(event):
 		to_connectivity_mode()
 	elif event.is_action_pressed("open_history_viewer") and not GlobalSettings.disableGlobalInput:
 		$HistoryViewerWindow.visible = not $HistoryViewerWindow.visible
+	elif event.is_action_pressed("new_project") and not GlobalSettings.disableGlobalInput:
+		get_node("UiCanvasLayer/VBoxContainer2/MenuContainer/FilePopupMenu")._on_clear_button_pressed()
 	
 	
 	# Has to be in a separate if
