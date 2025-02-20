@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=3 uid="uid://cd0acvbjpyg0w"]
+[gd_scene load_steps=78 format=3 uid="uid://cd0acvbjpyg0w"]
 
 [ext_resource type="Script" uid="uid://dlsn6lmgynqb0" path="res://ui/main_scene.gd" id="1_8vqs3"]
 [ext_resource type="Shader" uid="uid://bbm5aifcn1lfm" path="res://shaders/grid.gdshader" id="2_7ckc8"]
@@ -21,6 +21,7 @@
 [ext_resource type="Script" uid="uid://bxbr42xdwcl54" path="res://ui/memory_viewer.gd" id="12_wwdn8"]
 [ext_resource type="Script" uid="uid://cxdyfnwr7aveb" path="res://ui/mem_viewer_grid.gd" id="13_jjv1i"]
 [ext_resource type="Script" uid="uid://dmi0ymrhjqcio" path="res://ui/logic_analyzer/select_pins_button.gd" id="13_o3lk5"]
+[ext_resource type="Script" uid="uid://v2olejo3xbo3" path="res://ui/last_projects_popup.gd" id="14_vv0bl"]
 [ext_resource type="Script" uid="uid://cv3ggp4ahjwu8" path="res://ui/logic_analyzer/signals_h_split_container.gd" id="15_7mwtm"]
 [ext_resource type="Script" uid="uid://dfiqljj8r5ute" path="res://ui/logic_analyzer/clear_button.gd" id="15_73c41"]
 [ext_resource type="Script" uid="uid://ccf4nlf0pt20p" path="res://ui/show_last_wire_ribbon_button.gd" id="15_abnib"]
@@ -242,7 +243,7 @@ text = "О программе"
 
 [node name="FilePopupMenu" type="PopupMenu" parent="UiCanvasLayer/VBoxContainer2/MenuContainer"]
 title = "Файл"
-item_count = 4
+item_count = 5
 item_0/text = "Сохранить"
 item_0/icon = ExtResource("10_ty556")
 item_0/id = 3
@@ -255,6 +256,8 @@ item_2/id = 1
 item_3/text = "Новый проект"
 item_3/icon = ExtResource("16_drtnh")
 item_3/id = 2
+item_4/text = "Последние проекты"
+item_4/id = 4
 script = ExtResource("5_02b1i")
 
 [node name="SettingsPopupMenu" type="PopupMenu" parent="UiCanvasLayer/VBoxContainer2/MenuContainer"]
@@ -296,6 +299,30 @@ item_2/id = 2
 item_3/text = "Вставить"
 item_3/id = 3
 script = ExtResource("11_pyl4o")
+
+[node name="RecentProjectsPopup" type="PopupMenu" parent="UiCanvasLayer/VBoxContainer2/MenuContainer"]
+auto_translate_mode = 1
+size = Vector2i(120, 143)
+hide_on_item_selection = false
+hide_on_checkable_item_selection = false
+allow_search = false
+item_count = 5
+item_0/text = "Нет проекта"
+item_0/id = 0
+item_0/disabled = true
+item_1/text = "Нет проекта"
+item_1/id = 1
+item_1/disabled = true
+item_2/text = "Нет проекта"
+item_2/id = 2
+item_2/disabled = true
+item_3/text = "Нет проекта"
+item_3/id = 3
+item_3/disabled = true
+item_4/text = "Нет проекта"
+item_4/id = 4
+item_4/disabled = true
+script = ExtResource("14_vv0bl")
 
 [node name="RibbonContainer" type="HBoxContainer" parent="UiCanvasLayer/VBoxContainer2"]
 layout_mode = 2
@@ -1184,6 +1211,7 @@ size_flags_vertical = 3
 [connection signal="index_pressed" from="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsPopupMenu" to="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsPopupMenu" method="_on_index_pressed"]
 [connection signal="popup_hide" from="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsPopupMenu" to="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsPopupMenu" method="_on_popup_hide"]
 [connection signal="index_pressed" from="UiCanvasLayer/VBoxContainer2/MenuContainer/EditPopup" to="UiCanvasLayer/VBoxContainer2/MenuContainer/EditPopup" method="_on_index_pressed"]
+[connection signal="index_pressed" from="UiCanvasLayer/VBoxContainer2/MenuContainer/RecentProjectsPopup" to="UiCanvasLayer/VBoxContainer2/MenuContainer/RecentProjectsPopup" method="_on_index_pressed"]
 [connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/NewButton" to="UiCanvasLayer/VBoxContainer2/MenuContainer/FilePopupMenu" method="_on_clear_button_pressed"]
 [connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/LoadButton" to="LoadFileDialog" method="_on_load_button_pressed"]
 [connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/SaveButton" to="UiCanvasLayer/VBoxContainer2/MenuContainer/FilePopupMenu" method="_on_save_button_pressed"]

@@ -44,6 +44,10 @@ func save(path: String) -> void:
 
 
 func load(scene: Node2D, path: String):
+	if not FileAccess.file_exists(path):
+		InfoManager.write_error("Не удалось загрузить проект %s: файл не существует" % [path])
+		return
+	GlobalSettings.add_recent_path(path)
 	last_path = path
 	autosave_timer.stop()
 	autosave_timer.start(autosave_interval)

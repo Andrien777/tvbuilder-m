@@ -36,6 +36,9 @@ func _physics_process(delta: float) -> void:
 		NetlistClass.process_scheme()
 		NetlistClass.process_scheme()
 
+func _exit_tree() -> void:
+	GlobalSettings.save()
+
 func _input(event):
 	if (GlobalSettings.disableGlobalInput):
 		return
@@ -141,3 +144,4 @@ func to_bus_mode():
 	GlobalSettings.CursorMode = GlobalSettings.CURSOR_MODES.BUS
 	get_node("./Camera2D").lock_pan = false
 	get_node("./Camera2D").pressed_mmb = false
+	
