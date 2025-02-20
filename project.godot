@@ -15,8 +15,8 @@ config/version="1.4"
 run/main_scene="res://ui/main_scene.tscn"
 config/features=PackedStringArray("4.4", "Forward Plus")
 boot_splash/bg_color=Color(0.762404, 0.762404, 0.762404, 1)
-boot_splash/fullsize=false
 boot_splash/image="res://ui/tvb_splash.png"
+boot_splash/fullsize=false
 config/icon="res://ui/tvb_logo.png"
 
 [autoload]

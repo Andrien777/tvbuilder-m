@@ -56,7 +56,6 @@ func _input(event):
 		WireManager.stop_wire_creation()
 		if GlobalSettings.is_bus_mode():
 			WireManager.finish_current_bus()
-
 	elif event.is_action_pressed("copy") and not GlobalSettings.disableGlobalInput:
 		CopyBuffer.copy(get_global_mouse_position())
 		selection_area.remember_copy_offset(get_global_mouse_position())
