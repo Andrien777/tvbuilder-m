@@ -47,3 +47,10 @@ func paste(mouse_pos: Vector2):
 		element.on_text_update(content)
 	HistoryBuffer.register_event(event)
 	return element.id
+
+func to_json_object(new_id = -1):
+	return {
+		"id": old_id if new_id == -1 else new_id,
+		"name": item_name,
+		"offset": item_offset
+	}

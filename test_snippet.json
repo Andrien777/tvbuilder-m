@@ -1,0 +1,56 @@
+{
+	"components": [
+		{
+			"id": 1,
+			"name": "К1533ЛЕ4",
+			"offset": "(-163.75, -50.0)"
+		},
+		{
+			"id": 2,
+			"name": "К1533ЛЕ4",
+			"offset": "(-163.75, 45.0)"
+		},
+		{
+			"id": 3,
+			"name": "К1533ЛЕ4",
+			"offset": "(66.25, 15.0)"
+		},
+		{
+			"id": 4,
+			"name": "К1533ЛЕ4",
+			"offset": "(21.25, -90.0)"
+		}
+	],
+	"netlist": [
+		{
+			"control_points": [],
+			"from_ic": 1,
+			"from_pin": 4,
+			"to_ic": 4,
+			"to_pin": 3
+		},
+		{
+			"control_points": [
+				"(286.25, 200.0)"
+			],
+			"from_ic": 1,
+			"from_pin": 8,
+			"to_ic": 4,
+			"to_pin": 8
+		},
+		{
+			"control_points": [],
+			"from_ic": 2,
+			"from_pin": 9,
+			"to_ic": 3,
+			"to_pin": 12
+		},
+		{
+			"control_points": [],
+			"from_ic": 3,
+			"from_pin": 7,
+			"to_ic": 1,
+			"to_pin": 7
+		}
+	]
+}

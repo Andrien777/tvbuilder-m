@@ -67,8 +67,8 @@ func _input(event):
 		if GlobalSettings.is_bus_mode():
 			WireManager.finish_current_bus()
 	elif event.is_action_pressed("copy") and not GlobalSettings.disableGlobalInput:
-		CopyBuffer.copy(get_global_mouse_position())
-		selection_area.remember_copy_offset(get_global_mouse_position())
+		var centre = CopyBuffer.copy(get_global_mouse_position())
+		selection_area.remember_copy_offset(centre)
 	elif event.is_action_pressed("paste") and not GlobalSettings.disableGlobalInput:
 		CopyBuffer.paste(get_global_mouse_position())
 		selection_area.paste_copy_offset(get_global_mouse_position())
@@ -82,6 +82,11 @@ func _input(event):
 		$HistoryViewerWindow.visible = not $HistoryViewerWindow.visible
 	elif event.is_action_pressed("new_project") and not GlobalSettings.disableGlobalInput:
 		get_node("UiCanvasLayer/VBoxContainer2/MenuContainer/FilePopupMenu")._on_clear_button_pressed()
+	elif event.is_action_pressed("debug_key") and not GlobalSettings.disableGlobalInput:
+		if Input.is_key_label_pressed(KEY_CTRL):
+			SaveManager.load_snippet(get_global_mouse_position(), self)
+		else:
+			SaveManager.save_snippet()
 	
 	
 	# Has to be in a separate if
@@ -124,13 +129,12 @@ func create_selected_element():
 	spec.initialize_from_json( ICsTreeManager.get_config_path(element_name) )
 	var element: CircuitComponent = load( ICsTreeManager.get_class_path(element_name) ).new()
 	element.initialize(spec)
-	element.position = get_global_mouse_position()
+	element.position = get_global_mouse_position()-element.hitbox.shape.size / 2
 	element.drag_offset = -element.hitbox.shape.size / 2
 	add_child(element)
 	element.is_dragged = true
 	element.is_mouse_over = true
 	get_node("./Camera2D").lock_pan = true
-	# TODO: Why do we even register IC`s in their constructor and not there?
 	var event = ComponentCreationEvent.new()
 	event.initialize(element)
 	HistoryBuffer.register_event(event)
