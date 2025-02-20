@@ -13,10 +13,3 @@ func _process(delta: float) -> void:
 
 func _on_pressed() -> void:
 	get_node("/root/RootNode").to_bus_mode()
-
-
-func _on_mouse_entered() -> void:
-	GlobalSettings.disableGlobalInput = true
-
-func _on_mouse_exited() -> void:
-	GlobalSettings.disableGlobalInput = false

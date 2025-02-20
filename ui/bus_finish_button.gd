@@ -15,10 +15,3 @@ func _on_pressed() -> void:
 	WireManager.finish_current_bus()
 	get_node("/root/RootNode").to_normal_mode()
 	
-
-
-func _on_mouse_entered() -> void:
-	GlobalSettings.disableGlobalInput = true
-
-func _on_mouse_exited() -> void:
-	GlobalSettings.disableGlobalInput = false

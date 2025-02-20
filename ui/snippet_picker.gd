@@ -77,11 +77,14 @@ func delete_selected_snippet():
 		selected_snippet = ""
 		update_list()
 
+var previousGlobalInputState
 func _on_item_list_mouse_entered() -> void:
+	previousGlobalInputState = GlobalSettings.disableGlobalInput
 	GlobalSettings.disableGlobalInput = true
 
+
 func _on_item_list_mouse_exited() -> void:
-	GlobalSettings.disableGlobalInput = false
+	GlobalSettings.disableGlobalInput = previousGlobalInputState
 
 func _on_item_list_item_selected(index: int) -> void:
 	selected_snippet = snippets[index]
