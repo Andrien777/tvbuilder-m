@@ -25,6 +25,8 @@ func _on_index_pressed(index: int) -> void:
 			get_node("/root/RootNode/LoadFileDialog")._on_load_button_pressed()
 		3:
 			_on_clear_button_pressed()
+		4:
+			get_node("../RecentProjectsPopup")._on_recent_projects_button_pressed()
 
 func _on_clear_button_pressed():
 	ComponentManager.clear()
