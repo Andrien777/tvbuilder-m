@@ -778,8 +778,19 @@ tooltip_text = "Держать это окно поверх остальных �
 text = "Всегда поверх других окон"
 script = ExtResource("50_xi6xf")
 
+[node name="SimulationProgressContainer" type="HBoxContainer" parent="LogicAnalyzerWindow/RootVBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="SimulationProgressBar" type="ProgressBar" parent="LogicAnalyzerWindow/RootVBoxContainer/SimulationProgressContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CancelSimulationButton" type="Button" parent="LogicAnalyzerWindow/RootVBoxContainer/SimulationProgressContainer"]
+layout_mode = 2
+text = "Завершить симуляцию"
+
 [node name="TimeLine" type="Control" parent="LogicAnalyzerWindow/RootVBoxContainer"]
-unique_name_in_owner = true
 layout_mode = 2
 script = ExtResource("51_vv0bl")
 
