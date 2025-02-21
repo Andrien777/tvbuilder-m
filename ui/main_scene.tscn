@@ -1,67 +1,67 @@
 [gd_scene load_steps=77 format=3 uid="uid://cd0acvbjpyg0w"]
 
-[ext_resource type="Script" path="res://ui/main_scene.gd" id="1_8vqs3"]
-[ext_resource type="Shader" path="res://shaders/grid.gdshader" id="2_7ckc8"]
-[ext_resource type="Script" path="res://ui/camera_2d.gd" id="2_pmywl"]
+[ext_resource type="Script" uid="uid://dlsn6lmgynqb0" path="res://ui/main_scene.gd" id="1_8vqs3"]
+[ext_resource type="Shader" uid="uid://bbm5aifcn1lfm" path="res://shaders/grid.gdshader" id="2_7ckc8"]
+[ext_resource type="Script" uid="uid://cylyfkhp6fa30" path="res://ui/camera_2d.gd" id="2_pmywl"]
 [ext_resource type="Texture2D" uid="uid://xbhxywpvacu6" path="res://icon.svg" id="3_ade1w"]
-[ext_resource type="Script" path="res://ui/ic_elements_tree/ics_tree.gd" id="3_q10ex"]
-[ext_resource type="Script" path="res://ui/save_file_dialog.gd" id="4_5cvoo"]
-[ext_resource type="Script" path="res://ui/popup_menu.gd" id="5_02b1i"]
-[ext_resource type="Script" path="res://ui/load_file_dialog.gd" id="5_656tm"]
+[ext_resource type="Script" uid="uid://db3rn7lxijmbk" path="res://ui/ic_elements_tree/ics_tree.gd" id="3_q10ex"]
+[ext_resource type="Script" uid="uid://bc2iuhxckxmt6" path="res://ui/save_file_dialog.gd" id="4_5cvoo"]
+[ext_resource type="Script" uid="uid://qe1eh0w6qjg6" path="res://ui/popup_menu.gd" id="5_02b1i"]
+[ext_resource type="Script" uid="uid://b4kkc7jbv74q2" path="res://ui/load_file_dialog.gd" id="5_656tm"]
 [ext_resource type="PackedScene" uid="uid://r773p6djrrnn" path="res://ui/Settings/settings_window.tscn" id="6_jfxuc"]
-[ext_resource type="Script" path="res://ui/show_logic_analyzer_button.gd" id="7_nqego"]
-[ext_resource type="Script" path="res://ui/help_dialog.gd" id="8_s7pmm"]
-[ext_resource type="Script" path="res://ui/settings_popup_menu.gd" id="10_2s8mk"]
+[ext_resource type="Script" uid="uid://ekok2gdpqoih" path="res://ui/show_logic_analyzer_button.gd" id="7_nqego"]
+[ext_resource type="Script" uid="uid://k6ofyvnavr7m" path="res://ui/help_dialog.gd" id="8_s7pmm"]
+[ext_resource type="Script" uid="uid://c44xr60gmygv1" path="res://ui/settings_popup_menu.gd" id="10_2s8mk"]
 [ext_resource type="Texture2D" uid="uid://k4s8m84velia" path="res://ui/menu_icons/File/Save.png" id="10_ty556"]
 [ext_resource type="Texture2D" uid="uid://dgjllnwiryf7v" path="res://ui/menu_icons/File/SaveAs.png" id="11_nlil7"]
-[ext_resource type="Script" path="res://ui/edit_popup.gd" id="11_pyl4o"]
-[ext_resource type="Script" path="res://tools/memory_content_display.gd" id="12_ncj2o"]
-[ext_resource type="Script" path="res://ui/logic_analyzer/logic_analyzer_window.gd" id="12_ngdkd"]
+[ext_resource type="Script" uid="uid://cmxbc0u1njuke" path="res://ui/edit_popup.gd" id="11_pyl4o"]
+[ext_resource type="Script" uid="uid://bxvpao3llvtt7" path="res://tools/memory_content_display.gd" id="12_ncj2o"]
+[ext_resource type="Script" uid="uid://4cja55f6k1ui" path="res://ui/logic_analyzer/logic_analyzer_window.gd" id="12_ngdkd"]
 [ext_resource type="Texture2D" uid="uid://qaxuxk0hf3ie" path="res://ui/menu_icons/File/OpenProject.png" id="12_pimgv"]
-[ext_resource type="Script" path="res://ui/memory_viewer.gd" id="12_wwdn8"]
-[ext_resource type="Script" path="res://ui/mem_viewer_grid.gd" id="13_jjv1i"]
-[ext_resource type="Script" path="res://ui/logic_analyzer/select_pins_button.gd" id="13_o3lk5"]
-[ext_resource type="Script" path="res://ui/logic_analyzer/signals_h_split_container.gd" id="15_7mwtm"]
-[ext_resource type="Script" path="res://ui/logic_analyzer/clear_button.gd" id="15_73c41"]
-[ext_resource type="Script" path="res://ui/show_last_wire_ribbon_button.gd" id="15_abnib"]
-[ext_resource type="Script" path="res://ui/pageControls.gd" id="15_o4npq"]
+[ext_resource type="Script" uid="uid://bxbr42xdwcl54" path="res://ui/memory_viewer.gd" id="12_wwdn8"]
+[ext_resource type="Script" uid="uid://cxdyfnwr7aveb" path="res://ui/mem_viewer_grid.gd" id="13_jjv1i"]
+[ext_resource type="Script" uid="uid://dmi0ymrhjqcio" path="res://ui/logic_analyzer/select_pins_button.gd" id="13_o3lk5"]
+[ext_resource type="Script" uid="uid://cv3ggp4ahjwu8" path="res://ui/logic_analyzer/signals_h_split_container.gd" id="15_7mwtm"]
+[ext_resource type="Script" uid="uid://dfiqljj8r5ute" path="res://ui/logic_analyzer/clear_button.gd" id="15_73c41"]
+[ext_resource type="Script" uid="uid://ccf4nlf0pt20p" path="res://ui/show_last_wire_ribbon_button.gd" id="15_abnib"]
+[ext_resource type="Script" uid="uid://dyalr1haavad7" path="res://ui/pageControls.gd" id="15_o4npq"]
 [ext_resource type="Texture2D" uid="uid://b1a2ldmw7a02s" path="res://ui/menu_icons/File/NewProject.png" id="16_drtnh"]
-[ext_resource type="Script" path="res://ui/memory_load_file_dialog.gd" id="16_h0gp2"]
-[ext_resource type="Script" path="res://ui/reg_viewer.gd" id="17_2a815"]
+[ext_resource type="Script" uid="uid://dp8jgfbr43ofc" path="res://ui/memory_load_file_dialog.gd" id="16_h0gp2"]
+[ext_resource type="Script" uid="uid://r575h21l40t0" path="res://ui/reg_viewer.gd" id="17_2a815"]
 [ext_resource type="Texture2D" uid="uid://bcaxvx8ib8tex" path="res://ui/menu_icons/Edit/ViewLastWire.png" id="17_4cskb"]
-[ext_resource type="Script" path="res://ui/highlight_pins_button.gd" id="17_skpg2"]
+[ext_resource type="Script" uid="uid://blxvpim1w2s73" path="res://ui/highlight_pins_button.gd" id="17_skpg2"]
 [ext_resource type="Texture2D" uid="uid://tkuyn0xyh17i" path="res://ui/menu_icons/Edit/ColorPin.png" id="18_38rbo"]
 [ext_resource type="FontFile" uid="uid://co86tufoji665" path="res://ui/JetBrainsMonoNL-Regular.ttf" id="18_awkwq"]
-[ext_resource type="Script" path="res://ui/global_input.gd" id="18_yrb2u"]
-[ext_resource type="Script" path="res://ui/logic_analyzer/start_stop_analysis_button.gd" id="19_gtxal"]
+[ext_resource type="Script" uid="uid://dn4gqvdmnollb" path="res://ui/global_input.gd" id="18_yrb2u"]
+[ext_resource type="Script" uid="uid://bvxa7rbotfhad" path="res://ui/logic_analyzer/start_stop_analysis_button.gd" id="19_gtxal"]
 [ext_resource type="Texture2D" uid="uid://m6615xpuyo5e" path="res://ui/tile.png" id="19_xavts"]
-[ext_resource type="Script" path="res://ui/usual_mode_button.gd" id="20_irwob"]
-[ext_resource type="Script" path="res://ui/logic_analyzer/zoom_out_button.gd" id="21_16sfj"]
+[ext_resource type="Script" uid="uid://b5h1jiuetpmh7" path="res://ui/usual_mode_button.gd" id="20_irwob"]
+[ext_resource type="Script" uid="uid://qux80tbbc54g" path="res://ui/logic_analyzer/zoom_out_button.gd" id="21_16sfj"]
 [ext_resource type="Texture2D" uid="uid://bj5r1k8bf0r7n" path="res://ui/menu_icons/select.png" id="21_b5oi8"]
 [ext_resource type="Texture2D" uid="uid://c1lrw4fvr8awx" path="res://ui/menu_icons/camera-focus.png" id="22_8cmxa"]
-[ext_resource type="Script" path="res://ui/logic_analyzer/zoom_in_button.gd" id="22_bntlu"]
+[ext_resource type="Script" uid="uid://dld5qlqt1hpnh" path="res://ui/logic_analyzer/zoom_in_button.gd" id="22_bntlu"]
 [ext_resource type="Texture2D" uid="uid://b1rpgeq2toymq" path="res://ui/menu_icons/help.png" id="23_aids2"]
-[ext_resource type="Script" path="res://ui/conn_mode_button.gd" id="24_c307o"]
-[ext_resource type="Script" path="res://ui/bus_mode_button.gd" id="25_0v5qp"]
+[ext_resource type="Script" uid="uid://bom8ynapeypyk" path="res://ui/conn_mode_button.gd" id="24_c307o"]
+[ext_resource type="Script" uid="uid://bohbsoqwnx0ly" path="res://ui/bus_mode_button.gd" id="25_0v5qp"]
 [ext_resource type="Texture2D" uid="uid://bscf65g7vcjax" path="res://ui/menu_icons/Edit/BusMode.png" id="25_8v1xh"]
 [ext_resource type="Texture2D" uid="uid://dkpyuckbkwm3n" path="res://ui/menu_icons/cursor.png" id="27_2hiqc"]
 [ext_resource type="Texture2D" uid="uid://drbgycjhi2upp" path="res://ui/menu_icons/Edit/green_checkmark.png" id="27_pjgs7"]
-[ext_resource type="Script" path="res://ui/selection_mode_button.gd" id="28_o75gi"]
-[ext_resource type="Script" path="res://ui/bus_finish_button.gd" id="28_sag5d"]
+[ext_resource type="Script" uid="uid://cn0r4f3t57jmu" path="res://ui/selection_mode_button.gd" id="28_o75gi"]
+[ext_resource type="Script" uid="uid://cryusgfp2jl0i" path="res://ui/bus_finish_button.gd" id="28_sag5d"]
 [ext_resource type="Texture2D" uid="uid://d35ocflcklcyn" path="res://ui/menu_icons/Edit/terminal.png" id="29_ma251"]
-[ext_resource type="Script" path="res://ui/Ribbon/console_open_button.gd" id="29_y107i"]
-[ext_resource type="Script" path="res://ui/console.gd" id="31_rtmb3"]
+[ext_resource type="Script" uid="uid://bqv2teyn6s3in" path="res://ui/Ribbon/console_open_button.gd" id="29_y107i"]
+[ext_resource type="Script" uid="uid://cc7rvwe23o8qd" path="res://ui/console.gd" id="31_rtmb3"]
 [ext_resource type="Texture2D" uid="uid://cgvgy3p2b8i4f" path="res://ui/menu_icons/Edit/red_cross.png" id="32_sk2vu"]
-[ext_resource type="Script" path="res://ui/logic_analyzer/launch_for_button.gd" id="33_503t8"]
+[ext_resource type="Script" uid="uid://c07nwtrkagtf6" path="res://ui/logic_analyzer/launch_for_button.gd" id="33_503t8"]
 [ext_resource type="Texture2D" uid="uid://wtdwwavg1wpy" path="res://ui/menu_icons/Edit/sweep.png" id="35_rnlu2"]
-[ext_resource type="Script" path="res://ui/logic_analyzer/simulate_button.gd" id="37_7766m"]
-[ext_resource type="Script" path="res://ui/about_window.gd" id="37_lvpgr"]
+[ext_resource type="Script" uid="uid://bf5vo3fkovi6d" path="res://ui/logic_analyzer/simulate_button.gd" id="37_7766m"]
+[ext_resource type="Script" uid="uid://cctxmubeshjsh" path="res://ui/about_window.gd" id="37_lvpgr"]
 [ext_resource type="Texture2D" uid="uid://dftjdo5x81vef" path="res://ui/tvb_logo_small.png" id="38_x8br3"]
-[ext_resource type="Script" path="res://ui/logic_analyzer/simulation_accept_dialog.gd" id="39_1y2mv"]
-[ext_resource type="Script" path="res://ui/selection_area.gd" id="46_0mty4"]
-[ext_resource type="Script" path="res://ui/logic_analyzer/always_on_top_check_box.gd" id="50_xi6xf"]
-[ext_resource type="Script" path="res://ui/logic_analyzer/launch_for_accept_dialog.gd" id="52_mpko7"]
-[ext_resource type="Script" path="res://ui/history_viewer.gd" id="59_1u0lp"]
+[ext_resource type="Script" uid="uid://cauxe413y8vev" path="res://ui/logic_analyzer/simulation_accept_dialog.gd" id="39_1y2mv"]
+[ext_resource type="Script" uid="uid://1swxmsmr86d1" path="res://ui/selection_area.gd" id="46_0mty4"]
+[ext_resource type="Script" uid="uid://capo3rw2ef6i6" path="res://ui/logic_analyzer/always_on_top_check_box.gd" id="50_xi6xf"]
+[ext_resource type="Script" uid="uid://dkopp3buoeet5" path="res://ui/logic_analyzer/launch_for_accept_dialog.gd" id="52_mpko7"]
+[ext_resource type="Script" uid="uid://cb8ygfedw5u0e" path="res://ui/history_viewer.gd" id="59_1u0lp"]
 [ext_resource type="Texture2D" uid="uid://bxctkpjxqbsxt" path="res://ui/menu_icons/Edit/undo.png" id="60_afg32"]
 [ext_resource type="Texture2D" uid="uid://bcwd3wfryima0" path="res://ui/menu_icons/Edit/redo.png" id="61_0xmdj"]
 
@@ -167,9 +167,9 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_pljh1"]
 _data = {
-"RESET": SubResource("Animation_df11e"),
-"button_pulse_red": SubResource("Animation_435t7"),
-"button_pulse_yellow": SubResource("Animation_05i7o")
+&"RESET": SubResource("Animation_df11e"),
+&"button_pulse_red": SubResource("Animation_435t7"),
+&"button_pulse_yellow": SubResource("Animation_05i7o")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y731f"]
@@ -288,6 +288,7 @@ hide_on_item_selection = false
 hide_on_checkable_item_selection = false
 item_count = 4
 item_0/text = "Отменить"
+item_0/id = 0
 item_1/text = "Вернуть"
 item_1/id = 1
 item_2/text = "Копировать"
@@ -393,7 +394,7 @@ script = ExtResource("29_y107i")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="UiCanvasLayer/VBoxContainer2/RibbonContainer/OpenConsoleButton"]
 libraries = {
-"": SubResource("AnimationLibrary_pljh1")
+&"": SubResource("AnimationLibrary_pljh1")
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UiCanvasLayer"]

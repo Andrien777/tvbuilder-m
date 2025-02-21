@@ -248,12 +248,14 @@ func update_pins(pins:Array, ic_shape:Vector2):
 					-5)
 				"BOTTOM":
 					_pin.rotation_degrees =180
+					_pin.sprite.material.shader.offset = 1
 					_pin.position = Vector2(ic_shape.x/2, 
 					ic_shape.y+5)
 				"LEFT":
 					_pin.rotation_degrees =270
 					_pin.position = Vector2(-5 , 
 					ic_shape.y/2)
+					_pin.sprite.material.shader.offset *= -1
 				"RIGHT":
 					_pin.rotation_degrees =90
 					_pin.position = Vector2(ic_shape.x+5 , 
