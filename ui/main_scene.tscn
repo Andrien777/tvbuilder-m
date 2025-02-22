@@ -605,7 +605,7 @@ auto_height = true
 [node name="AboutWindow" type="Window" parent="."]
 title = "О программе"
 initial_position = 2
-size = Vector2i(250, 575)
+size = Vector2i(250, 650)
 visible = false
 transient = true
 exclusive = true
@@ -632,6 +632,7 @@ texture = ExtResource("38_x8br3")
 layout_mode = 2
 text = "Technical Virtual Builder
 version 1.0
+Разработано в СПбПУ Петра Великого
 "
 horizontal_alignment = 1
 autowrap_mode = 3
