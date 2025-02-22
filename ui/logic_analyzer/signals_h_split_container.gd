@@ -1,15 +1,15 @@
 extends HSplitContainer
 
-signal zoom_changed
+signal zoom_changed()
 
 const SIGNAL_ROW_HEIGHT = 70
 const SIGNAL_COLORS: Array[Color] = [
 	Color(1,1,1),
-	Color(0.16862746, 0.5254902, 0.8784314),
-	Color(0.820, 0.097, 0.060),
-	Color(0.7764706, 0.7019608, 0.13333334),
-	Color(0.0, 0.8117647, 0.32156864),
-	Color(0.45490196, 0.22352941, 0.92941177),
+	Color(0.16862746, 0.85490197, 0.8784314),
+	Color(0.8745098, 0.3529412, 0.31764707),
+	Color(0.91764706, 0.85490197, 0.3529412),
+	Color(0.6392157, 0.94509804, 0.7490196),
+	Color(0.73333335, 0.6666667, 0.8666667),
 	Color(0.994, 0.561, 0.907),
 	Color(0.011764706, 1.0, 0.6431373),
 ]
@@ -21,7 +21,10 @@ var signal_values_zoom_factor: float: # Pixels per ms
 var is_analysis_in_progress = false
 
 @onready var time_line = get_node("../../TimeLine")
-@onready var select_pins_button = get_node("/root/RootNode/LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/SelectPinsButton")
+@onready var simulation_progress_bar: ProgressBar = get_node("../../SimulationProgressContainer/SimulationProgressBar")
+@onready var simulation_progress_container: Container = get_node("../../SimulationProgressContainer")
+@onready var cancel_simulation_button: Button = get_node("../../SimulationProgressContainer/CancelSimulationButton")
+@onready var select_pins_button = get_node("../../ButtonHBoxContainer/SelectPinsButton")
 @onready var signal_container = get_node("./SignalsPanelContainer/SignalsScrollContainer/SignalsVBoxContainer")
 @onready var scroll_container = get_node("./SignalsPanelContainer/SignalsScrollContainer")
 @onready var label_container = get_node("./SignalLabelsPanelContainer/SignalLabelsVBoxContainer")
@@ -118,9 +121,10 @@ func draw_new_signal_values() -> void:
 	elif !is_analysis_in_progress:
 		analysis_start_time = 0
 
-
+var _simulation_canceled = false
 func simulate(time_ms: float):
 	clear_signal_values()
+	
 	var generator = find_generator()
 	if generator == null:
 		InfoManager.write_error("Отсутствет генератор. Для проведения симуляции необходимо наличие генератора в схеме")
@@ -128,6 +132,14 @@ func simulate(time_ms: float):
 	var was_generator_enabled = generator.enabled
 	generator.enabled = false
 	GlobalSettings.disableGlobalInput = true
+	
+	_simulation_canceled = false
+	cancel_simulation_button.button_up.connect(
+		func():
+			_simulation_canceled = true
+	)
+	simulation_progress_container.visible = true
+	simulation_progress_bar.value = .0
 	
 	var generator_freq_text = generator.text_line.text
 	var freq_hz = .0
@@ -138,6 +150,8 @@ func simulate(time_ms: float):
 	var clock_cycle_time = time_ms / clock_cycles
 	
 	for i in range(clock_cycles*2):
+		if _simulation_canceled: 
+			break
 		for sig in signals:
 			var current_signal_value = get_current_signal_value(sig)
 			sig.signal_points.append( 
@@ -150,11 +164,17 @@ func simulate(time_ms: float):
 			generator.pin(1).set_high()
 			generator.pin(2).set_low()
 		NetlistClass.process_scheme()
+			
+		var prev_value = simulation_progress_bar.value
+		simulation_progress_bar.value = (i+1) / (clock_cycles*2) * 100
+		if int(simulation_progress_bar.value) > int(prev_value):
+			await get_tree().process_frame
 		
 	draw_graphs(time_ms)
 	# Make all values fit into 1000 px
 	signal_values_zoom_factor = 1000/time_ms
 	
+	simulation_progress_container.visible = false
 	generator.enabled = was_generator_enabled
 	GlobalSettings.disableGlobalInput = false
 
