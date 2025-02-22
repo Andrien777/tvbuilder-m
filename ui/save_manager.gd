@@ -187,6 +187,7 @@ func load_snippet(mouse_pos, scene, path = "test_snippet.json"):
 	var parsed = json.parse_string(FileAccess.get_file_as_string(path))
 	var parsed_ids = []
 	var id_map = {}
+	var event_counter = 0
 	if parsed == null:
 		InfoManager.write_error("Не удалось считать открываемый сниппет")
 		return
@@ -205,6 +206,10 @@ func load_snippet(mouse_pos, scene, path = "test_snippet.json"):
 		ComponentManager.change_id(component, ComponentManager.last_id + ic.id)
 		ComponentManager.last_id = max(ComponentManager.last_id, component.id) + 1
 		scene.add_child(component)
+		var event = ComponentCreationEvent.new()
+		event.initialize(component)
+		HistoryBuffer.register_event(event)
+		event_counter += 1
 		var pos = ic.offset.split(",")
 		var x = float(pos[0].replace("(", ""))
 		var y = float(pos[1].replace(")", ""))
@@ -232,6 +237,7 @@ func load_snippet(mouse_pos, scene, path = "test_snippet.json"):
 		if to_pin == null:
 			InfoManager.write_error("Ошибка. Не удалось найти поле 'to', id = %d при загрузке провода" % [id_map[edge.to_ic]])
 			continue
+		var wire
 		if "control_points" in edge:
 			var points = []
 			for p in edge.control_points:
@@ -239,7 +245,14 @@ func load_snippet(mouse_pos, scene, path = "test_snippet.json"):
 				var x = float(pos[0].replace("(", ""))
 				var y = float(pos[1].replace(")", ""))
 				points.append(Vector2(x,y) + mouse_pos)
-			WireManager._create_wire(from_pin, to_pin, points)
+			wire = WireManager._create_wire(from_pin, to_pin, points)
 		else:
-			WireManager._create_wire(from_pin, to_pin)
+			wire = WireManager._create_wire(from_pin, to_pin)
+		var event = WireCreationEvent.new()
+		event.initialize(wire)
+		HistoryBuffer.register_event(event)
+		event_counter += 1
+	var event_buff = NEventsBuffer.new()
+	event_buff.initialize(event_counter, [ComponentCreationEvent, WireCreationEvent])
+	HistoryBuffer.register_event(event_buff)
 	GlobalSettings.disableGlobalInput = previousDisable
