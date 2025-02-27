@@ -9,55 +9,78 @@ script = ExtResource("1_3cvae")
 [node name="Window" type="Window" parent="."]
 title = "Таблица соединений"
 initial_position = 2
-size = Vector2i(350, 450)
+size = Vector2i(350, 496)
 wrap_controls = true
 always_on_top = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Window"]
-custom_minimum_size = Vector2(300, 400)
+[node name="TabContainer" type="TabContainer" parent="Window"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+current_tab = 0
 
-[node name="ContinuousUpdateCheckBox" type="CheckBox" parent="Window/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Window/TabContainer"]
+custom_minimum_size = Vector2(300, 400)
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="ContinuousUpdateCheckBox" type="CheckBox" parent="Window/TabContainer/VBoxContainer"]
 visible = false
 layout_mode = 2
 text = "Постоянное обновление"
 
-[node name="Label" type="Label" parent="Window/VBoxContainer"]
+[node name="Label" type="Label" parent="Window/TabContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0.796243, 0.796243, 0.796243, 1)
 theme_override_fonts/font = ExtResource("2_hc8qw")
 theme_override_font_sizes/font_size = 19
 text = "Таблица соединений"
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Window/VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="Window/TabContainer/VBoxContainer"]
 custom_minimum_size = Vector2(350, 400)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="GridContainer" type="GridContainer" parent="Window/VBoxContainer/ScrollContainer"]
+[node name="GridContainer" type="GridContainer" parent="Window/TabContainer/VBoxContainer/ScrollContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_constants/h_separation = 15
 theme_override_constants/v_separation = 5
 columns = 3
 
-[node name="PinHeader" type="Label" parent="Window/VBoxContainer/ScrollContainer/GridContainer"]
+[node name="PinHeader" type="Label" parent="Window/TabContainer/VBoxContainer/ScrollContainer/GridContainer"]
 layout_mode = 2
 text = "Ножка"
 
-[node name="TargetIcHeader" type="Label" parent="Window/VBoxContainer/ScrollContainer/GridContainer"]
+[node name="TargetIcHeader" type="Label" parent="Window/TabContainer/VBoxContainer/ScrollContainer/GridContainer"]
 layout_mode = 2
 text = "Микросхема"
 
-[node name="TargetPinHeader" type="Label" parent="Window/VBoxContainer/ScrollContainer/GridContainer"]
+[node name="TargetPinHeader" type="Label" parent="Window/TabContainer/VBoxContainer/ScrollContainer/GridContainer"]
 layout_mode = 2
 text = "Ножка"
 
-[node name="SignalStateHeader" type="Label" parent="Window/VBoxContainer/ScrollContainer/GridContainer"]
+[node name="SignalStateHeader" type="Label" parent="Window/TabContainer/VBoxContainer/ScrollContainer/GridContainer"]
 layout_mode = 2
 text = "Сигнал"
 
-[connection signal="toggled" from="Window/VBoxContainer/ContinuousUpdateCheckBox" to="." method="_on_continuous_update_check_box_toggled"]
+[node name="ScrollContainer" type="ScrollContainer" parent="Window/TabContainer"]
+visible = false
+custom_minimum_size = Vector2(350, 400)
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="PinDescriptionContainer" type="GridContainer" parent="Window/TabContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 15
+columns = 7
+
+[connection signal="toggled" from="Window/TabContainer/VBoxContainer/ContinuousUpdateCheckBox" to="." method="_on_continuous_update_check_box_toggled"]

@@ -13,7 +13,7 @@ var historyDepth = 200
 var ShowSignalsInConnectionTable = false
 var CurrentGraphicsMode = LegacyGraphicsMode
 
-enum CURSOR_MODES {NORMAL, SELECTION, CONNECTIVITY_MODE, BUS}
+enum CURSOR_MODES {NORMAL, SELECTION, CONNECTIVITY_MODE, BUS, SNIPPET}
 var CursorMode = CURSOR_MODES.NORMAL
 
 var is_LA_always_on_top = false
@@ -29,6 +29,9 @@ func is_connectivity_mode():
 
 func is_bus_mode():
 	return CursorMode==CURSOR_MODES.BUS
+
+func is_snippet_mode():
+	return CursorMode==CURSOR_MODES.SNIPPET
 	
 	
 var PinIndexOffset = 5
@@ -47,7 +50,7 @@ var bus_color_global = Color(1,0.5,0)
 var bus_color = Color(1,0.5,0)
 var label_color_global = Color(1,1,1)
 var label_color = Color(1,1,1)
-
+var recent_projects: Array[String] = []
 var useDefaultWireColor = true
 
 var allowSettingsOverride = true
@@ -67,7 +70,11 @@ func _process(delta: float) -> void:
 
 
 func try_load():
-	var file = FileAccess.open("config.json", FileAccess.READ)
+	if FileAccess.file_exists("config.json"):
+		var dir = DirAccess.open("")
+		dir.copy("config.json", "user://config.json")
+		dir.remove("config.json")
+	var file = FileAccess.open("user://config.json", FileAccess.READ)
 	if file != null:
 		var json_string = file.get_as_text()
 		file.close()
@@ -130,10 +137,13 @@ func try_load():
 								InputMap.action_add_event(keybind_action, event)
 			if parsed.has("is_LA_always_on_top"):
 				is_LA_always_on_top = parsed["is_LA_always_on_top"] as bool
+			if parsed.has("recent_projects"):
+				for path in parsed["recent_projects"]:
+					recent_projects.append(path)
 				
 
 func save():
-	var file = FileAccess.open("config.json", FileAccess.WRITE)
+	var file = FileAccess.open("user://config.json", FileAccess.WRITE)
 	var json_object = {}
 	json_object["LevelHighlight"] = LevelHighlight as int
 	json_object["AltAlgo"] = (not doCycles) as int
@@ -174,6 +184,8 @@ func save():
 				else:
 					keybinds[action] = "Не назначено"
 	json_object["keybinds"] = keybinds
+	json_object["recent_projects"] = recent_projects
+		
 	file.store_string(JSON.stringify(json_object, "\t"))
 	file.close()
 
@@ -186,3 +198,14 @@ func get_object_to_save():
 	json_object["BusColor"] = bus_color.to_html(false)
 	json_object["LabelColor"] = label_color.to_html(false)
 	return json_object
+
+func add_recent_path(path):
+	if recent_projects.size()>=5: #TODO: Make a constant somewhere else
+		recent_projects.pop_back()
+	if path in recent_projects:
+		var index = recent_projects.find(path)
+		recent_projects.remove_at(index)
+		recent_projects.push_front(path)
+	else:
+		recent_projects.push_front(path)
+		

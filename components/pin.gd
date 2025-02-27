@@ -123,3 +123,7 @@ func toggle_output_highlight():
 			self.modulate = Color(1, 0, 0)
 	else:
 		self.modulate = Color(1, 1, 1)
+
+
+func _exit_tree() -> void:
+	PopupManager.hide_hint()

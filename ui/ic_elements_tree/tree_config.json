@@ -8,52 +8,52 @@
 					"group_name": "Логические микросхемы",
 					"subelements": [
 						{
-							"ic_name": "К1533ЛИ1",
+							"ic_name": "К1533ЛИ1 (2И)",
 							"config_path": "res://components/ic/logic/K1533LI1.json",
 							"logic_class_path": "res://components/ic/logic/K1533LI1.gd"
 						},
 						{
-							"ic_name": "К1533ЛИ3",
+							"ic_name": "К1533ЛИ3 (3И)",
 							"config_path": "res://components/ic/logic/K1533LI3.json",
 							"logic_class_path": "res://components/ic/logic/K1533LI3.gd"
 						},
 						{
-							"ic_name": "К1533ЛИ6",
+							"ic_name": "К1533ЛИ6 (4И)",
 							"config_path": "res://components/ic/logic/K1533LI6.json",
 							"logic_class_path": "res://components/ic/logic/K1533LI6.gd"
 						},
 						{
-							"ic_name": "К1533ЛА1",
+							"ic_name": "К1533ЛА1 (4И-НЕ)",
 							"config_path": "res://components/ic/logic/K1533LA1.json",
 							"logic_class_path": "res://components/ic/logic/K1533LA1.gd"
 						},
 						{
-							"ic_name": "К1533ЛА3",
+							"ic_name": "К1533ЛА3 (2И-НЕ)",
 							"config_path": "res://components/ic/logic/K1533LA3.json",
 							"logic_class_path": "res://components/ic/logic/K1533LA3.gd"
 						},
 						{
-							"ic_name": "К1533ЛА4",
+							"ic_name": "К1533ЛА4 (3И-НЕ)",
 							"config_path": "res://components/ic/logic/K1533LA4.json",
 							"logic_class_path": "res://components/ic/logic/K1533LA4.gd"
 						},
 						{
-							"ic_name": "К1533ЛЕ1",
+							"ic_name": "К1533ЛЕ1 (2ИЛИ-НЕ)",
 							"config_path": "res://components/ic/logic/K1533LE1.json",
 							"logic_class_path": "res://components/ic/logic/K1533LE1.gd"
 						},
 						{
-							"ic_name": "К1533ЛЕ4",
+							"ic_name": "К1533ЛЕ4 (3ИЛИ-НЕ)",
 							"config_path": "res://components/ic/logic/K1533LE4.json",
 							"logic_class_path": "res://components/ic/logic/K1533LE4.gd"
 						},
 						{
-							"ic_name": "К1533ЛЛ1",
+							"ic_name": "К1533ЛЛ1 (2ИЛИ)",
 							"config_path": "res://components/ic/logic/K1533LL1.json",
 							"logic_class_path": "res://components/ic/logic/K1533LL1.gd"
 						},
 						{
-							"ic_name": "К1533ЛН1",
+							"ic_name": "К1533ЛН1 (НЕ)",
 							"config_path": "res://components/ic/logic/K1533LN1.json",
 							"logic_class_path": "res://components/ic/logic/K1533LN1.gd"
 						}
@@ -63,11 +63,11 @@
 					"group_name": "Дешифраторы",
 					"subelements": [
 						{
-							"ic_name": "К1533ИД4",
+							"ic_name": "К1533ИД4 (2х2х4/3х8)",
 							"config_path": "res://components/ic/demux/K1533ID4.json",
 							"logic_class_path": "res://components/ic/demux/K1533ID4.gd"
 						},{
-							"ic_name": "КР1533ИД3",
+							"ic_name": "КР1533ИД3 (4х16)",
 							"config_path": "res://components/ic/demux/KR1533ID3.json",
 							"logic_class_path": "res://components/ic/demux/KR1533ID3.gd"
 						},
@@ -87,12 +87,12 @@
 					"group_name": "Память",
 					"subelements": [
 						{
-							"ic_name": "КР132РУ9А",
+							"ic_name": "КР132РУ9А (1024x4)",
 							"config_path": "res://components/ic/memory/KR132RU9A.json",
 							"logic_class_path": "res://components/ic/memory/KR132RU9A.gd"
 						},
 						{
-							"ic_name": "КР537РУ10",
+							"ic_name": "КР537РУ10 (2048x8)",
 							"config_path": "res://components/ic/memory/KR537RU10.json",
 							"logic_class_path": "res://components/ic/memory/KR537RU10.gd"
 						}
@@ -116,11 +116,11 @@
 					"group_name": "Триггеры",
 					"subelements": [
 						{
-							"ic_name": "К1533ТМ2",
+							"ic_name": "К1533ТМ2 (2xD)",
 							"config_path": "res://components/ic/flipflops/K1533TM2.json",
 							"logic_class_path": "res://components/ic/flipflops/K1533TM2.gd"
 						},{
-							"ic_name": "К1531ТВ9",
+							"ic_name": "К1531ТВ9 (2xJK)",
 							"config_path": "res://components/ic/flipflops/K1531TV9.json",
 							"logic_class_path": "res://components/ic/flipflops/K1531TV9.gd"
 						}
@@ -248,7 +248,7 @@
 					"config_path": "res://components/ic/other/constant0.json",
 					"logic_class_path": "res://components/ic/other/constant0.gd"
 				},{
-					"ic_name": "Резистор (510 Ом)",
+					"ic_name": "Резистор",
 					"config_path": "res://components/misc/resistor.json",
 					"logic_class_path": "res://components/misc/resistor.gd"
 				}

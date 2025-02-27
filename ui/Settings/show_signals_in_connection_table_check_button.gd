@@ -13,3 +13,4 @@ func _process(delta: float) -> void:
 
 func _on_toggled(toggled_on: bool) -> void:
 	GlobalSettings.ShowSignalsInConnectionTable = toggled_on
+	print(GlobalSettings.ShowSignalsInConnectionTable)

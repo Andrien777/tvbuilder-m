@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=3 uid="uid://cd0acvbjpyg0w"]
+[gd_scene load_steps=82 format=3 uid="uid://cd0acvbjpyg0w"]
 
 [ext_resource type="Script" uid="uid://dlsn6lmgynqb0" path="res://ui/main_scene.gd" id="1_8vqs3"]
 [ext_resource type="Shader" uid="uid://bbm5aifcn1lfm" path="res://shaders/grid.gdshader" id="2_7ckc8"]
@@ -21,10 +21,12 @@
 [ext_resource type="Script" uid="uid://bxbr42xdwcl54" path="res://ui/memory_viewer.gd" id="12_wwdn8"]
 [ext_resource type="Script" uid="uid://cxdyfnwr7aveb" path="res://ui/mem_viewer_grid.gd" id="13_jjv1i"]
 [ext_resource type="Script" uid="uid://dmi0ymrhjqcio" path="res://ui/logic_analyzer/select_pins_button.gd" id="13_o3lk5"]
+[ext_resource type="Script" uid="uid://v2olejo3xbo3" path="res://ui/last_projects_popup.gd" id="14_vv0bl"]
 [ext_resource type="Script" uid="uid://cv3ggp4ahjwu8" path="res://ui/logic_analyzer/signals_h_split_container.gd" id="15_7mwtm"]
 [ext_resource type="Script" uid="uid://dfiqljj8r5ute" path="res://ui/logic_analyzer/clear_button.gd" id="15_73c41"]
 [ext_resource type="Script" uid="uid://ccf4nlf0pt20p" path="res://ui/show_last_wire_ribbon_button.gd" id="15_abnib"]
 [ext_resource type="Script" uid="uid://dyalr1haavad7" path="res://ui/pageControls.gd" id="15_o4npq"]
+[ext_resource type="Script" uid="uid://febu6gf76n7k" path="res://ui/ribbon_container.gd" id="15_t4xi8"]
 [ext_resource type="Texture2D" uid="uid://b1a2ldmw7a02s" path="res://ui/menu_icons/File/NewProject.png" id="16_drtnh"]
 [ext_resource type="Script" uid="uid://dp8jgfbr43ofc" path="res://ui/memory_load_file_dialog.gd" id="16_h0gp2"]
 [ext_resource type="Script" uid="uid://r575h21l40t0" path="res://ui/reg_viewer.gd" id="17_2a815"]
@@ -51,15 +53,18 @@
 [ext_resource type="Texture2D" uid="uid://d35ocflcklcyn" path="res://ui/menu_icons/Edit/terminal.png" id="29_ma251"]
 [ext_resource type="Script" uid="uid://bqv2teyn6s3in" path="res://ui/Ribbon/console_open_button.gd" id="29_y107i"]
 [ext_resource type="Script" uid="uid://cc7rvwe23o8qd" path="res://ui/console.gd" id="31_rtmb3"]
+[ext_resource type="Texture2D" uid="uid://uvj23wk2aa7w" path="res://ui/menu_icons/snippets.png" id="32_fs2eg"]
 [ext_resource type="Texture2D" uid="uid://cgvgy3p2b8i4f" path="res://ui/menu_icons/Edit/red_cross.png" id="32_sk2vu"]
 [ext_resource type="Script" uid="uid://c07nwtrkagtf6" path="res://ui/logic_analyzer/launch_for_button.gd" id="33_503t8"]
 [ext_resource type="Texture2D" uid="uid://wtdwwavg1wpy" path="res://ui/menu_icons/Edit/sweep.png" id="35_rnlu2"]
 [ext_resource type="Script" uid="uid://bf5vo3fkovi6d" path="res://ui/logic_analyzer/simulate_button.gd" id="37_7766m"]
 [ext_resource type="Script" uid="uid://cctxmubeshjsh" path="res://ui/about_window.gd" id="37_lvpgr"]
+[ext_resource type="Script" uid="uid://ca5fang22wjnm" path="res://ui/snippet_picker.gd" id="38_arjyv"]
 [ext_resource type="Texture2D" uid="uid://dftjdo5x81vef" path="res://ui/tvb_logo_small.png" id="38_x8br3"]
 [ext_resource type="Script" uid="uid://cauxe413y8vev" path="res://ui/logic_analyzer/simulation_accept_dialog.gd" id="39_1y2mv"]
 [ext_resource type="Script" uid="uid://1swxmsmr86d1" path="res://ui/selection_area.gd" id="46_0mty4"]
 [ext_resource type="Script" uid="uid://capo3rw2ef6i6" path="res://ui/logic_analyzer/always_on_top_check_box.gd" id="50_xi6xf"]
+[ext_resource type="Script" uid="uid://c06utd5yt3232" path="res://ui/logic_analyzer/time_line.gd" id="51_vv0bl"]
 [ext_resource type="Script" uid="uid://dkopp3buoeet5" path="res://ui/logic_analyzer/launch_for_accept_dialog.gd" id="52_mpko7"]
 [ext_resource type="Script" uid="uid://cb8ygfedw5u0e" path="res://ui/history_viewer.gd" id="59_1u0lp"]
 [ext_resource type="Texture2D" uid="uid://bxctkpjxqbsxt" path="res://ui/menu_icons/Edit/undo.png" id="60_afg32"]
@@ -242,7 +247,7 @@ text = "О программе"
 
 [node name="FilePopupMenu" type="PopupMenu" parent="UiCanvasLayer/VBoxContainer2/MenuContainer"]
 title = "Файл"
-item_count = 4
+item_count = 5
 item_0/text = "Сохранить"
 item_0/icon = ExtResource("10_ty556")
 item_0/id = 3
@@ -255,6 +260,8 @@ item_2/id = 1
 item_3/text = "Новый проект"
 item_3/icon = ExtResource("16_drtnh")
 item_3/id = 2
+item_4/text = "Последние проекты"
+item_4/id = 4
 script = ExtResource("5_02b1i")
 
 [node name="SettingsPopupMenu" type="PopupMenu" parent="UiCanvasLayer/VBoxContainer2/MenuContainer"]
@@ -297,27 +304,56 @@ item_3/text = "Вставить"
 item_3/id = 3
 script = ExtResource("11_pyl4o")
 
+[node name="RecentProjectsPopup" type="PopupMenu" parent="UiCanvasLayer/VBoxContainer2/MenuContainer"]
+auto_translate_mode = 1
+size = Vector2i(120, 143)
+hide_on_item_selection = false
+hide_on_checkable_item_selection = false
+allow_search = false
+item_count = 5
+item_0/text = "Нет проекта"
+item_0/id = 0
+item_0/disabled = true
+item_1/text = "Нет проекта"
+item_1/id = 1
+item_1/disabled = true
+item_2/text = "Нет проекта"
+item_2/id = 2
+item_2/disabled = true
+item_3/text = "Нет проекта"
+item_3/id = 3
+item_3/disabled = true
+item_4/text = "Нет проекта"
+item_4/id = 4
+item_4/disabled = true
+script = ExtResource("14_vv0bl")
+
 [node name="RibbonContainer" type="HBoxContainer" parent="UiCanvasLayer/VBoxContainer2"]
 layout_mode = 2
+script = ExtResource("15_t4xi8")
 
 [node name="NewButton" type="Button" parent="UiCanvasLayer/VBoxContainer2/RibbonContainer"]
 layout_mode = 2
 tooltip_text = "Создать новый проект"
+mouse_filter = 1
 icon = ExtResource("16_drtnh")
 
 [node name="LoadButton" type="Button" parent="UiCanvasLayer/VBoxContainer2/RibbonContainer"]
 layout_mode = 2
 tooltip_text = "Открыть проект"
+mouse_filter = 1
 icon = ExtResource("12_pimgv")
 
 [node name="SaveButton" type="Button" parent="UiCanvasLayer/VBoxContainer2/RibbonContainer"]
 layout_mode = 2
 tooltip_text = "Сохранить проект"
+mouse_filter = 1
 icon = ExtResource("10_ty556")
 
 [node name="ShowLastWireRibbonButton" type="Button" parent="UiCanvasLayer/VBoxContainer2/RibbonContainer"]
 layout_mode = 2
 tooltip_text = "Отображать только последний провод"
+mouse_filter = 1
 theme_override_styles/pressed = SubResource("StyleBoxFlat_plm8y")
 toggle_mode = true
 icon = ExtResource("17_4cskb")
@@ -326,6 +362,7 @@ script = ExtResource("15_abnib")
 [node name="HighlightPinsButton" type="Button" parent="UiCanvasLayer/VBoxContainer2/RibbonContainer"]
 layout_mode = 2
 tooltip_text = "Подсветка \"выходных\" ножек микросхем"
+mouse_filter = 1
 theme_override_styles/pressed = SubResource("StyleBoxFlat_762xe")
 toggle_mode = true
 icon = ExtResource("18_38rbo")
@@ -334,15 +371,18 @@ script = ExtResource("17_skpg2")
 [node name="CameraCentreButton" type="Button" parent="UiCanvasLayer/VBoxContainer2/RibbonContainer"]
 layout_mode = 2
 tooltip_text = "Центрировать камеру"
+mouse_filter = 1
 icon = ExtResource("22_8cmxa")
 
 [node name="VSeparator" type="VSeparator" parent="UiCanvasLayer/VBoxContainer2/RibbonContainer"]
 layout_mode = 2
+mouse_filter = 1
 theme_override_constants/separation = 15
 
 [node name="UsualModeButton" type="Button" parent="UiCanvasLayer/VBoxContainer2/RibbonContainer"]
 layout_mode = 2
 tooltip_text = "Обычный режим"
+mouse_filter = 1
 theme_override_styles/pressed = SubResource("StyleBoxFlat_j2kb7")
 toggle_mode = true
 shortcut_feedback = false
@@ -353,6 +393,7 @@ script = ExtResource("20_irwob")
 [node name="SelectionModeButton" type="Button" parent="UiCanvasLayer/VBoxContainer2/RibbonContainer"]
 layout_mode = 2
 tooltip_text = "Режим выделения"
+mouse_filter = 1
 theme_override_styles/pressed = SubResource("StyleBoxFlat_14ih4")
 toggle_mode = true
 icon = ExtResource("21_b5oi8")
@@ -361,6 +402,7 @@ script = ExtResource("28_o75gi")
 [node name="ConnModeButton" type="Button" parent="UiCanvasLayer/VBoxContainer2/RibbonContainer"]
 layout_mode = 2
 tooltip_text = "Вывод таблицы соединений"
+mouse_filter = 1
 theme_override_styles/pressed = SubResource("StyleBoxFlat_xrbmq")
 toggle_mode = true
 icon = ExtResource("23_aids2")
@@ -369,6 +411,7 @@ script = ExtResource("24_c307o")
 [node name="BusModeButton" type="Button" parent="UiCanvasLayer/VBoxContainer2/RibbonContainer"]
 layout_mode = 2
 tooltip_text = "Режим создания шин"
+mouse_filter = 1
 theme_override_styles/pressed = SubResource("StyleBoxFlat_xrbmq")
 toggle_mode = true
 icon = ExtResource("25_8v1xh")
@@ -378,17 +421,20 @@ script = ExtResource("25_0v5qp")
 visible = false
 layout_mode = 2
 tooltip_text = "Режим создания шин"
+mouse_filter = 1
 theme_override_styles/pressed = SubResource("StyleBoxFlat_xrbmq")
 icon = ExtResource("27_pjgs7")
 script = ExtResource("28_sag5d")
 
 [node name="VSeparator2" type="VSeparator" parent="UiCanvasLayer/VBoxContainer2/RibbonContainer"]
 layout_mode = 2
+mouse_filter = 1
 theme_override_constants/separation = 15
 
 [node name="OpenConsoleButton" type="Button" parent="UiCanvasLayer/VBoxContainer2/RibbonContainer"]
 layout_mode = 2
 tooltip_text = "Консоль"
+mouse_filter = 1
 icon = ExtResource("29_ma251")
 script = ExtResource("29_y107i")
 
@@ -396,6 +442,13 @@ script = ExtResource("29_y107i")
 libraries = {
 &"": SubResource("AnimationLibrary_pljh1")
 }
+
+[node name="ToggleSnippesButton" type="Button" parent="UiCanvasLayer/VBoxContainer2/RibbonContainer"]
+visible = false
+layout_mode = 2
+tooltip_text = "Меню сниппетов"
+mouse_filter = 1
+icon = ExtResource("32_fs2eg")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UiCanvasLayer"]
 anchors_preset = 9
@@ -503,10 +556,57 @@ threaded = true
 selection_enabled = true
 visible_characters = 100000
 
+[node name="SnippetPicker" type="PanelContainer" parent="UiCanvasLayer"]
+visible = false
+clip_contents = true
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -239.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_vertical = 3
+script = ExtResource("38_arjyv")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UiCanvasLayer/SnippetPicker"]
+clip_contents = true
+layout_mode = 2
+mouse_filter = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UiCanvasLayer/SnippetPicker/VBoxContainer"]
+layout_mode = 2
+
+[node name="AddSnippetButton" type="Button" parent="UiCanvasLayer/SnippetPicker/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Создать сниппет"
+
+[node name="DeleteSnippetButton" type="Button" parent="UiCanvasLayer/SnippetPicker/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+icon = ExtResource("35_rnlu2")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UiCanvasLayer/SnippetPicker/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UiCanvasLayer/SnippetPicker/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ItemList" type="ItemList" parent="UiCanvasLayer/SnippetPicker/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 0
+auto_width = true
+auto_height = true
+
 [node name="AboutWindow" type="Window" parent="."]
 title = "О программе"
 initial_position = 2
-size = Vector2i(250, 575)
+size = Vector2i(250, 650)
 visible = false
 transient = true
 exclusive = true
@@ -533,6 +633,7 @@ texture = ExtResource("38_x8br3")
 layout_mode = 2
 text = "Technical Virtual Builder
 version 1.0
+Разработано в СПбПУ Петра Великого
 "
 horizontal_alignment = 1
 autowrap_mode = 3
@@ -614,6 +715,7 @@ handle_input_locally = false
 title = "Логический Анализатор"
 initial_position = 4
 size = Vector2i(1060, 600)
+visible = false
 script = ExtResource("12_ngdkd")
 
 [node name="RootVBoxContainer" type="VBoxContainer" parent="LogicAnalyzerWindow"]
@@ -678,6 +780,22 @@ tooltip_text = "Держать это окно поверх остальных �
 text = "Всегда поверх других окон"
 script = ExtResource("50_xi6xf")
 
+[node name="SimulationProgressContainer" type="HBoxContainer" parent="LogicAnalyzerWindow/RootVBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="SimulationProgressBar" type="ProgressBar" parent="LogicAnalyzerWindow/RootVBoxContainer/SimulationProgressContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CancelSimulationButton" type="Button" parent="LogicAnalyzerWindow/RootVBoxContainer/SimulationProgressContainer"]
+layout_mode = 2
+text = "Завершить симуляцию"
+
+[node name="TimeLine" type="Control" parent="LogicAnalyzerWindow/RootVBoxContainer"]
+layout_mode = 2
+script = ExtResource("51_vv0bl")
+
 [node name="ScrollContainer" type="ScrollContainer" parent="LogicAnalyzerWindow/RootVBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -709,6 +827,7 @@ width = 3.0
 default_color = Color(0.556953, 0.556953, 0.556953, 1)
 
 [node name="SignalsScrollContainer" type="ScrollContainer" parent="LogicAnalyzerWindow/RootVBoxContainer/ScrollContainer/SignalsHSplitContainer/SignalsPanelContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
@@ -1169,6 +1288,15 @@ size_flags_vertical = 3
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
 energy = 0.3
 
+[node name="UnsavedProjectDialog" type="ConfirmationDialog" parent="."]
+title = "Подтверждение"
+initial_position = 1
+unresizable = true
+ok_button_text = "Да"
+dialog_text = "Ваш проект не сохранен. Вы точно хотите продолжить?"
+dialog_autowrap = true
+cancel_button_text = "Нет"
+
 [connection signal="mouse_entered" from="UiCanvasLayer/VBoxContainer2/MenuContainer/FileButton" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="UiCanvasLayer/VBoxContainer2/MenuContainer/FileButton" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_mouse_exited"]
 [connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/MenuContainer/FileButton" to="UiCanvasLayer/VBoxContainer2/MenuContainer/FilePopupMenu" method="_on_file_button_pressed"]
@@ -1187,30 +1315,22 @@ energy = 0.3
 [connection signal="index_pressed" from="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsPopupMenu" to="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsPopupMenu" method="_on_index_pressed"]
 [connection signal="popup_hide" from="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsPopupMenu" to="UiCanvasLayer/VBoxContainer2/MenuContainer/SettingsPopupMenu" method="_on_popup_hide"]
 [connection signal="index_pressed" from="UiCanvasLayer/VBoxContainer2/MenuContainer/EditPopup" to="UiCanvasLayer/VBoxContainer2/MenuContainer/EditPopup" method="_on_index_pressed"]
+[connection signal="index_pressed" from="UiCanvasLayer/VBoxContainer2/MenuContainer/RecentProjectsPopup" to="UiCanvasLayer/VBoxContainer2/MenuContainer/RecentProjectsPopup" method="_on_index_pressed"]
+[connection signal="mouse_entered" from="UiCanvasLayer/VBoxContainer2/RibbonContainer" to="UiCanvasLayer/VBoxContainer2/RibbonContainer" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="UiCanvasLayer/VBoxContainer2/RibbonContainer" to="UiCanvasLayer/VBoxContainer2/RibbonContainer" method="_on_mouse_exited"]
 [connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/NewButton" to="UiCanvasLayer/VBoxContainer2/MenuContainer/FilePopupMenu" method="_on_clear_button_pressed"]
 [connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/LoadButton" to="LoadFileDialog" method="_on_load_button_pressed"]
 [connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/SaveButton" to="UiCanvasLayer/VBoxContainer2/MenuContainer/FilePopupMenu" method="_on_save_button_pressed"]
 [connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/ShowLastWireRibbonButton" to="UiCanvasLayer/VBoxContainer2/RibbonContainer/ShowLastWireRibbonButton" method="_on_pressed"]
 [connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/HighlightPinsButton" to="UiCanvasLayer/VBoxContainer2/RibbonContainer/HighlightPinsButton" method="_on_pressed"]
 [connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/CameraCentreButton" to="Camera2D" method="move_to_centre"]
-[connection signal="mouse_entered" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/UsualModeButton" to="UiCanvasLayer/VBoxContainer2/RibbonContainer/UsualModeButton" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/UsualModeButton" to="UiCanvasLayer/VBoxContainer2/RibbonContainer/UsualModeButton" method="_on_mouse_exited"]
 [connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/UsualModeButton" to="UiCanvasLayer/VBoxContainer2/RibbonContainer/UsualModeButton" method="_on_pressed"]
-[connection signal="mouse_entered" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/SelectionModeButton" to="UiCanvasLayer/VBoxContainer2/RibbonContainer/SelectionModeButton" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/SelectionModeButton" to="UiCanvasLayer/VBoxContainer2/RibbonContainer/SelectionModeButton" method="_on_mouse_exited"]
 [connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/SelectionModeButton" to="UiCanvasLayer/VBoxContainer2/RibbonContainer/SelectionModeButton" method="_on_pressed"]
-[connection signal="mouse_entered" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/ConnModeButton" to="UiCanvasLayer/VBoxContainer2/RibbonContainer/ConnModeButton" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/ConnModeButton" to="UiCanvasLayer/VBoxContainer2/RibbonContainer/ConnModeButton" method="_on_mouse_exited"]
 [connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/ConnModeButton" to="UiCanvasLayer/VBoxContainer2/RibbonContainer/ConnModeButton" method="_on_pressed"]
-[connection signal="mouse_entered" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/BusModeButton" to="UiCanvasLayer/VBoxContainer2/RibbonContainer/BusModeButton" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/BusModeButton" to="UiCanvasLayer/VBoxContainer2/RibbonContainer/BusModeButton" method="_on_mouse_exited"]
 [connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/BusModeButton" to="UiCanvasLayer/VBoxContainer2/RibbonContainer/BusModeButton" method="_on_pressed"]
-[connection signal="mouse_entered" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/BusFinishButton" to="UiCanvasLayer/VBoxContainer2/RibbonContainer/BusFinishButton" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/BusFinishButton" to="UiCanvasLayer/VBoxContainer2/RibbonContainer/BusFinishButton" method="_on_mouse_exited"]
 [connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/BusFinishButton" to="UiCanvasLayer/VBoxContainer2/RibbonContainer/BusFinishButton" method="_on_pressed"]
-[connection signal="mouse_entered" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/OpenConsoleButton" to="UiCanvasLayer/VBoxContainer2/RibbonContainer/OpenConsoleButton" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/OpenConsoleButton" to="UiCanvasLayer/VBoxContainer2/RibbonContainer/OpenConsoleButton" method="_on_mouse_exited"]
 [connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/OpenConsoleButton" to="UiCanvasLayer/VBoxContainer2/RibbonContainer/OpenConsoleButton" method="_on_pressed"]
+[connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/ToggleSnippesButton" to="UiCanvasLayer/SnippetPicker" method="toggle_visibility"]
 [connection signal="item_mouse_selected" from="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_item_mouse_selected"]
 [connection signal="mouse_entered" from="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_mouse_exited"]
@@ -1223,6 +1343,12 @@ energy = 0.3
 [connection signal="pressed" from="UiCanvasLayer/ConsoleContainer/VBoxContainer/HBoxContainer/CloseButton" to="UiCanvasLayer/ConsoleContainer" method="_on_button_pressed"]
 [connection signal="mouse_entered" from="UiCanvasLayer/ConsoleContainer/VBoxContainer/RichTextLabel" to="UiCanvasLayer/ConsoleContainer" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="UiCanvasLayer/ConsoleContainer/VBoxContainer/RichTextLabel" to="UiCanvasLayer/ConsoleContainer" method="_on_mouse_exited"]
+[connection signal="pressed" from="UiCanvasLayer/SnippetPicker/VBoxContainer/HBoxContainer/AddSnippetButton" to="UiCanvasLayer/SnippetPicker" method="_on_add_snippet_button_pressed"]
+[connection signal="pressed" from="UiCanvasLayer/SnippetPicker/VBoxContainer/HBoxContainer/DeleteSnippetButton" to="UiCanvasLayer/SnippetPicker" method="delete_selected_snippet"]
+[connection signal="item_activated" from="UiCanvasLayer/SnippetPicker/VBoxContainer/ScrollContainer/VBoxContainer/ItemList" to="UiCanvasLayer/SnippetPicker" method="_on_item_list_item_activated"]
+[connection signal="item_selected" from="UiCanvasLayer/SnippetPicker/VBoxContainer/ScrollContainer/VBoxContainer/ItemList" to="UiCanvasLayer/SnippetPicker" method="_on_item_list_item_selected"]
+[connection signal="mouse_entered" from="UiCanvasLayer/SnippetPicker/VBoxContainer/ScrollContainer/VBoxContainer/ItemList" to="UiCanvasLayer/SnippetPicker" method="_on_item_list_mouse_entered"]
+[connection signal="mouse_exited" from="UiCanvasLayer/SnippetPicker/VBoxContainer/ScrollContainer/VBoxContainer/ItemList" to="UiCanvasLayer/SnippetPicker" method="_on_item_list_mouse_exited"]
 [connection signal="close_requested" from="AboutWindow" to="AboutWindow" method="_on_close_requested"]
 [connection signal="file_selected" from="SaveAsFileDialog" to="SaveAsFileDialog" method="_on_file_selected"]
 [connection signal="file_selected" from="LoadFileDialog" to="LoadFileDialog" method="_on_file_selected"]
@@ -1236,6 +1362,7 @@ energy = 0.3
 [connection signal="pressed" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/ZoomOutButton" to="LogicAnalyzerWindow/RootVBoxContainer/ScrollContainer/SignalsHSplitContainer" method="_on_zoom_out_button_pressed"]
 [connection signal="pressed" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/ZoomInButton" to="LogicAnalyzerWindow/RootVBoxContainer/ScrollContainer/SignalsHSplitContainer" method="_on_zoom_in_button_pressed"]
 [connection signal="pressed" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/AlwaysOnTopCheckBox" to="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/AlwaysOnTopCheckBox" method="_on_pressed"]
+[connection signal="zoom_changed" from="LogicAnalyzerWindow/RootVBoxContainer/ScrollContainer/SignalsHSplitContainer" to="LogicAnalyzerWindow/RootVBoxContainer/TimeLine" method="_on_signals_h_split_container_zoom_changed"]
 [connection signal="pressed" from="MemoryViewer/VBoxContainer/HBoxContainer2/ContinuousUpdate" to="MemoryViewer/VBoxContainer/HBoxContainer" method="_on_continuous_update_pressed"]
 [connection signal="pressed" from="MemoryViewer/VBoxContainer/HBoxContainer/ResetSelectionButton" to="MemoryViewer/VBoxContainer/GridContainer" method="reset_all_labels_style"]
 [connection signal="toggled" from="MemoryViewer/VBoxContainer/ResetStyleOnPageChangeButton" to="MemoryViewer/VBoxContainer/GridContainer" method="_on_reset_style_on_page_change_button_toggled"]
@@ -1243,3 +1370,4 @@ energy = 0.3
 [connection signal="mouse_exited" from="SelectionArea" to="SelectionArea" method="_on_mouse_exited"]
 [connection signal="close_requested" from="HistoryViewerWindow" to="HistoryViewerWindow" method="_on_close_requested"]
 [connection signal="tab_changed" from="HistoryViewerWindow/VBoxContainer/TabBar" to="HistoryViewerWindow" method="_on_tab_bar_tab_changed"]
+[connection signal="confirmed" from="UnsavedProjectDialog" to="UiCanvasLayer/VBoxContainer2/MenuContainer/FilePopupMenu" method="_on_unsaved_project_dialog_confirmed"]

@@ -41,21 +41,21 @@
 			"index": 4,
 			"direction": "DIRECTION_OUTPUT",
 			"position": "BOTTOM",
-			"readable_name": "Y4",
+			"readable_name": "Y3",
 			"description": "Сигнал инвертирован",
 			"dependencies": [-1]
 		},{
 			"index": 5,
 			"direction": "DIRECTION_OUTPUT",
 			"position": "BOTTOM",
-			"readable_name": "Y3",
+			"readable_name": "Y2",
 			"description": "Сигнал инвертирован",
 			"dependencies": [-1]
 		},{
 			"index": 6,
 			"direction": "DIRECTION_OUTPUT",
 			"position": "BOTTOM",
-			"readable_name": "Y2",
+			"readable_name": "Y1",
 			"description": "Сигнал инвертирован",
 			"dependencies": [-1]
 		}
@@ -63,7 +63,7 @@
 			"index": 7,
 			"direction": "DIRECTION_OUTPUT",
 			"position": "BOTTOM",
-			"readable_name": "Y1",
+			"readable_name": "Y0",
 			"description": "Сигнал инвертирован",
 			"dependencies": [-1]
 		}
@@ -109,7 +109,7 @@
 			"index": 12,
 			"direction": "DIRECTION_OUTPUT",
 			"position": "TOP",
-			"readable_name": "Y8",
+			"readable_name": "Y7",
 			"description": "Сигнал инвертирован",
 			"dependencies": [-1]
 		}
@@ -117,21 +117,21 @@
 			"index": 11,
 			"direction": "DIRECTION_OUTPUT",
 			"position": "TOP",
-			"readable_name": "Y7",
+			"readable_name": "Y6",
 			"description": "Сигнал инвертирован",
 			"dependencies": [-1]
 		},{
 			"index": 10,
 			"direction": "DIRECTION_OUTPUT",
 			"position": "TOP",
-			"readable_name": "Y6",
+			"readable_name": "Y5",
 			"description": "Сигнал инвертирован",
 			"dependencies": [-1]
 		},{
 			"index": 9,
 			"direction": "DIRECTION_OUTPUT",
 			"position": "TOP",
-			"readable_name": "Y5",
+			"readable_name": "Y4",
 			"description": "Сигнал инвертирован",
 			"dependencies": [-1]
 		}

@@ -59,11 +59,13 @@ func initialize(spec: ComponentSpecification, ic = null)->void:
 func _process(delta: float) -> void:
 	super._process(delta)
 	var inputs = [pin(14).high as int,pin(13).high as int,pin(8).high as int,pin(7).high as int,pin(6).high as int ,pin(1).high as int ,pin(2).high as int]
-	for i in range(inputs.size()):
-		sprites[i].visible = (inputs[i] == 1)
+	if pin(4).low and pin(12).low:
+		for i in range(inputs.size()):
+			sprites[i].visible = (inputs[i] == 1)
+	else:
+		for i in range(inputs.size()):
+			sprites[i].visible = false
 
 func _process_signal():
 	pin(16).set_high()
-	pin(4).set_low()
-	pin(12).set_low()
 	
