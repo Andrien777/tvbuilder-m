@@ -14,6 +14,10 @@ func _ready():
 func _rmb_action():
 	mem_viewer.set_memory(self)
 
+func initialize(spec: ComponentSpecification, ic = null)->void:
+	super.initialize(spec, ic)
+	sprite.texture.normal_texture = preload("res://graphics/Metal_Galvanized_001_normal.jpg")
+	sprite.texture.specular_texture = preload("res://graphics/Metal_Galvanized_001_roughness.jpg")
 
 func _process_signal():
 	pin(9).set_low()

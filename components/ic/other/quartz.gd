@@ -17,6 +17,8 @@ func _ready() -> void:
 func initialize(spec: ComponentSpecification, ic = null)->void:
 	freq_label.text = str(Engine.physics_ticks_per_second / 2) + " Гц"
 	super.initialize(spec, ic)
+	sprite.texture.normal_texture = preload("res://graphics/metal_normal.jpg")
+	sprite.texture.specular_texture = preload("res://graphics/Metal_Galvanized_001_roughness.jpg")
 	freq_label.position = hitbox.shape.size / 2 - freq_label.get_theme_default_font().get_string_size(freq_label.text) / 2
 
 func _process(delta: float) -> void:

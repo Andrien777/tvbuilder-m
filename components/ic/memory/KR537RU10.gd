@@ -13,6 +13,11 @@ func _init():
 	memory_content.resize(2048);
 	memory_content.fill(0);	
 	
+func initialize(spec: ComponentSpecification, ic = null)->void:
+	super.initialize(spec, ic)
+	sprite.texture.normal_texture = preload("res://graphics/Metal_Galvanized_001_normal.jpg")
+	sprite.texture.specular_texture = preload("res://graphics/Metal_Galvanized_001_roughness.jpg")
+
 func _process_signal():
 	pin(12).set_low()
 	pin(24).set_high()

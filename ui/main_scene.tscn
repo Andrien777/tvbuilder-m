@@ -1285,6 +1285,9 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+energy = 0.3
+
 [node name="UnsavedProjectDialog" type="ConfirmationDialog" parent="."]
 title = "Подтверждение"
 initial_position = 1

@@ -18,7 +18,7 @@ func _on_color_changed(color: Color) -> void:
 	GlobalSettings.bg_color_global = color
 
 func reset_color():
-	color = Color("999902")
+	color = Color("999902", 0.7)
 	background_sprite.modulate = color
 	GlobalSettings.bg_color_global = color
 	GlobalSettings.bg_color = color

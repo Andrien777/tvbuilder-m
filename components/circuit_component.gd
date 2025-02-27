@@ -17,8 +17,9 @@ var textures: Dictionary # Holds textures for every graphics mode TODO: Lazy loa
 const side_padding = 10 # TODO: Move side_padding to spec?
 var pins: Array
 var ic_texture = null
-var sprite = null
+var sprite: Sprite2D = null
 var hitbox: CollisionShape2D
+var occluder: LightOccluder2D
 var name_label = Label.new()
 var is_selected = false
 
@@ -27,19 +28,30 @@ func initialize(spec: ComponentSpecification, ic = null)->void: # Ic field holds
 	self.input_pickable = true
 	sprite = Sprite2D.new()
 	sprite.centered = false
+	sprite.texture = CanvasTexture.new()
+	sprite.texture.normal_texture = preload("res://graphics/Asphalt_002_NORM.jpg")
+	sprite.texture.specular_texture = preload("res://graphics/Asphalt_002_ROUGH.jpg")
 	hitbox = CollisionShape2D.new()
 	var shape = RectangleShape2D.new()
 	for t in spec.textures:
 		self.textures[t] = load(spec.textures[t])
+	occluder = LightOccluder2D.new()
+	occluder.occluder = OccluderPolygon2D.new()
+	occluder.occluder.cull_mode = OccluderPolygon2D.CULL_COUNTER_CLOCKWISE
 	change_graphics_mode(GlobalSettings.CurrentGraphicsMode)
-	var current_texture = sprite.texture
+	var current_texture = sprite.texture.diffuse_texture
 	shape.size = current_texture.get_size()
 	hitbox.shape = shape
 	hitbox.position = shape.size/2
 	height = spec.height
 	width = spec.width
+	var vertices = [Vector2(0, 0), Vector2(shape.size.x, 0), shape.size, Vector2(0, shape.size.y), Vector2(0, 0)]
+	occluder.occluder.polygon = vertices
+	sprite.material = ShaderMaterial.new()
+	sprite.material.shader = preload("res://shaders/shadow.gdshader")
 	add_child(hitbox)
 	add_child(sprite)
+	add_child(occluder)
 	initialize_pins(spec.pinSpecifications, shape.size)
 	if is_instance_valid(name_label):
 		name_label.queue_free()
@@ -193,13 +205,15 @@ func pin(i:int):
 func change_graphics_mode(mode):
 	if sprite==null: return
 	if(self.textures.has(mode.texture_tag)):
-		sprite.texture = self.textures[mode.texture_tag]
+		sprite.texture.diffuse_texture = self.textures[mode.texture_tag]
 	else:
-		sprite.texture = fallback_texture
+		sprite.texture.diffuse_texture = fallback_texture
 	var shape = RectangleShape2D.new()
-	shape.size = sprite.texture.get_size()
+	shape.size = sprite.texture.diffuse_texture.get_size()
 	name_label.position = Vector2(10,shape.size.y/2 - name_label.get_line_height()/2)
 	hitbox.shape = shape
+	var vertices = [Vector2(0, 0), Vector2(shape.size.x, 0), shape.size, Vector2(0, shape.size.y), Vector2(0, 0)]
+	occluder.occluder.polygon = vertices
 	update_pins(self.pins, shape.size)
 
 func update_pins(pins:Array, ic_shape:Vector2): 
@@ -234,12 +248,14 @@ func update_pins(pins:Array, ic_shape:Vector2):
 					-5)
 				"BOTTOM":
 					_pin.rotation_degrees =180
+					_pin.sprite.material.shader.offset = 1
 					_pin.position = Vector2(ic_shape.x/2, 
 					ic_shape.y+5)
 				"LEFT":
 					_pin.rotation_degrees =270
 					_pin.position = Vector2(-5 , 
 					ic_shape.y/2)
+					_pin.sprite.material.shader.offset *= -1
 				"RIGHT":
 					_pin.rotation_degrees =90
 					_pin.position = Vector2(ic_shape.x+5 , 

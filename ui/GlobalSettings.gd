@@ -40,7 +40,7 @@ var highlightOutputPins = false
 
 var bg_color = Color("999902")
 var wire_color = Color(1, 0, 0)
-var bg_color_global = Color(0.5, 0.504, 0.004)
+var bg_color_global = Color("999902", 0.7)
 var wire_color_global = Color(1, 0, 0)
 var highlightedWireColor = Color(0.7,0.7,0.7,1)
 var highlightedPinsColor = Color(0.3,0.3,0.3,1)

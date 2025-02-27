@@ -36,6 +36,9 @@ func initialize(spec: PinSpecification, state: NetConstants.LEVEL, parent: Node2
 	#shape.size = Vector2(100,100) # TODO: Scale to sprite
 	self.sprite_shape = shape.size
 	hitbox.shape = shape
+	sprite.material = ShaderMaterial.new()
+	sprite.material.shader = preload("res://shaders/shadow_pin.gdshader")
+	sprite.z_index = -1
 	add_child(sprite)
 	add_child(hitbox)
 
