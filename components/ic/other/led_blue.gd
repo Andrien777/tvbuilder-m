@@ -12,13 +12,14 @@ func initialize(spec: ComponentSpecification, ic = null)->void:
 	led_sprite = Sprite2D.new()
 	light = PointLight2D.new()
 	light.texture = preload("res://graphics/point_light.webp")
-	light.color = Color(0, 0, 100)
+	light.color = Color(0, 0, 1000)
 	light.texture_scale = 2.5
-	light.energy = 0.006
+	light.energy = 0.05
 	light.light_mask = 1
 	light.shadow_enabled = true
 	light.height = 10
 	light.shadow_filter = Light2D.SHADOW_FILTER_PCF5
+	light.blend_mode = Light2D.BLEND_MODE_ADD
 	light.enabled = false
 	led_sprite = Sprite2D.new()
 	super.initialize(spec)

@@ -10,7 +10,7 @@ func initialize(spec: ComponentSpecification, ic = null)->void:
 	
 	light = PointLight2D.new()
 	light.texture = preload("res://graphics/point_light.webp")
-	light.color = Color(0, 50, 0)
+	light.color = Color(10, 100, 50)
 	light.texture_scale = 2.5
 	light.energy = 0.002
 	light.shadow_enabled = true

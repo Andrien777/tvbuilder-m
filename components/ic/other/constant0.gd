@@ -6,9 +6,9 @@ func _process_signal():
 
 func initialize(spec: ComponentSpecification, ic = null)->void:
 	super.initialize(spec, ic)
-	sprite.texture.normal_texture = preload("res://graphics/metal_normal.jpg")
-	sprite.texture.specular_texture = preload("res://graphics/Metal_Galvanized_001_roughness.jpg")
-	sprite.texture.specular_shininess = 1000000000000000
+	sprite.texture.normal_texture = null
+	sprite.texture.specular_texture = null
+	sprite.material.shader = preload("res://shaders/glare.gdshader")
 
 func change_graphics_mode(mode):
 	super.change_graphics_mode(mode)

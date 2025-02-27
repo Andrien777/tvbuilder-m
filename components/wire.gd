@@ -49,6 +49,7 @@ func _init()->void:
 	#line.add_point(Vector2(0,0))
 	#line.add_point(Vector2(500,500))
 	line.width = 2
+	line.z_index = -2
 	line.antialiased = true
 	add_child(line)
 	self.input_pickable = true
