@@ -444,6 +444,7 @@ libraries = {
 }
 
 [node name="ToggleSnippesButton" type="Button" parent="UiCanvasLayer/VBoxContainer2/RibbonContainer"]
+visible = false
 layout_mode = 2
 tooltip_text = "Меню сниппетов"
 mouse_filter = 1
