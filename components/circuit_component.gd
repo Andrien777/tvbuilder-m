@@ -49,6 +49,9 @@ func initialize(spec: ComponentSpecification, ic = null)->void: # Ic field holds
 	occluder.occluder.polygon = vertices
 	sprite.material = ShaderMaterial.new()
 	sprite.material.shader = preload("res://shaders/shadow.gdshader")
+	var offset_x = 2.0 / shape.size.x * 4
+	var offset_y = 2.0 / shape.size.y * 4
+	sprite.material.set_shader_parameter("offset", [-1 * offset_y, -1 * offset_x])
 	add_child(hitbox)
 	add_child(sprite)
 	add_child(occluder)
@@ -214,6 +217,10 @@ func change_graphics_mode(mode):
 	hitbox.shape = shape
 	var vertices = [Vector2(0, 0), Vector2(shape.size.x, 0), shape.size, Vector2(0, shape.size.y), Vector2(0, 0)]
 	occluder.occluder.polygon = vertices
+	if sprite.material:
+		var offset_x = 2.0 / shape.size.x * 4
+		var offset_y = 2.0 / shape.size.y * 4
+		sprite.material.set_shader_parameter("offset", [-1 * offset_y, -1 * offset_x])
 	update_pins(self.pins, shape.size)
 
 func update_pins(pins:Array, ic_shape:Vector2): 
@@ -248,18 +255,19 @@ func update_pins(pins:Array, ic_shape:Vector2):
 					-5)
 				"BOTTOM":
 					_pin.rotation_degrees =180
-					_pin.sprite.material.shader.offset = 1
 					_pin.position = Vector2(ic_shape.x/2, 
 					ic_shape.y+5)
+					_pin.sprite.material.set_shader_parameter("offset", [1, 1])
 				"LEFT":
 					_pin.rotation_degrees =270
 					_pin.position = Vector2(-5 , 
 					ic_shape.y/2)
-					_pin.sprite.material.shader.offset *= -1
+					_pin.sprite.material.set_shader_parameter("offset", [1, -1])
 				"RIGHT":
 					_pin.rotation_degrees =90
 					_pin.position = Vector2(ic_shape.x+5 , 
 					ic_shape.y/2)
+					_pin.sprite.material.set_shader_parameter("offset", [-1, 1])
 		else:
 			match _pin.ic_position:
 				"TOP":
@@ -272,18 +280,21 @@ func update_pins(pins:Array, ic_shape:Vector2):
 					_pin.position = Vector2(side_padding+ 
 					side_margin[_pin.ic_position]*side_index[_pin.ic_position], 
 					ic_shape.y+5)
+					_pin.sprite.material.set_shader_parameter("offset", [1, 1])
 					side_index[_pin.ic_position]+=1
 				"LEFT":
 					_pin.rotation_degrees =270
 					_pin.position = Vector2(-5 , 
 					side_padding+
 					side_margin[_pin.ic_position]*side_index[_pin.ic_position])
+					_pin.sprite.material.set_shader_parameter("offset", [1, -1])
 					side_index[_pin.ic_position]+=1	
 				"RIGHT":
 					_pin.rotation_degrees =90
 					_pin.position = Vector2(ic_shape.x+5, 
 					side_padding+
 					side_margin[_pin.ic_position]*(side_count[_pin.ic_position] - side_index[_pin.ic_position]-1))
+					_pin.sprite.material.set_shader_parameter("offset", [-1, 1])
 					side_index[_pin.ic_position]+=1
 
 func toggle_output_highlight():

@@ -38,7 +38,7 @@ var PinIndexOffset = 5
 var showLastWire = false
 var highlightOutputPins = false
 
-var bg_color = Color("999902")
+var bg_color = Color("999902", 0.7)
 var wire_color = Color(1, 0, 0)
 var bg_color_global = Color("999902", 0.7)
 var wire_color_global = Color(1, 0, 0)

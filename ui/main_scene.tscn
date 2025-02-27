@@ -1286,6 +1286,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+rotation = -0.785398
 energy = 0.3
 
 [node name="UnsavedProjectDialog" type="ConfirmationDialog" parent="."]
