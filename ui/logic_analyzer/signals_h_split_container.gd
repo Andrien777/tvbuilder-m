@@ -94,12 +94,15 @@ func add_signal(pin: Pin):
 		)
 		clear_signal_values()
 
-var analysis_start_time = 0
+var tick_n = 0
 func draw_new_signal_values() -> void:
+	tick_n += 1
+	var tick_time = 1000.0 / Engine.physics_ticks_per_second
+	if (GlobalSettings.turbo):
+		tick_time /= 3
+	var current_analysis_time = tick_time*tick_n
 	if is_analysis_in_progress:
 		var time = Time.get_unix_time_from_system()
-		if analysis_start_time == 0: 
-			analysis_start_time = time
 		for sig in signals:
 			var value = get_current_signal_value(sig)
 			# Pop non-edge values
@@ -109,18 +112,18 @@ func draw_new_signal_values() -> void:
 				sig.signal_points.pop_back()
 				
 			sig.signal_points.append( 
-				[(time - analysis_start_time)*1000, value]
+				[current_analysis_time, value]
 			)
 			sig.signal_line.clear_points()
-		draw_graphs((time - analysis_start_time)*1000)
+		draw_graphs(current_analysis_time)
 		# Always show latest value drawn
 		get_tree().create_timer(.01).timeout.connect(
 			func():
 				scroll_container.scroll_horizontal = scroll_container.get_h_scroll_bar().max_value
 		)
 	elif !is_analysis_in_progress:
-		analysis_start_time = 0
-
+		tick_n = 0
+		
 var _simulation_canceled = false
 func simulate(time_ms: float):
 	clear_signal_values()
