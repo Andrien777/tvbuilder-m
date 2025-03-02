@@ -16,13 +16,13 @@ func _ready() -> void:
 func _process_signal():
 	pin(7).set_low()
 	pin(14).set_high()
-	if(pin(1).low && pin(2).high): # D1 RST
+	if(pin(1).low && pin(4).high): # D1 RST
 		pin(5).set_low()
 		pin(6).set_high()
-	elif (pin(2).low && pin(1).high): 
+	elif (pin(4).low && pin(1).high): 
 		pin(5).set_high() # D1 SET
 		pin(6).set_low()
-	elif (pin(1).low && pin(2).low):
+	elif (pin(1).low && pin(4).low):
 		pin(5).set_high()
 		pin(6).set_high()
 	else:
