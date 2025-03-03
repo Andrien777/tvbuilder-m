@@ -1,8 +1,8 @@
 extends HSplitContainer
 
-signal zoom_changed()
+signal zoom_changed(new_zoom: float)
 
-const SIGNAL_ROW_HEIGHT = 70
+const SIGNAL_ROW_HEIGHT = 50
 const SIGNAL_COLORS: Array[Color] = [
 	Color(1,1,1),
 	Color(0.16862746, 0.85490197, 0.8784314),
@@ -14,13 +14,12 @@ const SIGNAL_COLORS: Array[Color] = [
 	Color(0.011764706, 1.0, 0.6431373),
 ]
 var color_index = 0
-var signals: Array[LA_Signal]
-var simulation_end_time: float = 0
+var signals: Array # Of either LA_signal or LA_signal_group
 var signal_values_zoom_factor: float: # Pixels per ms
 	set = set_signal_values_zoom_factor
 var is_analysis_in_progress = false
 
-@onready var time_line = get_node("../../TimeLine")
+@onready var time_line = get_node("../../GroupButtonTimeLineContainer/TimeLine")
 @onready var simulation_progress_bar: ProgressBar = get_node("../../SimulationProgressContainer/SimulationProgressBar")
 @onready var simulation_progress_container: Container = get_node("../../SimulationProgressContainer")
 @onready var cancel_simulation_button: Button = get_node("../../SimulationProgressContainer/CancelSimulationButton")
@@ -29,93 +28,94 @@ var is_analysis_in_progress = false
 @onready var scroll_container = get_node("./SignalsPanelContainer/SignalsScrollContainer")
 @onready var label_container = get_node("./SignalLabelsPanelContainer/SignalLabelsVBoxContainer")
 
-class LA_Signal:
-	var line_edit: LineEdit
-	var signal_line: Line2D
 
-	var signal_points: Array[Array] = []  # Array of pairs time(ms) to level [float, NetConstants.LEVEL]
-		
-	var ic_id: int
-	var pin_index: int
-	
-	func _init(
-		line_edit: LineEdit,
-		signal_line: Line2D,
-		ic_id: int,
-		pin_index: int,
-	):
-		self.line_edit = line_edit
-		self.signal_line = signal_line
-		self.ic_id = ic_id
-		self.pin_index = pin_index
-	
-	func _to_string() -> String:
-		return "Parent ic's id = " + str(ic_id) + "; Pin_index = " + str(pin_index)	
-		
-		
 func _ready() -> void:
 	signal_values_zoom_factor = 0.1
-	NetlistClass.scheme_processed.connect(draw_new_signal_values)
+	NetlistClass.scheme_processed.connect(process_analysis_tick)
+
 
 func add_signal(pin: Pin):
 	if select_pins_button.is_add_pins_mode_on:
 		var line_edit = LineEdit.new()
-		line_edit.custom_minimum_size = Vector2(0, SIGNAL_ROW_HEIGHT - 4)
-		line_edit.size.y = SIGNAL_ROW_HEIGHT - 4
+		line_edit.custom_minimum_size.y = SIGNAL_ROW_HEIGHT
+		line_edit.size.y = SIGNAL_ROW_HEIGHT
 		line_edit.text = pin.readable_name
 		var line_edit_menu = line_edit.get_menu()
 		label_container.add_child(line_edit)
 		pin.is_tracked = true
 		
-		var signal_line = Line2D.new()
-		signal_line.add_point(Vector2(0, SIGNAL_ROW_HEIGHT*0.9))
-		signal_line.default_color = SIGNAL_COLORS[color_index % SIGNAL_COLORS.size()]
-		color_index += 1
-		signal_line.width = 2
-		signal_container.add_child(signal_line)
-		
-		var sig = LA_Signal.new(
+		var sig = LA_signal.new(
 			line_edit,
-			signal_line,
+			signal_values_zoom_factor,
+			SIGNAL_COLORS[color_index % SIGNAL_COLORS.size()],
+			SIGNAL_ROW_HEIGHT,
 			pin.parent.id, 
 			pin.index,
 			)
+		color_index += 1
+		signal_container.add_child(sig.signal_line)
 		signals.append(sig)
 		
 		# Remove useless menu items
 		for item_index in [15,14,13,12,11,10]:
 			line_edit_menu.remove_item(item_index)
 		line_edit_menu.add_item("Прекратить отслеживание", 2281337)
+		line_edit_menu.add_item("Сгруппировать", 1337228)
+		
 
 		line_edit_menu.index_pressed.connect(
 			func(index):
-				if (line_edit_menu.get_item_id(index) == 2281337):
+				if line_edit_menu.get_item_id(index) == 2281337:
 					remove_signal(sig)
+				elif line_edit_menu.get_item_id(index) == 1337228:
+					add_group(signals.slice(0, 4))
 		)
 		clear_signal_values()
+		
+
+func add_group(signals_to_group: Array):
+	
+	var line_edit = LineEdit.new()
+	line_edit.custom_minimum_size = Vector2(0, SIGNAL_ROW_HEIGHT - 4)
+	line_edit.size.y = SIGNAL_ROW_HEIGHT - 4
+	
+	line_edit.text = " ".join(
+		PackedStringArray(signals_to_group.map(func(sig): return sig.line_edit.text))
+		)
+	var line_edit_menu = line_edit.get_menu()
+	label_container.add_child(line_edit)
+	
+	var group = LA_signal_group.new(
+		line_edit, signals_to_group, signal_values_zoom_factor, SIGNAL_ROW_HEIGHT
+	)
+	
+	signals.append(group)
+	signal_container.add_child(group.signal_line)
+	
+	clear_signal_values()
 
 var tick_n = 0
-func draw_new_signal_values() -> void:
+func process_analysis_tick() -> void:
 	tick_n += 1
 	var tick_time = 1000.0 / Engine.physics_ticks_per_second
 	if (GlobalSettings.turbo):
 		tick_time /= 3
 	var current_analysis_time = tick_time*tick_n
 	if is_analysis_in_progress:
-		var time = Time.get_unix_time_from_system()
 		for sig in signals:
-			var value = get_current_signal_value(sig)
-			# Pop non-edge values
-			if (sig.signal_points.size() > 2 
-				&& sig.signal_points[-1][1] == value 
-				&& sig.signal_points[-2][1] == value):
-				sig.signal_points.pop_back()
-				
-			sig.signal_points.append( 
-				[current_analysis_time, value]
-			)
-			sig.signal_line.clear_points()
-		draw_graphs(current_analysis_time)
+			if sig is LA_signal:
+				var value = get_current_signal_value(sig)
+				# Pop non-edge values
+				if (sig.signal_points.size() > 2 
+					&& sig.signal_points[-1][1] == value 
+					&& sig.signal_points[-2][1] == value):
+					sig.signal_points.pop_back()
+					
+				sig.signal_points.append( 
+					[current_analysis_time, value]
+				)
+			
+		draw_graphs()
 		# Always show latest value drawn
 		get_tree().create_timer(.01).timeout.connect(
 			func():
@@ -123,7 +123,8 @@ func draw_new_signal_values() -> void:
 		)
 	elif !is_analysis_in_progress:
 		tick_n = 0
-		
+
+
 var _simulation_canceled = false
 func simulate(time_ms: float):
 	clear_signal_values()
@@ -152,14 +153,15 @@ func simulate(time_ms: float):
 	var clock_cycles: float = time_ms * .001 * freq_hz
 	var clock_cycle_time = time_ms / clock_cycles
 	
-	for i in range(clock_cycles*2):
+	for i in range(clock_cycles*2+1):
 		if _simulation_canceled: 
 			break
 		for sig in signals:
-			var current_signal_value = get_current_signal_value(sig)
-			sig.signal_points.append( 
-				[(clock_cycle_time * i) / 2, current_signal_value]
-			)
+			if sig is LA_signal:
+				var current_signal_value = get_current_signal_value(sig)
+				sig.signal_points.append( 
+					[(clock_cycle_time * i) / 2, current_signal_value]
+				)
 		if generator.pin(1).high:
 			generator.pin(1).set_low()
 			generator.pin(2).set_high()
@@ -173,7 +175,7 @@ func simulate(time_ms: float):
 		if int(simulation_progress_bar.value) > int(prev_value):
 			await get_tree().process_frame
 		
-	draw_graphs(time_ms)
+	draw_graphs()
 	# Make all values fit into 1000 px
 	signal_values_zoom_factor = 1000/time_ms
 	
@@ -181,8 +183,10 @@ func simulate(time_ms: float):
 	generator.enabled = was_generator_enabled
 	GlobalSettings.disableGlobalInput = false
 
-func get_current_signal_value(sig: LA_Signal) -> NetConstants.LEVEL:
+
+func get_current_signal_value(sig: LA_signal) -> NetConstants.LEVEL:
 	return _get_current_signal_value(sig.ic_id, sig.pin_index)
+
 
 func _get_current_signal_value(ic_id: int, pin_index: int) -> NetConstants.LEVEL:
 	var ic = ComponentManager.get_by_id(ic_id)
@@ -190,8 +194,9 @@ func _get_current_signal_value(ic_id: int, pin_index: int) -> NetConstants.LEVEL
 		return ic.pin(pin_index).state
 	push_error("Logic Analyzer couldn't find Pin with ic_id=" + str(ic_id) + ", pin_index=" + str(pin_index) + " in the netlist")
 	return NetConstants.LEVEL.LEVEL_Z # Pin is inexistent
-	
-func remove_signal(sig_to_del: LA_Signal):
+
+
+func remove_signal(sig_to_del: LA_signal):
 	var pin = ComponentManager.get_by_id(sig_to_del.ic_id).pin(sig_to_del.pin_index)
 	if is_instance_valid(pin):
 		pin.modulate = Color(1, 1, 1, 1)
@@ -207,21 +212,18 @@ func remove_signal(sig_to_del: LA_Signal):
 
 func clear_signal_values():
 	for sig in signals:
-		var line = sig.signal_line
-		line.clear_points()
-		sig.signal_points = []
-		line.add_point(Vector2(0, SIGNAL_ROW_HEIGHT*0.9))
+		if sig is LA_signal:
+			sig.signal_points.clear()
+			sig.signal_line.queue_redraw()
+		elif sig is LA_signal_group:
+			sig.signal_line.queue_redraw()
+
 	scroll_container.scroll_horizontal = 0
 	signal_container.custom_minimum_size.x = 0
 
 
 func set_signal_values_zoom_factor(new_factor: float):
 	signal_values_zoom_factor = new_factor
-	var end_time = 0
-	for sig in signals: 
-		end_time = max(end_time, sig.signal_points.back()[0])
-		sig.signal_line.clear_points()
-	draw_graphs(end_time)
 	
 	var time_units = [
 		["фс", 1e-15],
@@ -249,7 +251,14 @@ func set_signal_values_zoom_factor(new_factor: float):
 	time_line.delta_time = best_delta_time
 	time_line.time_unit = best_time_unit[0]
 	
+	for sig in signals:
+		sig.signal_line.zoom_factor = new_factor
+		sig.signal_line.queue_redraw()
+	
+	
 	zoom_changed.emit()
+	
+	draw_graphs()
 
 
 func _on_zoom_out_button_pressed() -> void:
@@ -260,35 +269,17 @@ func _on_zoom_in_button_pressed() -> void:
 	signal_values_zoom_factor = signal_values_zoom_factor * 4 / 3
 
 
-func draw_graphs(end_time: float):
+func draw_graphs():
 	for signal_index in range(signals.size()):
 		var sig = signals[signal_index]
-		var signal_line = sig.signal_line
-		var start_y = level_to_height(sig.signal_points[0][1])
-		
-		signal_line.add_point(Vector2(0, start_y))
-		signal_line.position.y = SIGNAL_ROW_HEIGHT * signal_index
-		
-		for ind in range(1, sig.signal_points.size()):
-			var point = sig.signal_points[ind]
-			var time = point[0]
-			var value = point[1]
-			
-			var prev_point = sig.signal_points[ind-1]
-			var prev_time = prev_point[0]
-			var prev_value = prev_point[1]
-			
-			var x = time*signal_values_zoom_factor
-			var new_point_y = level_to_height(value)
-			var prev_point_y = level_to_height(prev_value)
-			signal_line.add_point(Vector2(x, prev_point_y))
-			signal_line.add_point(Vector2(x, new_point_y))
+		if sig is LA_signal:
+			sig.signal_line.queue_redraw()
+		elif sig is LA_signal_group:
+			sig.signal_line.queue_redraw()
+	#if signals.size() > 0:
+		#signal_container.custom_minimum_size.x = signals[0].signal_points.back()[0]*signal_values_zoom_factor
 
-		var end_x = end_time*signal_values_zoom_factor
-		var end_y = level_to_height(sig.signal_points[-1][1])
-		signal_line.add_point(Vector2(end_x, end_y))
-		signal_container.custom_minimum_size.x = end_x
-	
+
 func level_to_height(level: NetConstants.LEVEL): 
 	return (.1 if level == NetConstants.LEVEL.LEVEL_HIGH else .9) * SIGNAL_ROW_HEIGHT
 
