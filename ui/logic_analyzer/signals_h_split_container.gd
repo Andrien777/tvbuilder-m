@@ -326,6 +326,10 @@ func remove_signal(sig_to_del: LASignal):
 		pin.toggle_output_highlight()
 		pin.is_tracked = false
 	signals.erase(sig_to_del)
+	for sig in signals:
+		if sig is LASignalGroup:
+			sig.signals.erase(sig_to_del)
+			
 	sig_to_del.signal_controller.queue_free()
 	sig_to_del.signal_line.queue_free()
 
