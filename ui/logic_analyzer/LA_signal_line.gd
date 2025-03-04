@@ -35,11 +35,20 @@ func _draw():
 		
 		var x = time*zoom_factor
 		var prev_x = prev_time*zoom_factor
-		var new_y = level_to_height(value)
-		var prev_y = level_to_height(prev_value)
 		
-		draw_line(Vector2(prev_x, prev_y), Vector2(x+1, prev_y), color, 2)
-		draw_line(Vector2(x, prev_y), Vector2(x, new_y), color, 2)
+		if prev_value == NetConstants.LEVEL.LEVEL_Z:
+			draw_line(Vector2(prev_x, 0.5 * height), Vector2(x, 0.5 * height), color, 2)
+		else:
+			var new_y = level_to_height(value)
+			var prev_y = level_to_height(prev_value)
+			
+			draw_line(
+				Vector2(prev_x-.5, prev_y),
+				Vector2(x+.5, prev_y),
+				color,
+				3 if (prev_value == NetConstants.LEVEL.LEVEL_HIGH) else 1
+			)
+			draw_line(Vector2(x, prev_y), Vector2(x, new_y), color, 1)
 
 
 func level_to_height(level: NetConstants.LEVEL): 

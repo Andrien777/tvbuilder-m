@@ -64,7 +64,7 @@ func _draw():
 		current_time += delta_time
 
 
-func _on_signals_h_split_container_zoom_changed() -> void:
+func _on_signals_h_split_container_zoom_changed(_new_zoom: float) -> void:
 	get_tree().create_timer(0.01).timeout.connect(
 		func():
 			_scrolled = signals_scroll_container.scroll_horizontal
