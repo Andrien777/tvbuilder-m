@@ -27,6 +27,7 @@ func _init(
 	group_controller.radix_changed.connect(
 		func(radix):
 			self.radix = radix
+			signal_line.queue_redraw()
 	)
 
 	self.signal_line = signal_line
