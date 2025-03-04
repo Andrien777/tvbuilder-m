@@ -17,6 +17,6 @@ func _ready() -> void:
 
 func _on_button_up() -> void:
 	var signals = %SignalsHSplitContainer.signals
-	var filtered_signals = signals.filter(func(sig): return sig is LA_signal)
+	var filtered_signals = signals.filter(func(sig): return sig is LASignal)
 	%GroupSignalsAcceptDialog.set_signals(filtered_signals) 
 	%GroupSignalsAcceptDialog.show()

@@ -1,29 +1,40 @@
 extends Node
 
-class_name LA_signal_group
+class_name LASignalGroup
 
-signal line_changed
 const Radix = preload("res://ui/logic_analyzer/Radix.gd").Radix
 
 var signal_line: Control
-var line_edit: LineEdit
+var group_controller: LASignalGroupController
 
 var signals: Array
-var is_open: bool = false
+var displayed_name: String:
+	set = set_displayed_name
 var radix: Radix
 
 func _init(
-	line_edit: LineEdit,
+	group_controller: LASignalGroupController,
 	signals: Array,
 	zoom_factor: float,
-	height: float
+	height: float,
+	radix: Radix
 ):
-	var signal_line = LA_signal_group_line.new(
+	var signal_line = LASignalGroupLine.new(
 		zoom_factor, self, height
 	)
-	self.radix = Radix.BINARY
-	signal_line.custom_minimum_size = Vector2(0, height - 4)
+	signal_line.custom_minimum_size = Vector2(0, height)
 	
+	group_controller.radix_changed.connect(
+		func(radix):
+			self.radix = radix
+	)
+
 	self.signal_line = signal_line
-	self.line_edit = line_edit
+	self.radix = radix
+	self.group_controller = group_controller
 	self.signals = signals
+	
+func set_displayed_name(value: String):
+	displayed_name = value
+	group_controller.line_edit.text = displayed_name
+	

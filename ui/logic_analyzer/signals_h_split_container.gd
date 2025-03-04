@@ -2,6 +2,8 @@ extends HSplitContainer
 
 signal zoom_changed(new_zoom: float)
 
+const Radix = preload("res://ui/logic_analyzer/Radix.gd").Radix
+
 const SIGNAL_ROW_HEIGHT = 50
 const SIGNAL_COLORS: Array[Color] = [
 	Color(1,1,1),
@@ -24,9 +26,9 @@ var is_analysis_in_progress = false
 @onready var simulation_progress_container: Container = get_node("../../SimulationProgressContainer")
 @onready var cancel_simulation_button: Button = get_node("../../SimulationProgressContainer/CancelSimulationButton")
 @onready var select_pins_button = get_node("../../ButtonHBoxContainer/SelectPinsButton")
-@onready var signal_container = get_node("./SignalsPanelContainer/SignalsScrollContainer/SignalsVBoxContainer")
+@onready var signals_container = get_node("./SignalsPanelContainer/SignalsScrollContainer/SignalsVBoxContainer")
 @onready var scroll_container = get_node("./SignalsPanelContainer/SignalsScrollContainer")
-@onready var label_container = get_node("./SignalLabelsPanelContainer/SignalLabelsVBoxContainer")
+@onready var labels_container = get_node("./SignalLabelsPanelContainer/SignalLabelsVBoxContainer")
 
 
 func _ready() -> void:
@@ -36,16 +38,13 @@ func _ready() -> void:
 
 func add_signal(pin: Pin):
 	if select_pins_button.is_add_pins_mode_on:
-		var line_edit = LineEdit.new()
-		line_edit.custom_minimum_size.y = SIGNAL_ROW_HEIGHT
-		line_edit.size.y = SIGNAL_ROW_HEIGHT
-		line_edit.text = pin.readable_name
-		var line_edit_menu = line_edit.get_menu()
-		label_container.add_child(line_edit)
 		pin.is_tracked = true
-		
-		var sig = LA_signal.new(
-			line_edit,
+		var signal_controller = LASignalController.new(
+			pin.readable_name,
+			SIGNAL_ROW_HEIGHT
+			)
+		var sig = LASignal.new(
+			signal_controller,
 			signal_values_zoom_factor,
 			SIGNAL_COLORS[color_index % SIGNAL_COLORS.size()],
 			SIGNAL_ROW_HEIGHT,
@@ -53,46 +52,157 @@ func add_signal(pin: Pin):
 			pin.index,
 			)
 		color_index += 1
-		signal_container.add_child(sig.signal_line)
 		signals.append(sig)
-		
-		# Remove useless menu items
-		for item_index in [15,14,13,12,11,10]:
-			line_edit_menu.remove_item(item_index)
-		line_edit_menu.add_item("Прекратить отслеживание", 2281337)
-		line_edit_menu.add_item("Сгруппировать", 1337228)
-		
 
-		line_edit_menu.index_pressed.connect(
-			func(index):
-				if line_edit_menu.get_item_id(index) == 2281337:
-					remove_signal(sig)
-				elif line_edit_menu.get_item_id(index) == 1337228:
-					add_group(signals.slice(0, 4))
+		signal_controller.sig_remove_requested.connect(
+			func():
+				remove_signal(sig)
 		)
-		clear_signal_values()
 		
+		clear_signal_values()
+		redraw()
+
 
 func add_group(signals_to_group: Array):
-	
-	var line_edit = LineEdit.new()
-	line_edit.custom_minimum_size = Vector2(0, SIGNAL_ROW_HEIGHT - 4)
-	line_edit.size.y = SIGNAL_ROW_HEIGHT - 4
-	
-	line_edit.text = " ".join(
-		PackedStringArray(signals_to_group.map(func(sig): return sig.line_edit.text))
+	var group_name: String = " ".join(
+		PackedStringArray(signals_to_group.map(
+			func(sig): 
+				return sig.signal_controller.line_edit.text)
 		)
-	var line_edit_menu = line_edit.get_menu()
-	label_container.add_child(line_edit)
-	
-	var group = LA_signal_group.new(
-		line_edit, signals_to_group, signal_values_zoom_factor, SIGNAL_ROW_HEIGHT
+	)
+
+	var group_controller = LASignalGroupController.new(
+	   group_name, SIGNAL_ROW_HEIGHT
 	)
 	
+	group_controller.show_signals_changed.connect(
+		func(_show_signals):
+			redraw()
+	)
+			
+	var group = LASignalGroup.new(
+		group_controller, signals_to_group, signal_values_zoom_factor, SIGNAL_ROW_HEIGHT, Radix.BINARY
+	)
+	for sig in signals_to_group:
+		signals.erase(sig)
 	signals.append(group)
-	signal_container.add_child(group.signal_line)
-	
+	signals_container.add_child(group.signal_line)
+
 	clear_signal_values()
+	redraw()
+
+
+func redraw():
+	for child in labels_container.get_children():
+		labels_container.remove_child(child)
+	for child in signals_container.get_children():
+		signals_container.remove_child(child)
+	for sig_ind in range(signals.size()):
+		var sig = signals[sig_ind]
+		if sig is LASignal:
+			remove_connections(sig.signal_controller.button_up.button_up)
+			remove_connections(sig.signal_controller.button_down.button_up)
+			if sig_ind < signals.size()-1:
+				sig.signal_controller.button_down.button_up.connect(
+					func():
+						var temp = signals[sig_ind]
+						signals[sig_ind] = signals[sig_ind+1]
+						signals[sig_ind+1] = temp
+						redraw()
+				)
+			if sig_ind > 0:
+				sig.signal_controller.button_up.button_up.connect(
+					func():
+						var temp = signals[sig_ind]
+						signals[sig_ind] = signals[sig_ind-1]
+						signals[sig_ind-1] = temp
+						redraw()
+				)
+			labels_container.add_child(sig.signal_controller)
+			print(sig.signal_line.get_parent())
+			signals_container.add_child(sig.signal_line)
+		
+		elif sig is LASignalGroup:
+			labels_container.add_child(sig.group_controller)
+			signals_container.add_child(sig.signal_line)
+			
+			remove_connections(sig.group_controller.button_up.button_up)
+			remove_connections(sig.group_controller.button_down.button_up)
+			if sig_ind < signals.size()-1:
+				sig.group_controller.button_down.button_up.connect(
+					func():
+						var temp = signals[sig_ind]
+						signals[sig_ind] = signals[sig_ind+1]
+						signals[sig_ind+1] = temp
+						redraw()
+				)
+			if sig_ind > 0:
+				sig.group_controller.button_up.button_up.connect(
+					func():
+						var temp = signals[sig_ind]
+						signals[sig_ind] = signals[sig_ind-1]
+						signals[sig_ind-1] = temp
+						redraw()
+				)
+				
+			for sig_ind_ in range(sig.signals.size()):
+				var sig_ = sig.signals[sig_ind_] as LASignal
+				remove_connections(sig_.signal_controller.button_up.button_up)
+				remove_connections(sig_.signal_controller.button_down.button_up)
+				if sig_ind_ < sig.signals.size()-1:
+					sig_.signal_controller.button_down.button_up.connect(
+						func():
+							var temp = sig.signals[sig_ind_]
+							sig.signals[sig_ind_] = sig.signals[sig_ind_+1]
+							sig.signals[sig_ind_+1] = temp
+							redraw()
+					)
+				if sig_ind_ > 0:
+					sig_.signal_controller.button_up.button_up.connect(
+						func():
+							var temp = sig.signals[sig_ind_]
+							sig.signals[sig_ind_] = sig.signals[sig_ind_-1]
+							sig.signals[sig_ind_-1] = temp
+							redraw()
+					)
+					
+			for sig_ in sig.signals:
+				var parent = sig_.signal_controller.get_parent() as Node
+				if parent != null:
+					for child in parent.get_children():
+						if child is LASignalController:
+							parent.remove_child(child)
+					parent.queue_free()
+					
+			if sig.group_controller.show_signals:
+				for sig_ in sig.signals:
+					var signal_controller_wrapper = HBoxContainer.new()
+					var spacer = Control.new()
+					spacer.size.x = 20
+					spacer.custom_minimum_size.x = 20
+					signal_controller_wrapper.add_child(spacer)
+					sig_.signal_controller.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+					signal_controller_wrapper.add_child(sig_.signal_controller)
+					labels_container.add_child(signal_controller_wrapper)
+					signals_container.add_child(sig_.signal_line)
+				
+			remove_connections(sig.group_controller.ungroup_requested)
+			sig.group_controller.ungroup_requested.connect(
+				func():
+					if sig != null:
+						signals.erase(sig)
+						
+						for sig_ in sig.signals:
+							var parent = sig_.signal_controller.get_parent() as Node
+							if parent != null:
+								for child in parent.get_children():
+									if child is LASignalController:
+										parent.remove_child(child)
+							signals.append(sig_)
+						sig.queue_free()
+						redraw()
+			)
+
 
 var tick_n = 0
 func process_analysis_tick() -> void:
@@ -103,17 +213,11 @@ func process_analysis_tick() -> void:
 	var current_analysis_time = tick_time*tick_n
 	if is_analysis_in_progress:
 		for sig in signals:
-			if sig is LA_signal:
-				var value = get_current_signal_value(sig)
-				# Pop non-edge values
-				if (sig.signal_points.size() > 2 
-					&& sig.signal_points[-1][1] == value 
-					&& sig.signal_points[-2][1] == value):
-					sig.signal_points.pop_back()
-					
-				sig.signal_points.append( 
-					[current_analysis_time, value]
-				)
+			if sig is LASignal:
+				update_with_current_value(sig, current_analysis_time)
+			elif sig is LASignalGroup:
+				for sig_ in sig.signals:
+					update_with_current_value(sig_, current_analysis_time)
 			
 		draw_graphs()
 		# Always show latest value drawn
@@ -123,6 +227,19 @@ func process_analysis_tick() -> void:
 		)
 	elif !is_analysis_in_progress:
 		tick_n = 0
+
+
+func update_with_current_value(sig: LASignal, time: float):
+	var value = get_current_signal_value(sig)
+	# Pop non-edge values
+	if (sig.signal_points.size() > 2 
+		&& sig.signal_points[-1][1] == value 
+		&& sig.signal_points[-2][1] == value):
+		sig.signal_points.pop_back()
+		
+	sig.signal_points.append( 
+		[time, value]
+	)
 
 
 var _simulation_canceled = false
@@ -157,11 +274,17 @@ func simulate(time_ms: float):
 		if _simulation_canceled: 
 			break
 		for sig in signals:
-			if sig is LA_signal:
+			if sig is LASignal:
 				var current_signal_value = get_current_signal_value(sig)
 				sig.signal_points.append( 
 					[(clock_cycle_time * i) / 2, current_signal_value]
 				)
+			elif sig is LASignalGroup:
+				for sig_ in sig.signals:
+					var current_signal_value = get_current_signal_value(sig_)
+					sig_.signal_points.append( 
+						[(clock_cycle_time * i) / 2, current_signal_value]
+					)
 		if generator.pin(1).high:
 			generator.pin(1).set_low()
 			generator.pin(2).set_high()
@@ -184,7 +307,7 @@ func simulate(time_ms: float):
 	GlobalSettings.disableGlobalInput = false
 
 
-func get_current_signal_value(sig: LA_signal) -> NetConstants.LEVEL:
+func get_current_signal_value(sig: LASignal) -> NetConstants.LEVEL:
 	return _get_current_signal_value(sig.ic_id, sig.pin_index)
 
 
@@ -196,30 +319,30 @@ func _get_current_signal_value(ic_id: int, pin_index: int) -> NetConstants.LEVEL
 	return NetConstants.LEVEL.LEVEL_Z # Pin is inexistent
 
 
-func remove_signal(sig_to_del: LA_signal):
+func remove_signal(sig_to_del: LASignal):
 	var pin = ComponentManager.get_by_id(sig_to_del.ic_id).pin(sig_to_del.pin_index)
 	if is_instance_valid(pin):
 		pin.modulate = Color(1, 1, 1, 1)
 		pin.toggle_output_highlight()
 		pin.is_tracked = false
 	signals.erase(sig_to_del)
-	sig_to_del.line_edit.queue_free()
+	sig_to_del.signal_controller.queue_free()
 	sig_to_del.signal_line.queue_free()
-	# Move other lines to their new places
-	for ind in range(signals.size()): 
-		signals[ind].signal_line.position.y = SIGNAL_ROW_HEIGHT * ind
 
 
 func clear_signal_values():
 	for sig in signals:
-		if sig is LA_signal:
+		if sig is LASignal:
 			sig.signal_points.clear()
 			sig.signal_line.queue_redraw()
-		elif sig is LA_signal_group:
+		elif sig is LASignalGroup:
+			for sig_ in sig.signals:
+				sig_.signal_points.clear()
+				sig_.signal_line.queue_redraw()
 			sig.signal_line.queue_redraw()
 
 	scroll_container.scroll_horizontal = 0
-	signal_container.custom_minimum_size.x = 0
+	signals_container.custom_minimum_size.x = 0
 
 
 func set_signal_values_zoom_factor(new_factor: float):
@@ -272,12 +395,20 @@ func _on_zoom_in_button_pressed() -> void:
 func draw_graphs():
 	for signal_index in range(signals.size()):
 		var sig = signals[signal_index]
-		if sig is LA_signal:
+		if sig is LASignal:
 			sig.signal_line.queue_redraw()
-		elif sig is LA_signal_group:
+		elif sig is LASignalGroup:
 			sig.signal_line.queue_redraw()
-	#if signals.size() > 0:
-		#signal_container.custom_minimum_size.x = signals[0].signal_points.back()[0]*signal_values_zoom_factor
+	if signals.size() > 0:
+		var end_time: float
+		for sig in signals:
+			if sig is LASignal:
+				end_time = max(end_time, sig.signal_points[-1][0])
+			elif sig is LASignalGroup:
+				for sig_ in sig.signals:
+					if sig_.signal_points.size() > 0:
+						end_time = max(end_time, sig_.signal_points[-1][0])
+		signals_container.custom_minimum_size.x = end_time*signal_values_zoom_factor
 
 
 func level_to_height(level: NetConstants.LEVEL): 
@@ -295,3 +426,6 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		cursor_line.global_position = Vector2(get_global_mouse_position().x, cursor_line.global_position.y)
 		
+static func remove_connections(sig: Signal):
+	for conn in sig.get_connections():
+		sig.disconnect(conn.callable)

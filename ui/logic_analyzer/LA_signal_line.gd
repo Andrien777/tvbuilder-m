@@ -1,16 +1,16 @@
 extends Control
 
 
-class_name LA_signal_line
+class_name LASignalLine
 
 var zoom_factor: float
 var color: Color
 var height: float
-var sig: LA_signal
+var sig: LASignal
 
 
 func _init(
-	sig: LA_signal,
+	sig: LASignal,
 	zoom_factor: float,
 	color: Color,
 	height: float,
@@ -38,7 +38,7 @@ func _draw():
 		var new_y = level_to_height(value)
 		var prev_y = level_to_height(prev_value)
 		
-		draw_line(Vector2(prev_x, prev_y), Vector2(x, prev_y), color, 2)
+		draw_line(Vector2(prev_x, prev_y), Vector2(x+1, prev_y), color, 2)
 		draw_line(Vector2(x, prev_y), Vector2(x, new_y), color, 2)
 
 

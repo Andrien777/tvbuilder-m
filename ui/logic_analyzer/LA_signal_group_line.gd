@@ -1,16 +1,16 @@
 extends Control
 
-class_name LA_signal_group_line
+class_name LASignalGroupLine
 
 const Radix = preload("res://ui/logic_analyzer/Radix.gd").Radix
 
 var zoom_factor: float
-var sig_group: LA_signal_group
+var sig_group: LASignalGroup
 var height: float
 
 func _init(
 	zoom_factor: float,
-	sig_group: LA_signal_group,
+	sig_group: LASignalGroup,
 	height: float
 ):
 	self.zoom_factor = zoom_factor
@@ -98,7 +98,7 @@ func binary_to_radix(value_binary: String, radix: Radix) -> String:
 		while i < binary_reversed.length():
 			var digit = binary_reversed.substr(i, 4)
 			digit += "0".repeat(4 - digit.length())
-			value += digit.bin_to_int()
+			value += str(digit.bin_to_int())
 			i += 4
 	elif radix == Radix.BINARY:
 		value = value_binary

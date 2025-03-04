@@ -3,15 +3,15 @@ extends AcceptDialog
 var signals_container: VBoxContainer
 
 class CheckableSignal extends HBoxContainer:
-	var sig: LA_signal
+	var sig: LASignal
 	var cb: CheckBox
 	var label: Label
 	
-	func _init(sig: LA_signal):
+	func _init(sig: LASignal):
 		self.sig = sig
 		
 		var cb = CheckBox.new()
-		cb.text = sig.line_edit.text
+		cb.text = sig.signal_controller.line_edit.text
 		self.cb = cb
 		self.add_child(cb)
 
@@ -19,6 +19,8 @@ class CheckableSignal extends HBoxContainer:
 func _ready() -> void:
 	var scroll_container = ScrollContainer.new()
 	signals_container = VBoxContainer.new()
+	signals_container.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	signals_container.alignment = BoxContainer.ALIGNMENT_CENTER
 	
 	scroll_container.add_child(signals_container)
 	add_child(scroll_container)
