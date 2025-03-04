@@ -119,7 +119,7 @@ func redraw():
 						redraw()
 				)
 			labels_container.add_child(sig.signal_controller)
-			print(sig.signal_line.get_parent())
+			#print(sig.signal_line.get_parent())
 			signals_container.add_child(sig.signal_line)
 		
 		elif sig is LASignalGroup:

@@ -19,7 +19,7 @@ func _process(delta: float) -> void:
 		#display_connections()
 func display_connections():
 	set_pins_description_table(ic)
-	print(GlobalSettings.ShowSignalsInConnectionTable)
+	#print(GlobalSettings.ShowSignalsInConnectionTable)
 	if GlobalSettings.ShowSignalsInConnectionTable:
 		grid_container.columns = 4
 		grid_container.get_node("SignalStateHeader").visible = true
