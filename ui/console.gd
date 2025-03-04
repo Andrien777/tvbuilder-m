@@ -20,21 +20,23 @@ func write(text:String, color = Color(1,1,1), prefix = ""):
 	
 
 
-
+var previousGlobalInputState
 func _on_mouse_entered() -> void:
+	previousGlobalInputState = GlobalSettings.disableGlobalInput
 	GlobalSettings.disableGlobalInput = true
 
 
 func _on_mouse_exited() -> void:
-	GlobalSettings.disableGlobalInput = false
+	GlobalSettings.disableGlobalInput = previousGlobalInputState
 
 
 func _on_focus_entered() -> void:
+	previousGlobalInputState = GlobalSettings.disableGlobalInput
 	GlobalSettings.disableGlobalInput = true
 
 
 func _on_focus_exited() -> void:
-	GlobalSettings.disableGlobalInput = false
+	GlobalSettings.disableGlobalInput = previousGlobalInputState
 
 
 func _on_button_pressed() -> void:

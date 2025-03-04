@@ -12,3 +12,7 @@ func _process(delta: float) -> void:
 
 func _on_wire_snap_check_button_toggled(toggled_on: bool) -> void:
 	GlobalSettings.WireSnap = toggled_on
+
+
+func _on_toggled(toggled_on: bool) -> void:
+	pass # Replace with function body.

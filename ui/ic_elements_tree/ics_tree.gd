@@ -71,12 +71,13 @@ func hide_tree():
 		tween = create_tween()
 		tween.tween_property(tree,"scale",Vector2(1, 1),0.4).set_trans(Tween.TRANS_ELASTIC)
 		tree_visible = true
-
+var previousGlobalInputState:bool
 func _on_mouse_entered() -> void:
+	previousGlobalInputState = GlobalSettings.disableGlobalInput
 	GlobalSettings.disableGlobalInput = true
 	get_node("/root/RootNode/Camera2D").lock_pan = true
 
 func _on_mouse_exited() -> void:
 	if timer.is_stopped():
 		get_node("/root/RootNode/Camera2D").lock_pan = false
-	GlobalSettings.disableGlobalInput = false
+	GlobalSettings.disableGlobalInput = previousGlobalInputState

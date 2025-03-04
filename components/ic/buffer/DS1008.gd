@@ -13,7 +13,7 @@ var lbl
 func initialize(spec: ComponentSpecification, ic=null)->void:
 	super.initialize(spec, ic)
 	if(ic!=null and "content" in ic):
-		self.delay = ic.content
+		self.delay = int(ic.content)
 		text_line.text = str(delay)
 
 func _init() -> void:
