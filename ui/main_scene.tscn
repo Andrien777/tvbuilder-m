@@ -1,4 +1,4 @@
-[gd_scene load_steps=82 format=3 uid="uid://cd0acvbjpyg0w"]
+[gd_scene load_steps=84 format=3 uid="uid://cd0acvbjpyg0w"]
 
 [ext_resource type="Script" uid="uid://dlsn6lmgynqb0" path="res://ui/main_scene.gd" id="1_8vqs3"]
 [ext_resource type="Shader" uid="uid://bbm5aifcn1lfm" path="res://shaders/grid.gdshader" id="2_7ckc8"]
@@ -66,8 +66,10 @@
 [ext_resource type="Script" uid="uid://capo3rw2ef6i6" path="res://ui/logic_analyzer/always_on_top_check_box.gd" id="50_xi6xf"]
 [ext_resource type="Script" uid="uid://c06utd5yt3232" path="res://ui/logic_analyzer/time_line.gd" id="51_vv0bl"]
 [ext_resource type="Script" uid="uid://dkopp3buoeet5" path="res://ui/logic_analyzer/launch_for_accept_dialog.gd" id="52_mpko7"]
+[ext_resource type="Script" uid="uid://b1mnu8tfm3lrg" path="res://ui/logic_analyzer/group_button.gd" id="55_dvikr"]
 [ext_resource type="Script" uid="uid://cb8ygfedw5u0e" path="res://ui/history_viewer.gd" id="59_1u0lp"]
 [ext_resource type="Texture2D" uid="uid://bxctkpjxqbsxt" path="res://ui/menu_icons/Edit/undo.png" id="60_afg32"]
+[ext_resource type="Script" uid="uid://bbeynoxx878tu" path="res://ui/logic_analyzer/group_signals_accept_dialog.gd" id="60_hkbny"]
 [ext_resource type="Texture2D" uid="uid://bcwd3wfryima0" path="res://ui/menu_icons/Edit/redo.png" id="61_0xmdj"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7n0h1"]
@@ -792,8 +794,17 @@ size_flags_horizontal = 3
 layout_mode = 2
 text = "Завершить симуляцию"
 
-[node name="TimeLine" type="Control" parent="LogicAnalyzerWindow/RootVBoxContainer"]
+[node name="GroupButtonTimeLineContainer" type="HBoxContainer" parent="LogicAnalyzerWindow/RootVBoxContainer"]
 layout_mode = 2
+
+[node name="GroupButton" type="Button" parent="LogicAnalyzerWindow/RootVBoxContainer/GroupButtonTimeLineContainer"]
+layout_mode = 2
+text = "Группировка"
+script = ExtResource("55_dvikr")
+
+[node name="TimeLine" type="Control" parent="LogicAnalyzerWindow/RootVBoxContainer/GroupButtonTimeLineContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 script = ExtResource("51_vv0bl")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="LogicAnalyzerWindow/RootVBoxContainer"]
@@ -851,6 +862,15 @@ initial_position = 4
 size = Vector2i(300, 100)
 ok_button_text = "Начать симуляцию"
 script = ExtResource("52_mpko7")
+
+[node name="GroupSignalsAcceptDialog" type="AcceptDialog" parent="LogicAnalyzerWindow"]
+unique_name_in_owner = true
+title = "Группировка сигналов"
+initial_position = 4
+size = Vector2i(300, 650)
+force_native = true
+ok_button_text = "Продолжить"
+script = ExtResource("60_hkbny")
 
 [node name="MemoryViewer" type="Window" parent="."]
 auto_translate_mode = 1
@@ -1363,7 +1383,8 @@ cancel_button_text = "Нет"
 [connection signal="pressed" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/ZoomOutButton" to="LogicAnalyzerWindow/RootVBoxContainer/ScrollContainer/SignalsHSplitContainer" method="_on_zoom_out_button_pressed"]
 [connection signal="pressed" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/ZoomInButton" to="LogicAnalyzerWindow/RootVBoxContainer/ScrollContainer/SignalsHSplitContainer" method="_on_zoom_in_button_pressed"]
 [connection signal="pressed" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/AlwaysOnTopCheckBox" to="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/AlwaysOnTopCheckBox" method="_on_pressed"]
-[connection signal="zoom_changed" from="LogicAnalyzerWindow/RootVBoxContainer/ScrollContainer/SignalsHSplitContainer" to="LogicAnalyzerWindow/RootVBoxContainer/TimeLine" method="_on_signals_h_split_container_zoom_changed"]
+[connection signal="button_up" from="LogicAnalyzerWindow/RootVBoxContainer/GroupButtonTimeLineContainer/GroupButton" to="LogicAnalyzerWindow/RootVBoxContainer/GroupButtonTimeLineContainer/GroupButton" method="_on_button_up"]
+[connection signal="zoom_changed" from="LogicAnalyzerWindow/RootVBoxContainer/ScrollContainer/SignalsHSplitContainer" to="LogicAnalyzerWindow/RootVBoxContainer/GroupButtonTimeLineContainer/TimeLine" method="_on_signals_h_split_container_zoom_changed"]
 [connection signal="pressed" from="MemoryViewer/VBoxContainer/HBoxContainer2/ContinuousUpdate" to="MemoryViewer/VBoxContainer/HBoxContainer" method="_on_continuous_update_pressed"]
 [connection signal="pressed" from="MemoryViewer/VBoxContainer/HBoxContainer/ResetSelectionButton" to="MemoryViewer/VBoxContainer/GridContainer" method="reset_all_labels_style"]
 [connection signal="toggled" from="MemoryViewer/VBoxContainer/ResetStyleOnPageChangeButton" to="MemoryViewer/VBoxContainer/GridContainer" method="_on_reset_style_on_page_change_button_toggled"]

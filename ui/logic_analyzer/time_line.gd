@@ -1,4 +1,4 @@
-﻿extends Control
+extends Control
 
 @onready var signals_scroll_container = %SignalsScrollContainer as ScrollContainer
 @onready var signals_container = %SignalsHSplitContainer
@@ -30,7 +30,7 @@ func set_time_unit(value):
 func _ready():
 	custom_minimum_size.y = 20
 	
-	resized.connect(Callable(self, "queue_redraw"))
+	resized.connect(queue_redraw)
 	
 	signals_container.drag_ended.connect(queue_redraw)
 	
@@ -41,7 +41,7 @@ func _ready():
 	
 	
 func _draw():
-	var split_offset = signals_container.split_offset + 14
+	var split_offset = 10
 	var center_y = size.y / 2
 	var current_offset = split_offset + fposmod(delta_px - _scrolled, delta_px)
 	var current_time = ceil(_scrolled / delta_px) * delta_time
