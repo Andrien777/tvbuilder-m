@@ -5,6 +5,8 @@ var popup
 var text_line
 var label: Label
 var popup_style
+var img = preload("res://graphics/portrait.jpg")
+var img_sprite: Sprite2D
 
 func initialize(spec: ComponentSpecification, ic=null)->void:
 	if(ic!=null and "content" in ic):
@@ -17,9 +19,10 @@ func _init():
 	label.position = Vector2(0,0)
 	label.z_index = RenderingServer.CANVAS_ITEM_Z_MAX
 	label.add_theme_font_size_override("font_size",24)
+	label.resized.connect(update_hibox)
 	hitbox = CollisionShape2D.new()
 	var shape = RectangleShape2D.new()
-	shape.size = label.get_rect().size + Vector2(30,0)
+	shape.size = label.get_rect().size
 	hitbox.shape = shape
 	hitbox.position = shape.size / 2
 	self.input_pickable = true
@@ -42,11 +45,18 @@ func _init():
 	popup.size =  Vector2(100,60)
 	popup.add_theme_stylebox_override("panel", popup_style)
 
+	img_sprite = Sprite2D.new()
+	img_sprite.texture = img
+	img_sprite.centered = false
+	img_sprite.visible = false
 	#settings_popup.add_child(text_line)
 	popup.add_child(text_line)
 	add_child(popup)
 	add_child(hitbox)
 	add_child(label)
+	add_child(img_sprite)
+	img_sprite.visibility_changed.connect(update_hibox)
+	
 	#popup.get_parent().move_child(popup, -1)
 	ComponentManager.register_object(self)
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -95,9 +105,15 @@ func on_text_update(new_text:String):
 		var event = LabelTextChangeEvent.new()
 		event.initialize(self, new_text)
 		HistoryBuffer.register_event(event)
-		label.text = new_text
-		hitbox.shape.size = label.get_rect().size + Vector2(30,0)
-		hitbox.position = hitbox.shape.size / 2
+		if new_text == "865933":
+			label.text = new_text
+			label.visible = false
+			img_sprite.visible = true
+		else:
+			label.text = new_text
+			label.visible = true
+			img_sprite.visible = false
+		
 		
 	
 func _exit_tree() -> void:
@@ -118,6 +134,14 @@ func to_json_object() -> Dictionary:
 	}
 func change_graphics_mode(mode):
 	pass
+
+func update_hibox():
+	if img_sprite.visible:
+		hitbox.shape.size = img.get_size()
+		hitbox.position = hitbox.shape.size / 2
+	else:
+		hitbox.shape.size = label.get_rect().size
+		hitbox.position = hitbox.shape.size / 2
 
 func change_color():
 	label.add_theme_color_override('font_color', GlobalSettings.label_color)

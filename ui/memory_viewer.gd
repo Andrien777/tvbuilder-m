@@ -14,7 +14,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if (continuous_update):
+	if (continuous_update and visible):
 		update()
 	if not is_instance_valid(list.memory):
 		memory_name_label.text = "Память не выбрана"

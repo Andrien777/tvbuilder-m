@@ -5,7 +5,7 @@ class_name CopiedItem
 var old_id
 var item_name: String
 var item_offset: Vector2
-var content
+var content = null
 var connections_with_old_ids = {}
 
 # Called when the node enters the scene tree for the first time.
@@ -23,6 +23,8 @@ func copy(obj: CircuitComponent, mouse_pos: Vector2):
 	self.old_id = obj.id
 	if obj is TextLabel:
 		content = obj.label.text
+	elif obj is DS1008:
+		content = obj.delay
 	for wire in WireManager.wires:
 		if wire.first_object in obj.pins and wire.second_object.parent.is_selected:
 			var control_points = wire.control_points.duplicate(true)
@@ -47,3 +49,11 @@ func paste(mouse_pos: Vector2):
 		element.on_text_update(content)
 	HistoryBuffer.register_event(event)
 	return element.id
+
+func to_json_object(new_id = -1):
+	return {
+		"id": old_id if new_id == -1 else new_id,
+		"name": item_name,
+		"offset": item_offset,
+		"content": content
+	}

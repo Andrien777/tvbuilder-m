@@ -97,7 +97,7 @@
 	{
 	  "index": 11,
 	  "readable_name": "Q3",
-	  "description": "Выход третьего разряда",
+	  "description": "Выход четвертого разряда",
 	  "direction": "DIRECTION_OUTPUT",
 			"position": "TOP",
 	  "dependencies": [-1]

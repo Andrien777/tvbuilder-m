@@ -7,7 +7,7 @@ var autosave_interval = 60 # seconds
 var do_not_save_ids: Array[int] = []
 
 func _on_autosave():
-	if last_path != "":
+	if last_path != "" and not OS.has_feature("web"):
 		save(last_path)
 
 func save(path: String) -> void:
@@ -23,25 +23,40 @@ func save(path: String) -> void:
 			continue
 		json_list_ic.append(ic.to_json_object())
 	var json = JSON.new()
-	var file = FileAccess.open(path, FileAccess.WRITE)
-	file.store_string(json.stringify({
-		"components": json_list_ic,
-		"netlist": NetlistClass.get_json_adjacency(),
-		"config": GlobalSettings.get_object_to_save(),
-		"buses": WireManager.buses_to_json()
-	}, "\t"))
-	file.close()
+	if OS.has_feature("web"):
+		JavaScriptBridge.download_buffer(json.stringify({
+			"components": json_list_ic,
+			"netlist": NetlistClass.get_json_adjacency(),
+			"config": GlobalSettings.get_object_to_save(),
+			"buses": WireManager.buses_to_json()
+		}, "\t").to_utf8_buffer(), path.get_file(), "application/json")
+	else:
+		var file = FileAccess.open(path, FileAccess.WRITE)
+		file.store_string(json.stringify({
+			"components": json_list_ic,
+			"netlist": NetlistClass.get_json_adjacency(),
+			"config": GlobalSettings.get_object_to_save(),
+			"buses": WireManager.buses_to_json()
+		}, "\t"))
+		file.close()
 	get_window().title = "TVBuilder - " + path.get_file().get_basename()
 	InfoManager.write_info("Файл %s сохранён" % [path])
 
 
 func load(scene: Node2D, path: String):
+	if not FileAccess.file_exists(path):
+		InfoManager.write_error("Не удалось загрузить проект %s: файл не существует" % [path])
+		return
+	GlobalSettings.add_recent_path(path)
 	last_path = path
 	autosave_timer.stop()
 	autosave_timer.start(autosave_interval)
 	ComponentManager.clear()
-	var json = JSON.new()
 	var file = FileAccess.open(path, FileAccess.READ).get_as_text()
+	parse_save_str(scene, file, path)
+	
+func parse_save_str(scene: Node2D, file: String, path="LoadedProject.json"):
+	var json = JSON.new()
 	var parsed = json.parse_string(file)
 	var parsed_ids = []
 	if parsed == null:
@@ -123,7 +138,6 @@ func load(scene: Node2D, path: String):
 					component.change_color()
 	get_window().title = "TVBuilder - " + path.get_file().get_basename()
 	InfoManager.write_info("Файл %s загружен" % [path])
-
 		
 func _init():
 	add_child(autosave_timer)
@@ -155,3 +169,90 @@ func parse_Vector2(s:String):
 	var x = float(pos[0].replace("(", ""))
 	var y = float(pos[1].replace(")", ""))
 	return Vector2(x, y)
+
+func save_snippet(path = "test_snippet.json"):
+	if not CopyBuffer.buffer.is_empty():
+		var file = FileAccess.open(path, FileAccess.WRITE)
+		file.store_string(CopyBuffer.copied_to_json())
+		file.close()
+
+var previousDisable
+func load_snippet(mouse_pos, scene, path = "test_snippet.json"):
+	previousDisable = GlobalSettings.disableGlobalInput
+	GlobalSettings.disableGlobalInput = true
+	if not FileAccess.file_exists(path):
+		InfoManager.write_error("Не удалось загрузить сниппет %s: файл не существует" % [path])
+		return
+	var json = JSON.new()
+	var parsed = json.parse_string(FileAccess.get_file_as_string(path))
+	var parsed_ids = []
+	var id_map = {}
+	var event_counter = 0
+	if parsed == null:
+		InfoManager.write_error("Не удалось считать открываемый сниппет")
+		return
+	for ic in parsed.components:
+		if(ic.id in parsed_ids):
+			InfoManager.write_error("В файле найден дубликат элемента. Файл все равно откроется, но его содержимое может не отображаться корректно")
+			continue
+		else:
+			parsed_ids.append(ic.id)
+		var component: CircuitComponent
+		component = load(ComponentManager.ALL_COMPONENTS_LIST[ic.name].logic_class_path).new()
+		var spec = ComponentSpecification.new()
+		spec.initialize_from_json(ComponentManager.ALL_COMPONENTS_LIST[ic.name].config_path)
+		component.initialize(spec, ic)
+		id_map[ic.id] = ComponentManager.last_id + ic.id
+		ComponentManager.change_id(component, ComponentManager.last_id + ic.id)
+		ComponentManager.last_id = max(ComponentManager.last_id, component.id) + 1
+		scene.add_child(component)
+		var event = ComponentCreationEvent.new()
+		event.initialize(component)
+		HistoryBuffer.register_event(event)
+		event_counter += 1
+		var pos = ic.offset.split(",")
+		var x = float(pos[0].replace("(", ""))
+		var y = float(pos[1].replace(")", ""))
+		component.position = Vector2(x, y) + mouse_pos
+	for edge in parsed.netlist:
+		var from_ic = ComponentManager.get_by_id(id_map[edge.from_ic])
+		var from_pin: Pin
+		if from_ic == null:
+			InfoManager.write_error("Ошибка. Не удалось найти компонент с id = %d при загрузке провода" % [id_map[edge.from_ic]])
+			continue
+		for pin in from_ic.pins:
+			if pin.index == edge.from_pin:
+				from_pin = pin
+		if from_pin == null:
+			InfoManager.write_error("Ошибка. Не удалось найти поле 'from', id = %d при загрузке провода" % [id_map[edge.from_ic]])
+			continue
+		var to_ic = ComponentManager.get_by_id(id_map[edge.to_ic])
+		var to_pin: Pin
+		if to_ic == null:
+			InfoManager.write_error("Ошибка. Не удалось найти компонент с id = %d при загрузке провода" % [id_map[edge.to_ic]])
+			continue
+		for pin in to_ic.pins:
+			if pin.index == edge.to_pin:
+				to_pin = pin
+		if to_pin == null:
+			InfoManager.write_error("Ошибка. Не удалось найти поле 'to', id = %d при загрузке провода" % [id_map[edge.to_ic]])
+			continue
+		var wire
+		if "control_points" in edge:
+			var points = []
+			for p in edge.control_points:
+				var pos = p.split(",")
+				var x = float(pos[0].replace("(", ""))
+				var y = float(pos[1].replace(")", ""))
+				points.append(Vector2(x,y) + mouse_pos)
+			wire = WireManager._create_wire(from_pin, to_pin, points)
+		else:
+			wire = WireManager._create_wire(from_pin, to_pin)
+		var event = WireCreationEvent.new()
+		event.initialize(wire)
+		HistoryBuffer.register_event(event)
+		event_counter += 1
+	var event_buff = NEventsBuffer.new()
+	event_buff.initialize(event_counter, [ComponentCreationEvent, WireCreationEvent])
+	HistoryBuffer.register_event(event_buff)
+	GlobalSettings.disableGlobalInput = previousDisable

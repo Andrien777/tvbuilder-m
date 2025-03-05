@@ -16,6 +16,4 @@ func _on_pressed() -> void:
 	GlobalSettings.is_LA_always_on_top = button_pressed
 	GlobalSettings.save()
 	LA_window.always_on_top = button_pressed
-	for sig in signals_container.signals:
-		sig.line_edit.get_menu().always_on_top = button_pressed
 	 

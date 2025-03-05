@@ -132,6 +132,8 @@ func _process(delta: float, force_update = false) -> void:
 		Input.action_release("delete_component")
 		first_object.modulate=Color(1,1,1,1)
 		second_object.modulate=Color(1,1,1,1)
+		first_object.toggle_output_highlight()
+		second_object.toggle_output_highlight()
 		WireManager._delete_wire(self)
 		var event = WireDeletionEvent.new() # We are doing it there (and not in WireManager)
 		# to prevent events creating from the HistoryEvent.undo() call 
@@ -160,9 +162,10 @@ func _input(event: InputEvent) -> void: # This need to be like that because even
 		is_dragged = false
 		get_node("/root/RootNode/Camera2D").lock_pan = false
 		_process(0.0,true) # Recalculate the hitbox
-		var drag_event = ControlPointMoveEvent.new()
-		drag_event.initialize(self,control_point_dragged_from, get_global_mouse_position())
-		HistoryBuffer.register_event(drag_event)
+		if control_point_dragged_from: #TODO: alternative event?
+			var drag_event = ControlPointMoveEvent.new()
+			drag_event.initialize(self,control_point_dragged_from, get_global_mouse_position())
+			HistoryBuffer.register_event(drag_event)
 
 func add_control_point(position):
 	control_points.append(position)

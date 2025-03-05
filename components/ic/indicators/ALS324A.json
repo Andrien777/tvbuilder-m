@@ -38,10 +38,10 @@
 		}
 		,{
 			"index": 4,
-			"direction": "DIRECTION_OUTPUT",
+			"direction": "DIRECTION_INPUT",
 			"position": "LEFT",
 			"readable_name": "Общий катод",
-			"description": "Катод светодиодов, который подключен на общий провод",
+			"description": "Катод светодиодов, который необходимо заземлить",
 			"dependencies": []
 		},{
 			"index": 5,
@@ -106,10 +106,10 @@
 			"dependencies": []
 		},{
 			"index": 12,
-			"direction": "DIRECTION_OUTPUT",
+			"direction": "DIRECTION_INPUT",
 			"position": "RIGHT",
 			"readable_name": "Общий катод",
-			"description": "Катод светодиодов, который подключен на общий провод",
+			"description": "Катод светодиодов, который необходимо заземлить",
 			"dependencies": []
 		}
 		,{

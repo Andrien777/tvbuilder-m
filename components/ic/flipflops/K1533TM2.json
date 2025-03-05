@@ -40,7 +40,7 @@
 			"index": 4,
 			"direction": "DIRECTION_INPUT",
 			"position": "BOTTOM",
-			"readable_name": "S1",
+			"readable_name": "~S1",
 			"description": "Сигнал асинхронной установки в 1",
 			"dependencies": []
 		},{
@@ -100,7 +100,7 @@
 			"index": 10,
 			"direction": "DIRECTION_INPUT",
 			"position": "TOP",
-			"readable_name": "S2",
+			"readable_name": "~S2",
 			"description": "Вход асинхронной установки в 1",
 			"dependencies": []
 		},{

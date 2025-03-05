@@ -23,12 +23,13 @@ func ask_for_input(placeholder:String, callback:Callable, clear_content=true, te
 		textfield.text = ""
 	if text!="":
 		textfield.text = text
+	GlobalSettings.disableGlobalInput = true
+	GlobalSettings.disableWireConnection = true
 	self.show()
 	self.callback = callback
 	
 	textfield.grab_focus()
 	textfield.placeholder_text = placeholder
-	GlobalSettings.disableGlobalInput = true
-	GlobalSettings.disableWireConnection = true
+
 
 	
