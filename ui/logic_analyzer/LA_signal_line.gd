@@ -49,6 +49,9 @@ func _draw():
 				3 if (prev_value == NetConstants.LEVEL.LEVEL_HIGH) else 1
 			)
 			draw_line(Vector2(x, prev_y), Vector2(x, new_y), color, 1)
+		# Separation line
+		if !sig.signal_points.is_empty():
+			draw_line(Vector2(0, height), Vector2(1e10, height), Color.LIGHT_GRAY)
 
 
 func level_to_height(level: NetConstants.LEVEL): 
