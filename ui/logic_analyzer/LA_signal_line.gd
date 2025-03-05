@@ -37,7 +37,7 @@ func _draw():
 		var prev_x = prev_time*zoom_factor
 		
 		if prev_value == NetConstants.LEVEL.LEVEL_Z:
-			draw_line(Vector2(prev_x, 0.5 * height), Vector2(x, 0.5 * height), color, 2)
+			draw_line(Vector2(prev_x, 0.5 * height), Vector2(x, 0.5 * height), color, 5)
 		else:
 			var new_y = level_to_height(value)
 			var prev_y = level_to_height(prev_value)
