@@ -1,9 +1,9 @@
 #include "mini-rv32-module.h"
-#include "mini-rv32ima.h"
 using namespace godot;
 
 RVProc::RVProc() {
-  this->ram_image =
+	this->ram_size = MINI_RV32_RAM_SIZE;
+	this->ram_image =
       new uint8_t[this->ram_size]; // TODO: Is ths the right amount? I don`t
                                    // think so since it will allocate ram_size
                                    // ints, not ram_size bits
@@ -14,6 +14,7 @@ RVProc::RVProc() {
                                                          // memory safety.
   this->core->pc = MINIRV32_RAM_IMAGE_OFFSET; // TODO: this define probably does
                                               // not exist here
+											  // It does, 0x80000000
   //
   this->core->regs[10] = 0x00; // hart ID
   //
@@ -63,6 +64,21 @@ void RVProc::Tick() {
   }
 }
 
-void RVProc::LoadImage() {
-  // TODO: Get it from godot somehow
+void RVProc::LoadImage(PackedByteArray image) {
+  for (int i = 0; i < std::min(image.size(), static_cast<int64_t>(this->ram_size)); i++) {
+	  this->ram_image[i] = image[i];
+  }
+}
+
+void RVProc::LoadDTB(PackedByteArray image) {
+	int dtb_ptr = 0;
+	dtb_ptr = static_cast<int64_t>(this->ram_size) - image.size() - static_cast<int64_t>(sizeof( struct MiniRV32IMAState ));
+  for (int i = 0; i < image.size(); i++) {
+	  this->ram_image[i] = image[i];
+  }
+  core->regs[11] = dtb_ptr?(dtb_ptr+MINIRV32_RAM_IMAGE_OFFSET):0;
+}
+
+uint8_t RVProc::get_x1() {
+	return core->pc;
 }

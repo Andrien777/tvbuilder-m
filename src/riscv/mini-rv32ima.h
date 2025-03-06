@@ -104,9 +104,9 @@ struct MiniRV32IMAState {
 };
 
 #ifndef MINIRV32_STEPPROTO
-MINIRV32_DECORATE int32_t MiniRV32IMAStep(struct MiniRV32IMAState *state,
-                                          uint8_t *image, uint32_t vProcAddress,
-                                          uint32_t elapsedUs, int count);
+// MINIRV32_DECORATE int32_t MiniRV32IMAStep(struct MiniRV32IMAState *state,
+                                          // uint8_t *image, uint32_t vProcAddress,
+                                          // uint32_t elapsedUs, int count);
 #endif
 
 #ifdef MINIRV32_IMPLEMENTATION
