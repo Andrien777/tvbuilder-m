@@ -133,7 +133,7 @@
 							"config_path": "res://components/ic/registers/K1531IR22.json",
 							"logic_class_path": "res://components/ic/registers/K1531IR22.gd"
 						},{
-							"ic_name": "К155ИР13",
+							"ic_name": "К1533ИР13",
 							"config_path": "res://components/ic/registers/K155IR13.json",
 							"logic_class_path": "res://components/ic/registers/K155IR13.gd"
 						}
