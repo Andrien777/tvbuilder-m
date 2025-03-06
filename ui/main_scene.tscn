@@ -1253,7 +1253,7 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("18_awkwq")
 
 [node name="RiscVRegViewer" parent="." instance=ExtResource("67_00hwn")]
-position = Vector2i(0, 36)
+visible = false
 
 [node name="GridSprite" type="Sprite2D" parent="."]
 z_index = -3

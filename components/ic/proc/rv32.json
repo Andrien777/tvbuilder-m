@@ -24,10 +24,31 @@
 		},{
 			"index": 2,
 			"direction": "DIRECTION_INPUT",
-			"position": "TOP",
-			"readable_name": "Print",
+			"position": "BOTTOM",
+			"readable_name": "IN1",
 			"description": "",
 			"dependencies": []
+		},{
+			"index": 3,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "IN2",
+			"description": "",
+			"dependencies": []
+		},{
+			"index": 5,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "OUT1",
+			"description": "",
+			"dependencies": [-1]
+		},{
+			"index": 4,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "OUT2",
+			"description": "",
+			"dependencies": [-1]
 		}
 	]
 }

@@ -82,10 +82,58 @@ void RVProc::LoadDTB(PackedByteArray image) {
   core->regs[11] = dtb_ptr?(dtb_ptr+MINIRV32_RAM_IMAGE_OFFSET):0;
 }
 
-uint8_t RVProc::get_pc() {
+uint32_t RVProc::get_pc() {
 	return core->pc;
 }
 
-uint8_t RVProc::get_x1() {
-	return core->regs[1];
+Array RVProc::get_xreg() {
+	Array arr;
+	for (int i = 0; i < 32; i++) {
+		arr.append(core->regs[i]);
+	}
+	return arr;
 }
+
+uint32_t RVProc::get_mstatus() {
+	return core->mstatus;
+}
+uint32_t RVProc::get_mscratch() {
+	return core->mscratch;
+}
+uint32_t RVProc::get_mtvec() {
+	return core->mtvec;
+}
+uint32_t RVProc::get_mie() {
+	return core->mie;
+}
+uint32_t RVProc::get_mip() {
+	return core->mip;
+}
+uint32_t RVProc::get_mepc() {
+	return core->mepc;
+}
+uint32_t RVProc::get_mtval() {
+	return core->mtval;
+}
+uint32_t RVProc::get_mcause() {
+	return core->mcause;
+}
+Array RVProc::get_memory(uint32_t addr, int size) {
+	Array res;
+	for (uint32_t ptr = addr; ptr < addr + ptr; ptr++) {
+		res.append(this->ram_image[ptr]);
+	}
+	return res;	
+}
+// void Helper::mmio_out(uint32_t addr, uint32_t val){
+	// if (addr == 0x10000000)
+		// mmio_output_field = val;
+	// else
+		// pass //Error
+// }
+// void Helper::mmio_in(uint32_t addr, uint32_t& val){
+	// if(addr == 0x11000000)
+		// val = mmio_input_field;
+	// else
+		// pass //Error
+// }

@@ -95,6 +95,8 @@ struct MiniRV32IMAState {
   uint32_t mepc;
   uint32_t mtval;
   uint32_t mcause;
+  uint32_t mmio_input_field;
+  uint32_t mmio_output_field;
 
   // Note: only a few bits are used.  (Machine = 3, User = 0)
   // Bits 0..1 = privilege.
@@ -258,7 +260,8 @@ MINIRV32_STEPPROTO
             rsval += MINIRV32_RAM_IMAGE_OFFSET;
             if (MINIRV32_MMIO_RANGE(rsval)) // UART, CLNT
             {
-              MINIRV32_HANDLE_MEM_LOAD_CONTROL(rsval, rval);
+              if(rsval == 0x11500000)
+				rval = state->mmio_input_field;
             } else {
               trap = (5 + 1);
               rval = rsval;
@@ -300,7 +303,8 @@ MINIRV32_STEPPROTO
           if (addy >= MINI_RV32_RAM_SIZE - 3) {
             addy += MINIRV32_RAM_IMAGE_OFFSET;
             if (MINIRV32_MMIO_RANGE(addy)) {
-              MINIRV32_HANDLE_MEM_STORE_CONTROL(addy, rs2);
+              if (addy == 0x11000000)
+				state->mmio_output_field = rs2;
             } else {
               trap = (7 + 1); // Store access fault.
               rval = addy;
