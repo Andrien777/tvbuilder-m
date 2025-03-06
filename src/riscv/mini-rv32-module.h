@@ -16,6 +16,7 @@ protected:
   static void _bind_methods() {
     ClassDB::bind_method(D_METHOD("Tick"), &RVProc::Tick);
 	ClassDB::bind_method(D_METHOD("Get_x1"), &RVProc::get_x1);
+	ClassDB::bind_method(D_METHOD("Get_pc"), &RVProc::get_pc);
 	ClassDB::bind_method(D_METHOD("Load_mem", "image"), &RVProc::LoadImage);
 	ClassDB::bind_method(D_METHOD("Load_dtb", "image"), &RVProc::LoadDTB);
     // TODO: Add pin access methods. Maybe some setup methods?
@@ -31,6 +32,7 @@ public:
   void LoadDTB(PackedByteArray image);
   void Tick();
   uint8_t get_x1();
+  uint8_t get_pc();
   RVProc();
   ~RVProc();
 };

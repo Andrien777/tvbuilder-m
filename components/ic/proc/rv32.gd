@@ -14,4 +14,4 @@ func _process_signal():
 		proc_impl.Tick()
 	prev_clk = pin(1).state
 	if pin(2).high:
-		InfoManager.write_info(str(proc_impl.Get_x1()))
+		InfoManager.write_info(str(proc_impl.Get_pc()) + ": " + str(proc_impl.Get_x1()))

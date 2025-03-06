@@ -17,6 +17,7 @@ RVProc::RVProc() {
 											  // It does, 0x80000000
   //
   this->core->regs[10] = 0x00; // hart ID
+  this->cycles_per_step = 1;
   //
   // dtb_ptr should be : dtb_ptr = ram_amt - dtblen - sizeof( struct
   // MiniRV32IMAState ); where dtblen is the size of the dtbfile (until the end
@@ -32,13 +33,15 @@ RVProc::~RVProc() {
                             // to be changed.
 }
 void RVProc::Tick() {
+	printf("We are doing something\n");
   int ret = MiniRV32IMAStep(
       this->core, this->ram_image, 0,
-      0 /* TODO: Why does it need to know the time?
+      *((uint64_t*)&core->cyclel)/* TODO: Why does it need to know the time?
           to use some timers and interrupts. Needs more attention*/
       ,
 
       this->cycles_per_step);
+	 printf("%x\n", ret);
   switch (ret) {
   case 0:
     break;
@@ -74,11 +77,15 @@ void RVProc::LoadDTB(PackedByteArray image) {
 	int dtb_ptr = 0;
 	dtb_ptr = static_cast<int64_t>(this->ram_size) - image.size() - static_cast<int64_t>(sizeof( struct MiniRV32IMAState ));
   for (int i = 0; i < image.size(); i++) {
-	  this->ram_image[i] = image[i];
+	  this->ram_image[dtb_ptr + i] = image[i];
   }
   core->regs[11] = dtb_ptr?(dtb_ptr+MINIRV32_RAM_IMAGE_OFFSET):0;
 }
 
-uint8_t RVProc::get_x1() {
+uint8_t RVProc::get_pc() {
 	return core->pc;
+}
+
+uint8_t RVProc::get_x1() {
+	return core->regs[1];
 }
