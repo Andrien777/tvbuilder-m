@@ -1,4 +1,4 @@
-[gd_scene load_steps=84 format=3 uid="uid://cd0acvbjpyg0w"]
+[gd_scene load_steps=85 format=3 uid="uid://cd0acvbjpyg0w"]
 
 [ext_resource type="Script" uid="uid://dlsn6lmgynqb0" path="res://ui/main_scene.gd" id="1_8vqs3"]
 [ext_resource type="Shader" uid="uid://bbm5aifcn1lfm" path="res://shaders/grid.gdshader" id="2_7ckc8"]
@@ -71,6 +71,7 @@
 [ext_resource type="Texture2D" uid="uid://bxctkpjxqbsxt" path="res://ui/menu_icons/Edit/undo.png" id="60_afg32"]
 [ext_resource type="Script" uid="uid://bbeynoxx878tu" path="res://ui/logic_analyzer/group_signals_accept_dialog.gd" id="60_hkbny"]
 [ext_resource type="Texture2D" uid="uid://bcwd3wfryima0" path="res://ui/menu_icons/Edit/redo.png" id="61_0xmdj"]
+[ext_resource type="PackedScene" uid="uid://bhi80mcdmh34x" path="res://tools/RiscvRegViewer/riscv_reg_viewer.tscn" id="67_00hwn"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7n0h1"]
 shader = ExtResource("2_7ckc8")
@@ -1250,6 +1251,9 @@ theme_override_fonts/font = ExtResource("18_awkwq")
 [node name="cf" type="Label" parent="RegViewer/VBoxContainer/GridContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("18_awkwq")
+
+[node name="RiscVRegViewer" parent="." instance=ExtResource("67_00hwn")]
+position = Vector2i(0, 36)
 
 [node name="GridSprite" type="Sprite2D" parent="."]
 z_index = -3
