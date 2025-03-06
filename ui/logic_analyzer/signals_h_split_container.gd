@@ -4,7 +4,7 @@ signal zoom_changed(new_zoom: float)
 
 const Radix = preload("res://ui/logic_analyzer/Radix.gd").Radix
 
-const SIGNAL_ROW_HEIGHT = 50
+const SIGNAL_ROW_HEIGHT = 55
 const SIGNAL_COLORS: Array[Color] = [
 	Color(1,1,1),
 	Color(0.16862746, 0.85490197, 0.8784314),
@@ -48,7 +48,7 @@ func add_signal(pin: Pin):
 			signal_values_zoom_factor,
 			SIGNAL_COLORS[color_index % SIGNAL_COLORS.size()],
 			SIGNAL_ROW_HEIGHT,
-			pin.parent.id, 
+			pin.parent.id,
 			pin.index,
 			)
 		color_index += 1
@@ -58,6 +58,12 @@ func add_signal(pin: Pin):
 			func():
 				remove_signal(sig)
 		)
+		zoom_changed.connect(
+			func(new_factor: float):
+				if is_instance_valid(sig) and is_instance_valid(sig.signal_line):
+					sig.signal_line.zoom_factor = new_factor
+					sig.signal_line.queue_redraw()
+		)
 		
 		clear_signal_values()
 		redraw()
@@ -66,13 +72,13 @@ func add_signal(pin: Pin):
 func add_group(signals_to_group: Array):
 	var group_name: String = " ".join(
 		PackedStringArray(signals_to_group.map(
-			func(sig): 
+			func(sig):
 				return sig.signal_controller.line_edit.text)
 		)
 	)
 
 	var group_controller = LASignalGroupController.new(
-	   group_name, SIGNAL_ROW_HEIGHT
+		group_name, SIGNAL_ROW_HEIGHT
 	)
 	
 	group_controller.show_signals_changed.connect(
@@ -87,6 +93,13 @@ func add_group(signals_to_group: Array):
 		signals.erase(sig)
 	signals.append(group)
 	signals_container.add_child(group.signal_line)
+	
+	zoom_changed.connect(
+		func(new_factor: float):
+			if is_instance_valid(group) and is_instance_valid(group.signal_line):
+				group.signal_line.zoom_factor = new_factor
+				group.signal_line.queue_redraw()
+	)
 
 	clear_signal_values()
 	redraw()
@@ -232,12 +245,12 @@ func process_analysis_tick() -> void:
 func update_with_current_value(sig: LASignal, time: float):
 	var value = get_current_signal_value(sig)
 	# Pop non-edge values
-	if (sig.signal_points.size() > 2 
-		&& sig.signal_points[-1][1] == value 
+	if (sig.signal_points.size() > 2
+		&& sig.signal_points[-1][1] == value
 		&& sig.signal_points[-2][1] == value):
 		sig.signal_points.pop_back()
 		
-	sig.signal_points.append( 
+	sig.signal_points.append(
 		[time, value]
 	)
 
@@ -271,18 +284,18 @@ func simulate(time_ms: float):
 	var clock_cycle_time = time_ms / clock_cycles
 	
 	for i in range(clock_cycles*2+1):
-		if _simulation_canceled: 
+		if _simulation_canceled:
 			break
 		for sig in signals:
 			if sig is LASignal:
 				var current_signal_value = get_current_signal_value(sig)
-				sig.signal_points.append( 
+				sig.signal_points.append(
 					[(clock_cycle_time * i) / 2, current_signal_value]
 				)
 			elif sig is LASignalGroup:
 				for sig_ in sig.signals:
 					var current_signal_value = get_current_signal_value(sig_)
-					sig_.signal_points.append( 
+					sig_.signal_points.append(
 						[(clock_cycle_time * i) / 2, current_signal_value]
 					)
 		if generator.pin(1).high:
@@ -326,6 +339,10 @@ func remove_signal(sig_to_del: LASignal):
 		pin.toggle_output_highlight()
 		pin.is_tracked = false
 	signals.erase(sig_to_del)
+	for sig in signals:
+		if sig is LASignalGroup:
+			sig.signals.erase(sig_to_del)
+			
 	sig_to_del.signal_controller.queue_free()
 	sig_to_del.signal_line.queue_free()
 
@@ -358,7 +375,7 @@ func set_signal_values_zoom_factor(new_factor: float):
 		["кс", 1e3]
 		]
 		
-	var best_time_unit 
+	var best_time_unit
 	var best_delta_time
 	var best_delta_px = 1 << 63 - 1
 	for time_unit in time_units:
@@ -374,12 +391,7 @@ func set_signal_values_zoom_factor(new_factor: float):
 	time_line.delta_time = best_delta_time
 	time_line.time_unit = best_time_unit[0]
 	
-	for sig in signals:
-		sig.signal_line.zoom_factor = new_factor
-		sig.signal_line.queue_redraw()
-	
-	
-	zoom_changed.emit()
+	zoom_changed.emit(new_factor)
 	
 	draw_graphs()
 
@@ -411,7 +423,7 @@ func draw_graphs():
 		signals_container.custom_minimum_size.x = end_time*signal_values_zoom_factor
 
 
-func level_to_height(level: NetConstants.LEVEL): 
+func level_to_height(level: NetConstants.LEVEL):
 	return (.1 if level == NetConstants.LEVEL.LEVEL_HIGH else .9) * SIGNAL_ROW_HEIGHT
 
 func find_generator() -> FrequencyGenerator:
