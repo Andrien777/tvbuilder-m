@@ -29,9 +29,7 @@ RVProc::RVProc() {
   this->core->extraflags |= 3; // Machine
 }
 void RVProc::Reset(){
-	this->core = (struct MiniRV32IMAState
-                    *)(this->ram_image + this->ram_size -
-                       sizeof(struct MiniRV32IMAState));
+	memset(this->core, 0, sizeof(struct MiniRV32IMAState));
 	this->core->pc = MINIRV32_RAM_IMAGE_OFFSET; // TODO: this define probably does
                                               // not exist here
 											  // It does, 0x80000000

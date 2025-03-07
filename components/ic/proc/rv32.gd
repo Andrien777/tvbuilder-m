@@ -12,14 +12,20 @@ func _ready():
 		proc_impl.Load_dtb(arr)
 	
 func _process_signal():
-	if pin(1).high and pin(1).state != prev_clk:
-		proc_impl.set_mmio(read_pins())
-		proc_impl.Tick()
-		write_pins(proc_impl.get_mmio())
-	prev_clk = pin(1).state
+	if pin(68).low:
+		reset()
+	else:
+		if pin(1).high and pin(1).state != prev_clk:
+			proc_impl.set_mmio(read_pins())
+			proc_impl.Tick()
+			write_pins(proc_impl.get_mmio())
+		prev_clk = pin(1).state
 
 func read_pins():
-	return ((pin(3).high as int) << 1) | (pin(2).high as int)
+	var ret = 0
+	for i in range(32):
+		ret |= (pin(2 + i).high as int) << i
+	return ret
 
 func reset():
 	proc_impl.Reset()
@@ -30,16 +36,15 @@ func reset():
 	if dtb_path:
 		arr = FileAccess.get_file_as_bytes(dtb_path)
 		proc_impl.Load_dtb(arr)
+	proc_impl.set_mmio(0)
+	write_pins(0)
 
 func write_pins(val):
-	if val % 2:
-		pin(5).set_high()
-	else:
-		pin(5).set_low()
-	if val & 2:
-		pin(4).set_high()
-	else:
-		pin(4).set_low()
+	for i in range(32):
+		if val & (1 << i):
+			pin(67-i).set_high()
+		else:
+			pin(67-i).set_low()
 
 func _rmb_action():
 	reg_viewer.bind_proc(self)

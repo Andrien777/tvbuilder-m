@@ -179,7 +179,7 @@
 							"logic_class_path": "res://components/ic/proc/I8088.gd"
 						},
 						{
-							"ic_name": "RV32",
+							"ic_name": "Микроконтроллер RV32-IMA",
 							"config_path": "res://components/ic/proc/rv32.json",
 							"logic_class_path": "res://components/ic/proc/rv32.gd"
 						}
