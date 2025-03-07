@@ -19,9 +19,11 @@ func _ready() -> void:
 	get_window().title = "TVBuilder - New Project"
 	if OS.has_feature("web"):
 		Engine.physics_ticks_per_second = 100
-	var af = load("res://april_fools.tscn").instantiate()
-	add_child(af)
-	af.commence_tomfoolery()
+	var time = Time.get_datetime_dict_from_system()
+	if time.month == 3 and time.day >= 29 or time.month == 4 and time.day <= 3:
+		var af = load("res://april_fools.tscn").instantiate()
+		add_child(af)
+		af.commence_tomfoolery()
 	
 
 func _process(delta: float) -> void:
