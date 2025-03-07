@@ -4,7 +4,7 @@ var proc_impl = RVProc.new();
 var prev_clk = NetConstants.LEVEL.LEVEL_LOW
 @onready var reg_viewer = get_node("/root/RootNode/RiscVRegViewer")
 var mem_path = null
-var dtb_path = "res://sixtyfourmb.dtb"
+var dtb_path = "res://bin/sixtyfourmb.dtb"
 
 func _ready():
 	if dtb_path:

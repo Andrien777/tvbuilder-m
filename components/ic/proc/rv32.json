@@ -6,7 +6,7 @@
 	"textures": [
 		{
 			"name":"LEGACY", 
-			"path":"res://graphics/legacy/ic/i8088_2x.png"
+			"path":"res://graphics/legacy/ic/rv32.png"
 		},
 		{
 			"name":"DEFAULT", 

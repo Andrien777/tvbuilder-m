@@ -166,14 +166,13 @@ layout_mode = 2
 focus_mode = 0
 text = "<"
 
+[node name="TextEdit" type="LineEdit" parent="TabContainer/Memory/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
 [node name="ForwardButton" type="Button" parent="TabContainer/Memory/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 focus_mode = 0
 text = ">"
-
-[node name="StartButton" type="Button" parent="TabContainer/Memory/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-text = "В начало"
 
 [node name="UpdateButton" type="Button" parent="TabContainer/Memory/VBoxContainer/HBoxContainer"]
 layout_mode = 2

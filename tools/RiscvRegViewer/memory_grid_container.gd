@@ -87,7 +87,7 @@ func display_page(page: int):
 		reset_all_labels_style()
 	previous_page = page
 	for i in range(len(addr)):
-		addr[i].text = "%08x" % ((page*16 + i)*16)
+		addr[i].text = "%08x" % ((page*16 + i)*16 + 0x80000000)
 	display()
 
 func write_to_memory():

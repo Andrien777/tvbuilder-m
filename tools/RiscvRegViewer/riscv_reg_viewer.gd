@@ -23,6 +23,7 @@ func bind_proc(p:RV32):
 	$TabContainer/Memory/VBoxContainer/HBoxContainer2/RamNameLabel.text = "%s (%d)" % [proc.readable_name, proc.id]
 	mem_viewer.memory = (proc.proc_impl.get_memory(memory_page * memory_page_size, memory_page_size))
 	mem_viewer.display_page(memory_page)
+	$TabContainer/Memory/VBoxContainer/HBoxContainer/TextEdit.text = str(memory_page)
 
 func _ready():
 	for i in range(32):
@@ -35,6 +36,8 @@ func _ready():
 		reg_labels.append(label)
 		reg_grid.add_child(label)
 	$TabContainer/Memory/VBoxContainer/HBoxContainer2/ContinuousUpdate.button_pressed = true
+	$TabContainer.set_tab_title(0,"Регистры")
+	$TabContainer.set_tab_title(1,"Память")
 	
 
 func _process(_delta):
@@ -98,6 +101,7 @@ func _on_close_requested() -> void:
 func set_memory_page(page):
 	memory_page = page
 	memory_update()
+	$TabContainer/Memory/VBoxContainer/HBoxContainer/TextEdit.text = str(memory_page)
 
 func _on_mem_load(path):
 	proc.load_mem(path)
