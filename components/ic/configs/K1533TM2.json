@@ -1,114 +1,129 @@
 {
-	"name":"К1533ТМ2",
-	"num_pins": 14,
-	"height": 25,
-	"width": 25,
+	"name": "К1533ТМ2",
+	"num_pins": 14.0,
+	"height": 25.0,
+	"width": 25.0,
 	"texture": "res://graphics/photo/KR531TM2.png",
 	"pinSpecifications": [
 		{
-			"index": 1,
+			"index": 1.0,
 			"direction": "DIRECTION_INPUT",
 			"position": "BOTTOM",
 			"readable_name": "~R1",
 			"description": "Вход асинхронного сброса",
 			"dependencies": []
-		},{
-			"index": 2,
+		},
+		{
+			"index": 2.0,
 			"direction": "DIRECTION_INPUT",
 			"position": "BOTTOM",
 			"readable_name": "D1",
 			"description": "Вход D",
 			"dependencies": []
-		},{
-			"index": 3,
+		},
+		{
+			"index": 3.0,
 			"direction": "DIRECTION_INPUT",
 			"position": "BOTTOM",
 			"readable_name": "C1",
 			"description": "Сигнал синхронизации",
 			"dependencies": []
-		}
-		,{
-			"index": 4,
+		},
+		{
+			"index": 4.0,
 			"direction": "DIRECTION_INPUT",
 			"position": "BOTTOM",
 			"readable_name": "S1",
 			"description": "Сигнал асинхронной установки в 1",
 			"dependencies": []
-		},{
-			"index": 5,
+		},
+		{
+			"index": 5.0,
 			"direction": "DIRECTION_OUTPUT",
 			"position": "BOTTOM",
 			"readable_name": "Q1",
 			"description": "Выход",
-			"dependencies": [-1]
-		},{
-			"index": 6,
+			"dependencies": [
+				-1.0
+			]
+		},
+		{
+			"index": 6.0,
 			"direction": "DIRECTION_OUTPUT",
 			"position": "BOTTOM",
 			"readable_name": "~Q1",
 			"description": "Инвертированный выход",
-			"dependencies": [-1]
-		}
-		,{
-			"index": 7,
+			"dependencies": [
+				-1.0
+			]
+		},
+		{
+			"index": 7.0,
 			"direction": "DIRECTION_OUTPUT",
 			"position": "BOTTOM",
 			"readable_name": "GND",
 			"description": "Земля",
 			"dependencies": []
-		}
-		,{
-			"index": 14,
+		},
+		{
+			"index": 14.0,
 			"direction": "DIRECTION_OUTPUT",
 			"position": "TOP",
 			"readable_name": "VCC",
 			"description": "Питание",
 			"dependencies": []
-		}
-		,{
-			"index": 13,
+		},
+		{
+			"index": 13.0,
 			"direction": "DIRECTION_INPUT",
 			"position": "TOP",
 			"readable_name": "R2",
 			"description": "Вход асинхронного сброса",
 			"dependencies": []
-		},{
-			"index": 12,
+		},
+		{
+			"index": 12.0,
 			"direction": "DIRECTION_INPUT",
 			"position": "TOP",
 			"readable_name": "D2",
 			"description": "Вход D",
 			"dependencies": []
-		}
-		,{
-			"index": 11,
+		},
+		{
+			"index": 11.0,
 			"direction": "DIRECTION_INPUT",
 			"position": "TOP",
 			"readable_name": "C2",
 			"description": "Сигнал синронизации",
 			"dependencies": []
-		},{
-			"index": 10,
+		},
+		{
+			"index": 10.0,
 			"direction": "DIRECTION_INPUT",
 			"position": "TOP",
 			"readable_name": "S2",
 			"description": "Вход асинхронной установки в 1",
 			"dependencies": []
-		},{
-			"index": 9,
+		},
+		{
+			"index": 9.0,
 			"direction": "DIRECTION_OUTPUT",
 			"position": "TOP",
 			"readable_name": "Q2",
 			"description": "Выход",
-			"dependencies": [-1]
-		}
-		,{
-			"index": 8,
+			"dependencies": [
+				-1.0
+			]
+		},
+		{
+			"index": 8.0,
 			"direction": "DIRECTION_OUTPUT",
 			"position": "TOP",
 			"readable_name": "~Q2",
 			"description": "Инвертированный выход",
-			"dependencies": [-1]
+			"dependencies": [
+				-1.0
+			]
 		}
 	]
 }
