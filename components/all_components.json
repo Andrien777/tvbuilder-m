@@ -165,6 +165,9 @@
 	},"8088":{
 		"config_path": "res://components/ic/proc/I8088.json",
 		"logic_class_path": "res://components/ic/proc/I8088.gd"
+	},"RV32-IMA":{
+		"config_path": "res://components/ic/proc/rv32.json",
+		"logic_class_path": "res://components/ic/proc/rv32.gd"
 	},"Кварцевый резонатор": {
 		"config_path": "res://components/ic/other/quartz.json",
 		"logic_class_path": "res://components/ic/other/quartz.gd"
