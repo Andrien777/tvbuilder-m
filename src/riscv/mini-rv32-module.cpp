@@ -28,6 +28,26 @@ RVProc::RVProc() {
   // //dtb_pa (Must be valid pointer) (Should be pointer to dtb)
   this->core->extraflags |= 3; // Machine
 }
+void RVProc::Reset(){
+	this->core = (struct MiniRV32IMAState
+                    *)(this->ram_image + this->ram_size -
+                       sizeof(struct MiniRV32IMAState));
+	this->core->pc = MINIRV32_RAM_IMAGE_OFFSET; // TODO: this define probably does
+                                              // not exist here
+											  // It does, 0x80000000
+  //
+  this->core->regs[10] = 0x00; // hart ID
+  this->cycles_per_step = 1;
+  //
+  // dtb_ptr should be : dtb_ptr = ram_amt - dtblen - sizeof( struct
+  // MiniRV32IMAState ); where dtblen is the size of the dtbfile (until the end
+  // mark)
+
+  // this-> core->regs[11] =
+  // dtb_ptr?(dtb_ptr+MINIRV32_RAM_IMAGE_OFFSET):0;
+  // //dtb_pa (Must be valid pointer) (Should be pointer to dtb)
+  this->core->extraflags |= 3;
+}
 RVProc::~RVProc() {
   delete[] this->ram_image; // TODO: If alloc implementation changes, this needs
                             // to be changed.
@@ -120,7 +140,7 @@ uint32_t RVProc::get_mcause() {
 }
 Array RVProc::get_memory(uint32_t addr, int size) {
 	Array res;
-	for (uint32_t ptr = addr; ptr < addr + ptr; ptr++) {
+	for (uint32_t ptr = addr; ptr < addr + size && ptr < this->ram_size; ptr++) {
 		res.append(this->ram_image[ptr]);
 	}
 	return res;	

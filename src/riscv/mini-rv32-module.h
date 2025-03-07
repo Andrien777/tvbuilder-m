@@ -18,6 +18,7 @@ class RVProc : public RefCounted {
 protected:
   static void _bind_methods() {
     ClassDB::bind_method(D_METHOD("Tick"), &RVProc::Tick);
+	ClassDB::bind_method(D_METHOD("Reset"), &RVProc::Reset);
 	ClassDB::bind_method(D_METHOD("get_xreg"), &RVProc::get_xreg);
 	ClassDB::bind_method(D_METHOD("get_pc"), &RVProc::get_pc);
 	ClassDB::bind_method(D_METHOD("get_mstatus"), &RVProc::get_mstatus);
@@ -47,6 +48,7 @@ static uint32_t mmio_output_field;
   void LoadImage(PackedByteArray image); // TODO: Think of valid arguments
   void LoadDTB(PackedByteArray image);
   void Tick();
+  void Reset();
   Array get_xreg();
   uint32_t get_pc();
   uint32_t get_mstatus();
