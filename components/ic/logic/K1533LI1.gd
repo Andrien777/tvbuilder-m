@@ -5,6 +5,10 @@ extends CircuitComponent
 func _ready() -> void:
 	pass # Replace with function body.
 
+func initialize(spec, ic=null):
+	display_name_label = false
+	super.initialize(spec, ic)
+
 func _process_signal():
 	pin(7).set_low()
 	pin(14).set_high()
