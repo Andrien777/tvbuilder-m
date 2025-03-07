@@ -31,6 +31,14 @@
 		"config_path": "res://components/ic/other/led.json",
 		"logic_class_path": "res://components/ic/other/led.gd"
 	},
+	"Группа светодиодов": {
+		"config_path": "res://components/ic/other/led_group.json",
+		"logic_class_path": "res://components/ic/other/led_group.gd"
+	},
+	"Группа переключателей": {
+		"config_path": "res://components/ic/other/switch_group.json",
+		"logic_class_path": "res://components/ic/other/switch_group.gd"
+	},
 	"Светодиод (кр.)": {
 		"config_path": "res://components/ic/other/led.json",
 		"logic_class_path": "res://components/ic/other/led_red.gd"
@@ -74,6 +82,10 @@
 	"2НЕ": {
 		"config_path": "res://components/ic/logic/not2.json",
 		"logic_class_path": "res://components/ic/logic/Not2.gd"
+	},
+	"К1533ИР13": {
+		"config_path": "res://components/ic/registers/K155IR13.json",
+		"logic_class_path": "res://components/ic/registers/K155IR13.gd"
 	},
 	"К155ИР13": {
 		"config_path": "res://components/ic/registers/K155IR13.json",

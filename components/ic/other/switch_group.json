@@ -1,0 +1,76 @@
+{
+	"name":"Группа переключателей",
+	"num_pins": 1,
+	"height": 25,
+	"width": 25,
+	"texture": "res://graphics/legacy/ic/sw_group_background.png",
+	"textures": [
+		{
+			"name":"LEGACY", 
+			"path":"res://graphics/legacy/ic/sw_group_background.png"
+		},
+		{
+			"name":"DEFAULT", 
+			"path":"res://graphics/legacy/ic/sw_group_background.png"
+		}
+		],
+	"pinSpecifications": [
+		{
+			"index": 1,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "SW1",
+			"description": "Выход переключателя 1",
+			"dependencies": []
+		},{
+			"index": 2,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "SW2",
+			"description": "Выход переключателя 2",
+			"dependencies": []
+		},{
+			"index": 3,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "SW3",
+			"description": "Выход переключателя 3",
+			"dependencies": []
+		},{
+			"index": 4,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "SW4",
+			"description": "Выход переключателя 4",
+			"dependencies": []
+		},{
+			"index": 5,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "SW5",
+			"description": "Выход переключателя 5",
+			"dependencies": []
+		},{
+			"index": 6,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "SW6",
+			"description": "Выход переключателя 6",
+			"dependencies": []
+		},{
+			"index": 7,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "SW7",
+			"description": "Выход переключателя 7",
+			"dependencies": []
+		},{
+			"index": 8,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "SW8",
+			"description": "Выход переключателя 8",
+			"dependencies": []
+		}
+	]
+}

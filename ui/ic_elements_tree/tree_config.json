@@ -205,6 +205,11 @@
 					"logic_class_path": "res://components/ic/other/switch.gd"
 				},
 				{
+					"ic_name": "Группа переключателей",
+					"config_path": "res://components/ic/other/switch_group.json",
+					"logic_class_path": "res://components/ic/other/switch_group.gd"
+				},
+				{
 					"ic_name": "Кнопка",
 					"config_path": "res://components/ic/other/button.json",
 					"logic_class_path": "res://components/ic/other/button.gd"
@@ -228,6 +233,11 @@
 					"ic_name": "Светодиод (желтый)",
 					"config_path": "res://components/ic/other/led.json",
 					"logic_class_path": "res://components/ic/other/led_yellow.gd"
+				},
+				{
+					"ic_name": "Группа светодиодов",
+					"config_path": "res://components/ic/other/led_group.json",
+					"logic_class_path": "res://components/ic/other/led_group.gd"
 				},
 				{
 					"ic_name": "АЛС324А",
