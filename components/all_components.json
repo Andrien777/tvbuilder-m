@@ -83,11 +83,11 @@
 		"config_path": "res://components/ic/logic/not2.json",
 		"logic_class_path": "res://components/ic/logic/Not2.gd"
 	},
-	"К1533ИР13": {
+	"К155ИР13": {
 		"config_path": "res://components/ic/registers/K155IR13.json",
 		"logic_class_path": "res://components/ic/registers/K155IR13.gd"
 	},
-	"К155ИР13": {
+	"К1533ИР13": {
 		"config_path": "res://components/ic/registers/K155IR13.json",
 		"logic_class_path": "res://components/ic/registers/K155IR13.gd"
 	},
