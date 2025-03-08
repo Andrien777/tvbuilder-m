@@ -5,8 +5,6 @@ extends CircuitComponent
 func _ready() -> void:
 	pass # Replace with function body.
 
-
-
 func _process_signal():
 	pin(7).set_low()
 	pin(14).set_high()

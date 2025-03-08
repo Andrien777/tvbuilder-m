@@ -66,7 +66,8 @@
 							"ic_name": "К1533ИД4 (2х2х4/3х8)",
 							"config_path": "res://components/ic/demux/K1533ID4.json",
 							"logic_class_path": "res://components/ic/demux/K1533ID4.gd"
-						},{
+						},
+						{
 							"ic_name": "КР1533ИД3 (4х16)",
 							"config_path": "res://components/ic/demux/KR1533ID3.json",
 							"logic_class_path": "res://components/ic/demux/KR1533ID3.gd"
@@ -112,20 +113,23 @@
 							"logic_class_path": "res://components/ic/buffer/DS1008.gd"
 						}
 					]
-				},{
+				},
+				{
 					"group_name": "Триггеры",
 					"subelements": [
 						{
 							"ic_name": "К1533ТМ2 (2xD)",
 							"config_path": "res://components/ic/flipflops/K1533TM2.json",
 							"logic_class_path": "res://components/ic/flipflops/K1533TM2.gd"
-						},{
+						},
+						{
 							"ic_name": "К1531ТВ9 (2xJK)",
 							"config_path": "res://components/ic/flipflops/K1531TV9.json",
 							"logic_class_path": "res://components/ic/flipflops/K1531TV9.gd"
 						}
 					]
-				},{
+				},
+				{
 					"group_name": "Регистры",
 					"subelements": [
 						{
@@ -138,7 +142,8 @@
 							"logic_class_path": "res://components/ic/registers/K155IR13.gd"
 						}
 					]
-				},{
+				},
+				{
 					"group_name": "АЛУ",
 					"subelements": [
 						{
@@ -147,7 +152,8 @@
 							"logic_class_path": "res://components/ic/alu/K531IP3.gd"
 						}
 					]
-				},{
+				},
+				{
 					"group_name": "Счётчики",
 					"subelements": [
 						{
@@ -161,7 +167,8 @@
 							"logic_class_path": "res://components/ic/counters/K1533IE7.gd"
 						}
 					]
-				},{
+				},
+				{
 					"group_name": "Компараторы",
 					"subelements": [
 						{
@@ -170,17 +177,22 @@
 							"logic_class_path": "res://components/ic/comparators/KR1533SP1.gd"
 						}
 					]
-				},{
+				},
+				{
 					"group_name": "Микропроцессоры",
 					"subelements": [
 						{
 							"ic_name": "8088",
 							"config_path": "res://components/ic/proc/I8088.json",
 							"logic_class_path": "res://components/ic/proc/I8088.gd"
+						},
+						{
+							"ic_name": "Микроконтроллер RV32-IMA",
+							"config_path": "res://components/ic/proc/rv32.json",
+							"logic_class_path": "res://components/ic/proc/rv32.gd"
 						}
 					]
 				}
-						
 			]
 		},
 		{
@@ -190,6 +202,11 @@
 					"ic_name": "Переключатель",
 					"config_path": "res://components/ic/other/switch.json",
 					"logic_class_path": "res://components/ic/other/switch.gd"
+				},
+				{
+					"ic_name": "Группа переключателей",
+					"config_path": "res://components/ic/other/switch_group.json",
+					"logic_class_path": "res://components/ic/other/switch_group.gd"
 				},
 				{
 					"ic_name": "Кнопка",
@@ -217,6 +234,11 @@
 					"logic_class_path": "res://components/ic/other/led_yellow.gd"
 				},
 				{
+					"ic_name": "Группа светодиодов",
+					"config_path": "res://components/ic/other/led_group.json",
+					"logic_class_path": "res://components/ic/other/led_group.gd"
+				},
+				{
 					"ic_name": "АЛС324А",
 					"config_path": "res://components/ic/indicators/ALS324A.json",
 					"logic_class_path": "res://components/ic/indicators/ALS324A.gd"
@@ -235,24 +257,27 @@
 					"ic_name": "8284A",
 					"config_path": "res://components/ic/other/8284A.json",
 					"logic_class_path": "res://components/ic/other/8284A.gd"
-				},{
+				},
+				{
 					"ic_name": "Метка",
 					"config_path": "res://components/misc/Labels/TextLabel.json",
 					"logic_class_path": "res://components/misc/Labels/TextLabel.gd"
-				},{
+				},
+				{
 					"ic_name": "Логическая единица (VCC)",
 					"config_path": "res://components/ic/other/constant1.json",
 					"logic_class_path": "res://components/ic/other/constant1.gd"
-				},{
+				},
+				{
 					"ic_name": "Логический ноль (GND)",
 					"config_path": "res://components/ic/other/constant0.json",
 					"logic_class_path": "res://components/ic/other/constant0.gd"
-				},{
+				},
+				{
 					"ic_name": "Резистор",
 					"config_path": "res://components/misc/resistor.json",
 					"logic_class_path": "res://components/misc/resistor.gd"
 				}
-				
 			]
 		}
 	]
