@@ -2,6 +2,7 @@ shader_type canvas_item;
 
 uniform float r = 0;
 uniform vec2 offset = vec2(-0.15, -0.15);
+uniform vec4 modulate = vec4(1, 1, 1, 1);
 
 void vertex() {
 	VERTEX.xy *= 3.;
@@ -23,4 +24,5 @@ void fragment() {
 		real = texture(TEXTURE,uv_normal);
 	}
 	COLOR = mix(shadow,real,real.a);
+	COLOR = COLOR * modulate;
 }

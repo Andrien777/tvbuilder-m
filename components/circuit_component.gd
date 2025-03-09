@@ -22,6 +22,11 @@ var hitbox: CollisionShape2D
 var occluder: LightOccluder2D
 var name_label = Label.new()
 var is_selected = false
+var custom_modulate:
+	get:
+		return Color(sprite.material.get_shader_parameter("modulate"))
+	set(value):
+		sprite.material.set_shader_parameter("modulate", value)
 
 func initialize(spec: ComponentSpecification, ic = null)->void: # Ic field holds saved state and is component-specific
 	self.readable_name = spec.name
@@ -113,10 +118,10 @@ func _process(delta: float) -> void:
 		if self.is_mouse_over:
 			delete_self()
 	is_selected = ComponentManager.selection_area.is_in(self)
-	if is_selected or (is_mouse_over and GlobalSettings.is_selecting()):
-		self.modulate = Color(0.7, 0.7, 1)
-	else:
-		self.modulate = Color(1, 1, 1)
+	if (is_selected or (is_mouse_over and GlobalSettings.is_selecting())) and self.sprite.material is ShaderMaterial:
+		self.custom_modulate = Color(0.7, 0.7, 1)
+	elif self.sprite.material is ShaderMaterial:
+		self.custom_modulate = Color(1, 1, 1)
 
 		
 var tween

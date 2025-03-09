@@ -11,6 +11,8 @@ uniform int BLUR_SUBDIVISIONS = 32;
 uniform float r = 0;
 uniform vec2 offset = vec2(-0.15, -0.15);
 
+uniform vec4 modulate = vec4(1, 1, 1, 1);
+
 void vertex() {
 	VERTEX.xy *= 3.;
 }
@@ -73,4 +75,5 @@ void fragment() {
 		} else real = vec4(0);
 	}
 	COLOR = mix(shadow,real,real.a);
+	COLOR = COLOR * modulate;
 }
