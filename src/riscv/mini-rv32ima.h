@@ -262,6 +262,12 @@ MINIRV32_STEPPROTO
             {
               if(rsval == 0x11500000)
 				rval = state->mmio_input_field;
+			  else if (rsval == 0x11000000)
+				  rval = state->mmio_output_field;
+			  else {
+				  trap = (5 + 1);
+				rval = rsval;
+			  }
             } else {
               trap = (5 + 1);
               rval = rsval;
@@ -305,6 +311,10 @@ MINIRV32_STEPPROTO
             if (MINIRV32_MMIO_RANGE(addy)) {
               if (addy == 0x11000000)
 				state->mmio_output_field = rs2;
+			  else if (addy != 0x11500000) {
+				  trap = (7 + 1); // Store access fault.
+              rval = addy;
+			  }
             } else {
               trap = (7 + 1); // Store access fault.
               rval = addy;
