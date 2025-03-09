@@ -658,7 +658,7 @@ autowrap_mode = 3
 layout_mode = 2
 theme_override_font_sizes/font_size = 10
 text = "Attribution:
-
+RISC-V Emulator by https://github.com/cnlohr
 Icons from:
 - www.flaticon.com
 - fonts.google.com/icons
