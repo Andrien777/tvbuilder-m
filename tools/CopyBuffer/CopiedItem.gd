@@ -23,7 +23,7 @@ func copy(obj: CircuitComponent, mouse_pos: Vector2):
 	self.old_id = obj.id
 	if obj is TextLabel:
 		content = obj.label.text
-	elif obj is DS1008:
+	elif obj is DS1007:
 		content = obj.delay
 	for wire in WireManager.wires:
 		if wire.first_object in obj.pins and wire.second_object.parent.is_selected:

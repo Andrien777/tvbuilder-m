@@ -14,7 +14,7 @@ func initialize(object):
 	self.name=  object.readable_name
 	if object is TextLabel:
 		content = object.label.text
-	elif object is DS1008:
+	elif object is DS1007:
 		content = object.delay
 	# This will require to populate the connections dict with Int -> Object pairs (self pin index -> other Pin object)
 	# The issue is, we don`t know what is connected to a Pin now - only the WireManager knows that
@@ -53,7 +53,7 @@ func redo():
 	self.object = element
 	if object is TextLabel:
 		object.label.text = content
-	elif object is DS1008:
+	elif object is DS1007:
 		object.delay = int(content)
 	ComponentManager.get_node("/root/RootNode").add_child(element) # TODO: idk thats stupid
 	#ComponentManager.add_child(element)  # Thats even more stupid though
