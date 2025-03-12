@@ -117,7 +117,6 @@ func snap_to_grid():
 	
 
 func fully_delete():
-	Input.action_release("delete_component")
 	ComponentManager.remove_object(self)
 	for wire: Wire in WireManager.wires:
 		if wire.first_object in pins or wire.second_object in pins:
@@ -126,7 +125,12 @@ func fully_delete():
 
 
 func delete_self():
+	Input.action_release("delete_component")
 	ComponentManager.add_to_deletion_queue(self)
+	ComponentManager.remove_object(self)
+	for wire: Wire in WireManager.wires:
+		if wire.first_object in pins or wire.second_object in pins:
+			WireManager._delete_wire(wire)
 	var event = ComponentDeletionEvent.new()
 	event.initialize(self)
 	HistoryBuffer.register_event(event)

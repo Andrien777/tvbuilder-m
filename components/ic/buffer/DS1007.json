@@ -1,12 +1,12 @@
 {
-	"name":"DS1008",
-	"num_pins": 18,
+	"name":"DS1007",
+	"num_pins": 16,
 	"height": 25,
 	"width": 25,
 	"textures": [
 		{
 			"name":"LEGACY", 
-			"path":"res://graphics/legacy/ic/20leg_2x.png"
+			"path":"res://graphics/legacy/ic/16leg_2x.png"
 		},
 		{
 			"name":"DEFAULT", 
@@ -18,21 +18,21 @@
 			"index": 1,
 			"direction": "DIRECTION_INPUT",
 			"position": "BOTTOM",
-			"readable_name": "IN0",
+			"readable_name": "IN1",
 			"description": "Шина входа",
 			"dependencies": []
 		},{
 			"index": 2,
 			"direction": "DIRECTION_OUTPUT",
 			"position": "BOTTOM",
-			"readable_name": "OUT0",
+			"readable_name": "OUT1",
 			"description": "Шина выхода",
 			"dependencies": [-1]
 		},{
 			"index": 3,
 			"direction": "DIRECTION_INPUT",
 			"position": "BOTTOM",
-			"readable_name": "IN1",
+			"readable_name": "IN2",
 			"description": "Шина входа",
 			"dependencies": []
 		}
@@ -40,7 +40,7 @@
 			"index": 4,
 			"direction": "DIRECTION_OUTPUT",
 			"position": "BOTTOM",
-			"readable_name": "OUT1",
+			"readable_name": "OUT2",
 			"description": "Шина выхода",
 			"dependencies": [-1]
 		},{
@@ -76,7 +76,7 @@
 		},{
 			"index": 9,
 			"direction": "DIRECTION_OUTPUT",
-			"position": "BOTTOM",
+			"position": "TOP",
 			"readable_name": "OUT6",
 			"description": "Шина выхода",
 			"dependencies": [-1]
@@ -132,21 +132,6 @@
 			"direction": "DIRECTION_INPUT",
 			"position": "TOP",
 			"readable_name": "IN3",
-			"description": "Шина входа",
-			"dependencies": []
-		},{
-			"index": 17,
-			"direction": "DIRECTION_OUTPUT",
-			"position": "TOP",
-			"readable_name": "OUT2",
-			"description": "Шина выхода",
-			"dependencies": [-1]
-		}
-		,{
-			"index": 18,
-			"direction": "DIRECTION_INPUT",
-			"position": "TOP",
-			"readable_name": "IN2",
 			"description": "Шина входа",
 			"dependencies": []
 		}
