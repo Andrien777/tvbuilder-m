@@ -159,9 +159,9 @@
 		"config_path": "res://components/ic/buffer/K1810VA86.json",
 		"logic_class_path": "res://components/ic/buffer/K1810VA86.gd"
 	},
-	"DS1008": {
-		"config_path": "res://components/ic/buffer/DS1008.json",
-		"logic_class_path": "res://components/ic/buffer/DS1008.gd"
+	"DS1007": {
+		"config_path": "res://components/ic/buffer/DS1007.json",
+		"logic_class_path": "res://components/ic/buffer/DS1007.gd"
 	},
 	"К1531ТВ9": {
 		"config_path": "res://components/ic/flipflops/K1531TV9.json",

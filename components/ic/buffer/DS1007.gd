@@ -1,5 +1,5 @@
 extends CircuitComponent
-class_name DS1008
+class_name DS1007
 var inputs
 var outputs
 var fifo: Array[Array]
@@ -45,8 +45,8 @@ func _init() -> void:
 	settings_popup.add_child(lbl)
 	add_child(settings_popup)
 	
-	inputs = [1, 3, 6, 8, 10, 14, 16, 18]
-	outputs = [2, 4, 7, 9, 11, 13, 15, 17]
+	inputs = [1, 3, 6, 8, 10, 14, 16]
+	outputs = [2, 4, 7, 9, 11, 13, 15]
 	fifo = [[], [], [], [], [], [], [], []]
 
 
@@ -62,7 +62,7 @@ func on_text_update(new_text:String):
 	if(new_text.is_valid_int() and int(new_text) > 0):
 		var del = int(new_text)
 		delay = del
-		for i in range(8):
+		for i in range(7):
 			if not fifo[i].is_empty():
 				while fifo[i].size() > delay:
 					fifo[i].pop_front()
@@ -72,7 +72,7 @@ func on_text_update(new_text:String):
 func _process_signal():
 	pin(12).set_low()
 	pin(5).set_high()
-	for i in range(8):
+	for i in range(7):
 		fifo[i].push_front(pin(inputs[i]).state)
 		if fifo[i].size() == delay + 1:
 			pin(outputs[i]).state = fifo[i].pop_back()
