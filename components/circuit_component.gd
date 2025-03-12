@@ -17,29 +17,49 @@ var textures: Dictionary # Holds textures for every graphics mode TODO: Lazy loa
 const side_padding = 10 # TODO: Move side_padding to spec?
 var pins: Array
 var ic_texture = null
-var sprite = null
+var sprite: Sprite2D = null
 var hitbox: CollisionShape2D
+var occluder: LightOccluder2D
 var name_label = Label.new()
 var is_selected = false
+var custom_modulate:
+	get:
+		return Color(sprite.material.get_shader_parameter("modulate"))
+	set(value):
+		sprite.material.set_shader_parameter("modulate", value)
 
 func initialize(spec: ComponentSpecification, ic = null)->void: # Ic field holds saved state and is component-specific
 	self.readable_name = spec.name
 	self.input_pickable = true
 	sprite = Sprite2D.new()
 	sprite.centered = false
+	sprite.texture = CanvasTexture.new()
+	sprite.texture.normal_texture = preload("res://graphics/Asphalt_002_NORM.jpg")
+	sprite.texture.specular_texture = preload("res://graphics/Asphalt_002_ROUGH.jpg")
 	hitbox = CollisionShape2D.new()
 	var shape = RectangleShape2D.new()
 	for t in spec.textures:
 		self.textures[t] = load(spec.textures[t])
+	occluder = LightOccluder2D.new()
+	occluder.occluder = OccluderPolygon2D.new()
+	occluder.occluder.cull_mode = OccluderPolygon2D.CULL_COUNTER_CLOCKWISE
 	change_graphics_mode(GlobalSettings.CurrentGraphicsMode)
-	var current_texture = sprite.texture
+	var current_texture = sprite.texture.diffuse_texture
 	shape.size = current_texture.get_size()
 	hitbox.shape = shape
 	hitbox.position = shape.size/2
 	height = spec.height
 	width = spec.width
+	var vertices = [Vector2(0, 0), Vector2(shape.size.x, 0), shape.size, Vector2(0, shape.size.y), Vector2(0, 0)]
+	occluder.occluder.polygon = vertices
+	sprite.material = ShaderMaterial.new()
+	sprite.material.shader = preload("res://shaders/shadow.gdshader")
+	var offset_x = 2.0 / shape.size.x * 4
+	var offset_y = 2.0 / shape.size.y * 4
+	sprite.material.set_shader_parameter("offset", [-1 * offset_y, -1 * offset_x])
 	add_child(hitbox)
 	add_child(sprite)
+	add_child(occluder)
 	initialize_pins(spec.pinSpecifications, shape.size)
 	if is_instance_valid(name_label):
 		name_label.queue_free()
@@ -98,10 +118,10 @@ func _process(delta: float) -> void:
 		if self.is_mouse_over:
 			delete_self()
 	is_selected = ComponentManager.selection_area.is_in(self)
-	if is_selected or (is_mouse_over and GlobalSettings.is_selecting()):
-		self.modulate = Color(0.7, 0.7, 1)
-	else:
-		self.modulate = Color(1, 1, 1)
+	if (is_selected or (is_mouse_over and GlobalSettings.is_selecting())) and self.sprite and self.sprite.material is ShaderMaterial:
+		self.custom_modulate = Color(0.7, 0.7, 1)
+	elif self.sprite and self.sprite.material is ShaderMaterial:
+		self.custom_modulate = Color(1, 1, 1)
 
 		
 var tween
@@ -197,13 +217,19 @@ func pin(i:int):
 func change_graphics_mode(mode):
 	if sprite==null: return
 	if(self.textures.has(mode.texture_tag)):
-		sprite.texture = self.textures[mode.texture_tag]
+		sprite.texture.diffuse_texture = self.textures[mode.texture_tag]
 	else:
-		sprite.texture = fallback_texture
+		sprite.texture.diffuse_texture = fallback_texture
 	var shape = RectangleShape2D.new()
-	shape.size = sprite.texture.get_size()
+	shape.size = sprite.texture.diffuse_texture.get_size()
 	name_label.position = Vector2(10,shape.size.y/2 - name_label.get_line_height()/2)
 	hitbox.shape = shape
+	var vertices = [Vector2(0, 0), Vector2(shape.size.x, 0), shape.size, Vector2(0, shape.size.y), Vector2(0, 0)]
+	occluder.occluder.polygon = vertices
+	if sprite.material:
+		var offset_x = 2.0 / shape.size.x * 4
+		var offset_y = 2.0 / shape.size.y * 4
+		sprite.material.set_shader_parameter("offset", [-1 * offset_y, -1 * offset_x])
 	update_pins(self.pins, shape.size)
 
 func update_pins(pins:Array, ic_shape:Vector2): 
@@ -240,14 +266,17 @@ func update_pins(pins:Array, ic_shape:Vector2):
 					_pin.rotation_degrees =180
 					_pin.position = Vector2(ic_shape.x/2, 
 					ic_shape.y+5)
+					_pin.sprite.material.set_shader_parameter("offset", [1, 1])
 				"LEFT":
 					_pin.rotation_degrees =270
 					_pin.position = Vector2(-5 , 
 					ic_shape.y/2)
+					_pin.sprite.material.set_shader_parameter("offset", [1, -1])
 				"RIGHT":
 					_pin.rotation_degrees =90
 					_pin.position = Vector2(ic_shape.x+5 , 
 					ic_shape.y/2)
+					_pin.sprite.material.set_shader_parameter("offset", [-1, 1])
 		else:
 			match _pin.ic_position:
 				"TOP":
@@ -260,18 +289,21 @@ func update_pins(pins:Array, ic_shape:Vector2):
 					_pin.position = Vector2(side_padding+ 
 					side_margin[_pin.ic_position]*side_index[_pin.ic_position], 
 					ic_shape.y+5)
+					_pin.sprite.material.set_shader_parameter("offset", [1, 1])
 					side_index[_pin.ic_position]+=1
 				"LEFT":
 					_pin.rotation_degrees =270
 					_pin.position = Vector2(-5 , 
 					side_padding+
 					side_margin[_pin.ic_position]*side_index[_pin.ic_position])
+					_pin.sprite.material.set_shader_parameter("offset", [1, -1])
 					side_index[_pin.ic_position]+=1	
 				"RIGHT":
 					_pin.rotation_degrees =90
 					_pin.position = Vector2(ic_shape.x+5, 
 					side_padding+
 					side_margin[_pin.ic_position]*(side_count[_pin.ic_position] - side_index[_pin.ic_position]-1))
+					_pin.sprite.material.set_shader_parameter("offset", [-1, 1])
 					side_index[_pin.ic_position]+=1
 
 func toggle_output_highlight():

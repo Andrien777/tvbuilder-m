@@ -53,6 +53,8 @@ func _init():
 func initialize(spec: ComponentSpecification, ic = null)->void:
 	self.display_name_label = false
 	super.initialize(spec, ic)
+	sprite.texture.normal_texture = preload("res://graphics/Metal_Galvanized_001_normal.jpg")
+	sprite.texture.specular_texture = preload("res://graphics/Metal_Galvanized_001_roughness.jpg")
 
 func _process(delta: float) -> void:
 	super._process(delta)

@@ -447,6 +447,7 @@ libraries = {
 }
 
 [node name="ToggleSnippesButton" type="Button" parent="UiCanvasLayer/VBoxContainer2/RibbonContainer"]
+visible = false
 layout_mode = 2
 tooltip_text = "Меню сниппетов"
 mouse_filter = 1
@@ -1256,7 +1257,7 @@ theme_override_fonts/font = ExtResource("18_awkwq")
 visible = false
 
 [node name="GridSprite" type="Sprite2D" parent="."]
-z_index = -3
+z_index = -6
 texture_repeat = 2
 texture = ExtResource("19_xavts")
 region_enabled = true
@@ -1307,6 +1308,10 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+rotation = -0.785398
+energy = 0.3
 
 [node name="UnsavedProjectDialog" type="ConfirmationDialog" parent="."]
 title = "Подтверждение"
