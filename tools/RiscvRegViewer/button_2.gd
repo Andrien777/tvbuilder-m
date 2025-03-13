@@ -10,9 +10,11 @@ func _ready():
 
 func _on_successful_load():
 	add_theme_color_override("font_color", Color(0, 1, 0))
+	add_theme_color_override("font_hover_color", Color(0, 1, 0))
 	text = "Успешно загружено"
 	timer.start()
 
 func reset_color():
 	remove_theme_color_override("font_color")
+	remove_theme_color_override("font_hover_color")
 	text = "Пользовательский образ DeviceTree"
