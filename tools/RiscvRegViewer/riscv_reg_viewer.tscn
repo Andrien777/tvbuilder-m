@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://bhi80mcdmh34x"]
+[gd_scene load_steps=8 format=3 uid="uid://bhi80mcdmh34x"]
 
 [ext_resource type="Script" uid="uid://bwl20a0507bvn" path="res://tools/RiscvRegViewer/riscv_reg_viewer.gd" id="1_47aki"]
 [ext_resource type="FontFile" uid="uid://co86tufoji665" path="res://ui/JetBrainsMonoNL-Regular.ttf" id="2_oxtfe"]
 [ext_resource type="Script" uid="uid://bnrggwe7c2a2e" path="res://tools/RiscvRegViewer/file_dialog.gd" id="3_fdhf4"]
+[ext_resource type="Script" uid="uid://25mi47vliusp" path="res://tools/RiscvRegViewer/button.gd" id="3_gq54j"]
 [ext_resource type="Script" uid="uid://87k5yk4rfhcl" path="res://tools/RiscvRegViewer/memory_grid_container.gd" id="3_tu30y"]
 [ext_resource type="Script" uid="uid://cmhiv5odto1qt" path="res://tools/RiscvRegViewer/memory_page_controls.gd" id="4_aerbo"]
+[ext_resource type="Script" uid="uid://08xo62mu6rp8" path="res://tools/RiscvRegViewer/button_2.gd" id="4_sjkvl"]
 
 [node name="Window" type="Window"]
 auto_translate_mode = 1
@@ -104,11 +106,15 @@ text = "mcause: TODO"
 
 [node name="Button" type="Button" parent="TabContainer/Main/ScrollContainer/VBoxContainer2"]
 layout_mode = 2
+focus_mode = 0
 text = "Загрузить образ памяти"
+script = ExtResource("3_gq54j")
 
 [node name="Button2" type="Button" parent="TabContainer/Main/ScrollContainer/VBoxContainer2"]
 layout_mode = 2
+focus_mode = 0
 text = "Пользовательский образ DeviceTree"
+script = ExtResource("4_sjkvl")
 
 [node name="FileDialog" type="FileDialog" parent="TabContainer/Main/ScrollContainer/VBoxContainer2"]
 title = "Open a File"

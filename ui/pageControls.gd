@@ -40,6 +40,7 @@ func _on_mem_load(path):
 		addr+=1
 	file.close()
 	mem_viewer.update()
+	$LoadButton._on_successful_load()
 	var grid = get_node("./../GridContainer/")
 	if grid and is_instance_valid(grid):
 		grid.reset_all_labels_style()

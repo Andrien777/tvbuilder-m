@@ -32,6 +32,7 @@ func update():
 func set_memory(memory):
 	if list.memory!=memory:
 		page = 0
+		$VBoxContainer/HBoxContainer/LoadButton.reset_color()
 	list.memory = memory
 	update()
 	list.reset_all_labels_style()

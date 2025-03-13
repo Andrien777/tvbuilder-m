@@ -24,6 +24,8 @@ func bind_proc(p:RV32):
 	mem_viewer.memory = (proc.proc_impl.get_memory(memory_page * memory_page_size, memory_page_size))
 	mem_viewer.display_page(memory_page)
 	$TabContainer/Memory/VBoxContainer/HBoxContainer/TextEdit.text = str(memory_page)
+	$TabContainer/Main/ScrollContainer/VBoxContainer2/Button.reset_color()
+	$TabContainer/Main/ScrollContainer/VBoxContainer2/Button2.reset_color()
 
 func _ready():
 	for i in range(32):
@@ -105,6 +107,8 @@ func set_memory_page(page):
 
 func _on_mem_load(path):
 	proc.load_mem(path)
+	$TabContainer/Main/ScrollContainer/VBoxContainer2/Button._on_successful_load()
 
 func _on_dtb_load(path):
 	proc.load_dtb(path)
+	$TabContainer/Main/ScrollContainer/VBoxContainer2/Button2._on_successful_load()

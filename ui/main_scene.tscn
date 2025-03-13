@@ -1,4 +1,4 @@
-[gd_scene load_steps=85 format=3 uid="uid://cd0acvbjpyg0w"]
+[gd_scene load_steps=86 format=3 uid="uid://cd0acvbjpyg0w"]
 
 [ext_resource type="Script" uid="uid://dlsn6lmgynqb0" path="res://ui/main_scene.gd" id="1_8vqs3"]
 [ext_resource type="Shader" uid="uid://bbm5aifcn1lfm" path="res://shaders/grid.gdshader" id="2_7ckc8"]
@@ -71,6 +71,7 @@
 [ext_resource type="Texture2D" uid="uid://bxctkpjxqbsxt" path="res://ui/menu_icons/Edit/undo.png" id="60_afg32"]
 [ext_resource type="Script" uid="uid://bbeynoxx878tu" path="res://ui/logic_analyzer/group_signals_accept_dialog.gd" id="60_hkbny"]
 [ext_resource type="Texture2D" uid="uid://bcwd3wfryima0" path="res://ui/menu_icons/Edit/redo.png" id="61_0xmdj"]
+[ext_resource type="Script" uid="uid://cm0rwm6srr5uw" path="res://ui/load_button.gd" id="65_apwb3"]
 [ext_resource type="PackedScene" uid="uid://bhi80mcdmh34x" path="res://tools/RiscvRegViewer/riscv_reg_viewer.tscn" id="67_00hwn"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7n0h1"]
@@ -946,6 +947,7 @@ text = "Обновить"
 layout_mode = 2
 focus_mode = 0
 text = "Загрузить из файла"
+script = ExtResource("65_apwb3")
 
 [node name="FileDialog" type="FileDialog" parent="MemoryViewer/VBoxContainer/HBoxContainer"]
 title = "Open a File"
