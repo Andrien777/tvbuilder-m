@@ -255,4 +255,4 @@ func load_snippet(mouse_pos, scene, path = "test_snippet.json"):
 	var event_buff = NEventsBuffer.new()
 	event_buff.initialize(event_counter, [ComponentCreationEvent, WireCreationEvent])
 	HistoryBuffer.register_event(event_buff)
-	GlobalSettings.disableGlobalInput = previousDisable
+	GlobalSettings.disableGlobalInput = previousDisable and GlobalSettings.disableGlobalInput

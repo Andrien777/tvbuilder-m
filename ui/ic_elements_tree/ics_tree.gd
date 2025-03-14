@@ -81,4 +81,4 @@ func _on_mouse_entered() -> void:
 func _on_mouse_exited() -> void:
 	if timer.is_stopped():
 		get_node("/root/RootNode/Camera2D").lock_pan = false
-	GlobalSettings.disableGlobalInput = previousGlobalInputState
+	GlobalSettings.disableGlobalInput = previousGlobalInputState and GlobalSettings.disableGlobalInput

@@ -8,4 +8,4 @@ func _on_mouse_entered() -> void:
 
 
 func _on_mouse_exited() -> void:
-	GlobalSettings.disableGlobalInput = previousGlobalInput
+	GlobalSettings.disableGlobalInput = previousGlobalInput and GlobalSettings.disableGlobalInput
