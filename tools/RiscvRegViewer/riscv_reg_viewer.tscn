@@ -1,0 +1,214 @@
+[gd_scene load_steps=8 format=3 uid="uid://bhi80mcdmh34x"]
+
+[ext_resource type="Script" uid="uid://bwl20a0507bvn" path="res://tools/RiscvRegViewer/riscv_reg_viewer.gd" id="1_47aki"]
+[ext_resource type="FontFile" uid="uid://co86tufoji665" path="res://ui/JetBrainsMonoNL-Regular.ttf" id="2_oxtfe"]
+[ext_resource type="Script" uid="uid://bnrggwe7c2a2e" path="res://tools/RiscvRegViewer/file_dialog.gd" id="3_fdhf4"]
+[ext_resource type="Script" uid="uid://25mi47vliusp" path="res://tools/RiscvRegViewer/button.gd" id="3_gq54j"]
+[ext_resource type="Script" uid="uid://87k5yk4rfhcl" path="res://tools/RiscvRegViewer/memory_grid_container.gd" id="3_tu30y"]
+[ext_resource type="Script" uid="uid://cmhiv5odto1qt" path="res://tools/RiscvRegViewer/memory_page_controls.gd" id="4_aerbo"]
+[ext_resource type="Script" uid="uid://08xo62mu6rp8" path="res://tools/RiscvRegViewer/button_2.gd" id="4_sjkvl"]
+
+[node name="Window" type="Window"]
+auto_translate_mode = 1
+title = "RISCV"
+initial_position = 2
+size = Vector2i(555, 625)
+unresizable = true
+script = ExtResource("1_47aki")
+
+[node name="TabContainer" type="TabContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+current_tab = 0
+tab_focus_mode = 0
+
+[node name="Main" type="VBoxContainer" parent="TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Main"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="TabContainer/Main/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="TabContainer/Main/ScrollContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Регистры"
+
+[node name="HSeparator" type="HSeparator" parent="TabContainer/Main/ScrollContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="RegGridContainer" type="GridContainer" parent="TabContainer/Main/ScrollContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/h_separation = 15
+theme_override_constants/v_separation = 10
+columns = 4
+
+[node name="HSeparator2" type="HSeparator" parent="TabContainer/Main/ScrollContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="ProgramCounterLabel" type="Label" parent="TabContainer/Main/ScrollContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_oxtfe")
+text = "pc: UNDEFINED"
+
+[node name="GridContainer" type="GridContainer" parent="TabContainer/Main/ScrollContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/h_separation = 15
+columns = 2
+
+[node name="reg_mstatus" type="Label" parent="TabContainer/Main/ScrollContainer/VBoxContainer2/GridContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_oxtfe")
+text = "mstatus: TODO"
+
+[node name="reg_mscratch" type="Label" parent="TabContainer/Main/ScrollContainer/VBoxContainer2/GridContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_oxtfe")
+text = "mscratch: TODO"
+
+[node name="reg_mtvec" type="Label" parent="TabContainer/Main/ScrollContainer/VBoxContainer2/GridContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_oxtfe")
+text = "mtvec: TODO"
+
+[node name="reg_mie" type="Label" parent="TabContainer/Main/ScrollContainer/VBoxContainer2/GridContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_oxtfe")
+text = "mie: TODO"
+
+[node name="reg_mip" type="Label" parent="TabContainer/Main/ScrollContainer/VBoxContainer2/GridContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_oxtfe")
+text = "mip: TODO"
+
+[node name="reg_mepc" type="Label" parent="TabContainer/Main/ScrollContainer/VBoxContainer2/GridContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_oxtfe")
+text = "mepc: TODO"
+
+[node name="reg_tval" type="Label" parent="TabContainer/Main/ScrollContainer/VBoxContainer2/GridContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_oxtfe")
+text = "mtval: TODO"
+
+[node name="reg_mcause" type="Label" parent="TabContainer/Main/ScrollContainer/VBoxContainer2/GridContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_oxtfe")
+text = "mcause: TODO"
+
+[node name="Button" type="Button" parent="TabContainer/Main/ScrollContainer/VBoxContainer2"]
+layout_mode = 2
+focus_mode = 0
+text = "Загрузить образ памяти"
+script = ExtResource("3_gq54j")
+
+[node name="Button2" type="Button" parent="TabContainer/Main/ScrollContainer/VBoxContainer2"]
+layout_mode = 2
+focus_mode = 0
+text = "Пользовательский образ DeviceTree"
+script = ExtResource("4_sjkvl")
+
+[node name="FileDialog" type="FileDialog" parent="TabContainer/Main/ScrollContainer/VBoxContainer2"]
+title = "Open a File"
+initial_position = 2
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+use_native_dialog = true
+script = ExtResource("3_fdhf4")
+
+[node name="Memory" type="VBoxContainer" parent="TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Memory"]
+layout_mode = 2
+focus_mode = 2
+alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="TabContainer/Memory/VBoxContainer"]
+layout_mode = 2
+
+[node name="RamNameLabel" type="Label" parent="TabContainer/Memory/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+focus_mode = 2
+text = "Имя элемента памяти"
+
+[node name="ContinuousUpdate" type="CheckBox" parent="TabContainer/Memory/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Постоянное обновление"
+
+[node name="GridContainer" type="GridContainer" parent="TabContainer/Memory/VBoxContainer"]
+layout_mode = 2
+focus_mode = 2
+columns = 17
+script = ExtResource("3_tu30y")
+
+[node name="ItemList" type="ItemList" parent="TabContainer/Memory/VBoxContainer"]
+layout_mode = 2
+max_columns = 0
+
+[node name="Label" type="Label" parent="TabContainer/Memory/VBoxContainer/ItemList"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Память???"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Memory/VBoxContainer"]
+layout_mode = 2
+script = ExtResource("4_aerbo")
+
+[node name="BackwardButton" type="Button" parent="TabContainer/Memory/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+text = "<"
+
+[node name="TextEdit" type="LineEdit" parent="TabContainer/Memory/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="ForwardButton" type="Button" parent="TabContainer/Memory/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+text = ">"
+
+[node name="UpdateButton" type="Button" parent="TabContainer/Memory/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+text = "Обновить"
+
+[node name="ResetSelectionButton" type="Button" parent="TabContainer/Memory/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+text = "Снять выделение"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="TabContainer/Memory/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/Memory/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "  Перейти к адресу: "
+
+[node name="LineEdit" type="LineEdit" parent="TabContainer/Memory/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_length = 8
+
+[node name="ResetStyleOnPageChangeButton" type="CheckButton" parent="TabContainer/Memory/VBoxContainer"]
+layout_mode = 2
+button_pressed = true
+text = "Снимать выделение при переключении страниц"
+
+[connection signal="close_requested" from="." to="." method="_on_close_requested"]
+[connection signal="pressed" from="TabContainer/Main/ScrollContainer/VBoxContainer2/Button" to="TabContainer/Main/ScrollContainer/VBoxContainer2/FileDialog" method="_on_load_mem_button_pressed"]
+[connection signal="pressed" from="TabContainer/Main/ScrollContainer/VBoxContainer2/Button2" to="TabContainer/Main/ScrollContainer/VBoxContainer2/FileDialog" method="_on_load_dtb_button_pressed"]
+[connection signal="pressed" from="TabContainer/Memory/VBoxContainer/HBoxContainer/ResetSelectionButton" to="TabContainer/Memory/VBoxContainer/GridContainer" method="reset_all_labels_style"]
+[connection signal="toggled" from="TabContainer/Memory/VBoxContainer/ResetStyleOnPageChangeButton" to="TabContainer/Memory/VBoxContainer/GridContainer" method="_on_reset_style_on_page_change_button_toggled"]

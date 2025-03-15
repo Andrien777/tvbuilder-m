@@ -8,8 +8,6 @@ var signal_line: Control
 var group_controller: LASignalGroupController
 
 var signals: Array
-var displayed_name: String:
-	set = set_displayed_name
 var radix: Radix
 
 func _init(
@@ -27,14 +25,10 @@ func _init(
 	group_controller.radix_changed.connect(
 		func(radix):
 			self.radix = radix
+			signal_line.queue_redraw()
 	)
 
 	self.signal_line = signal_line
 	self.radix = radix
 	self.group_controller = group_controller
 	self.signals = signals
-	
-func set_displayed_name(value: String):
-	displayed_name = value
-	group_controller.line_edit.text = displayed_name
-	

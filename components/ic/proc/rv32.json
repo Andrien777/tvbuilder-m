@@ -1,0 +1,626 @@
+{
+	"name": "RV32-IMA",
+	"num_pins": 68.0,
+	"height": 25.0,
+	"width": 25.0,
+	"textures": [
+		{
+			"name": "LEGACY",
+			"path": "res://graphics/legacy/ic/rv32.png"
+		},
+		{
+			"name": "DEFAULT",
+			"path": "res://components/ic/ic.png"
+		}
+	],
+	"pinSpecifications": [
+		{
+			"index": 1.0,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "CLK",
+			"description": "",
+			"dependencies": []
+		},
+		{
+			"index": 33,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "IN1",
+			"description": "Шина ввода MMI/O",
+			"dependencies": []
+		},
+		{
+			"index": 32,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "IN2",
+			"description": "Шина ввода MMI/O",
+			"dependencies": []
+		},
+		{
+			"index": 31,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "IN3",
+			"description": "Шина ввода MMI/O",
+			"dependencies": []
+		},
+		{
+			"index": 30,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "IN4",
+			"description": "Шина ввода MMI/O",
+			"dependencies": []
+		},
+		{
+			"index": 29,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "IN5",
+			"description": "Шина ввода MMI/O",
+			"dependencies": []
+		},
+		{
+			"index": 28,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "IN6",
+			"description": "Шина ввода MMI/O",
+			"dependencies": []
+		},
+		{
+			"index": 27,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "IN7",
+			"description": "Шина ввода MMI/O",
+			"dependencies": []
+		},
+		{
+			"index": 26,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "IN8",
+			"description": "Шина ввода MMI/O",
+			"dependencies": []
+		},
+		{
+			"index": 25,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "IN9",
+			"description": "Шина ввода MMI/O",
+			"dependencies": []
+		},
+		{
+			"index": 24,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "IN10",
+			"description": "Шина ввода MMI/O",
+			"dependencies": []
+		},
+		{
+			"index": 23,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "IN11",
+			"description": "Шина ввода MMI/O",
+			"dependencies": []
+		},
+		{
+			"index": 22,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "IN12",
+			"description": "Шина ввода MMI/O",
+			"dependencies": []
+		},
+		{
+			"index": 21,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "IN13",
+			"description": "Шина ввода MMI/O",
+			"dependencies": []
+		},
+		{
+			"index": 20,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "IN14",
+			"description": "Шина ввода MMI/O",
+			"dependencies": []
+		},
+		{
+			"index": 19,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "IN15",
+			"description": "Шина ввода MMI/O",
+			"dependencies": []
+		},
+		{
+			"index": 18,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "IN16",
+			"description": "Шина ввода MMI/O",
+			"dependencies": []
+		},
+		{
+			"index": 17,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "IN17",
+			"description": "Шина ввода MMI/O",
+			"dependencies": []
+		},
+		{
+			"index": 16,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "IN18",
+			"description": "Шина ввода MMI/O",
+			"dependencies": []
+		},
+		{
+			"index": 15,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "IN19",
+			"description": "Шина ввода MMI/O",
+			"dependencies": []
+		},
+		{
+			"index": 14,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "IN20",
+			"description": "Шина ввода MMI/O",
+			"dependencies": []
+		},
+		{
+			"index": 13,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "IN21",
+			"description": "Шина ввода MMI/O",
+			"dependencies": []
+		},
+		{
+			"index": 12,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "IN22",
+			"description": "Шина ввода MMI/O",
+			"dependencies": []
+		},
+		{
+			"index": 11,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "IN23",
+			"description": "Шина ввода MMI/O",
+			"dependencies": []
+		},
+		{
+			"index": 10,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "IN24",
+			"description": "Шина ввода MMI/O",
+			"dependencies": []
+		},
+		{
+			"index": 9,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "IN25",
+			"description": "Шина ввода MMI/O",
+			"dependencies": []
+		},
+		{
+			"index": 8,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "IN26",
+			"description": "Шина ввода MMI/O",
+			"dependencies": []
+		},
+		{
+			"index": 7,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "IN27",
+			"description": "Шина ввода MMI/O",
+			"dependencies": []
+		},
+		{
+			"index": 6,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "IN28",
+			"description": "Шина ввода MMI/O",
+			"dependencies": []
+		},
+		{
+			"index": 5,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "IN29",
+			"description": "Шина ввода MMI/O",
+			"dependencies": []
+		},
+		{
+			"index": 4,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "IN30",
+			"description": "Шина ввода MMI/O",
+			"dependencies": []
+		},
+		{
+			"index": 3,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "IN31",
+			"description": "Шина ввода MMI/O",
+			"dependencies": []
+		},
+		{
+			"index": 2,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "IN32",
+			"description": "Шина ввода MMI/O",
+			"dependencies": []
+		},
+		{
+			"index": 34.0,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "GND",
+			"description": "Общий провод (земля)",
+			"dependencies": []
+		},
+		{
+			"index": 35.0,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "VCC",
+			"description": "Питание",
+			"dependencies": []
+		},
+		{
+			"index": 36,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "OUT1",
+			"description": "Шина вывода MMI/O",
+			"dependencies": [
+				-1.0
+			]
+		},
+		{
+			"index": 37,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "OUT2",
+			"description": "Шина вывода MMI/O",
+			"dependencies": [
+				-1.0
+			]
+		},
+		{
+			"index": 38,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "OUT3",
+			"description": "Шина вывода MMI/O",
+			"dependencies": [
+				-1.0
+			]
+		},
+		{
+			"index": 39,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "OUT4",
+			"description": "Шина вывода MMI/O",
+			"dependencies": [
+				-1.0
+			]
+		},
+		{
+			"index": 40,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "OUT5",
+			"description": "Шина вывода MMI/O",
+			"dependencies": [
+				-1.0
+			]
+		},
+		{
+			"index": 41,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "OUT6",
+			"description": "Шина вывода MMI/O",
+			"dependencies": [
+				-1.0
+			]
+		},
+		{
+			"index": 42,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "OUT7",
+			"description": "Шина вывода MMI/O",
+			"dependencies": [
+				-1.0
+			]
+		},
+		{
+			"index": 43,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "OUT8",
+			"description": "Шина вывода MMI/O",
+			"dependencies": [
+				-1.0
+			]
+		},
+		{
+			"index": 44,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "OUT9",
+			"description": "Шина вывода MMI/O",
+			"dependencies": [
+				-1.0
+			]
+		},
+		{
+			"index": 45,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "OUT10",
+			"description": "Шина вывода MMI/O",
+			"dependencies": [
+				-1.0
+			]
+		},
+		{
+			"index": 46,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "OUT11",
+			"description": "Шина вывода MMI/O",
+			"dependencies": [
+				-1.0
+			]
+		},
+		{
+			"index": 47,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "OUT12",
+			"description": "Шина вывода MMI/O",
+			"dependencies": [
+				-1.0
+			]
+		},
+		{
+			"index": 48,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "OUT13",
+			"description": "Шина вывода MMI/O",
+			"dependencies": [
+				-1.0
+			]
+		},
+		{
+			"index": 49,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "OUT14",
+			"description": "Шина вывода MMI/O",
+			"dependencies": [
+				-1.0
+			]
+		},
+		{
+			"index": 50,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "OUT15",
+			"description": "Шина вывода MMI/O",
+			"dependencies": [
+				-1.0
+			]
+		},
+		{
+			"index": 51,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "OUT16",
+			"description": "Шина вывода MMI/O",
+			"dependencies": [
+				-1.0
+			]
+		},
+		{
+			"index": 52,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "OUT17",
+			"description": "Шина вывода MMI/O",
+			"dependencies": [
+				-1.0
+			]
+		},
+		{
+			"index": 53,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "OUT18",
+			"description": "Шина вывода MMI/O",
+			"dependencies": [
+				-1.0
+			]
+		},
+		{
+			"index": 54,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "OUT19",
+			"description": "Шина вывода MMI/O",
+			"dependencies": [
+				-1.0
+			]
+		},
+		{
+			"index": 55,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "OUT20",
+			"description": "Шина вывода MMI/O",
+			"dependencies": [
+				-1.0
+			]
+		},
+		{
+			"index": 56,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "OUT21",
+			"description": "Шина вывода MMI/O",
+			"dependencies": [
+				-1.0
+			]
+		},
+		{
+			"index": 57,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "OUT22",
+			"description": "Шина вывода MMI/O",
+			"dependencies": [
+				-1.0
+			]
+		},
+		{
+			"index": 58,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "OUT23",
+			"description": "Шина вывода MMI/O",
+			"dependencies": [
+				-1.0
+			]
+		},
+		{
+			"index": 59,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "OUT24",
+			"description": "Шина вывода MMI/O",
+			"dependencies": [
+				-1.0
+			]
+		},
+		{
+			"index": 60,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "OUT25",
+			"description": "Шина вывода MMI/O",
+			"dependencies": [
+				-1.0
+			]
+		},
+		{
+			"index": 61,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "OUT26",
+			"description": "Шина вывода MMI/O",
+			"dependencies": [
+				-1.0
+			]
+		},
+		{
+			"index": 62,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "OUT27",
+			"description": "Шина вывода MMI/O",
+			"dependencies": [
+				-1.0
+			]
+		},
+		{
+			"index": 63,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "OUT28",
+			"description": "Шина вывода MMI/O",
+			"dependencies": [
+				-1.0
+			]
+		},
+		{
+			"index": 64,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "OUT29",
+			"description": "Шина вывода MMI/O",
+			"dependencies": [
+				-1.0
+			]
+		},
+		{
+			"index": 65,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "OUT30",
+			"description": "Шина вывода MMI/O",
+			"dependencies": [
+				-1.0
+			]
+		},
+		{
+			"index": 66,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "OUT31",
+			"description": "Шина вывода MMI/O",
+			"dependencies": [
+				-1.0
+			]
+		},
+		{
+			"index": 67,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "OUT32",
+			"description": "Шина вывода MMI/O",
+			"dependencies": [
+				-1.0
+			]
+		},
+		{
+			"index": 68.0,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "RESET",
+			"description": "Вход сброса",
+			"dependencies": []
+		}
+	]
+}

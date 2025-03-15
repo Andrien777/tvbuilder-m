@@ -10,9 +10,10 @@ var texture_up = preload("res://graphics/legacy/switch/sw_up.png")
 var texture_down = preload("res://graphics/legacy/switch/sw_down.png")
 var texture_default = preload("res://icon.svg")
 var sprite: Sprite2D
-var parent: Switch
+var parent
 var button_hitbox
-func initialize(parent: Switch)->void:
+var index
+func initialize(parent, i = null)->void:
 	self.input_pickable = true
 	sprite = Sprite2D.new()
 	self.scale = Vector2(1,1) if GlobalSettings.CurrentGraphicsMode==LegacyGraphicsMode else Vector2(1,1)
@@ -27,6 +28,8 @@ func initialize(parent: Switch)->void:
 	add_child(sprite)
 	add_child(button_hitbox)
 	self.parent = parent
+	if i != null:
+		index = i
 	
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -36,11 +39,18 @@ func _process(delta: float) -> void:
 func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_RIGHT:
 		viewport.set_input_as_handled()
-		parent.on = not parent.on
-		if parent.on:
-			set_on()
+		if index != null:
+			parent.on[7 - index] = not parent.on[7 - index]
+			if parent.on[7 - index]:
+				set_on()
+			else:
+				set_off()
 		else:
-			set_off()
+			parent.on = not parent.on
+			if parent.on:
+				set_on()
+			else:
+				set_off()
 	
 func set_on():
 	if GlobalSettings.CurrentGraphicsMode==LegacyGraphicsMode:
@@ -71,8 +81,14 @@ func change_graphics_mode(mode):
 	var shape = RectangleShape2D.new()
 	shape.size = sprite.texture.get_size()
 	button_hitbox.shape = shape
-	if parent.on:
-		set_on()
+	if index != null:
+		if parent.on[7 - index]:
+			set_on()
+		else:
+			set_off()
 	else:
-		set_off()
+		if parent.on:
+			set_on()
+		else:
+			set_off()
 	

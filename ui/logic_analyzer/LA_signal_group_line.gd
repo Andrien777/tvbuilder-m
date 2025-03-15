@@ -16,6 +16,8 @@ func _init(
 	self.zoom_factor = zoom_factor
 	self.sig_group = sig_group
 	self.height = height
+	custom_minimum_size.y = height
+	size.y = height
 
 
 func _draw():
@@ -43,8 +45,11 @@ func _draw():
 				if edge[0] < closest_edge[0]:
 					closest_edge = edge
 					closest_edge_time_sig_ind = sig_ind
-		
-		value_binary[closest_edge_time_sig_ind] = str(closest_edge[1])
+					
+		if (closest_edge[1] == NetConstants.LEVEL.LEVEL_Z):
+			value_binary[closest_edge_time_sig_ind] = "Z"  
+		else:
+			value_binary[closest_edge_time_sig_ind] = str(closest_edge[1])
 		var value_binary_reversed = value_binary.reverse()
 		var value = binary_to_radix(value_binary_reversed, sig_group.radix)
 		
@@ -90,6 +95,11 @@ func _draw():
 
 
 func binary_to_radix(value_binary: String, radix: Radix) -> String:
+	if radix == Radix.BINARY: 
+		return value_binary
+	if value_binary.contains("Z"): 
+		return "Z"
+		
 	var value = ""
 	if radix == Radix.BINARY_DECIMAL:
 		var binary_reversed = value_binary
@@ -100,8 +110,6 @@ func binary_to_radix(value_binary: String, radix: Radix) -> String:
 			digit += "0".repeat(4 - digit.length())
 			value += str(digit.bin_to_int())
 			i += 4
-	elif radix == Radix.BINARY:
-		value = value_binary
 	else:
 		value = str(String.num_int64(value_binary.bin_to_int(), radix, true))
 	return value
