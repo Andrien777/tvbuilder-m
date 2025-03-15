@@ -12,7 +12,7 @@
 auto_translate_mode = 1
 title = "RISCV"
 initial_position = 2
-size = Vector2i(555, 600)
+size = Vector2i(555, 625)
 unresizable = true
 script = ExtResource("1_47aki")
 
@@ -189,6 +189,18 @@ text = "Обновить"
 layout_mode = 2
 focus_mode = 0
 text = "Снять выделение"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="TabContainer/Memory/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/Memory/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "  Перейти к адресу: "
+
+[node name="LineEdit" type="LineEdit" parent="TabContainer/Memory/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_length = 8
 
 [node name="ResetStyleOnPageChangeButton" type="CheckButton" parent="TabContainer/Memory/VBoxContainer"]
 layout_mode = 2

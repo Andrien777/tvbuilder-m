@@ -17,12 +17,17 @@ var continuous_memory_update = true
 @onready var mem_viewer = $TabContainer/Memory/VBoxContainer/GridContainer
 var memory_page = 0
 var memory_page_size = 256
+var addr_regex = RegEx.create_from_string("^[0-9A-Fa-f]{0,8}$")
+@onready var seek_edit: LineEdit = get_node("TabContainer/Memory/VBoxContainer/HBoxContainer3/LineEdit")
 
 func bind_proc(p:RV32):
+	if not proc or proc != p:
+		memory_page = 0
 	proc = p
 	$TabContainer/Memory/VBoxContainer/HBoxContainer2/RamNameLabel.text = "%s (%d)" % [proc.readable_name, proc.id]
 	mem_viewer.memory = (proc.proc_impl.get_memory(memory_page * memory_page_size, memory_page_size))
 	mem_viewer.display_page(memory_page)
+	seek_edit.text = "%x" % (0x80000000 + memory_page * memory_page_size)
 	$TabContainer/Memory/VBoxContainer/HBoxContainer/TextEdit.text = str(memory_page)
 	$TabContainer/Main/ScrollContainer/VBoxContainer2/Button.reset_color()
 	$TabContainer/Main/ScrollContainer/VBoxContainer2/Button2.reset_color()
@@ -40,6 +45,8 @@ func _ready():
 	$TabContainer/Memory/VBoxContainer/HBoxContainer2/ContinuousUpdate.button_pressed = true
 	$TabContainer.set_tab_title(0,"Регистры")
 	$TabContainer.set_tab_title(1,"Память")
+	seek_edit.text_changed.connect(validate_seek_edit_text)
+	seek_edit.text_submitted.connect(seek_mem)
 	
 
 func _process(_delta):
@@ -103,6 +110,7 @@ func _on_close_requested() -> void:
 func set_memory_page(page):
 	memory_page = page
 	memory_update()
+	seek_edit.text = "%x" % (0x80000000 + memory_page * memory_page_size)
 	$TabContainer/Memory/VBoxContainer/HBoxContainer/TextEdit.text = str(memory_page)
 
 func _on_mem_load(path):
@@ -112,3 +120,18 @@ func _on_mem_load(path):
 func _on_dtb_load(path):
 	proc.load_dtb(path)
 	$TabContainer/Main/ScrollContainer/VBoxContainer2/Button2._on_successful_load()
+
+func validate_seek_edit_text(text):
+	var valid_substr = addr_regex.search(text)
+	if not valid_substr:
+		seek_edit.text = "%x" % (0x80000000 + memory_page * memory_page_size)
+		return
+
+func seek_mem(text):
+	var addr = (text as String).hex_to_int()
+	if addr < 0x80000000:
+		seek_edit.text = "%x" % (0x80000000 + memory_page * memory_page_size)
+		return
+	else:
+		var offset = addr - 0x80000000
+		set_memory_page(floori(offset / memory_page_size))

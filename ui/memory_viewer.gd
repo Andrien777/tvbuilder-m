@@ -33,6 +33,12 @@ func set_memory(memory):
 	if list.memory!=memory:
 		page = 0
 		$VBoxContainer/HBoxContainer/LoadButton.reset_color()
+		if memory is KR132RU9A:
+			for label in list.labels:
+				label.is_4bit = true
+		else:
+			for label in list.labels:
+				label.is_4bit = false
 	list.memory = memory
 	update()
 	list.reset_all_labels_style()
