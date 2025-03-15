@@ -100,7 +100,7 @@ func _process(delta: float) -> void:
 			delete_self()
 	is_selected = ComponentManager.selection_area.is_in(self)
 	if is_selected or (is_mouse_over and GlobalSettings.is_selecting()):
-		prev_modulate = self.modulate
+		prev_modulate = self.modulate if self.modulate != Color(0.7, 0.7, 1) else prev_modulate
 		self.modulate = Color(0.7, 0.7, 1)
 	else:
 		self.modulate = prev_modulate if self.modulate == Color(0.7, 0.7, 1) else self.modulate

@@ -24,7 +24,7 @@ func _process_signal():
 func read_pins():
 	var ret = 0
 	for i in range(32):
-		ret |= (pin(2 + i).high as int) << i
+		ret |= (pin(33 - i).high as int) << i
 	return ret
 
 func reset():
@@ -42,9 +42,9 @@ func reset():
 func write_pins(val):
 	for i in range(32):
 		if val & (1 << i):
-			pin(67-i).set_high()
+			pin(36 + i).set_high()
 		else:
-			pin(67-i).set_low()
+			pin(36 + i).set_low()
 
 func _rmb_action():
 	reg_viewer.bind_proc(self)
