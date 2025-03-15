@@ -12,6 +12,8 @@ func _ready():
 		proc_impl.Load_dtb(arr)
 	
 func _process_signal():
+	pin(34).set_low()
+	pin(35).set_high()
 	if pin(68).low:
 		reset()
 	else:

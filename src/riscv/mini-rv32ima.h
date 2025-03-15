@@ -164,8 +164,9 @@ MINIRV32_STEPPROTO
     // Timer interrupt.
     trap = 0x80000007;
     pc -= 4;
-  } else // No timer interrupt?  Execute a bunch of instructions.
-    for (int icount = 0; icount < count; icount++) {
+  } else {// No timer interrupt?  Execute a bunch of instructions. 
+	bool done_mmio = false;
+    for (int icount = 0; icount < count && !done_mmio; icount++) {
       uint32_t ir = 0;
       rval = 0;
       cycle++;
@@ -260,10 +261,14 @@ MINIRV32_STEPPROTO
             rsval += MINIRV32_RAM_IMAGE_OFFSET;
             if (MINIRV32_MMIO_RANGE(rsval)) // UART, CLNT
             {
-              if(rsval == 0x11500000)
+              if(rsval == 0x11500000) {
 				rval = state->mmio_input_field;
-			  else if (rsval == 0x11000000)
+				done_mmio = true;
+			  }
+			  else if (rsval == 0x11000000) {
 				  rval = state->mmio_output_field;
+			  	done_mmio = true;
+			  }
 			  else {
 				  trap = (5 + 1);
 				rval = rsval;
@@ -309,8 +314,10 @@ MINIRV32_STEPPROTO
           if (addy >= MINI_RV32_RAM_SIZE - 3) {
             addy += MINIRV32_RAM_IMAGE_OFFSET;
             if (MINIRV32_MMIO_RANGE(addy)) {
-              if (addy == 0x11000000)
+              if (addy == 0x11000000) {
 				state->mmio_output_field = rs2;
+				done_mmio = true;
+			  }
 			  else if (addy != 0x11500000) {
 				  trap = (7 + 1); // Store access fault.
               rval = addy;
@@ -676,7 +683,7 @@ MINIRV32_STEPPROTO
 
       pc += 4;
     }
-
+  }
   // Handle traps and interrupts.
   if (trap) {
     if (trap &

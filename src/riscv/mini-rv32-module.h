@@ -32,6 +32,9 @@ protected:
 	ClassDB::bind_method(D_METHOD("get_memory", "addr", "size"), &RVProc::get_memory);
 	ClassDB::bind_method(D_METHOD("get_mmio"), &RVProc::get_mmio);
 	ClassDB::bind_method(D_METHOD("set_mmio", "value"), &RVProc::set_mmio);
+	ClassDB::bind_method(D_METHOD("get_cycles_per_step"), &RVProc::get_cycles_per_step);
+	ClassDB::bind_method(D_METHOD("set_cycles_per_step", "value"), &RVProc::set_cycles_per_step);
+	ADD_PROPERTY(PropertyInfo(Variant::INT, "cycles_per_step"), "set_cycles_per_step", "get_cycles_per_step");
 	ClassDB::bind_method(D_METHOD("Load_mem", "image"), &RVProc::LoadImage);
 	ClassDB::bind_method(D_METHOD("Load_dtb", "image"), &RVProc::LoadDTB);
     // TODO: Add pin access methods. Maybe some setup methods?
@@ -42,6 +45,8 @@ static uint32_t mmio_input_field;
 static uint32_t mmio_output_field;
   struct MiniRV32IMAState *core;
   uint32_t cycles_per_step;
+  uint32_t get_cycles_per_step() {return cycles_per_step;}
+  void set_cycles_per_step(uint32_t value) {cycles_per_step = value;}
   uint32_t ram_size;
   uint64_t total_cycle_count;
   uint8_t *ram_image;
