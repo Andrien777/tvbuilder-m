@@ -8,8 +8,13 @@ func _ready() -> void:
 	load_file_dialog.current_dir = "user://"
 	handler = get_node("./../")
 	file_selected.connect(_on_file_selected)
+
+
 func _on_load_button_pressed() -> void:
-	load_file_dialog.visible = true 
+	load_file_dialog.visible = true
+
+
+
 	
 func _on_file_selected(path: String) -> void:
 	handler._on_mem_load(path)

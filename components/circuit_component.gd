@@ -21,6 +21,7 @@ var sprite = null
 var hitbox: CollisionShape2D
 var name_label = Label.new()
 var is_selected = false
+var prev_modulate = Color(1, 1, 1)
 
 func initialize(spec: ComponentSpecification, ic = null)->void: # Ic field holds saved state and is component-specific
 	self.readable_name = spec.name
@@ -99,9 +100,10 @@ func _process(delta: float) -> void:
 			delete_self()
 	is_selected = ComponentManager.selection_area.is_in(self)
 	if is_selected or (is_mouse_over and GlobalSettings.is_selecting()):
+		prev_modulate = self.modulate
 		self.modulate = Color(0.7, 0.7, 1)
 	else:
-		self.modulate = Color(1, 1, 1)
+		self.modulate = prev_modulate if self.modulate == Color(0.7, 0.7, 1) else self.modulate
 
 		
 var tween
