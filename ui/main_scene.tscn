@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=3 uid="uid://cd0acvbjpyg0w"]
+[gd_scene load_steps=80 format=3 uid="uid://cd0acvbjpyg0w"]
 
 [ext_resource type="Script" uid="uid://dlsn6lmgynqb0" path="res://ui/main_scene.gd" id="1_8vqs3"]
 [ext_resource type="Shader" uid="uid://bbm5aifcn1lfm" path="res://shaders/grid.gdshader" id="2_7ckc8"]
@@ -56,6 +56,9 @@
 [ext_resource type="Texture2D" uid="uid://wtdwwavg1wpy" path="res://ui/menu_icons/Edit/sweep.png" id="35_rnlu2"]
 [ext_resource type="Script" uid="uid://bf5vo3fkovi6d" path="res://ui/logic_analyzer/simulate_button.gd" id="37_7766m"]
 [ext_resource type="Script" uid="uid://cctxmubeshjsh" path="res://ui/about_window.gd" id="37_lvpgr"]
+[ext_resource type="Script" uid="uid://djc8ft2auk5di" path="res://center_container.gd" id="37_vv0bl"]
+[ext_resource type="Script" uid="uid://b4lwy43v4gmc" path="res://ui/panel_container.gd" id="38_arjyv"]
+[ext_resource type="Texture2D" uid="uid://bl80opdba2fmc" path="res://graphics/assist.png" id="38_fs2eg"]
 [ext_resource type="Texture2D" uid="uid://dftjdo5x81vef" path="res://ui/tvb_logo_small.png" id="38_x8br3"]
 [ext_resource type="Script" uid="uid://cauxe413y8vev" path="res://ui/logic_analyzer/simulation_accept_dialog.gd" id="39_1y2mv"]
 [ext_resource type="Script" uid="uid://1swxmsmr86d1" path="res://ui/selection_area.gd" id="46_0mty4"]
@@ -502,6 +505,59 @@ scroll_following = true
 threaded = true
 selection_enabled = true
 visible_characters = 100000
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UiCanvasLayer"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -202.0
+offset_top = -37.5
+offset_right = 202.0
+offset_bottom = 37.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UiCanvasLayer/HBoxContainer"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="UiCanvasLayer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("38_arjyv")
+
+[node name="HelperText" type="Label" parent="UiCanvasLayer/HBoxContainer/VBoxContainer/PanelContainer"]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Добрый день.
+Я - интерактивный помощник в разработке схем.
+Пожалуйста, включите звук :)"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="UiCanvasLayer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("38_fs2eg")
+stretch_mode = 4
+
+[node name="CenterContainer" type="VBoxContainer" parent="UiCanvasLayer"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -202.0
+offset_top = -37.5
+offset_right = 202.0
+offset_bottom = 37.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+script = ExtResource("37_vv0bl")
 
 [node name="AboutWindow" type="Window" parent="."]
 title = "О программе"
@@ -1220,6 +1276,7 @@ size_flags_vertical = 3
 [connection signal="pressed" from="UiCanvasLayer/ConsoleContainer/VBoxContainer/HBoxContainer/CloseButton" to="UiCanvasLayer/ConsoleContainer" method="_on_button_pressed"]
 [connection signal="mouse_entered" from="UiCanvasLayer/ConsoleContainer/VBoxContainer/RichTextLabel" to="UiCanvasLayer/ConsoleContainer" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="UiCanvasLayer/ConsoleContainer/VBoxContainer/RichTextLabel" to="UiCanvasLayer/ConsoleContainer" method="_on_mouse_exited"]
+[connection signal="resized" from="UiCanvasLayer/HBoxContainer/VBoxContainer/PanelContainer" to="UiCanvasLayer/HBoxContainer/VBoxContainer/PanelContainer" method="_on_resized"]
 [connection signal="close_requested" from="AboutWindow" to="AboutWindow" method="_on_close_requested"]
 [connection signal="file_selected" from="SaveAsFileDialog" to="SaveAsFileDialog" method="_on_file_selected"]
 [connection signal="file_selected" from="LoadFileDialog" to="LoadFileDialog" method="_on_file_selected"]
