@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b53xt8k1d1n5f"]
+[gd_scene load_steps=20 format=3 uid="uid://b53xt8k1d1n5f"]
 
 [ext_resource type="Script" uid="uid://4cja55f6k1ui" path="res://ui/logic_analyzer/logic_analyzer_window.gd" id="1_pqnar"]
 [ext_resource type="Texture2D" uid="uid://k4s8m84velia" path="res://ui/menu_icons/File/Save.png" id="2_scj2e"]
@@ -17,6 +17,8 @@
 [ext_resource type="Script" uid="uid://cauxe413y8vev" path="res://ui/logic_analyzer/simulation_accept_dialog.gd" id="15_0ewl0"]
 [ext_resource type="Script" uid="uid://dkopp3buoeet5" path="res://ui/logic_analyzer/launch_for_accept_dialog.gd" id="16_3ibdj"]
 [ext_resource type="Script" uid="uid://bbeynoxx878tu" path="res://ui/logic_analyzer/group_signals_accept_dialog.gd" id="17_bbee0"]
+[ext_resource type="Script" uid="uid://cehcupb4uxn1v" path="res://ui/logic_analyzer/save_as_file_dialog.gd" id="20_mhxhb"]
+[ext_resource type="Script" uid="uid://dnrscpvbaicop" path="res://ui/logic_analyzer/load_file_dialog.gd" id="21_yniip"]
 
 [node name="LogicAnalyzerWindow" type="Window"]
 auto_translate_mode = 1
@@ -189,8 +191,31 @@ force_native = true
 ok_button_text = "Продолжить"
 script = ExtResource("17_bbee0")
 
+[node name="SaveAsFileDialog" type="FileDialog" parent="."]
+auto_translate_mode = 1
+initial_position = 4
+size = Vector2i(500, 400)
+access = 2
+show_hidden_files = true
+use_native_dialog = true
+script = ExtResource("20_mhxhb")
+
+[node name="LoadFileDialog" type="FileDialog" parent="."]
+auto_translate_mode = 1
+title = "Open a File"
+initial_position = 4
+size = Vector2i(500, 400)
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+show_hidden_files = true
+use_native_dialog = true
+script = ExtResource("21_yniip")
+
 [connection signal="close_requested" from="." to="." method="_on_close_requested"]
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="pressed" from="RootVBoxContainer/ButtonHBoxContainer/SaveButton" to="SaveAsFileDialog" method="_on_save_button_pressed"]
+[connection signal="pressed" from="RootVBoxContainer/ButtonHBoxContainer/LoadButton" to="LoadFileDialog" method="_on_load_button_pressed"]
 [connection signal="pressed" from="RootVBoxContainer/ButtonHBoxContainer/SelectPinsButton" to="RootVBoxContainer/ButtonHBoxContainer/SelectPinsButton" method="_on_pressed"]
 [connection signal="pressed" from="RootVBoxContainer/ButtonHBoxContainer/StartStopAnalysisButton" to="RootVBoxContainer/ButtonHBoxContainer/StartStopAnalysisButton" method="_on_pressed"]
 [connection signal="pressed" from="RootVBoxContainer/ButtonHBoxContainer/LaunchForButton" to="RootVBoxContainer/ButtonHBoxContainer/LaunchForButton" method="_on_pressed"]
@@ -201,3 +226,5 @@ script = ExtResource("17_bbee0")
 [connection signal="pressed" from="RootVBoxContainer/ButtonHBoxContainer/AlwaysOnTopCheckBox" to="RootVBoxContainer/ButtonHBoxContainer/AlwaysOnTopCheckBox" method="_on_pressed"]
 [connection signal="button_up" from="RootVBoxContainer/GroupButtonTimeLineContainer/GroupButton" to="RootVBoxContainer/GroupButtonTimeLineContainer/GroupButton" method="_on_button_up"]
 [connection signal="zoom_changed" from="RootVBoxContainer/ScrollContainer/SignalsHSplitContainer" to="RootVBoxContainer/GroupButtonTimeLineContainer/TimeLine" method="_on_signals_h_split_container_zoom_changed"]
+[connection signal="file_selected" from="SaveAsFileDialog" to="SaveAsFileDialog" method="_on_file_selected"]
+[connection signal="file_selected" from="LoadFileDialog" to="LoadFileDialog" method="_on_file_selected"]

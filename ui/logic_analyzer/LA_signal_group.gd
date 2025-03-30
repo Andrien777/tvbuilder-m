@@ -4,7 +4,7 @@ class_name LASignalGroup
 
 const Radix = preload("res://ui/logic_analyzer/Radix.gd").Radix
 
-var signal_line: Control
+var signal_line: LASignalGroupLine
 var group_controller: LASignalGroupController
 
 var signals: Array
@@ -32,3 +32,16 @@ func _init(
 	self.radix = radix
 	self.group_controller = group_controller
 	self.signals = signals
+
+
+func to_dict() -> Dictionary:
+	var serialized_signals = signals.map(
+		func(sig):
+			return sig.to_dict()
+	)
+	return {
+		"class_name": "LASignalGroup",
+		"name": group_controller.line_edit.text,
+		"radix": radix, 
+		"signals": serialized_signals
+	}

@@ -4,7 +4,7 @@ class_name LASignal
 	
 var signal_controller: LASignalController
 var signal_line: LASignalLine
-var signal_points: Array[Array] = []  # Array of pairs time(ms) to level [float, NetConstants.LEVEL]
+var signal_points: Array = []  # Array of pairs time(ms) to level [float, NetConstants.LEVEL]
 	
 var ic_id: int
 var pin_index: int
@@ -25,4 +25,14 @@ func _init(
 
 func _to_string() -> String:
 	return "Parent ic's id = " + str(ic_id) + "; Pin_index = " + str(pin_index)	
+	
+func to_dict() -> Dictionary:
+	return {
+		"class_name": "LASignal", 
+		"ic_id": ic_id,
+		"pin_index": pin_index,
+		"name": signal_controller.line_edit.text,
+		"signal_points": signal_points,
+		"color": signal_line.color
+	}
 	
