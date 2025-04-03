@@ -42,10 +42,12 @@ size_flags_vertical = 3
 layout_mode = 2
 
 [node name="SaveButton" type="Button" parent="RootVBoxContainer/ButtonHBoxContainer"]
+visible = false
 layout_mode = 2
 icon = ExtResource("2_scj2e")
 
 [node name="LoadButton" type="Button" parent="RootVBoxContainer/ButtonHBoxContainer"]
+visible = false
 layout_mode = 2
 icon = ExtResource("3_y1xv5")
 

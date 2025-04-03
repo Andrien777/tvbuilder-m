@@ -3,7 +3,7 @@ extends FileDialog
 
 func _ready() -> void:
 	current_dir = "user://" 
-	add_filter("*.json")
+	add_filter("*.tvbwave")
 
 
 func _on_save_button_pressed() -> void:
@@ -11,6 +11,8 @@ func _on_save_button_pressed() -> void:
 
 
 func _on_file_selected(path: String) -> void:
+	if path.get_extension() != "tvbwave":
+		path = path + ".tvbwave"
 	var serializable_list: Array[Dictionary] = [] 
 	
 	for sig in %SignalsHSplitContainer.signals:

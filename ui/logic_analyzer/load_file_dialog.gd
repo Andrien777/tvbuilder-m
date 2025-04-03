@@ -3,7 +3,7 @@ extends FileDialog
 
 func _ready() -> void:
 	#current_dir = "user://" 
-	add_filter("*.json")
+	add_filter("*.tvbwave")
 
 
 func _on_load_button_pressed() -> void:
