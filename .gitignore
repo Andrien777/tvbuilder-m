@@ -10,3 +10,4 @@ config.json
 .sconsign.dblite
 *.snippet
 snippets/
+*.x86_64
