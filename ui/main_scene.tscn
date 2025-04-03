@@ -1203,6 +1203,7 @@ cancel_button_text = "Нет"
 [connection signal="file_selected" from="SaveAsFileDialog" to="SaveAsFileDialog" method="_on_file_selected"]
 [connection signal="file_selected" from="LoadFileDialog" to="LoadFileDialog" method="_on_file_selected"]
 [connection signal="pressed" from="MemoryViewer/VBoxContainer/HBoxContainer2/ContinuousUpdate" to="MemoryViewer/VBoxContainer/HBoxContainer" method="_on_continuous_update_pressed"]
+[connection signal="canceled" from="MemoryViewer/VBoxContainer/HBoxContainer/FileDialog" to="MemoryViewer/VBoxContainer/HBoxContainer" method="_on_file_dialog_canceled"]
 [connection signal="pressed" from="MemoryViewer/VBoxContainer/HBoxContainer/ResetSelectionButton" to="MemoryViewer/VBoxContainer/GridContainer" method="reset_all_labels_style"]
 [connection signal="toggled" from="MemoryViewer/VBoxContainer/ResetStyleOnPageChangeButton" to="MemoryViewer/VBoxContainer/GridContainer" method="_on_reset_style_on_page_change_button_toggled"]
 [connection signal="mouse_entered" from="SelectionArea" to="SelectionArea" method="_on_mouse_entered"]

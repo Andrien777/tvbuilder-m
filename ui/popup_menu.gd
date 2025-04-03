@@ -7,7 +7,6 @@ func _ready() -> void:
 	dialog.confirmed.connect(save_handler)
 	dialog.dialog_close_on_escape = true
 	dialog.dialog_hide_on_ok = true
-	dialog.always_on_top = true
 	dialog.dialog_close_on_escape = true
 	dialog.close_requested.connect(dialog.hide)
 	dialog.dialog_text = "Сохранить?"
