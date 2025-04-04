@@ -15,6 +15,11 @@ var sprite_shape: Vector2
 var dependencies: Array[Pin]
 var sprite
 var is_tracked = false
+var custom_modulate:
+	get:
+		return Color(sprite.material.get_shader_parameter("modulate"))
+	set(value):
+		sprite.material.set_shader_parameter("modulate", value)
 func initialize(spec: PinSpecification, state: NetConstants.LEVEL, parent: Node2D)->void:
 	self.input_pickable = true
 	self.state = state
@@ -36,6 +41,9 @@ func initialize(spec: PinSpecification, state: NetConstants.LEVEL, parent: Node2
 	#shape.size = Vector2(100,100) # TODO: Scale to sprite
 	self.sprite_shape = shape.size
 	hitbox.shape = shape
+	sprite.material = ShaderMaterial.new()
+	sprite.material.shader = preload("res://shaders/shadow_pin.gdshader")
+	sprite.z_index = -1
 	add_child(sprite)
 	add_child(hitbox)
 
@@ -51,11 +59,11 @@ func initialize_dependencies()->void:
 func _process(delta: float) -> void:
 	if (GlobalSettings.LevelHighlight):
 		if(self.high):
-			self.modulate = Color(0.3,1,1,1)
+			self.custom_modulate = Color(0.3,1,1,1)
 		else:
-			self.modulate = Color(1,0.3,1,1)
+			self.custom_modulate = Color(1,0.3,1,1)
 	if is_tracked:
-		self.modulate = GlobalSettings.highlightedLAPinsColor
+		self.custom_modulate = GlobalSettings.highlightedLAPinsColor
 
 func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.pressed and Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
@@ -65,17 +73,17 @@ func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void
 		
 		
 func _mouse_enter() -> void:
-	self.modulate=GlobalSettings.highlightedPinsColor
+	self.custom_modulate=GlobalSettings.highlightedPinsColor
 	PopupManager.display_hint("Пин: "+str(index)+ " | " + readable_name,description,self.global_position, self.direction)
 	
 func _mouse_exit()->void:
 	if GlobalSettings.highlightOutputPins:
 		if self.output():
-			self.modulate = Color(1, 0, 0)
+			self.custom_modulate = Color(1, 0, 0)
 		else:
-			self.modulate = Color(1, 1, 1)
+			self.custom_modulate = Color(1, 1, 1)
 	else:
-		self.modulate = Color(1, 1, 1)
+		self.custom_modulate = Color(1, 1, 1)
 	PopupManager.hide_hint()
 
 
@@ -117,9 +125,9 @@ func change_graphics_mode(mode):
 func toggle_output_highlight():
 	if GlobalSettings.highlightOutputPins:
 		if self.output():
-			self.modulate = Color(1, 0, 0)
+			self.custom_modulate = Color(1, 0, 0)
 	else:
-		self.modulate = Color(1, 1, 1)
+		self.custom_modulate = Color(1, 1, 1)
 
 
 func _exit_tree() -> void:

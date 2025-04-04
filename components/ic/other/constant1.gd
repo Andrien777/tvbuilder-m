@@ -4,6 +4,12 @@ class_name CONST_1
 func _process_signal():
 	pin(1).set_high()
 
+func initialize(spec: ComponentSpecification, ic = null)->void:
+	super.initialize(spec, ic)
+	sprite.texture.normal_texture = null
+	sprite.texture.specular_texture = null
+	sprite.material.shader = preload("res://shaders/glare.gdshader")
+
 func change_graphics_mode(mode):
 	super.change_graphics_mode(mode)
 

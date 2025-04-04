@@ -6,7 +6,7 @@ var selection_area
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	grid_rect = get_node("GridLayer/GridRect")
-	timer = Timer.new() # TODO: This is not good
+	timer = Timer.new()
 	timer.one_shot = true
 	timer.wait_time = 0.1
 	timer.timeout.connect(WireManager.force_update_wires)
@@ -16,6 +16,7 @@ func _ready() -> void:
 	InfoManager.bind_indicator(get_node("/root/RootNode/UiCanvasLayer/VBoxContainer2/RibbonContainer/OpenConsoleButton"))
 	get_node("./GridSprite").visible = GlobalSettings.CurrentGraphicsMode==LegacyGraphicsMode
 	get_node("./GridSprite").modulate = GlobalSettings.bg_color
+	get_node("./GridSprite").modulate = Color(GlobalSettings.bg_color, 0.7)
 	selection_area = get_node("SelectionArea")
 	get_window().title = "TVBuilder - New Project"
 	if OS.has_feature("web"):
@@ -77,11 +78,6 @@ func _input(event):
 		$HistoryViewerWindow.visible = not $HistoryViewerWindow.visible
 	elif event.is_action_pressed("new_project") and not GlobalSettings.disableGlobalInput:
 		get_node("UiCanvasLayer/VBoxContainer2/MenuContainer/FilePopupMenu")._on_clear_button_pressed()
-	#elif event.is_action_pressed("debug_key") and not GlobalSettings.disableGlobalInput:
-		#if Input.is_key_label_pressed(KEY_CTRL):
-			#SaveManager.load_snippet(get_global_mouse_position(), get_tree().current_scene)
-		#else:
-			#SaveManager.save_snippet()
 	
 	
 	# Has to be in a separate if
@@ -106,7 +102,7 @@ func toggle_graphics_mode():
 		grid_rect.material.set_shader_parameter("grid_color",Vector4(0.2, 0.2, 0.2, 1.0))
 		grid_rect.material.set_shader_parameter("background_color",Vector4(0.4, 0.6, 0.9, 1.0))
 		for ic in ComponentManager.obj_list.values():
-			ic.change_graphics_mode(GlobalSettings.CurrentGraphicsMode) # TODO: Move to componenet manager
+			ic.change_graphics_mode(GlobalSettings.CurrentGraphicsMode)
 	else:
 		grid_rect.material.set_shader_parameter("grid_color",Vector4(128.0/256.0, 129.0/256.0, 1/256.0, 1.0))
 		grid_rect.material.set_shader_parameter("background_color",Vector4(41.0/256.0, 33.0/256.0, 4/256.0, 1.0))
