@@ -8,6 +8,8 @@ var WireSnap = true
 
 var turbo = false
 
+var confirmOnSave = false
+var disableAutosave = false
 
 var historyDepth = 200
 var ShowSignalsInConnectionTable = false
@@ -137,6 +139,8 @@ func try_load():
 								InputMap.action_add_event(keybind_action, event)
 			if parsed.has("is_LA_always_on_top"):
 				is_LA_always_on_top = parsed["is_LA_always_on_top"] as bool
+			if parsed.has("confirmOnSave"):
+				confirmOnSave = parsed["confirmOnSave"] as bool
 			if parsed.has("recent_projects"):
 				for path in parsed["recent_projects"]:
 					recent_projects.append(path)
@@ -166,6 +170,7 @@ func save():
 	json_object["LabelColor"] = label_color_global.to_html(false)
 	json_object["tps"] = tps
 	json_object["is_LA_always_on_top"] = is_LA_always_on_top as int
+	json_object["confirmOnSave"] = confirmOnSave as int
 	var keybinds = {}
 	for action in ACTION_TO_SAVE:
 		var keybind_action

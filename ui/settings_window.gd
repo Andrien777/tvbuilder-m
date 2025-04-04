@@ -20,6 +20,8 @@ func open_window():
 	get_node("VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/ShowLastWireButton").button_pressed = GlobalSettings.showLastWire
 	get_node("VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/HighlightOutPinsButton").button_pressed = GlobalSettings.highlightOutputPins
 	get_node("VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/SettingsOverrideButton").button_pressed = GlobalSettings.allowSettingsOverride
+	get_node("VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/confirmOnSaveButton").button_pressed = GlobalSettings.confirmOnSave
+	get_node("VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/disableAutosaveButton").button_pressed = GlobalSettings.disableAutosave
 	get_node("VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/HideTreeButton").button_pressed = not get_node("/root/RootNode/UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree").tree_visible
 	get_node("VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/HideRibbonButton").button_pressed = not get_node("/root/RootNode/UiCanvasLayer/VBoxContainer2/RibbonContainer").visible
 	get_node("VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/TPSContainer/TPSEdit").text = str(GlobalSettings.tps)

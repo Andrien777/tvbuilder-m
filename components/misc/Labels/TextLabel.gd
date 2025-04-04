@@ -5,8 +5,14 @@ var popup
 var text_line
 var label: Label
 var popup_style
-var img = preload("res://graphics/portrait.jpg")
-var img_sprite: Sprite2D
+var portrait = preload("res://graphics/portrait.jpg")
+var cat_tom = preload("res://graphics/cat_tom.jpg")
+var cat_andr = preload("res://graphics/cat_andr.jpg")
+var cat_nik = preload("res://graphics/cat_nik.jpg")
+var portrait_sprite: Sprite2D
+var cat_tom_sprite: Sprite2D
+var cat_andr_sprite: Sprite2D
+var cat_nik_sprite: Sprite2D
 
 func initialize(spec: ComponentSpecification, ic=null)->void:
 	if(ic!=null and "content" in ic):
@@ -45,17 +51,38 @@ func _init():
 	popup.size =  Vector2(100,60)
 	popup.add_theme_stylebox_override("panel", popup_style)
 
-	img_sprite = Sprite2D.new()
-	img_sprite.texture = img
-	img_sprite.centered = false
-	img_sprite.visible = false
+	portrait_sprite = Sprite2D.new()
+	portrait_sprite.texture = portrait
+	portrait_sprite.centered = false
+	portrait_sprite.visible = false
+	
+	cat_tom_sprite = Sprite2D.new()
+	cat_tom_sprite.texture = cat_tom
+	cat_tom_sprite.centered = false
+	cat_tom_sprite.visible = false
+	
+	cat_andr_sprite = Sprite2D.new()
+	cat_andr_sprite.texture = cat_andr
+	cat_andr_sprite.centered = false
+	cat_andr_sprite.visible = false
+	
+	cat_nik_sprite = Sprite2D.new()
+	cat_nik_sprite.texture = cat_nik
+	cat_nik_sprite.centered = false
+	cat_nik_sprite.visible = false
 	#settings_popup.add_child(text_line)
 	popup.add_child(text_line)
 	add_child(popup)
 	add_child(hitbox)
 	add_child(label)
-	add_child(img_sprite)
-	img_sprite.visibility_changed.connect(update_hibox)
+	add_child(portrait_sprite)
+	add_child(cat_tom_sprite)
+	add_child(cat_andr_sprite)
+	add_child(cat_nik_sprite)
+	portrait_sprite.visibility_changed.connect(update_hibox)
+	cat_tom_sprite.visibility_changed.connect(update_hibox)
+	cat_andr_sprite.visibility_changed.connect(update_hibox)
+	cat_nik_sprite.visibility_changed.connect(update_hibox)
 	
 	#popup.get_parent().move_child(popup, -1)
 	ComponentManager.register_object(self)
@@ -105,14 +132,37 @@ func on_text_update(new_text:String):
 		var event = LabelTextChangeEvent.new()
 		event.initialize(self, new_text)
 		HistoryBuffer.register_event(event)
+		label.text = new_text
 		if new_text == "865933":
-			label.text = new_text
 			label.visible = false
-			img_sprite.visible = true
+			portrait_sprite.visible = true
+			cat_tom_sprite.visible = false
+			cat_andr_sprite.visible = false
+			cat_nik_sprite.visible = false
+		elif new_text == "😺Катя":
+			label.visible = false
+			portrait_sprite.visible = false
+			cat_tom_sprite.visible = true
+			cat_andr_sprite.visible = false
+			cat_nik_sprite.visible = false
+		elif new_text == "😺Эля":
+			label.visible = false
+			portrait_sprite.visible = false
+			cat_tom_sprite.visible = false
+			cat_andr_sprite.visible = true
+			cat_nik_sprite.visible = false
+		elif new_text == "😺Мася":
+			label.visible = false
+			portrait_sprite.visible = false
+			cat_tom_sprite.visible = false
+			cat_andr_sprite.visible = false
+			cat_nik_sprite.visible = true
 		else:
-			label.text = new_text
 			label.visible = true
-			img_sprite.visible = false
+			portrait_sprite.visible = false
+			cat_tom_sprite.visible = false
+			cat_andr_sprite.visible = false
+			cat_nik_sprite.visible = false
 		
 		
 	
@@ -136,8 +186,17 @@ func change_graphics_mode(mode):
 	pass
 
 func update_hibox():
-	if img_sprite.visible:
-		hitbox.shape.size = img.get_size()
+	if portrait_sprite.visible:
+		hitbox.shape.size = portrait.get_size()
+		hitbox.position = hitbox.shape.size / 2
+	elif cat_andr_sprite.visible:
+		hitbox.shape.size = cat_andr.get_size()
+		hitbox.position = hitbox.shape.size / 2
+	elif cat_tom_sprite.visible:
+		hitbox.shape.size = cat_tom.get_size()
+		hitbox.position = hitbox.shape.size / 2
+	elif cat_nik_sprite.visible:
+		hitbox.shape.size = cat_nik.get_size()
 		hitbox.position = hitbox.shape.size / 2
 	else:
 		hitbox.shape.size = label.get_rect().size

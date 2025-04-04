@@ -7,7 +7,7 @@ var autosave_interval = 60 # seconds
 var do_not_save_ids: Array[int] = []
 
 func _on_autosave():
-	if last_path != "" and not OS.has_feature("web"):
+	if last_path != "" and not OS.has_feature("web") and not GlobalSettings.disableAutosave:
 		save(last_path)
 
 func save(path: String) -> void:
@@ -54,6 +54,7 @@ func load(scene: Node2D, path: String):
 	ComponentManager.clear()
 	var file = FileAccess.open(path, FileAccess.READ).get_as_text()
 	parse_save_str(scene, file, path)
+	GlobalSettings.disableAutosave = false
 	
 func parse_save_str(scene: Node2D, file: String, path="LoadedProject.json"):
 	var json = JSON.new()
@@ -255,4 +256,4 @@ func load_snippet(mouse_pos, scene, path = "test_snippet.json"):
 	var event_buff = NEventsBuffer.new()
 	event_buff.initialize(event_counter, [ComponentCreationEvent, WireCreationEvent])
 	HistoryBuffer.register_event(event_buff)
-	GlobalSettings.disableGlobalInput = previousDisable
+	GlobalSettings.disableGlobalInput = previousDisable and GlobalSettings.disableGlobalInput

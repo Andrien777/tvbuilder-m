@@ -1,6 +1,7 @@
 extends Tree
 
 @onready var tree: Tree = $"."
+@onready var container = get_node("../../")
 var timer: Timer
 var old_mouse_position
 var mouse_over = false
@@ -63,13 +64,13 @@ func hide_tree():
 		if tween:
 			tween.kill()
 		tween = create_tween()
-		tween.tween_property(tree,"scale",Vector2(0, 1),0.4).set_trans(Tween.TRANS_CIRC)
+		tween.tween_property(container,"scale",Vector2(0, 1),0.4).set_trans(Tween.TRANS_CIRC)
 		tree_visible = false
 	else:
 		if tween:
 			tween.kill()
 		tween = create_tween()
-		tween.tween_property(tree,"scale",Vector2(1, 1),0.4).set_trans(Tween.TRANS_ELASTIC)
+		tween.tween_property(container,"scale",Vector2(1, 1),0.4).set_trans(Tween.TRANS_ELASTIC)
 		tree_visible = true
 var previousGlobalInputState:bool
 func _on_mouse_entered() -> void:
@@ -80,4 +81,4 @@ func _on_mouse_entered() -> void:
 func _on_mouse_exited() -> void:
 	if timer.is_stopped():
 		get_node("/root/RootNode/Camera2D").lock_pan = false
-	GlobalSettings.disableGlobalInput = previousGlobalInputState
+	GlobalSettings.disableGlobalInput = previousGlobalInputState and GlobalSettings.disableGlobalInput

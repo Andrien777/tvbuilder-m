@@ -86,7 +86,7 @@ func _on_item_list_mouse_entered() -> void:
 
 
 func _on_item_list_mouse_exited() -> void:
-	GlobalSettings.disableGlobalInput = previousGlobalInputState
+	GlobalSettings.disableGlobalInput = previousGlobalInputState and GlobalSettings.disableGlobalInput
 
 func _on_item_list_item_selected(index: int) -> void:
 	selected_snippet = snippets[index]

@@ -30,9 +30,11 @@ func mem_load():
 	if OS.has_feature("web"):
 		JavaScriptBridge.eval("loadBinData()", true)
 	else:
+		mem_viewer.always_on_top = false
 		$FileDialog._on_load_button_pressed()
 	
 func _on_mem_load(path):
+	mem_viewer.always_on_top = true
 	var file = FileAccess.open(path,FileAccess.READ)
 	var addr=0
 	while addr<len(mem_viewer.list.memory.memory_content) and not file.eof_reached():
@@ -40,6 +42,7 @@ func _on_mem_load(path):
 		addr+=1
 	file.close()
 	mem_viewer.update()
+	$LoadButton._on_successful_load()
 	var grid = get_node("./../GridContainer/")
 	if grid and is_instance_valid(grid):
 		grid.reset_all_labels_style()
@@ -62,3 +65,7 @@ func _on_data_js_loaded(args: Array):
 
 func _on_continuous_update_pressed() -> void:
 	mem_viewer.continuous_update = !mem_viewer.continuous_update
+
+
+func _on_file_dialog_canceled() -> void:
+	mem_viewer.always_on_top = true

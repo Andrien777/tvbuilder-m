@@ -27,7 +27,7 @@ func _on_mouse_entered() -> void:
 
 
 func _on_mouse_exited() -> void:
-	GlobalSettings.disableGlobalInput = previousGlobalInputState
+	GlobalSettings.disableGlobalInput = previousGlobalInputState and GlobalSettings.disableGlobalInput
 
 
 func _on_focus_entered() -> void:
@@ -36,7 +36,7 @@ func _on_focus_entered() -> void:
 
 
 func _on_focus_exited() -> void:
-	GlobalSettings.disableGlobalInput = previousGlobalInputState
+	GlobalSettings.disableGlobalInput = previousGlobalInputState and GlobalSettings.disableGlobalInput
 
 
 func _on_button_pressed() -> void:

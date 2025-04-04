@@ -6,7 +6,7 @@ var continuous_update = true
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	list = get_node("VBoxContainer/GridContainer")
-	close_requested.connect(hide)
+	close_requested.connect(_on_close_request)
 	memory_name_label = get_node("VBoxContainer/HBoxContainer2/RamNameLabel")
 	get_node("VBoxContainer/HBoxContainer2/ContinuousUpdate").button_pressed = true
 
@@ -30,9 +30,23 @@ func update():
 		memory_name_label.text = "%s (%d)" % [list.memory.readable_name, list.memory.id]
 	
 func set_memory(memory):
+	if list.memory:
+		list.memory.modulate = Color(1, 1, 1)
 	if list.memory!=memory:
 		page = 0
+		$VBoxContainer/HBoxContainer/LoadButton.reset_color()
+		if memory is KR132RU9A:
+			for label in list.labels:
+				label.is_4bit = true
+		else:
+			for label in list.labels:
+				label.is_4bit = false
 	list.memory = memory
+	memory.modulate = Color(0.7, 1, 0.7)
 	update()
 	list.reset_all_labels_style()
 	self.visible = true
+
+func _on_close_request():
+	list.memory.modulate = Color(1, 1, 1)
+	hide()
