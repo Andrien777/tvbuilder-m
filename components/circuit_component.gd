@@ -119,11 +119,12 @@ func _process(delta: float) -> void:
 		if self.is_mouse_over:
 			delete_self()
 	is_selected = ComponentManager.selection_area.is_in(self)
-	if is_selected or (is_mouse_over and GlobalSettings.is_selecting()):
-		prev_modulate = self.custom_modulate if self.custom_modulate != Color(0.7, 0.7, 1) else prev_modulate
-		self.custom_modulate = Color(0.7, 0.7, 1)
-	else:
-		self.custom_modulate = prev_modulate if self.custom_modulate == Color(0.7, 0.7, 1) else self.custom_modulate
+	if self.material is ShaderMaterial:
+		if is_selected or (is_mouse_over and GlobalSettings.is_selecting()):
+			prev_modulate = self.custom_modulate if self.custom_modulate != Color(0.7, 0.7, 1) else prev_modulate
+			self.custom_modulate = Color(0.7, 0.7, 1)
+		else:
+			self.custom_modulate = prev_modulate if self.custom_modulate == Color(0.7, 0.7, 1) else self.custom_modulate
 
 		
 var tween
