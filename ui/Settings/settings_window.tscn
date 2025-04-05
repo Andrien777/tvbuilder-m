@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://r773p6djrrnn"]
+[gd_scene load_steps=25 format=3 uid="uid://r773p6djrrnn"]
 
 [ext_resource type="Script" uid="uid://cuxpjtigktrfg" path="res://ui/settings_window.gd" id="1_wym6i"]
 [ext_resource type="Script" uid="uid://n7sj8fxwg2ta" path="res://ui/Settings/settings_tab_bar.gd" id="2_raqp3"]
@@ -15,7 +15,9 @@
 [ext_resource type="Script" uid="uid://dbvfwv44fpebx" path="res://ui/color_picker_button.gd" id="13_iwgjq"]
 [ext_resource type="Script" uid="uid://blupbho4um1qw" path="res://ui/Settings/tps_edit.gd" id="13_rsss4"]
 [ext_resource type="Script" uid="uid://cyqq5a4k1jj1h" path="res://ui/wire_color_picker_button.gd" id="14_g2wx6"]
+[ext_resource type="Script" uid="uid://1n1oydp3tmy" path="res://ui/Settings/confirm_on_save_button.gd" id="14_vclif"]
 [ext_resource type="Script" uid="uid://ecdnsaxw8xfv" path="res://ui/Settings/wire_highlight_color_picker_button.gd" id="15_6lw4l"]
+[ext_resource type="Script" uid="uid://d3xpfiopt2n47" path="res://ui/Settings/disable_autosave_button.gd" id="15_l5dmt"]
 [ext_resource type="Script" uid="uid://c2eypsg310g3g" path="res://ui/Settings/pin_highlight_color_picker_button.gd" id="16_jnvim"]
 [ext_resource type="Script" uid="uid://cmwuxsknms855" path="res://ui/Settings/bus_color_picker.gd" id="16_xfdfr"]
 [ext_resource type="Script" uid="uid://bl5y5vxyc334n" path="res://ui/Settings/pin_la_highlight_color_picker_button.gd" id="17_4tk73"]
@@ -125,6 +127,16 @@ text = "  Частота симуляции, Гц: "
 [node name="TPSEdit" type="LineEdit" parent="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/TPSContainer"]
 layout_mode = 2
 script = ExtResource("13_rsss4")
+
+[node name="confirmOnSaveButton" type="CheckButton" parent="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer"]
+layout_mode = 2
+text = "Подтверждение при сохранении схемы"
+script = ExtResource("14_vclif")
+
+[node name="disableAutosaveButton" type="CheckButton" parent="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer"]
+layout_mode = 2
+text = "Отключить автосохранение"
+script = ExtResource("15_l5dmt")
 
 [node name="ColorSubmenu" type="VBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -402,6 +414,8 @@ action_name = "bus_mode"
 [connection signal="text_submitted" from="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/HistoryDepthContainer/HistoryDepthEdit" to="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/HistoryDepthContainer/HistoryDepthEdit" method="_on_text_submitted"]
 [connection signal="focus_exited" from="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/TPSContainer/TPSEdit" to="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/TPSContainer/TPSEdit" method="_on_focus_exited"]
 [connection signal="text_submitted" from="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/TPSContainer/TPSEdit" to="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/TPSContainer/TPSEdit" method="_on_text_submitted"]
+[connection signal="pressed" from="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/confirmOnSaveButton" to="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/confirmOnSaveButton" method="_on_pressed"]
+[connection signal="pressed" from="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/disableAutosaveButton" to="VBoxContainer/GeneralSettingsScroll/GeneralSettingsContainer/disableAutosaveButton" method="_on_pressed"]
 [connection signal="color_changed" from="VBoxContainer/ColorSubmenu/ColorContainer/ColorPickerButton" to="VBoxContainer/ColorSubmenu/ColorContainer/ColorPickerButton" method="_on_color_changed"]
 [connection signal="pressed" from="VBoxContainer/ColorSubmenu/ColorContainer/ColorResetButtonButton" to="VBoxContainer/ColorSubmenu/ColorContainer/ColorPickerButton" method="reset_color"]
 [connection signal="color_changed" from="VBoxContainer/ColorSubmenu/WireColorContainer/WireColorPickerButton" to="VBoxContainer/ColorSubmenu/WireColorContainer/WireColorPickerButton" method="_on_color_changed"]

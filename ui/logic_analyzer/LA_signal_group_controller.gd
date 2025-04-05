@@ -23,7 +23,7 @@ func _init(
 	var label_buttons_container = VBoxContainer.new()
 	label_buttons_container.alignment = BoxContainer.ALIGNMENT_CENTER
 	
-	var button_show_more = Button.new()
+	button_show_more = Button.new()
 	self.button_show_more = button_show_more
 	button_show_more.icon = ResourceLoader.load("res://ui/logic_analyzer/icons/icon_arrow_down_var.svg")
 	button_show_more.button_up.connect(
@@ -36,17 +36,17 @@ func _init(
 			show_signals_changed.emit(show_signals)
 	)
 	
-	var button_up = Button.new()
+	button_up = Button.new()
 	self.button_up = button_up
 	button_up.icon = ResourceLoader.load("res://ui/logic_analyzer/icons/icon_arrow_up.svg")
 	label_buttons_container.add_child(button_up)
 	
-	var button_down = Button.new()
+	button_down = Button.new()
 	self.button_down = button_down
 	button_down.icon = ResourceLoader.load("res://ui/logic_analyzer/icons/icon_arrow_down.svg")
 	label_buttons_container.add_child(button_down)
 	
-	var line_edit = LineEdit.new()
+	line_edit = LineEdit.new()
 	line_edit.custom_minimum_size.y = height
 	line_edit.size.y = height
 	line_edit.text = text

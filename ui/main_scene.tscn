@@ -1,4 +1,4 @@
-[gd_scene load_steps=86 format=3 uid="uid://cd0acvbjpyg0w"]
+[gd_scene load_steps=72 format=3 uid="uid://cd0acvbjpyg0w"]
 
 [ext_resource type="Script" uid="uid://dlsn6lmgynqb0" path="res://ui/main_scene.gd" id="1_8vqs3"]
 [ext_resource type="Shader" uid="uid://bbm5aifcn1lfm" path="res://shaders/grid.gdshader" id="2_7ckc8"]
@@ -16,14 +16,10 @@
 [ext_resource type="Texture2D" uid="uid://dgjllnwiryf7v" path="res://ui/menu_icons/File/SaveAs.png" id="11_nlil7"]
 [ext_resource type="Script" uid="uid://cmxbc0u1njuke" path="res://ui/edit_popup.gd" id="11_pyl4o"]
 [ext_resource type="Script" uid="uid://bxvpao3llvtt7" path="res://tools/memory_content_display.gd" id="12_ncj2o"]
-[ext_resource type="Script" uid="uid://4cja55f6k1ui" path="res://ui/logic_analyzer/logic_analyzer_window.gd" id="12_ngdkd"]
 [ext_resource type="Texture2D" uid="uid://qaxuxk0hf3ie" path="res://ui/menu_icons/File/OpenProject.png" id="12_pimgv"]
 [ext_resource type="Script" uid="uid://bxbr42xdwcl54" path="res://ui/memory_viewer.gd" id="12_wwdn8"]
 [ext_resource type="Script" uid="uid://cxdyfnwr7aveb" path="res://ui/mem_viewer_grid.gd" id="13_jjv1i"]
-[ext_resource type="Script" uid="uid://dmi0ymrhjqcio" path="res://ui/logic_analyzer/select_pins_button.gd" id="13_o3lk5"]
 [ext_resource type="Script" uid="uid://v2olejo3xbo3" path="res://ui/last_projects_popup.gd" id="14_vv0bl"]
-[ext_resource type="Script" uid="uid://cv3ggp4ahjwu8" path="res://ui/logic_analyzer/signals_h_split_container.gd" id="15_7mwtm"]
-[ext_resource type="Script" uid="uid://dfiqljj8r5ute" path="res://ui/logic_analyzer/clear_button.gd" id="15_73c41"]
 [ext_resource type="Script" uid="uid://ccf4nlf0pt20p" path="res://ui/show_last_wire_ribbon_button.gd" id="15_abnib"]
 [ext_resource type="Script" uid="uid://dyalr1haavad7" path="res://ui/pageControls.gd" id="15_o4npq"]
 [ext_resource type="Script" uid="uid://febu6gf76n7k" path="res://ui/ribbon_container.gd" id="15_t4xi8"]
@@ -35,13 +31,10 @@
 [ext_resource type="Texture2D" uid="uid://tkuyn0xyh17i" path="res://ui/menu_icons/Edit/ColorPin.png" id="18_38rbo"]
 [ext_resource type="FontFile" uid="uid://co86tufoji665" path="res://ui/JetBrainsMonoNL-Regular.ttf" id="18_awkwq"]
 [ext_resource type="Script" uid="uid://dn4gqvdmnollb" path="res://ui/global_input.gd" id="18_yrb2u"]
-[ext_resource type="Script" uid="uid://bvxa7rbotfhad" path="res://ui/logic_analyzer/start_stop_analysis_button.gd" id="19_gtxal"]
 [ext_resource type="Texture2D" uid="uid://m6615xpuyo5e" path="res://ui/tile.png" id="19_xavts"]
 [ext_resource type="Script" uid="uid://b5h1jiuetpmh7" path="res://ui/usual_mode_button.gd" id="20_irwob"]
-[ext_resource type="Script" uid="uid://qux80tbbc54g" path="res://ui/logic_analyzer/zoom_out_button.gd" id="21_16sfj"]
 [ext_resource type="Texture2D" uid="uid://bj5r1k8bf0r7n" path="res://ui/menu_icons/select.png" id="21_b5oi8"]
 [ext_resource type="Texture2D" uid="uid://c1lrw4fvr8awx" path="res://ui/menu_icons/camera-focus.png" id="22_8cmxa"]
-[ext_resource type="Script" uid="uid://dld5qlqt1hpnh" path="res://ui/logic_analyzer/zoom_in_button.gd" id="22_bntlu"]
 [ext_resource type="Texture2D" uid="uid://b1rpgeq2toymq" path="res://ui/menu_icons/help.png" id="23_aids2"]
 [ext_resource type="Script" uid="uid://bom8ynapeypyk" path="res://ui/conn_mode_button.gd" id="24_c307o"]
 [ext_resource type="Script" uid="uid://bohbsoqwnx0ly" path="res://ui/bus_mode_button.gd" id="25_0v5qp"]
@@ -55,21 +48,14 @@
 [ext_resource type="Script" uid="uid://cc7rvwe23o8qd" path="res://ui/console.gd" id="31_rtmb3"]
 [ext_resource type="Texture2D" uid="uid://uvj23wk2aa7w" path="res://ui/menu_icons/snippets.png" id="32_fs2eg"]
 [ext_resource type="Texture2D" uid="uid://cgvgy3p2b8i4f" path="res://ui/menu_icons/Edit/red_cross.png" id="32_sk2vu"]
-[ext_resource type="Script" uid="uid://c07nwtrkagtf6" path="res://ui/logic_analyzer/launch_for_button.gd" id="33_503t8"]
 [ext_resource type="Texture2D" uid="uid://wtdwwavg1wpy" path="res://ui/menu_icons/Edit/sweep.png" id="35_rnlu2"]
-[ext_resource type="Script" uid="uid://bf5vo3fkovi6d" path="res://ui/logic_analyzer/simulate_button.gd" id="37_7766m"]
 [ext_resource type="Script" uid="uid://cctxmubeshjsh" path="res://ui/about_window.gd" id="37_lvpgr"]
 [ext_resource type="Script" uid="uid://ca5fang22wjnm" path="res://ui/snippet_picker.gd" id="38_arjyv"]
 [ext_resource type="Texture2D" uid="uid://dftjdo5x81vef" path="res://ui/tvb_logo_small.png" id="38_x8br3"]
-[ext_resource type="Script" uid="uid://cauxe413y8vev" path="res://ui/logic_analyzer/simulation_accept_dialog.gd" id="39_1y2mv"]
 [ext_resource type="Script" uid="uid://1swxmsmr86d1" path="res://ui/selection_area.gd" id="46_0mty4"]
-[ext_resource type="Script" uid="uid://capo3rw2ef6i6" path="res://ui/logic_analyzer/always_on_top_check_box.gd" id="50_xi6xf"]
-[ext_resource type="Script" uid="uid://c06utd5yt3232" path="res://ui/logic_analyzer/time_line.gd" id="51_vv0bl"]
-[ext_resource type="Script" uid="uid://dkopp3buoeet5" path="res://ui/logic_analyzer/launch_for_accept_dialog.gd" id="52_mpko7"]
-[ext_resource type="Script" uid="uid://b1mnu8tfm3lrg" path="res://ui/logic_analyzer/group_button.gd" id="55_dvikr"]
+[ext_resource type="PackedScene" uid="uid://b53xt8k1d1n5f" path="res://ui/logic_analyzer/logic_analyzer.tscn" id="46_khyqg"]
 [ext_resource type="Script" uid="uid://cb8ygfedw5u0e" path="res://ui/history_viewer.gd" id="59_1u0lp"]
 [ext_resource type="Texture2D" uid="uid://bxctkpjxqbsxt" path="res://ui/menu_icons/Edit/undo.png" id="60_afg32"]
-[ext_resource type="Script" uid="uid://bbeynoxx878tu" path="res://ui/logic_analyzer/group_signals_accept_dialog.gd" id="60_hkbny"]
 [ext_resource type="Texture2D" uid="uid://bcwd3wfryima0" path="res://ui/menu_icons/Edit/redo.png" id="61_0xmdj"]
 [ext_resource type="Script" uid="uid://cm0rwm6srr5uw" path="res://ui/load_button.gd" id="65_apwb3"]
 [ext_resource type="PackedScene" uid="uid://bhi80mcdmh34x" path="res://tools/RiscvRegViewer/riscv_reg_viewer.tscn" id="67_00hwn"]
@@ -713,165 +699,7 @@ dialog_text = "- Масштаб - колесико мыши или клавиш�
 dialog_autowrap = true
 script = ExtResource("8_s7pmm")
 
-[node name="LogicAnalyzerWindow" type="Window" parent="."]
-handle_input_locally = false
-title = "Логический Анализатор"
-initial_position = 4
-size = Vector2i(1060, 600)
-visible = false
-script = ExtResource("12_ngdkd")
-
-[node name="RootVBoxContainer" type="VBoxContainer" parent="LogicAnalyzerWindow"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="ButtonHBoxContainer" type="HBoxContainer" parent="LogicAnalyzerWindow/RootVBoxContainer"]
-layout_mode = 2
-
-[node name="SelectPinsButton" type="Button" parent="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-tooltip_text = "Нажмите кнопку, чтобы начать добавление пинов. В режиме выбора пинов нажимайте мышкой на пины на схеме, чтобы добавить их в анализтор"
-text = "Начать выбор ножек"
-script = ExtResource("13_o3lk5")
-
-[node name="StartStopAnalysisButton" type="Button" parent="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-text = "Начать"
-script = ExtResource("19_gtxal")
-
-[node name="LaunchForButton" type="Button" parent="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer"]
-layout_mode = 2
-text = "Запустить на"
-script = ExtResource("33_503t8")
-
-[node name="ClearButton" type="Button" parent="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer"]
-layout_mode = 2
-tooltip_text = "Очистить снятые значения"
-text = "Очистить"
-script = ExtResource("15_73c41")
-
-[node name="SimulateButton" type="Button" parent="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer"]
-layout_mode = 2
-tooltip_text = "Приблизить полученные значения"
-text = "Симуляция"
-script = ExtResource("37_7766m")
-
-[node name="ZoomOutButton" type="Button" parent="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer"]
-layout_mode = 2
-tooltip_text = "Отдалить полученные значения"
-text = "-"
-script = ExtResource("21_16sfj")
-
-[node name="ZoomInButton" type="Button" parent="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer"]
-layout_mode = 2
-tooltip_text = "Приблизить полученные значения"
-text = "+"
-script = ExtResource("22_bntlu")
-
-[node name="AlwaysOnTopCheckBox" type="CheckBox" parent="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer"]
-layout_mode = 2
-tooltip_text = "Держать это окно поверх остальных окон"
-text = "Всегда поверх других окон"
-script = ExtResource("50_xi6xf")
-
-[node name="SimulationProgressContainer" type="HBoxContainer" parent="LogicAnalyzerWindow/RootVBoxContainer"]
-visible = false
-layout_mode = 2
-
-[node name="SimulationProgressBar" type="ProgressBar" parent="LogicAnalyzerWindow/RootVBoxContainer/SimulationProgressContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="CancelSimulationButton" type="Button" parent="LogicAnalyzerWindow/RootVBoxContainer/SimulationProgressContainer"]
-layout_mode = 2
-text = "Завершить симуляцию"
-
-[node name="GroupButtonTimeLineContainer" type="HBoxContainer" parent="LogicAnalyzerWindow/RootVBoxContainer"]
-layout_mode = 2
-
-[node name="GroupButton" type="Button" parent="LogicAnalyzerWindow/RootVBoxContainer/GroupButtonTimeLineContainer"]
-layout_mode = 2
-text = "Группировка"
-script = ExtResource("55_dvikr")
-
-[node name="TimeLine" type="Control" parent="LogicAnalyzerWindow/RootVBoxContainer/GroupButtonTimeLineContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-script = ExtResource("51_vv0bl")
-
-[node name="ScrollContainer" type="ScrollContainer" parent="LogicAnalyzerWindow/RootVBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-horizontal_scroll_mode = 0
-
-[node name="SignalsHSplitContainer" type="HSplitContainer" parent="LogicAnalyzerWindow/RootVBoxContainer/ScrollContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-split_offset = 175
-script = ExtResource("15_7mwtm")
-
-[node name="SignalLabelsPanelContainer" type="PanelContainer" parent="LogicAnalyzerWindow/RootVBoxContainer/ScrollContainer/SignalsHSplitContainer"]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-
-[node name="SignalLabelsVBoxContainer" type="VBoxContainer" parent="LogicAnalyzerWindow/RootVBoxContainer/ScrollContainer/SignalsHSplitContainer/SignalLabelsPanelContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="SignalsPanelContainer" type="PanelContainer" parent="LogicAnalyzerWindow/RootVBoxContainer/ScrollContainer/SignalsHSplitContainer"]
-layout_mode = 2
-mouse_filter = 1
-
-[node name="Cursor" type="Line2D" parent="LogicAnalyzerWindow/RootVBoxContainer/ScrollContainer/SignalsHSplitContainer/SignalsPanelContainer"]
-points = PackedVector2Array(0, 0, 0, 2800)
-width = 3.0
-default_color = Color(0.556953, 0.556953, 0.556953, 1)
-
-[node name="SignalsScrollContainer" type="ScrollContainer" parent="LogicAnalyzerWindow/RootVBoxContainer/ScrollContainer/SignalsHSplitContainer/SignalsPanelContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 3
-mouse_filter = 2
-vertical_scroll_mode = 0
-
-[node name="SignalsVBoxContainer" type="VBoxContainer" parent="LogicAnalyzerWindow/RootVBoxContainer/ScrollContainer/SignalsHSplitContainer/SignalsPanelContainer/SignalsScrollContainer"]
-layout_mode = 2
-mouse_filter = 2
-
-[node name="SimulationAcceptDialog" type="AcceptDialog" parent="LogicAnalyzerWindow"]
-title = "Симуляция"
-initial_position = 4
-size = Vector2i(300, 100)
-ok_button_text = "Начать симуляцию"
-script = ExtResource("39_1y2mv")
-
-[node name="LaunchForAcceptDialog" type="AcceptDialog" parent="LogicAnalyzerWindow"]
-auto_translate_mode = 1
-title = "Симуляция"
-initial_position = 4
-size = Vector2i(300, 100)
-ok_button_text = "Начать симуляцию"
-script = ExtResource("52_mpko7")
-
-[node name="GroupSignalsAcceptDialog" type="AcceptDialog" parent="LogicAnalyzerWindow"]
-unique_name_in_owner = true
-title = "Группировка сигналов"
-initial_position = 4
-size = Vector2i(300, 650)
-force_native = true
-ok_button_text = "Продолжить"
-script = ExtResource("60_hkbny")
+[node name="LogicAnalyzerWindow" parent="." instance=ExtResource("46_khyqg")]
 
 [node name="MemoryViewer" type="Window" parent="."]
 auto_translate_mode = 1
@@ -1374,19 +1202,8 @@ cancel_button_text = "Нет"
 [connection signal="close_requested" from="AboutWindow" to="AboutWindow" method="_on_close_requested"]
 [connection signal="file_selected" from="SaveAsFileDialog" to="SaveAsFileDialog" method="_on_file_selected"]
 [connection signal="file_selected" from="LoadFileDialog" to="LoadFileDialog" method="_on_file_selected"]
-[connection signal="close_requested" from="LogicAnalyzerWindow" to="LogicAnalyzerWindow" method="_on_close_requested"]
-[connection signal="visibility_changed" from="LogicAnalyzerWindow" to="LogicAnalyzerWindow" method="_on_visibility_changed"]
-[connection signal="pressed" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/SelectPinsButton" to="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/SelectPinsButton" method="_on_pressed"]
-[connection signal="pressed" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/StartStopAnalysisButton" to="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/StartStopAnalysisButton" method="_on_pressed"]
-[connection signal="pressed" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/LaunchForButton" to="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/LaunchForButton" method="_on_pressed"]
-[connection signal="pressed" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/ClearButton" to="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/ClearButton" method="_on_pressed"]
-[connection signal="pressed" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/SimulateButton" to="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/SimulateButton" method="_on_pressed"]
-[connection signal="pressed" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/ZoomOutButton" to="LogicAnalyzerWindow/RootVBoxContainer/ScrollContainer/SignalsHSplitContainer" method="_on_zoom_out_button_pressed"]
-[connection signal="pressed" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/ZoomInButton" to="LogicAnalyzerWindow/RootVBoxContainer/ScrollContainer/SignalsHSplitContainer" method="_on_zoom_in_button_pressed"]
-[connection signal="pressed" from="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/AlwaysOnTopCheckBox" to="LogicAnalyzerWindow/RootVBoxContainer/ButtonHBoxContainer/AlwaysOnTopCheckBox" method="_on_pressed"]
-[connection signal="button_up" from="LogicAnalyzerWindow/RootVBoxContainer/GroupButtonTimeLineContainer/GroupButton" to="LogicAnalyzerWindow/RootVBoxContainer/GroupButtonTimeLineContainer/GroupButton" method="_on_button_up"]
-[connection signal="zoom_changed" from="LogicAnalyzerWindow/RootVBoxContainer/ScrollContainer/SignalsHSplitContainer" to="LogicAnalyzerWindow/RootVBoxContainer/GroupButtonTimeLineContainer/TimeLine" method="_on_signals_h_split_container_zoom_changed"]
 [connection signal="pressed" from="MemoryViewer/VBoxContainer/HBoxContainer2/ContinuousUpdate" to="MemoryViewer/VBoxContainer/HBoxContainer" method="_on_continuous_update_pressed"]
+[connection signal="canceled" from="MemoryViewer/VBoxContainer/HBoxContainer/FileDialog" to="MemoryViewer/VBoxContainer/HBoxContainer" method="_on_file_dialog_canceled"]
 [connection signal="pressed" from="MemoryViewer/VBoxContainer/HBoxContainer/ResetSelectionButton" to="MemoryViewer/VBoxContainer/GridContainer" method="reset_all_labels_style"]
 [connection signal="toggled" from="MemoryViewer/VBoxContainer/ResetStyleOnPageChangeButton" to="MemoryViewer/VBoxContainer/GridContainer" method="_on_reset_style_on_page_change_button_toggled"]
 [connection signal="mouse_entered" from="SelectionArea" to="SelectionArea" method="_on_mouse_entered"]

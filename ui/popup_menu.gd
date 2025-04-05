@@ -1,9 +1,18 @@
 extends PopupMenu
 
-
+var dialog
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	dialog = ConfirmationDialog.new()
+	dialog.confirmed.connect(save_handler)
+	dialog.dialog_close_on_escape = true
+	dialog.dialog_hide_on_ok = true
+	dialog.dialog_close_on_escape = true
+	dialog.close_requested.connect(dialog.hide)
+	dialog.dialog_text = "Сохранить?"
+	dialog.dialog_autowrap = true
+	dialog.initial_position = Window.WINDOW_INITIAL_POSITION_CENTER_MAIN_WINDOW_SCREEN
+	get_node("/root/RootNode").add_child.call_deferred(dialog)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -44,6 +53,12 @@ func _on_clear_button_pressed(confirmed = false):
 	get_node("/root/RootNode").get_window().title = "TVBuilder - New Project"
 
 func _on_save_button_pressed():
+	if GlobalSettings.confirmOnSave:
+		dialog.show()
+	else:
+		save_handler()
+
+func save_handler():
 	if SaveManager.last_path == "":
 		get_node("/root/RootNode/SaveAsFileDialog")._on_save_as_button_pressed()
 	else:

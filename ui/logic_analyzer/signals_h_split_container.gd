@@ -38,44 +38,67 @@ func _ready() -> void:
 
 func add_signal(pin: Pin):
 	if select_pins_button.is_add_pins_mode_on:
-		pin.is_tracked = true
-		var signal_controller = LASignalController.new(
-			pin.readable_name,
-			SIGNAL_ROW_HEIGHT
-			)
-		var sig = LASignal.new(
-			signal_controller,
-			signal_values_zoom_factor,
-			SIGNAL_COLORS[color_index % SIGNAL_COLORS.size()],
-			SIGNAL_ROW_HEIGHT,
+		clear_signal_values()
+		
+		add_signal_(
 			pin.parent.id,
 			pin.index,
-			)
+			pin.readable_name,
+			SIGNAL_COLORS[color_index % SIGNAL_COLORS.size()],
+		)
 		color_index += 1
-		signals.append(sig)
 
-		signal_controller.sig_remove_requested.connect(
-			func():
-				remove_signal(sig)
+
+func add_signal_(
+	ic_id: int,
+	pin_index: int,
+	name: String,
+	color: Color,
+	signal_points: Array = []
+):
+	var ic = ComponentManager.get_by_id(ic_id)
+	var pin: Pin
+	if is_instance_valid(ic) and ic != null:
+		pin = ic.pin(pin_index)
+		pin.is_tracked = true
+
+	var signal_controller = LASignalController.new(
+		name,
+		SIGNAL_ROW_HEIGHT
 		)
-		zoom_changed.connect(
-			func(new_factor: float):
-				if is_instance_valid(sig) and is_instance_valid(sig.signal_line):
-					sig.signal_line.zoom_factor = new_factor
-					sig.signal_line.queue_redraw()
+	var sig = LASignal.new(
+		signal_controller,
+		signal_values_zoom_factor,
+		color,
+		SIGNAL_ROW_HEIGHT,
+		ic_id,
+		pin_index,
 		)
+	sig.signal_points = signal_points
 		
-		clear_signal_values()
-		redraw()
-
-
-func add_group(signals_to_group: Array):
-	var group_name: String = " ".join(
-		PackedStringArray(signals_to_group.map(
-			func(sig):
-				return sig.signal_controller.line_edit.text)
-		)
+	signals.append(sig)
+	
+	signal_controller.sig_remove_requested.connect(
+		func():
+			remove_signal(sig)
 	)
+	zoom_changed.connect(
+		func(new_factor: float):
+			if is_instance_valid(sig) and is_instance_valid(sig.signal_line):
+				sig.signal_line.zoom_factor = new_factor
+				sig.signal_line.queue_redraw()
+	)
+	redraw()
+
+	
+func add_group(signals_to_group: Array, group_name: String = "", radix: Radix = Radix.BINARY):
+	if group_name == "":
+		group_name = " ".join(
+			PackedStringArray(signals_to_group.map(
+				func(sig):
+					return sig.signal_controller.line_edit.text)
+			)
+		)
 
 	var group_controller = LASignalGroupController.new(
 		group_name, SIGNAL_ROW_HEIGHT
@@ -87,7 +110,7 @@ func add_group(signals_to_group: Array):
 	)
 			
 	var group = LASignalGroup.new(
-		group_controller, signals_to_group, signal_values_zoom_factor, SIGNAL_ROW_HEIGHT, Radix.BINARY
+		group_controller, signals_to_group, signal_values_zoom_factor, SIGNAL_ROW_HEIGHT, radix
 	)
 	for sig in signals_to_group:
 		signals.erase(sig)
@@ -101,7 +124,6 @@ func add_group(signals_to_group: Array):
 				group.signal_line.queue_redraw()
 	)
 
-	clear_signal_values()
 	redraw()
 
 
@@ -333,11 +355,14 @@ func _get_current_signal_value(ic_id: int, pin_index: int) -> NetConstants.LEVEL
 
 
 func remove_signal(sig_to_del: LASignal):
-	var pin = ComponentManager.get_by_id(sig_to_del.ic_id).pin(sig_to_del.pin_index)
-	if is_instance_valid(pin):
-		pin.modulate = Color(1, 1, 1, 1)
-		pin.toggle_output_highlight()
-		pin.is_tracked = false
+	var ic = ComponentManager.get_by_id(sig_to_del.ic_id)
+	if is_instance_valid(ic):
+		var pin = ic.pin(sig_to_del.pin_index)
+		if is_instance_valid(pin):
+			pin.modulate = Color(1, 1, 1, 1)
+			pin.toggle_output_highlight()
+			pin.is_tracked = false
+			
 	signals.erase(sig_to_del)
 	for sig in signals:
 		if sig is LASignalGroup:
