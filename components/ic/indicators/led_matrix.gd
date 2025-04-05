@@ -25,8 +25,7 @@ func initialize(spec: ComponentSpecification, ic = null)->void:
 				led_sprite.texture = texture_off
 			add_child(led_sprite)
 
-func _process(delta: float)->void:
-	super._process(delta)
+func _process_signal():
 	for i in range(16):
 		if pins[i].high:
 			for j in range(16):
@@ -34,8 +33,7 @@ func _process(delta: float)->void:
 					set_on(i, j)
 				else:
 					set_off(i, j)
-		
-		
+
 func set_on(i, j):
 	if GlobalSettings.CurrentGraphicsMode==LegacyGraphicsMode:
 		sprite_arr[i][j].set_texture(texture_on)
