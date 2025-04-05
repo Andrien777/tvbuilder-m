@@ -239,6 +239,11 @@
 					"logic_class_path": "res://components/ic/other/led_group.gd"
 				},
 				{
+					"ic_name": "Матрица светодиодов",
+					"config_path": "res://components/ic/indicators/led_matrix.json",
+					"logic_class_path": "res://components/ic/indicators/led_matrix.gd"
+				},
+				{
 					"ic_name": "АЛС324А",
 					"config_path": "res://components/ic/indicators/ALS324A.json",
 					"logic_class_path": "res://components/ic/indicators/ALS324A.gd"

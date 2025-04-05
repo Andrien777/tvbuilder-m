@@ -33,7 +33,6 @@ func bind_proc(p:RV32):
 	$TabContainer/Main/ScrollContainer/VBoxContainer2/Button.reset_color()
 	$TabContainer/Main/ScrollContainer/VBoxContainer2/Button2.reset_color()
 	batch_edit.text = str(p.proc_impl.cycles_per_step)
-	batch_edit.text_changed.connect(on_batch_text_update)
 
 func _ready():
 	for i in range(32):
@@ -50,6 +49,7 @@ func _ready():
 	$TabContainer.set_tab_title(1,"Память")
 	seek_edit.text_changed.connect(validate_seek_edit_text)
 	seek_edit.text_submitted.connect(seek_mem)
+	batch_edit.text_changed.connect(on_batch_text_update)
 
 func on_batch_text_update(new_text:String):
 	if new_text.is_valid_int():
