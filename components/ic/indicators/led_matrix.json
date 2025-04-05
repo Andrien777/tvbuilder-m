@@ -1,0 +1,244 @@
+{
+	"name":"Матрица светодиодов",
+	"num_pins": 32,
+	"height": 25,
+	"width": 25,
+	"texture": "res://graphics/legacy/ic/led_matrix_background.png",
+	"textures": [
+		{
+			"name":"LEGACY", 
+			"path":"res://graphics/legacy/ic/led_matrix_background.png"
+		},
+		{
+			"name":"DEFAULT", 
+			"path":"res://graphics/legacy/ic/led_matrix_background.png"
+		}
+		],
+	"pinSpecifications": [
+		{
+			"index": 1,
+			"direction": "DIRECTION_INPUT",
+			"position": "LEFT",
+			"readable_name": "ROW1",
+			"description": "Вход строки 1",
+			"dependencies": []
+		},{
+			"index": 2,
+			"direction": "DIRECTION_INPUT",
+			"position": "LEFT",
+			"readable_name": "ROW2",
+			"description": "Вход строки 2",
+			"dependencies": []
+		},{
+			"index": 3,
+			"direction": "DIRECTION_INPUT",
+			"position": "LEFT",
+			"readable_name": "ROW3",
+			"description": "Вход строки 3",
+			"dependencies": []
+		},{
+			"index": 4,
+			"direction": "DIRECTION_INPUT",
+			"position": "LEFT",
+			"readable_name": "ROW4",
+			"description": "Вход строки 4",
+			"dependencies": []
+		},{
+			"index": 5,
+			"direction": "DIRECTION_INPUT",
+			"position": "LEFT",
+			"readable_name": "ROW5",
+			"description": "Вход строки 5",
+			"dependencies": []
+		},{
+			"index": 6,
+			"direction": "DIRECTION_INPUT",
+			"position": "LEFT",
+			"readable_name": "ROW6",
+			"description": "Вход строки 6",
+			"dependencies": []
+		},{
+			"index": 7,
+			"direction": "DIRECTION_INPUT",
+			"position": "LEFT",
+			"readable_name": "ROW7",
+			"description": "Вход строки 7",
+			"dependencies": []
+		},{
+			"index": 8,
+			"direction": "DIRECTION_INPUT",
+			"position": "LEFT",
+			"readable_name": "ROW8",
+			"description": "Вход строки 8",
+			"dependencies": []
+		},{
+			"index": 9,
+			"direction": "DIRECTION_INPUT",
+			"position": "LEFT",
+			"readable_name": "ROW8",
+			"description": "Вход строки 9",
+			"dependencies": []
+		},{
+			"index": 10,
+			"direction": "DIRECTION_INPUT",
+			"position": "LEFT",
+			"readable_name": "ROW8",
+			"description": "Вход строки 10",
+			"dependencies": []
+		},{
+			"index": 11,
+			"direction": "DIRECTION_INPUT",
+			"position": "LEFT",
+			"readable_name": "ROW8",
+			"description": "Вход строки 11",
+			"dependencies": []
+		},{
+			"index": 12,
+			"direction": "DIRECTION_INPUT",
+			"position": "LEFT",
+			"readable_name": "ROW8",
+			"description": "Вход строки 12",
+			"dependencies": []
+		},{
+			"index": 13,
+			"direction": "DIRECTION_INPUT",
+			"position": "LEFT",
+			"readable_name": "ROW8",
+			"description": "Вход строки 13",
+			"dependencies": []
+		},{
+			"index": 14,
+			"direction": "DIRECTION_INPUT",
+			"position": "LEFT",
+			"readable_name": "ROW8",
+			"description": "Вход строки 14",
+			"dependencies": []
+		},{
+			"index": 15,
+			"direction": "DIRECTION_INPUT",
+			"position": "LEFT",
+			"readable_name": "ROW8",
+			"description": "Вход строки 15",
+			"dependencies": []
+		},{
+			"index": 16,
+			"direction": "DIRECTION_INPUT",
+			"position": "LEFT",
+			"readable_name": "ROW8",
+			"description": "Вход строки 16",
+			"dependencies": []
+		},{
+			"index": 17,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "COL1",
+			"description": "Вход столбца 1",
+			"dependencies": []
+		},{
+			"index": 18,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "COL2",
+			"description": "Вход столбца 2",
+			"dependencies": []
+		},{
+			"index": 19,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "COL3",
+			"description": "Вход столбца 3",
+			"dependencies": []
+		},{
+			"index": 20,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "COL4",
+			"description": "Вход столбца 4",
+			"dependencies": []
+		},{
+			"index": 21,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "COL5",
+			"description": "Вход столбца 5",
+			"dependencies": []
+		},{
+			"index": 22,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "COL6",
+			"description": "Вход столбца 6",
+			"dependencies": []
+		},{
+			"index": 23,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "COL7",
+			"description": "Вход столбца 7",
+			"dependencies": []
+		},{
+			"index": 24,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "COL8",
+			"description": "Вход столбца 8",
+			"dependencies": []
+		},{
+			"index": 25,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "COL8",
+			"description": "Вход столбца 9",
+			"dependencies": []
+		},{
+			"index": 26,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "COL8",
+			"description": "Вход столбца 10",
+			"dependencies": []
+		},{
+			"index": 27,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "COL8",
+			"description": "Вход столбца 11",
+			"dependencies": []
+		},{
+			"index": 28,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "COL8",
+			"description": "Вход столбца 12",
+			"dependencies": []
+		},{
+			"index": 29,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "COL8",
+			"description": "Вход столбца 13",
+			"dependencies": []
+		},{
+			"index": 30,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "COL8",
+			"description": "Вход столбца 14",
+			"dependencies": []
+		},{
+			"index": 31,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "COL8",
+			"description": "Вход столбца 15",
+			"dependencies": []
+		},{
+			"index": 32,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "COL8",
+			"description": "Вход столбца 16",
+			"dependencies": []
+		}
+	]
+}
