@@ -36,8 +36,8 @@
 		"logic_class_path": "res://components/ic/other/led_group.gd"
 	},
 	"Матрица светодиодов": {
-		"config_path": "res://components/ic/indocators/led_matrix.json",
-		"logic_class_path": "res://components/ic/indocators/led_matrix.gd"
+		"config_path": "res://components/ic/indicators/led_matrix.json",
+		"logic_class_path": "res://components/ic/indicators/led_matrix.gd"
 	},
 	"Группа переключателей": {
 		"config_path": "res://components/ic/other/switch_group.json",
