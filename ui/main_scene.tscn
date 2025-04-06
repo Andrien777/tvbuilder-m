@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=3 uid="uid://cd0acvbjpyg0w"]
+[gd_scene load_steps=80 format=3 uid="uid://cd0acvbjpyg0w"]
 
 [ext_resource type="Script" uid="uid://dlsn6lmgynqb0" path="res://ui/main_scene.gd" id="1_8vqs3"]
 [ext_resource type="Shader" uid="uid://bbm5aifcn1lfm" path="res://shaders/grid.gdshader" id="2_7ckc8"]
@@ -45,9 +45,15 @@
 [ext_resource type="Script" uid="uid://cryusgfp2jl0i" path="res://ui/bus_finish_button.gd" id="28_sag5d"]
 [ext_resource type="Texture2D" uid="uid://d35ocflcklcyn" path="res://ui/menu_icons/Edit/terminal.png" id="29_ma251"]
 [ext_resource type="Script" uid="uid://bqv2teyn6s3in" path="res://ui/Ribbon/console_open_button.gd" id="29_y107i"]
+[ext_resource type="Script" uid="uid://rx5t5tbrnxyv" path="res://ui/stop_button.gd" id="31_5x1t6"]
 [ext_resource type="Script" uid="uid://cc7rvwe23o8qd" path="res://ui/console.gd" id="31_rtmb3"]
+[ext_resource type="Texture2D" uid="uid://d1c7ot0p6jfks" path="res://ui/menu_icons/stop_25dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.png" id="31_vv0bl"]
 [ext_resource type="Texture2D" uid="uid://uvj23wk2aa7w" path="res://ui/menu_icons/snippets.png" id="32_fs2eg"]
 [ext_resource type="Texture2D" uid="uid://cgvgy3p2b8i4f" path="res://ui/menu_icons/Edit/red_cross.png" id="32_sk2vu"]
+[ext_resource type="Script" uid="uid://b8t64c0je0lpf" path="res://ui/start_button.gd" id="32_vf0lw"]
+[ext_resource type="Texture2D" uid="uid://3rj8weyhd63e" path="res://ui/menu_icons/play_arrow_25dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.png" id="33_arjyv"]
+[ext_resource type="Script" uid="uid://cy1dh1u5s3s2v" path="res://ui/step_button.gd" id="33_kehf0"]
+[ext_resource type="Texture2D" uid="uid://bd2yuwtqxl0bq" path="res://ui/menu_icons/step_over_25dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.png" id="35_fs2eg"]
 [ext_resource type="Texture2D" uid="uid://wtdwwavg1wpy" path="res://ui/menu_icons/Edit/sweep.png" id="35_rnlu2"]
 [ext_resource type="Script" uid="uid://cctxmubeshjsh" path="res://ui/about_window.gd" id="37_lvpgr"]
 [ext_resource type="Script" uid="uid://ca5fang22wjnm" path="res://ui/snippet_picker.gd" id="38_arjyv"]
@@ -107,6 +113,22 @@ corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xrbmq"]
+content_margin_left = 4.0
+bg_color = Color(0.431373, 0.431373, 0.431373, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_khyqg"]
+content_margin_left = 4.0
+bg_color = Color(0.431373, 0.431373, 0.431373, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5x1t6"]
 content_margin_left = 4.0
 bg_color = Color(0.431373, 0.431373, 0.431373, 1)
 corner_radius_top_left = 4
@@ -415,6 +437,35 @@ mouse_filter = 1
 theme_override_styles/pressed = SubResource("StyleBoxFlat_xrbmq")
 icon = ExtResource("27_pjgs7")
 script = ExtResource("28_sag5d")
+
+[node name="VSeparator3" type="VSeparator" parent="UiCanvasLayer/VBoxContainer2/RibbonContainer"]
+layout_mode = 2
+
+[node name="StopButton" type="Button" parent="UiCanvasLayer/VBoxContainer2/RibbonContainer"]
+layout_mode = 2
+tooltip_text = "Приостановить работу схемы"
+mouse_filter = 1
+theme_override_styles/pressed = SubResource("StyleBoxFlat_khyqg")
+toggle_mode = true
+icon = ExtResource("31_vv0bl")
+script = ExtResource("31_5x1t6")
+
+[node name="StartButton" type="Button" parent="UiCanvasLayer/VBoxContainer2/RibbonContainer"]
+layout_mode = 2
+tooltip_text = "Возобновить симуляцию"
+mouse_filter = 1
+theme_override_styles/pressed = SubResource("StyleBoxFlat_5x1t6")
+toggle_mode = true
+icon = ExtResource("33_arjyv")
+script = ExtResource("32_vf0lw")
+
+[node name="StepButton" type="Button" parent="UiCanvasLayer/VBoxContainer2/RibbonContainer"]
+layout_mode = 2
+tooltip_text = "Шаг работы схемы"
+mouse_filter = 1
+disabled = true
+icon = ExtResource("35_fs2eg")
+script = ExtResource("33_kehf0")
 
 [node name="VSeparator2" type="VSeparator" parent="UiCanvasLayer/VBoxContainer2/RibbonContainer"]
 layout_mode = 2
@@ -1179,6 +1230,9 @@ cancel_button_text = "Нет"
 [connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/ConnModeButton" to="UiCanvasLayer/VBoxContainer2/RibbonContainer/ConnModeButton" method="_on_pressed"]
 [connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/BusModeButton" to="UiCanvasLayer/VBoxContainer2/RibbonContainer/BusModeButton" method="_on_pressed"]
 [connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/BusFinishButton" to="UiCanvasLayer/VBoxContainer2/RibbonContainer/BusFinishButton" method="_on_pressed"]
+[connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/StopButton" to="UiCanvasLayer/VBoxContainer2/RibbonContainer/StopButton" method="_on_pressed"]
+[connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/StartButton" to="UiCanvasLayer/VBoxContainer2/RibbonContainer/StartButton" method="_on_pressed"]
+[connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/StepButton" to="UiCanvasLayer/VBoxContainer2/RibbonContainer/StepButton" method="_on_pressed"]
 [connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/OpenConsoleButton" to="UiCanvasLayer/VBoxContainer2/RibbonContainer/OpenConsoleButton" method="_on_pressed"]
 [connection signal="pressed" from="UiCanvasLayer/VBoxContainer2/RibbonContainer/ToggleSnippesButton" to="UiCanvasLayer/SnippetPicker" method="toggle_visibility"]
 [connection signal="item_mouse_selected" from="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" to="UiCanvasLayer/VBoxContainer/FunctionalUIContainer/ComponentTree" method="_on_item_mouse_selected"]
