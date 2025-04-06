@@ -86,16 +86,17 @@ func propagate_signal() -> void:
 		if(stack.is_empty()): # If there are no outputs, find anything
 			find_any_entry(stack, visited)
 		while not stack.is_empty():
+			entry_prof()
 			var current = stack.back()
 			if resolved_d.has(current) or current in late_propagation: #TODO: 'in' is potentially time consuming
 				stack.pop_back()
 				continue
-			if current not in visited.keys():
+			if not visited.has(current):
 				visited[current] = 1
 			else:
 				visited[current] += 1
 			if visited[current] > 3:
-				if is_instance_valid(current.pin) and current.pin.input():
+				if current.pin.input():
 					resolve_input_loop_prof()
 					var i = stack.size() - 2
 					var found_out = false
@@ -116,14 +117,14 @@ func propagate_signal() -> void:
 				##print("Could not resolve component:")
 				##print(current)
 				#continue
-			if is_instance_valid(current.pin) and current.pin.output():
+			if current.pin.output():
 				if not current.pin.dependencies.is_empty() and not GlobalSettings.doCycles:
 					var dependencies_resolved = true
 					dependencies_resolved = resolve_dependencies(current, visited, resolved, resolved_d, late_propagation, stack)
 					if dependencies_resolved:
 						resolve_current_output(current,stack,resolved, resolved_d)
 				else:
-					if not GlobalSettings.doCycles and is_instance_valid(current.pin):
+					if not GlobalSettings.doCycles:
 						if current.pin.parent.readable_name in ["Кварцевый резонатор", "Генератор частоты"] and current.pin.parent in processed_ics:
 							pass
 						else:
@@ -161,13 +162,13 @@ func find_entry_output(entry_outputs, stack, visited):
 			#stack.push_back(nodes[key])
 			#break
 	for node in entry_outputs:
-		if node not in visited:
+		if not visited.has(node):
 			stack.push_back(node)
 		else:
 			entry_outputs.erase(node) # TODO: May be concurrent modification depending on implementation
 func find_any_entry(stack, visited):
 	for key in nodes.keys():
-		if nodes[key] not in visited:
+		if not visited.has(nodes[key]):
 			stack.push_back(nodes[key])
 			break
 func count_neighbour_outputs(current, resolved, resolved_d): # Actually, count neighbour outputs AND resolved inputs
@@ -197,8 +198,6 @@ func push_all_neighbours(current, stack):
 			stack.push_back(neighbour)
 func push_neighbour_outputs(current, stack, resolved, resolved_d):
 	for neighbour in current.neighbours:
-		if not is_instance_valid(neighbour.pin):
-			continue
 		if neighbour.pin.output():
 			if resolved_d.has(neighbour) and neighbour.pin.state != current.pin.state:
 				if not neighbour.pin.z and not current.pin.z:
@@ -211,20 +210,19 @@ func resolve_current_output(current,stack,resolved, resolved_d):
 	stack.pop_back()
 	#resolved.append(current)
 	resolved_d[current] = null
-	for neighbour in current.neighbours:
-		if not is_instance_valid(neighbour.pin):
-			continue
-		if neighbour.pin.output():
-			if resolved_d.has(neighbour)  and neighbour.pin.state != current.pin.state:
-				if not neighbour.pin.z and not current.pin.z:
-					PopupManager.display_error("Короткое замыкание", "Соединены два выхода с разными сигналами", current.pin.global_position)
-					#print("Two outputs short circuited")
-		if neighbour != current:
-			stack.push_back(neighbour)
+	push_neighbour_outputs(current, stack, resolved, resolved_d)
+	#for neighbour in current.neighbours:
+		#if not is_instance_valid(neighbour.pin):
+			#continue
+		#if neighbour.pin.output():
+			#if resolved_d.has(neighbour)  and neighbour.pin.state != current.pin.state:
+				#if not neighbour.pin.z and not current.pin.z:
+					#PopupManager.display_error("Короткое замыкание", "Соединены два выхода с разными сигналами", current.pin.global_position)
+					##print("Two outputs short circuited")
+		#if neighbour != current:
+			#stack.push_back(neighbour)
 func resolve_current_input(current, late_propagation, resolved,  resolved_d):
 	for neighbour in current.neighbours:
-		if not is_instance_valid(neighbour.pin):
-			continue
 		if neighbour in late_propagation:
 			late_propagation.append(current)
 			break
@@ -244,7 +242,7 @@ func resolve_dependencies(current, visited, resolved, resolved_d, late_propagati
 	var dependencies_resolved = true
 	for dep in current.pin.dependencies:
 		if nodes.has(dep):
-			if nodes[dep] in visited:
+			if visited.has(nodes[dep]):
 				if visited.get(nodes[dep]) > 2:
 					late_propagation.append(current)
 					stack.pop_back()
@@ -260,6 +258,8 @@ func resolve_dependencies(current, visited, resolved, resolved_d, late_propagati
 			dep.set_high()
 	return dependencies_resolved
 func resolve_input_loop_prof():
+	pass
+func entry_prof():
 	pass
 func do_late_propagation(late_propagation, resolved, resolved_d):
 	for pin in late_propagation:
@@ -302,7 +302,7 @@ func get_json_adjacency():
 	for node in nodes:
 		visited.append(node)
 		for neighbour in nodes[node].neighbours:
-			if neighbour.pin in visited:
+			if visited.has(neighbour.pin):
 				continue
 			var wire = WireManager.find_wire_by_ends(node, neighbour.pin)
 
