@@ -66,7 +66,7 @@ func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void
 		
 func _mouse_enter() -> void:
 	self.modulate=GlobalSettings.highlightedPinsColor
-	PopupManager.display_hint("Пин: "+str(index)+ " | " + readable_name,description,self.global_position, self.direction)
+	PopupManager.display_hint("Пин: "+str(index)+ " | " + readable_name,description,self.global_position, self.direction, self)
 	
 func _mouse_exit()->void:
 	if GlobalSettings.highlightOutputPins:

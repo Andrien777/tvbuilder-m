@@ -4,18 +4,32 @@ extends Node
 signal scheme_processed
 
 var paused = false
+var ui_paused = false
 var timer: Timer
 
 func pause():
 	paused = true
+	
+func ui_pause():
+	paused = true
+	ui_paused = true
 
 func pause_time():
 	paused = true
 	timer.start()
 
 func unpause():
+	if not ui_paused:
+		paused = false
+		
+func ui_unpause():
+	ui_paused = false
 	paused = false
 
+func step():
+	process_components()
+	propagate_signal()
+	ComponentManager.clear_deletion_queue()
 
 var nodes: Dictionary # Pin -> NetlistNode
 
@@ -287,9 +301,10 @@ func do_late_propagation(late_propagation, resolved, resolved_d):
 					PopupManager.display_error("Короткое замыкание", "В этом месте произошло КЗ", pin.pin.global_position)
 					#print("Short circuit")
 func process_components():
-	for key in nodes.keys():
-		if key.direction == NetConstants.DIRECTION.DIRECTION_INPUT_OUTPUT and not GlobalSettings.doCycles:
-			key.parent._process_signal()
+	if not GlobalSettings.doCycles:
+		for key in nodes.keys():
+			if key.direction == NetConstants.DIRECTION.DIRECTION_INPUT_OUTPUT:
+				key.parent._process_signal()
 	if GlobalSettings.doCycles:
 		for ic in ComponentManager.obj_list.values():
 			ic._process_signal()
