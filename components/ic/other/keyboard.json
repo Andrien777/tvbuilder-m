@@ -1,0 +1,69 @@
+{
+	"name":"Клавиатура",
+	"num_pins": 7,
+	"height": 25,
+	"width": 25,
+	"texture": "res://graphics/legacy/ic/kb_background.png",
+	"textures": [
+		{
+			"name":"LEGACY", 
+			"path":"res://graphics/legacy/ic/kb_background.png"
+		},
+		{
+			"name":"DEFAULT", 
+			"path":"res://graphics/legacy/ic/kb_background.png"
+		}
+		],
+	"pinSpecifications": [
+		{
+			"index": 1,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "LEFT",
+			"readable_name": "ROW1",
+			"description": "Выход строки 1",
+			"dependencies": []
+		},{
+			"index": 2,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "LEFT",
+			"readable_name": "ROW2",
+			"description": "Выход строки 2",
+			"dependencies": []
+		},{
+			"index": 3,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "LEFT",
+			"readable_name": "ROW3",
+			"description": "Выход строки 3",
+			"dependencies": []
+		},{
+			"index": 4,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "LEFT",
+			"readable_name": "ROW4",
+			"description": "Выход строки 4",
+			"dependencies": []
+		},{
+			"index": 5,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "COL1",
+			"description": "Выход столбца 1",
+			"dependencies": []
+		},{
+			"index": 6,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "COL2",
+			"description": "Выход столбца 2",
+			"dependencies": []
+		},{
+			"index": 7,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "COL3",
+			"description": "Выход столбца 3",
+			"dependencies": []
+		}
+	]
+}

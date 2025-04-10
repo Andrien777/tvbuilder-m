@@ -27,6 +27,10 @@
 		"config_path": "res://components/ic/other/button.json",
 		"logic_class_path": "res://components/ic/other/button.gd"
 	},
+	"Клавиатура": {
+		"config_path": "res://components/ic/other/keyboard.json",
+		"logic_class_path": "res://components/ic/other/keyboard.gd"
+	},
 	"Светодиод": {
 		"config_path": "res://components/ic/other/led.json",
 		"logic_class_path": "res://components/ic/other/led.gd"
