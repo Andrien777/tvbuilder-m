@@ -19,6 +19,7 @@ var memory_page = 0
 var memory_page_size = 256
 var addr_regex = RegEx.create_from_string("^[0-9A-Fa-f]{0,8}$")
 @onready var seek_edit: LineEdit = get_node("TabContainer/Memory/VBoxContainer/HBoxContainer3/LineEdit")
+@onready var batch_edit: LineEdit = $TabContainer/Main/ScrollContainer/VBoxContainer2/HBoxContainer/LineEdit
 
 func bind_proc(p:RV32):
 	if not proc or proc != p:
@@ -31,6 +32,7 @@ func bind_proc(p:RV32):
 	$TabContainer/Memory/VBoxContainer/HBoxContainer/TextEdit.text = str(memory_page)
 	$TabContainer/Main/ScrollContainer/VBoxContainer2/Button.reset_color()
 	$TabContainer/Main/ScrollContainer/VBoxContainer2/Button2.reset_color()
+	batch_edit.text = str(p.proc_impl.cycles_per_step)
 
 func _ready():
 	for i in range(32):
@@ -47,7 +49,19 @@ func _ready():
 	$TabContainer.set_tab_title(1,"Память")
 	seek_edit.text_changed.connect(validate_seek_edit_text)
 	seek_edit.text_submitted.connect(seek_mem)
-	
+	batch_edit.text_changed.connect(on_batch_text_update)
+
+func on_batch_text_update(new_text:String):
+	if new_text.is_valid_int():
+		var batch = int(new_text)
+		if batch > 0:
+			proc.proc_impl.cycles_per_step = batch
+		else:
+			proc.proc_impl.cycles_per_step = 1
+			batch_edit.text = "1"
+	else:
+		proc.proc_impl.cycles_per_step = 1
+		batch_edit.text = "1"
 
 func _process(_delta):
 	if visible:

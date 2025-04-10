@@ -35,7 +35,6 @@ void RVProc::Reset(){
 											  // It does, 0x80000000
   //
   this->core->regs[10] = 0x00; // hart ID
-  this->cycles_per_step = 1;
   //
   // dtb_ptr should be : dtb_ptr = ram_amt - dtblen - sizeof( struct
   // MiniRV32IMAState ); where dtblen is the size of the dtbfile (until the end
