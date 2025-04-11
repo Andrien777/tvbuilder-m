@@ -46,8 +46,10 @@ func _draw():
 					closest_edge = edge
 					closest_edge_time_sig_ind = sig_ind
 					
-		if (closest_edge[1] == NetConstants.LEVEL.LEVEL_Z):
+		if closest_edge[1] == NetConstants.LEVEL.LEVEL_Z:
 			value_binary[closest_edge_time_sig_ind] = "Z"  
+		elif closest_edge[1] == NetConstants.LEVEL.PIN_INEXISTENT:
+			value_binary[closest_edge_time_sig_ind] = "X"  
 		else:
 			value_binary[closest_edge_time_sig_ind] = str(closest_edge[1])
 		var value_binary_reversed = value_binary.reverse()
@@ -97,6 +99,8 @@ func _draw():
 func binary_to_radix(value_binary: String, radix: Radix) -> String:
 	if radix == Radix.BINARY: 
 		return value_binary
+	if value_binary.contains("X"): 
+		return "X"
 	if value_binary.contains("Z"): 
 		return "Z"
 		

@@ -350,8 +350,7 @@ func _get_current_signal_value(ic_id: int, pin_index: int) -> NetConstants.LEVEL
 	var ic = ComponentManager.get_by_id(ic_id)
 	if is_instance_valid(ic) and ic != null:
 		return ic.pin(pin_index).state
-	push_error("Logic Analyzer couldn't find Pin with ic_id=" + str(ic_id) + ", pin_index=" + str(pin_index) + " in the netlist")
-	return NetConstants.LEVEL.LEVEL_Z # Pin is inexistent
+	return NetConstants.LEVEL.PIN_INEXISTENT
 
 
 func remove_signal(sig_to_del: LASignal):
