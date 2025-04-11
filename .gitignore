@@ -11,3 +11,4 @@ config.json
 *.snippet
 snippets/
 *.x86_64
+*.tvbwave

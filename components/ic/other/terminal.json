@@ -6,11 +6,11 @@
 	"textures": [
 		{
 			"name":"LEGACY", 
-			"path":"res://components/ic/ic.png"
+			"path":"res://graphics/legacy/terminal_bg.png"
 		},
 		{
 			"name":"DEFAULT", 
-			"path":"res://components/ic/ic.png"
+			"path":"res://graphics/legacy/terminal_bg.png"
 		}
 		],
 	"pinSpecifications": [
