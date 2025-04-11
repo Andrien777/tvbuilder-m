@@ -203,6 +203,10 @@
 		"config_path": "res://components/ic/other/quartz.json",
 		"logic_class_path": "res://components/ic/other/quartz.gd"
 	},
+	"Терминал USART": {
+		"config_path": "res://components/ic/other/terminal.json",
+		"logic_class_path": "res://components/ic/other/terminal.gd"
+	},
 	"Резистор": {
 		"config_path": "res://components/misc/resistor.json",
 		"logic_class_path": "res://components/misc/resistor.gd"

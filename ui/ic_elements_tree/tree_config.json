@@ -249,6 +249,11 @@
 					"logic_class_path": "res://components/ic/indicators/led_matrix.gd"
 				},
 				{
+					"ic_name": "Терминал USART",
+					"config_path": "res://components/ic/other/terminal.json",
+					"logic_class_path": "res://components/ic/other/terminal.gd"
+				},
+				{
 					"ic_name": "АЛС324А",
 					"config_path": "res://components/ic/indicators/ALS324A.json",
 					"logic_class_path": "res://components/ic/indicators/ALS324A.gd"
