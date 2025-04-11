@@ -39,6 +39,11 @@ func _ready():
 			_scrolled = signals_scroll_container.scroll_horizontal
 	)
 	
+	signals_scroll_container.get_h_scroll_bar().changed.connect(
+		func():
+			_scrolled = signals_scroll_container.scroll_horizontal
+	)
+	
 	
 func _draw():
 	var split_offset = 10

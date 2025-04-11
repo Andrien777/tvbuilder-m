@@ -42,12 +42,10 @@ size_flags_vertical = 3
 layout_mode = 2
 
 [node name="SaveButton" type="Button" parent="RootVBoxContainer/ButtonHBoxContainer"]
-visible = false
 layout_mode = 2
 icon = ExtResource("2_scj2e")
 
 [node name="LoadButton" type="Button" parent="RootVBoxContainer/ButtonHBoxContainer"]
-visible = false
 layout_mode = 2
 icon = ExtResource("3_y1xv5")
 
@@ -122,6 +120,7 @@ text = "Группировка"
 script = ExtResource("12_vbriq")
 
 [node name="TimeLine" type="Control" parent="RootVBoxContainer/GroupButtonTimeLineContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("13_jvuwl")

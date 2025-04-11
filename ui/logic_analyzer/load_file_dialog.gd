@@ -2,7 +2,7 @@ extends FileDialog
 
 
 func _ready() -> void:
-	#current_dir = "user://" 
+	current_dir = "user://" 
 	add_filter("*.tvbwave")
 
 
@@ -15,6 +15,7 @@ func _on_file_selected(path: String) -> void:
 	if FileAccess.get_open_error() != OK:
 		file.close()
 		push_error("Failed to open file for reading: %s" % path)
+		InfoManager.write_error("Не удалось открыть файл %s" % path)
 		return 
 
 	var json_string = file.get_as_text()
@@ -27,8 +28,8 @@ func _on_file_selected(path: String) -> void:
 	for item_dict in parse_result:
 		if typeof(item_dict) != TYPE_DICTIONARY:
 			push_warning("Invalid item found in JSON data (expected Dictionary).")
-			continue
-
+			InfoManager.write_warning("Неверный формат файла для отркытия в Логическом Анализаторе")
+			
 		var class_name_ = item_dict.get("class_name")
 		if class_name_ == "LASignal":
 			_add_signal_from_dict(item_dict)
@@ -47,8 +48,6 @@ func _on_file_selected(path: String) -> void:
 			var signals = []
 			for sig_ind in group_signals_indexes[group_i]:
 				signals.append(%SignalsHSplitContainer.signals[sig_ind])
-			item_dict.get("name")
-			item_dict.get("radix")
 			%SignalsHSplitContainer.add_group(
 				signals,
 				item_dict.get("name"),
