@@ -209,6 +209,11 @@
 					"logic_class_path": "res://components/ic/other/switch_group.gd"
 				},
 				{
+					"ic_name": "Клавиатура",
+					"config_path": "res://components/ic/other/keyboard.json",
+					"logic_class_path": "res://components/ic/other/keyboard.gd"
+				},
+				{
 					"ic_name": "Кнопка",
 					"config_path": "res://components/ic/other/button.json",
 					"logic_class_path": "res://components/ic/other/button.gd"
