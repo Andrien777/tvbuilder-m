@@ -12,7 +12,7 @@
 auto_translate_mode = 1
 title = "RISCV"
 initial_position = 2
-size = Vector2i(555, 625)
+size = Vector2i(600, 650)
 unresizable = true
 script = ExtResource("1_47aki")
 
@@ -118,6 +118,10 @@ text = "Исполнить инструкций за такт: "
 layout_mode = 2
 size_flags_horizontal = 3
 
+[node name="ABIModeButton" type="CheckButton" parent="TabContainer/Main/ScrollContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Названия регистров по ABI"
+
 [node name="Button" type="Button" parent="TabContainer/Main/ScrollContainer/VBoxContainer2"]
 layout_mode = 2
 focus_mode = 0
@@ -163,6 +167,7 @@ text = "Постоянное обновление"
 
 [node name="GridContainer" type="GridContainer" parent="TabContainer/Memory/VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
 focus_mode = 2
 columns = 17
 script = ExtResource("3_tu30y")
@@ -222,6 +227,7 @@ button_pressed = true
 text = "Снимать выделение при переключении страниц"
 
 [connection signal="close_requested" from="." to="." method="_on_close_requested"]
+[connection signal="pressed" from="TabContainer/Main/ScrollContainer/VBoxContainer2/ABIModeButton" to="." method="toggle_abi_mode"]
 [connection signal="pressed" from="TabContainer/Main/ScrollContainer/VBoxContainer2/Button" to="TabContainer/Main/ScrollContainer/VBoxContainer2/FileDialog" method="_on_load_mem_button_pressed"]
 [connection signal="pressed" from="TabContainer/Main/ScrollContainer/VBoxContainer2/Button2" to="TabContainer/Main/ScrollContainer/VBoxContainer2/FileDialog" method="_on_load_dtb_button_pressed"]
 [connection signal="pressed" from="TabContainer/Memory/VBoxContainer/HBoxContainer/ResetSelectionButton" to="TabContainer/Memory/VBoxContainer/GridContainer" method="reset_all_labels_style"]

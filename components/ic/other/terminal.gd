@@ -3,7 +3,7 @@ extends CircuitComponent
 class_name Terminal
 
 var label: Label
-var font = preload("res://graphics/Silkscreen [RUS by Mr.Enot].ttf")
+var font: Font = preload("res://graphics/Silkscreen [RUS by Mr.Enot].ttf")
 var text:
 	get():
 		return label.text
@@ -19,13 +19,15 @@ func initialize(spec, ic=null):
 	super.initialize(spec, ic)
 	label = Label.new()
 	label.position = Vector2(50,65)
-	label.size.x = 610
-	label.size.y = 575
 	label.clip_text = true
 	label.autowrap_mode = TextServer.AUTOWRAP_ARBITRARY
 	label.add_theme_font_override("font", font)
-	label.add_theme_font_size_override("font_size", 25)
+	label.add_theme_font_size_override("font_size", 50)
 	label.add_theme_color_override("font_color", Color(0, 0, 0))
+	label.position = Vector2(50,50)
+	label.size.x = font.get_string_size("testtesttesttestt", HORIZONTAL_ALIGNMENT_LEFT, -1, 50).x
+	label.size.y = 120
+	label.add_theme_constant_override("line_spacing", 15)
 	add_child(label)
 	
 func _process_signal():

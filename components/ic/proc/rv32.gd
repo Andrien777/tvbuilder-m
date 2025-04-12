@@ -5,6 +5,7 @@ var prev_clk = NetConstants.LEVEL.LEVEL_LOW
 @onready var reg_viewer = get_node("/root/RootNode/RiscVRegViewer")
 var mem_path = null
 var dtb_path = "res://bin/sixtyfourmb.dtb"
+var prev_mcause = 0
 
 func _ready():
 	if dtb_path:
@@ -22,6 +23,15 @@ func _process_signal():
 			proc_impl.Tick()
 			write_pins(proc_impl.get_mmio())
 		prev_clk = pin(1).state
+	var mcause = proc_impl.get_mcause()
+	if mcause != prev_mcause and mcause != 0:
+		if mcause & 0x80000000:
+			InfoManager.write_warning("Прерывание в процессоре RV32. mcause = %x, mtval = %x" % [mcause, proc_impl.get_mtval()])
+		else:
+			InfoManager.write_warning("TRAP в процессоре RV32. mcause = %x, mtval = %x" % [mcause, proc_impl.get_mtval()])
+		prev_mcause = mcause
+	elif mcause == 0:
+		prev_mcause = 0
 
 func read_pins():
 	var ret = 0
@@ -40,6 +50,7 @@ func reset():
 		proc_impl.Load_dtb(arr)
 	proc_impl.set_mmio(0)
 	write_pins(0)
+	prev_mcause = 0
 
 func write_pins(val):
 	for i in range(32):

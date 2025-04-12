@@ -1,5 +1,40 @@
 extends Window
 
+const abi_names = {
+	"x0": "zero",
+	"x1": "ra",
+	'x2': 'sp',
+	'x3': 'gp',
+	'x4': 'tp',
+	'x5': 't0',
+	'x6': 't1',
+	'x7': 't2',
+	'x8': 's0',
+	'x9': 's1',
+	'x10': 'a0',
+	'x11': 'a1',
+	'x12': 'a2',
+	'x13': 'a3',
+	'x14': 'a4',
+	'x15': 'a5',
+	'x16': 'a6',
+	'x17': 'a7',
+	'x18': 's2',
+	'x19': 's3',
+	'x20': 's4',
+	'x21': 's5',
+	'x22': 's6',
+	'x23': 's7',
+	'x24': 's8',
+	'x25': 's9',
+	'x26': 's10',
+	'x27': 's11',
+	'x28': 't3',
+	'x29': 't4',
+	'x30': 't5',
+	'x31': 't6'
+}
+
 var proc: RV32
 var reg_labels:Array[Label]
 var font = preload("res://ui/JetBrainsMonoNL-Regular.ttf")
@@ -20,6 +55,8 @@ var memory_page_size = 256
 var addr_regex = RegEx.create_from_string("^[0-9A-Fa-f]{0,8}$")
 @onready var seek_edit: LineEdit = get_node("TabContainer/Memory/VBoxContainer/HBoxContainer3/LineEdit")
 @onready var batch_edit: LineEdit = $TabContainer/Main/ScrollContainer/VBoxContainer2/HBoxContainer/LineEdit
+@onready var abi_toggle = $TabContainer/Main/ScrollContainer/VBoxContainer2/ABIModeButton
+var abi_mode = true
 
 func bind_proc(p:RV32):
 	if not proc or proc != p:
@@ -38,15 +75,19 @@ func _ready():
 	for i in range(32):
 		var label = Label.new()
 		label.add_theme_font_override("font", font)
-		if i < 10:
-			label.text = "x%d : ????????" % [i]
+		if abi_mode:
+			label.text = "%4s: ????????" % [abi_names['x%d' % i]]
 		else:
-			label.text = "x%d: ????????" % [i]
+			if i < 10:
+				label.text = "  x%d: ????????" % [i]
+			else:
+				label.text = " x%d: ????????" % [i]
 		reg_labels.append(label)
 		reg_grid.add_child(label)
 	$TabContainer/Memory/VBoxContainer/HBoxContainer2/ContinuousUpdate.button_pressed = true
 	$TabContainer.set_tab_title(0,"Регистры")
 	$TabContainer.set_tab_title(1,"Память")
+	abi_toggle.button_pressed = abi_mode
 	seek_edit.text_changed.connect(validate_seek_edit_text)
 	seek_edit.text_submitted.connect(seek_mem)
 	batch_edit.text_changed.connect(on_batch_text_update)
@@ -86,12 +127,19 @@ func update_labels(values: Array, pc:int, mstatus:int, mie:int, mip:int, mepc:in
 	reg_mscratch.text = "mscratch: %08x" % [mscratch]
 	reg_mtvec.text = "mtvec: %08x" % [mtvec]
 	reg_mcause.text = "mcause: %08x" % [mcause]
-	for i in range(32):
-		if i < 10:
-			reg_labels[i].text = "x%d : %08x" % [i, values[i]]
-		else:
-			reg_labels[i].text = "x%d: %08x" % [i, values[i]]
-		
+	if abi_mode:
+		for i in range(32):
+			reg_labels[i].text = "%4s: %08x" % [abi_names['x%d' % i], values[i]]
+	else:
+		for i in range(32):
+			if i < 10:
+				reg_labels[i].text = "  x%d: %08x" % [i, values[i]]
+			else:
+				reg_labels[i].text = " x%d: %08x" % [i, values[i]]
+
+func toggle_abi_mode():
+	abi_mode = !abi_mode
+	abi_toggle.button_pressed = abi_mode
 
 func reset_labels():
 	reg_pc.text = "pc: ????????"
@@ -103,11 +151,15 @@ func reset_labels():
 	reg_mscratch.text = "mscratch: ????????"
 	reg_mtvec.text = "mtvec: ????????"
 	reg_mcause.text = "mcause: ????????"
-	for i in range(32):
-		if i < 10:
-			reg_labels[i].text = "x%d : ????????" % [i]
-		else:
-			reg_labels[i].text = "x%d: ????????" % [i]
+	if abi_mode:
+		for i in range(32):
+			reg_labels[i].text = "%4s: ????????" % [abi_names['x%d' % i]]
+	else:
+		for i in range(32):
+			if i < 10:
+				reg_labels[i].text = "  x%d: ????????" % [i]
+			else:
+				reg_labels[i].text = " x%d: ????????" % [i]
 	
 func memory_update():
 	if proc:
