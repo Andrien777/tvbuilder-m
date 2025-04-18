@@ -151,6 +151,7 @@ layout_mode = 2
 mouse_filter = 1
 
 [node name="Cursor" type="Line2D" parent="RootVBoxContainer/ScrollContainer/SignalsHSplitContainer/SignalsPanelContainer"]
+visible = false
 points = PackedVector2Array(0, 0, 0, 2800)
 width = 3.0
 default_color = Color(0.556953, 0.556953, 0.556953, 1)
