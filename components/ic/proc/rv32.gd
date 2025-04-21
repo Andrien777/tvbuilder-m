@@ -11,6 +11,7 @@ func _ready():
 	if dtb_path:
 		var arr = FileAccess.get_file_as_bytes(dtb_path)
 		proc_impl.Load_dtb(arr)
+	proc_impl.cycles_per_step = 1
 	
 func _process_signal():
 	pin(34).set_low()

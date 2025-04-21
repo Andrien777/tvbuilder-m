@@ -57,6 +57,7 @@ func clear():
 	ComponentManager.last_id = 0
 	SaveManager.do_not_save_ids = []
 	GlobalSettings.disableAutosave = false
+	GlobalSettings.disableGlobalInput = false
 	
 	
 func _ready() -> void:
