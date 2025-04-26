@@ -31,7 +31,8 @@ func _process_signal():
 				outs[i].state = lut[8][i]
 		elif(pin(5).low): # RBI
 			if a == 0:
-				a = 15
+				for i in range(0,7):
+					outs[i].set_low()
 				pin(4).set_low()
 		else:
 			for i in range(0,7):
