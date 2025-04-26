@@ -34,6 +34,9 @@ func _process_signal():
 				for i in range(0,7):
 					outs[i].set_low()
 				pin(4).set_low()
+			else:
+				for i in range(0,7):
+					outs[i].state = lut[a][i]
 		else:
 			for i in range(0,7):
 				outs[i].state = lut[a][i]
