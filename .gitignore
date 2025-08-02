@@ -12,3 +12,7 @@ config.json
 snippets/
 *.x86_64
 *.tvbwave
+src/*.o
+src/*.os
+src/riscv/*.o
+src/riscv/*.os
