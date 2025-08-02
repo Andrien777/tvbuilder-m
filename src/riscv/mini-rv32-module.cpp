@@ -50,7 +50,6 @@ RVProc::~RVProc() {
                             // to be changed.
 }
 void RVProc::Tick() {
-	printf("We are doing something\n");
   int ret = MiniRV32IMAStep(
       this->core, this->ram_image, 0,
       *((uint64_t*)&core->cyclel)/* TODO: Why does it need to know the time?
@@ -58,7 +57,6 @@ void RVProc::Tick() {
       ,
 
       this->cycles_per_step);
-	 printf("%x\n", ret);
   switch (ret) {
   case 0:
     break;

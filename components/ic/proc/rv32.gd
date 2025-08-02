@@ -69,7 +69,13 @@ func load_mem(path):
 	proc_impl.Load_mem(arr)
 	mem_path = path
 
+func load_mem_from_bytes(arr):
+	proc_impl.Load_mem(arr)
+
 func load_dtb(path):
 	var arr = FileAccess.get_file_as_bytes(path)
 	proc_impl.Load_dtb(arr)
 	dtb_path = path
+	
+func load_dtb_from_bytes(arr):
+	proc_impl.Load_dtb(arr)

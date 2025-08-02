@@ -53,6 +53,7 @@ var continuous_memory_update = true
 var memory_page = 0
 var memory_page_size = 256
 var addr_regex = RegEx.create_from_string("^[0-9A-Fa-f]{0,8}$")
+var _on_data_bin_loaded_callback
 @onready var seek_edit: LineEdit = get_node("TabContainer/Memory/VBoxContainer/HBoxContainer3/LineEdit")
 @onready var batch_edit: LineEdit = $TabContainer/Main/ScrollContainer/VBoxContainer2/HBoxContainer/LineEdit
 @onready var abi_toggle = $TabContainer/Main/ScrollContainer/VBoxContainer2/ABIModeButton
@@ -91,6 +92,12 @@ func _ready():
 	seek_edit.text_changed.connect(validate_seek_edit_text)
 	seek_edit.text_submitted.connect(seek_mem)
 	batch_edit.text_changed.connect(on_batch_text_update)
+	if OS.has_feature("web"):
+		$TabContainer/Main/ScrollContainer/VBoxContainer2/Button2.disabled = true
+		$TabContainer/Main/ScrollContainer/VBoxContainer2/Button2.text = "Загрузка DTB не поддерживается в WEB"
+		_on_data_bin_loaded_callback = JavaScriptBridge.create_callback(_on_mem_js_loaded)
+		var gdcallbacks: JavaScriptObject = JavaScriptBridge.get_interface("gd_callbacks")
+		gdcallbacks.dataBinLoaded_riscv= _on_data_bin_loaded_callback
 
 func on_batch_text_update(new_text:String):
 	if new_text.is_valid_int():
@@ -180,12 +187,32 @@ func set_memory_page(page):
 	$TabContainer/Memory/VBoxContainer/HBoxContainer/TextEdit.text = str(memory_page)
 
 func _on_mem_load(path):
-	proc.load_mem(path)
-	$TabContainer/Main/ScrollContainer/VBoxContainer2/Button._on_successful_load()
+	if proc:
+		proc.load_mem(path)
+		$TabContainer/Main/ScrollContainer/VBoxContainer2/Button._on_successful_load()
+	else:
+		InfoManager.write_error("Не удалось загрузить образ памяти, так как микроконтроллера не существует")
+
+func _on_mem_js_loaded(args: Array):
+	if proc:
+		if args.size() == 0:
+			return
+		var addr=0
+		var buff: Array = []
+		while addr < args[0].length:
+			buff.append(args[0].at(addr))
+			addr+=1
+		proc.load_mem_from_bytes(PackedByteArray(buff))
+		$TabContainer/Main/ScrollContainer/VBoxContainer2/Button._on_successful_load()
+	else:
+		InfoManager.write_error("Не удалось загрузить образ памяти, так как микроконтроллера не существует")
 
 func _on_dtb_load(path):
-	proc.load_dtb(path)
-	$TabContainer/Main/ScrollContainer/VBoxContainer2/Button2._on_successful_load()
+	if proc:
+		proc.load_dtb(path)
+		$TabContainer/Main/ScrollContainer/VBoxContainer2/Button2._on_successful_load()
+	else:
+		InfoManager.write_error("Не удалось загрузить dtb, так как микроконтроллера не существует")
 
 func validate_seek_edit_text(text):
 	var valid_substr = addr_regex.search(text)
