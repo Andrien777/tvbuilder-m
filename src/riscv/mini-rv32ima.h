@@ -1,5 +1,27 @@
-// Copyright 2022 Charles Lohr, you may use this file or any portions herein
-// under any of the BSD, MIT, or CC0 licenses.
+/*
+ * MIT License
+ *
+ * Copyright (c) 2022 Charles Lohr
+ * https://github.com/cnlohr/mini-rv32ima
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
 
 #ifndef _MINI_RV32IMAH_H
 #define _MINI_RV32IMAH_H
@@ -164,9 +186,8 @@ MINIRV32_STEPPROTO
     // Timer interrupt.
     trap = 0x80000007;
     pc -= 4;
-  } else {// No timer interrupt?  Execute a bunch of instructions. 
-	bool done_mmio = false;
-    for (int icount = 0; icount < count && !done_mmio; icount++) {
+  } else // No timer interrupt?  Execute a bunch of instructions.
+    for (int icount = 0; icount < count; icount++) {
       uint32_t ir = 0;
       rval = 0;
       cycle++;
@@ -261,14 +282,10 @@ MINIRV32_STEPPROTO
             rsval += MINIRV32_RAM_IMAGE_OFFSET;
             if (MINIRV32_MMIO_RANGE(rsval)) // UART, CLNT
             {
-              if(rsval == 0x11500000) {
+              if(rsval == 0x11500000)
 				rval = state->mmio_input_field;
-				done_mmio = true;
-			  }
-			  else if (rsval == 0x11000000) {
+			  else if (rsval == 0x11000000)
 				  rval = state->mmio_output_field;
-			  	done_mmio = true;
-			  }
 			  else {
 				  trap = (5 + 1);
 				rval = rsval;
@@ -314,10 +331,8 @@ MINIRV32_STEPPROTO
           if (addy >= MINI_RV32_RAM_SIZE - 3) {
             addy += MINIRV32_RAM_IMAGE_OFFSET;
             if (MINIRV32_MMIO_RANGE(addy)) {
-              if (addy == 0x11000000) {
+              if (addy == 0x11000000)
 				state->mmio_output_field = rs2;
-				done_mmio = true;
-			  }
 			  else if (addy != 0x11500000) {
 				  trap = (7 + 1); // Store access fault.
               rval = addy;
@@ -683,7 +698,7 @@ MINIRV32_STEPPROTO
 
       pc += 4;
     }
-  }
+
   // Handle traps and interrupts.
   if (trap) {
     if (trap &
