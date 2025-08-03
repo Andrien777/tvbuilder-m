@@ -1,19 +1,24 @@
 ;--------------------------------
 ; Custom defines
-  !define NAME "TVBuilder"
-  !define APPFILE "tvbuilder_beta_1.0.exe"
-  !define VERSION "beta-1.0"
-  !define SLUG "${NAME} v${VERSION}"
+  !define NAME "TVBuilder-M"
 
 !include "MUI2.nsh"
 !include "logiclib.nsh"
+Var APPFILE
+Var VERSION
+Var SLUG
 
+StrCpy $APPFILE "$0"
+StrCpy $VERSION "$1"
+
+StrCpy $SLUG "${NAME} v${VERSION}"
 ;--------------------------------
 ; General
 
   Name "${NAME}"
   OutFile "${NAME} Setup.exe"
   InstallDir "$PROGRAMFILES\${NAME}"
+  License "./LICENSE"
   RequestExecutionLevel admin
  # define installation directory
 
@@ -35,7 +40,7 @@
   !insertmacro MUI_UNPAGE_INSTFILES
   
   ; Set UI language
-  !insertmacro MUI_LANGUAGE "English"
+  !insertmacro MUI_LANGUAGE "Russian"
 
 ;--------------------------------
 ; Section - Install App
@@ -44,7 +49,13 @@
     SectionIn RO
     SetOutPath "$INSTDIR"
     File ${APPFILE}
+
+    SetOutPath "${INSTDIR}\bin" ; Include libraries
     File ".\bin\*.*" 
+
+    SetOutPath "${INSTDIR}\doc"
+    File /r ".\doc\*.*"  ; Include docs
+
     WriteUninstaller "$INSTDIR\Uninstall.exe"
   SectionEnd
 
