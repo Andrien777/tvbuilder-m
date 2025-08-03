@@ -10,8 +10,11 @@ func _ready() -> void:
 	file_selected.connect(_on_file_selected)
 	
 func _on_load_mem_button_pressed() -> void:
-	load_file_dialog.clear_filters()
-	load_file_dialog.visible = true 
+	if OS.has_feature("web"):
+		JavaScriptBridge.eval("loadBinData_riscv()", true)
+	else:
+		load_file_dialog.clear_filters()
+		load_file_dialog.visible = true 
 
 func _on_load_dtb_button_pressed() -> void:
 	load_file_dialog.clear_filters()

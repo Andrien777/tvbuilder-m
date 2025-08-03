@@ -1,7 +1,7 @@
 extends HBoxContainer
 
 var mem_viewer
-var _on_data_bin_loaded_callback
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$ForwardButton.pressed.connect(next_page)
