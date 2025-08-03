@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=3 uid="uid://cd0acvbjpyg0w"]
+[gd_scene load_steps=81 format=3 uid="uid://cd0acvbjpyg0w"]
 
 [ext_resource type="Script" uid="uid://dlsn6lmgynqb0" path="res://ui/main_scene.gd" id="1_8vqs3"]
 [ext_resource type="Shader" uid="uid://bbm5aifcn1lfm" path="res://shaders/grid.gdshader" id="2_7ckc8"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://k6ofyvnavr7m" path="res://ui/help_dialog.gd" id="8_s7pmm"]
 [ext_resource type="Script" uid="uid://c44xr60gmygv1" path="res://ui/settings_popup_menu.gd" id="10_2s8mk"]
 [ext_resource type="Texture2D" uid="uid://k4s8m84velia" path="res://ui/menu_icons/File/Save.png" id="10_ty556"]
+[ext_resource type="Texture2D" uid="uid://blhraeywgde36" path="res://ui/menu_icons/File/Recent.png" id="11_arjyv"]
 [ext_resource type="Texture2D" uid="uid://dgjllnwiryf7v" path="res://ui/menu_icons/File/SaveAs.png" id="11_nlil7"]
 [ext_resource type="Script" uid="uid://cmxbc0u1njuke" path="res://ui/edit_popup.gd" id="11_pyl4o"]
 [ext_resource type="Script" uid="uid://bxvpao3llvtt7" path="res://tools/memory_content_display.gd" id="12_ncj2o"]
@@ -273,6 +274,7 @@ item_3/text = "Новый проект"
 item_3/icon = ExtResource("16_drtnh")
 item_3/id = 2
 item_4/text = "Последние проекты"
+item_4/icon = ExtResource("11_arjyv")
 item_4/id = 4
 script = ExtResource("5_02b1i")
 

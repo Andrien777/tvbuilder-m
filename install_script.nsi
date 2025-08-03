@@ -4,33 +4,30 @@
 
 !include "MUI2.nsh"
 !include "logiclib.nsh"
-Var APPFILE
-Var VERSION
-Var SLUG
+!define APPFILE "tvbuilder-m.exe"
+!define VERSION "1.3.0"
+!define SLUG "${NAME} v${VERSION}"
 
-StrCpy $APPFILE "$0"
-StrCpy $VERSION "$1"
 
-StrCpy $SLUG "${NAME} v${VERSION}"
 ;--------------------------------
 ; General
 
   Name "${NAME}"
   OutFile "${NAME} Setup.exe"
   InstallDir "$PROGRAMFILES\${NAME}"
-  License "./LICENSE"
   RequestExecutionLevel admin
  # define installation directory
 
 !define MUI_ICON "ui\tvb_logo.ico"
 !define MUI_HEADERIMAGE
-!define MUI_WELCOMEPAGE_TITLE "${SLUG} Setup"
+!define MUI_WELCOMEPAGE_TITLE "${NAME} Setup"
 
 ;--------------------------------
 ; Pages
   
   ; Installer pages
   !insertmacro MUI_PAGE_WELCOME
+  !insertmacro MUI_PAGE_LICENSE ".\LICENSE"
   !insertmacro MUI_PAGE_DIRECTORY
   !insertmacro MUI_PAGE_INSTFILES
   !insertmacro MUI_PAGE_FINISH
@@ -50,11 +47,13 @@ StrCpy $SLUG "${NAME} v${VERSION}"
     SetOutPath "$INSTDIR"
     File ${APPFILE}
 
-    SetOutPath "${INSTDIR}\bin" ; Include libraries
+    SetOutPath "$INSTDIR\bin" ; Include libraries
     File ".\bin\*.*" 
 
-    SetOutPath "${INSTDIR}\doc"
+    SetOutPath "$INSTDIR\doc"
     File /r ".\doc\*.*"  ; Include docs
+
+    SetOutPath "$INSTDIR"
 
     WriteUninstaller "$INSTDIR\Uninstall.exe"
   SectionEnd
