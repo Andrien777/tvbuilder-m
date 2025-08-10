@@ -16,3 +16,4 @@ src/*.o
 src/*.os
 src/riscv/*.o
 src/riscv/*.os
+*.TMP
