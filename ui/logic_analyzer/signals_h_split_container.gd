@@ -278,16 +278,39 @@ func update_with_current_value(sig: LASignal, time: float):
 
 
 var _simulation_canceled = false
-func simulate(time_ms: float):
+func simulate(end_time_ms: float):
+	#print("------------------SIMULATION START---------------------")
 	clear_signal_values()
 	
-	var generator = find_generator()
-	if generator == null:
-		InfoManager.write_error("Отсутствет генератор. Для проведения симуляции необходимо наличие генератора в схеме")
+	var generators = find_generators()
+	
+	if generators.is_empty():
+		InfoManager.write_error("Отсутствет генератор. Для проведения симуляции необходимо наличие хотя бы одного генератора в схеме")
 		return
-	var was_generator_enabled = generator.enabled
-	generator.enabled = false
 	GlobalSettings.disableGlobalInput = true
+	
+	for generator in generators:
+		generator.pin(1).set_low()
+		generator.pin(2).set_high()
+	
+	var generator_states = generators.map(
+		func(generator):
+			var freq_hz = null
+			if generator is FrequencyGenerator:
+				freq_hz = generator.freq_hz
+			elif generator is Quartz:
+				freq_hz = Engine.physics_ticks_per_second / 2
+			
+			return [generator, NetConstants.LEVEL.LEVEL_LOW, freq_hz, 1000 / freq_hz / 2]
+	) # Array of [generator, current state, freq (hz), next edge time (ms)]
+	
+	var was_generator_enabled: Array = generators.map(
+		func(generator):
+			if generator is FrequencyGenerator:
+				return generator.enabled
+			elif generator is Quartz:
+				return true
+	)
 	
 	_simulation_canceled = false
 	cancel_simulation_button.button_up.connect(
@@ -297,49 +320,91 @@ func simulate(time_ms: float):
 	simulation_progress_container.visible = true
 	simulation_progress_bar.value = .0
 	
-	var generator_freq_text = generator.text_line.text
-	var freq_hz = .0
-	if generator_freq_text.is_valid_float():
-		freq_hz = float(generator_freq_text)
-		
-	var clock_cycles: float = time_ms * .001 * freq_hz
-	var clock_cycle_time = time_ms / clock_cycles
+	var simulation_time = 0
 	
-	for i in range(clock_cycles*2+1):
-		if _simulation_canceled:
-			break
-		for sig in signals:
-			if sig is LASignal:
-				var current_signal_value = get_current_signal_value(sig)
-				sig.signal_points.append(
-					[(clock_cycle_time * i) / 2, current_signal_value]
-				)
-			elif sig is LASignalGroup:
-				for sig_ in sig.signals:
-					var current_signal_value = get_current_signal_value(sig_)
-					sig_.signal_points.append(
-						[(clock_cycle_time * i) / 2, current_signal_value]
-					)
-		if generator.pin(1).high:
-			generator.pin(1).set_low()
-			generator.pin(2).set_high()
-		else:
-			generator.pin(1).set_high()
-			generator.pin(2).set_low()
+	add_current_values_at(0)
+	while true:
+		var is_last_cycle = false
+		var min_edge_time: float = INF
+		for idx in range(generator_states.size()):
+			if generator_states[idx][3] < min_edge_time:
+				min_edge_time = generator_states[idx][3]
+		
+		simulation_time = min_edge_time
+		if simulation_time > end_time_ms:
+			simulation_time = end_time_ms
+			is_last_cycle = true
+		
+		#print("time = ", simulation_time)
+		for generator_state_idx in range(generator_states.size()):
+			# Equality check
+			if abs(generator_states[generator_state_idx][3] / min_edge_time - 1) < 1e-6 :
+				#print("flipping generator No. ", generator_state_idx)
+				var freq = generator_states[generator_state_idx][2]
+				var generator = generator_states[generator_state_idx][0] as CircuitComponent
+				
+				generator_states[generator_state_idx][3] += 1000 / freq / 2
+				
+				if generator is FrequencyGenerator:
+					if generator.pin(1).high:
+						generator.pin(1).set_low()
+						generator.pin(2).set_high()
+					else:
+						generator.pin(1).set_high()
+						generator.pin(2).set_low()
+				
+				#print("states: ", generator.pin(1).state, " ", generator.pin(2).state)
+		#print()
 		NetlistClass.process_scheme()
-			
+		
+		add_current_values_at(simulation_time)
+		
 		var prev_value = simulation_progress_bar.value
-		simulation_progress_bar.value = (i+1) / (clock_cycles*2) * 100
+		simulation_progress_bar.value = min_edge_time / end_time_ms * 100
 		if int(simulation_progress_bar.value) > int(prev_value):
 			await get_tree().process_frame
-		
+			
+		if _simulation_canceled || is_last_cycle:
+			break
+			
 	draw_graphs()
-	# Make all values fit into 1000 px
-	signal_values_zoom_factor = 1000/time_ms
+	
+	# Make graphs fit into 1000 px
+	signal_values_zoom_factor = 1000/end_time_ms
 	
 	simulation_progress_container.visible = false
-	generator.enabled = was_generator_enabled
+	for idx in range(generators.size()):
+		if was_generator_enabled[idx] and generators[idx] is FrequencyGenerator:
+			generators[idx].enabled = true
+		
 	GlobalSettings.disableGlobalInput = false
+
+
+func add_current_values_at(time_ms: float):
+	for sig in signals:
+		if sig is LASignal:
+			var current_signal_value = get_current_signal_value(sig)
+			sig.signal_points.append(
+				[time_ms, current_signal_value]
+			)
+		elif sig is LASignalGroup:
+			for sig_ in sig.signals:
+				var current_signal_value = get_current_signal_value(sig_)
+				sig_.signal_points.append(
+					[time_ms, current_signal_value]
+				)
+
+
+func find_generators() -> Array:
+	var generators = []
+	for pin: Pin in NetlistClass.nodes.keys():
+		var ic = pin.parent
+		if ic is FrequencyGenerator:
+			generators.append(ic)
+		elif ic is Quartz:
+			generators.append(ic)
+			
+	return generators
 
 
 func get_current_signal_value(sig: LASignal) -> NetConstants.LEVEL:
@@ -350,8 +415,7 @@ func _get_current_signal_value(ic_id: int, pin_index: int) -> NetConstants.LEVEL
 	var ic = ComponentManager.get_by_id(ic_id)
 	if is_instance_valid(ic) and ic != null:
 		return ic.pin(pin_index).state
-	push_error("Logic Analyzer couldn't find Pin with ic_id=" + str(ic_id) + ", pin_index=" + str(pin_index) + " in the netlist")
-	return NetConstants.LEVEL.LEVEL_Z # Pin is inexistent
+	return NetConstants.LEVEL.PIN_INEXISTENT
 
 
 func remove_signal(sig_to_del: LASignal):
@@ -451,17 +515,11 @@ func draw_graphs():
 func level_to_height(level: NetConstants.LEVEL):
 	return (.1 if level == NetConstants.LEVEL.LEVEL_HIGH else .9) * SIGNAL_ROW_HEIGHT
 
-func find_generator() -> FrequencyGenerator:
-	for pin: Pin in NetlistClass.nodes.keys():
-		if pin.parent is FrequencyGenerator:
-			return pin.parent
-	return null
 	
-	
-@onready var cursor_line: Line2D = get_node("./SignalsPanelContainer/Cursor")
-func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-		cursor_line.global_position = Vector2(get_global_mouse_position().x, cursor_line.global_position.y)
+#@onready var cursor_line: Line2D = get_node("./SignalsPanelContainer/Cursor")
+#func _unhandled_input(event: InputEvent) -> void:
+	#if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		#cursor_line.global_position = Vector2(get_global_mouse_position().x, cursor_line.global_position.y)
 		
 static func remove_connections(sig: Signal):
 	for conn in sig.get_connections():

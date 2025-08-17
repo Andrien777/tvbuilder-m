@@ -24,6 +24,9 @@ func _init(
 
 
 func _draw():
+	var font = get_theme_default_font()
+	var font_size = get_theme_default_font_size()
+	
 	for ind in range(1, sig.signal_points.size()):
 		var point = sig.signal_points[ind]
 		var time = point[0]
@@ -38,6 +41,8 @@ func _draw():
 		
 		if prev_value == NetConstants.LEVEL.LEVEL_Z:
 			draw_line(Vector2(prev_x, 0.5 * height), Vector2(x, 0.5 * height), color, 5)
+		elif prev_value == NetConstants.LEVEL.PIN_INEXISTENT:
+			draw_string(font, Vector2(prev_x, 0.5*height + 5), "X", HORIZONTAL_ALIGNMENT_CENTER, x-prev_x, font_size)
 		else:
 			var new_y = level_to_height(value)
 			var prev_y = level_to_height(prev_value)

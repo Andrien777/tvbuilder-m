@@ -11,6 +11,7 @@ var turbo = false
 var enabled = 0
 var imp_counter = -1
 var popup_style
+var freq_hz = 1
 var freq_label = Label.new()
 var tick_counter = 0
 var tick_limit = roundi(Engine.physics_ticks_per_second / 2)
@@ -21,7 +22,7 @@ func _init():
 func _ready() -> void:
 	self.input_pickable = true
 	settings_popup = Panel.new()
-	freq_label.text = "f = 1 Гц"
+	freq_label.text = "f = " + str(freq_hz) + " Гц"
 	freq_label.position = Vector2(10, 20)
 	if GlobalSettings.CurrentGraphicsMode == LegacyGraphicsMode:
 		freq_label.visible = false
@@ -39,7 +40,7 @@ func _ready() -> void:
 	text_line = LineEdit.new()
 	text_line.context_menu_enabled = false
 	text_line.max_length = 4
-	text_line.text = "1"
+	text_line.text = str(freq_hz)
 	text_line.text_changed.connect(on_text_update)
 	text_line.position = Vector2(20,100)
 	text_line.z_index = 6
@@ -139,10 +140,10 @@ func on_timer_timeout():
 			pin(2).set_low()
 func on_text_update(new_text:String):
 	if(new_text.is_valid_float()):
-		var freq = float(new_text)
-		if(freq>0):
-			tick_limit = max(round(Engine.physics_ticks_per_second / freq / 2), 1)
-			freq_label.text = "f = "+ str(freq) + " Гц"
+		freq_hz = float(new_text)
+		if (freq_hz > 0):
+			tick_limit = max(round(Engine.physics_ticks_per_second / freq_hz / 2), 1)
+			freq_label.text = "f = "+ str(freq_hz) + " Гц"
 			popup_style.bg_color =  Color.DIM_GRAY
 	else:
 		popup_style.bg_color =  Color.BROWN
