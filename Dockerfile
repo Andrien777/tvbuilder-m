@@ -1,11 +1,15 @@
 FROM ubuntu:jammy
-WORKDIR /opt/tvb-build 
-COPY src ./src
-COPY macos-xcode ./macos-xcode
-COPY godot-cpp ./godot-cpp
-COPY SConstruct ./SConstruct
-COPY docker/entrypoint.sh ./entrypoint.sh
-RUN chmod +x ./entrypoint.sh
+ARG BUILD_WEB=n
+ARG BUILD_MACOS=n
+ENV BUILD_MACOS=$BUILD_MACOS
+ENV BUILD_WEB=$BUILD_WEB
+
+
+WORKDIR /opt/tvb-build
+COPY ./docker/ /opt/tvb-build/docker/
+COPY ./macos-xcode/ /opt/tvb-build/macos-xcode/
+
+WORKDIR /opt/tools
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     python3 \
@@ -29,11 +33,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libbz2-dev \
     zlib1g-dev
 ## Install emscripten SDK
-RUN git clone https://github.com/emscripten-core/emsdk.git && cd emsdk && ./emsdk install latest && ./emsdk activate latest && . ./emsdk_env.sh
+RUN if [ "$BUILD_WEB" = "y" ] ;then git clone https://github.com/emscripten-core/emsdk.git && cd emsdk && ./emsdk install latest && ./emsdk activate latest && . ./emsdk_env.sh; fi
 
 ## Install osxcross
-RUN cd /opt/tvb-build && git clone https://github.com/tpoechtrager/osxcross.git ./osxcross && cd osxcross && ./tools/gen_sdk_package_tools_dmg.sh /opt/tvb-build/macos-xcode/Command_Line_Tools_for_Xcode_16.4.dmg && mv MacOSX*.sdk.tar.xz ./tarballs && SDK_VERSION=14 UNATTENDED=1 ./build.sh
-
+RUN if [ "$BUILD_MACOS" = "y" ] ;then cd /opt/tools && git clone https://github.com/tpoechtrager/osxcross.git ./osxcross && cd osxcross && ./tools/gen_sdk_package_tools_dmg.sh /opt/tvb-build/macos-xcode/Command_Line_Tools_for_Xcode_16.4.dmg && mv MacOSX*.sdk.tar.xz ./tarballs && SDK_VERSION=14 UNATTENDED=1 ./build.sh ; fi
 RUN pip install scons
 
-ENTRYPOINT ["/bin/bash","/opt/tvb-build/entrypoint.sh"]
+WORKDIR /opt/tvb-build 
+RUN chmod +x docker/entrypoint.sh
+ENTRYPOINT ["/bin/bash","/opt/tvb-build/docker/entrypoint.sh"]
