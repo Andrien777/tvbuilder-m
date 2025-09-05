@@ -1,9 +1,18 @@
 extends PopupMenu
 
-
+var dialog
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	dialog = ConfirmationDialog.new()
+	dialog.confirmed.connect(save_handler)
+	dialog.dialog_close_on_escape = true
+	dialog.dialog_hide_on_ok = true
+	dialog.dialog_close_on_escape = true
+	dialog.close_requested.connect(dialog.hide)
+	dialog.dialog_text = "Сохранить?"
+	dialog.dialog_autowrap = true
+	dialog.initial_position = Window.WINDOW_INITIAL_POSITION_CENTER_MAIN_WINDOW_SCREEN
+	get_node("/root/RootNode").add_child.call_deferred(dialog)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -25,8 +34,15 @@ func _on_index_pressed(index: int) -> void:
 			get_node("/root/RootNode/LoadFileDialog")._on_load_button_pressed()
 		3:
 			_on_clear_button_pressed()
+		4:
+			get_node("../RecentProjectsPopup")._on_recent_projects_button_pressed()
 
-func _on_clear_button_pressed():
+func _on_clear_button_pressed(confirmed = false):
+	if SaveManager.last_path != "":
+		SaveManager._on_autosave()
+	elif ComponentManager.obj_list.size() > 0 and not confirmed:
+		get_node("/root/RootNode/UnsavedProjectDialog").visible = true
+		return
 	ComponentManager.clear()
 	SaveManager.last_path = ""
 	GlobalSettings.bg_color = GlobalSettings.bg_color_global
@@ -37,7 +53,16 @@ func _on_clear_button_pressed():
 	get_node("/root/RootNode").get_window().title = "TVBuilder - New Project"
 
 func _on_save_button_pressed():
+	if GlobalSettings.confirmOnSave:
+		dialog.show()
+	else:
+		save_handler()
+
+func save_handler():
 	if SaveManager.last_path == "":
 		get_node("/root/RootNode/SaveAsFileDialog")._on_save_as_button_pressed()
 	else:
 		SaveManager._on_autosave()
+
+func _on_unsaved_project_dialog_confirmed() -> void:
+	_on_clear_button_pressed(true)

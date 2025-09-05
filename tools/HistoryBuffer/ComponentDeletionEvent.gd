@@ -7,11 +7,16 @@ var position
 var connections: Dictionary # Array of Int (pin index), Pin pairs
 var object
 var id
+var content = null
 
 func initialize(object):
 	self.name=  object.readable_name
 	self.position = object.get_global_position()
 	self.id = object.id
+	if object is TextLabel:
+		content = object.label.text
+	elif object is DS1007:
+		content = object.delay
 	# This will require to populate the connections dict with Int -> Object pairs (self pin index -> other Pin object)
 	# The issue is, we don`t know what is connected to a Pin now - only the WireManager knows that
 	# Implementing this will mean implementing this functionality in WireManager class
@@ -36,6 +41,10 @@ func undo():
 	element.position = position
 	ComponentManager.change_id(element, self.id)
 	self.object = element
+	if object is TextLabel:
+		object.label.text = content
+	elif object is DS1007:
+		object.delay = int(content)
 	ComponentManager.get_node("/root/RootNode").add_child(element) # TODO: idk thats stupid
 	#ComponentManager.add_child(element)  # Thats even more stupid though
 	for key in connections:
@@ -56,12 +65,10 @@ func undo():
 func redo():
 	if is_instance_valid(object):
 		self.position = object.get_global_position()
-		ComponentManager.remove_object(object)
-		object.queue_free()
+		ComponentManager.add_to_deletion_queue(object)
 	else:
 		var _object = ComponentManager.get_by_id(self.id)
 		if is_instance_valid(_object):
-			ComponentManager.remove_object(_object)
-			_object.queue_free()
+			ComponentManager.add_to_deletion_queue(_object)
 		else:
 			InfoManager.write_error("Не удалось отменить создание компонента")

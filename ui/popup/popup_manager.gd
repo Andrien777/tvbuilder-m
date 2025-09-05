@@ -35,7 +35,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-func display_hint(heading:String, description:String, position:Vector2, direction:NetConstants.DIRECTION):
+func display_hint(heading:String, description:String, position:Vector2, direction:NetConstants.DIRECTION, pin: Pin):
 	pin_popup.visible=true
 	var popup_color = Color(1,1,1,0.9)
 	match(direction):
@@ -43,7 +43,7 @@ func display_hint(heading:String, description:String, position:Vector2, directio
 			popup_color = Color(1,0.8,1,0.9)
 		NetConstants.DIRECTION.DIRECTION_OUTPUT:
 			popup_color = Color(1,1,0.8,0.9)
-	pin_popup.display(heading, description, position, popup_color)
+	pin_popup.display(heading, description, position, popup_color, pin)
 
 func hide_hint():
 	pin_popup.hide_popup()

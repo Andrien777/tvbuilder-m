@@ -15,11 +15,11 @@ env = SConscript("godot-cpp/SConstruct")
 # tweak this if you want to use different folders, or more folders, to store your source code in.
 env.Append(CPPPATH=["src/"])
 env.Append(CCFLAGS=["-O3"])
-sources = Glob("src/*.cpp")
+sources = Glob("src/*.cpp") + Glob("src/riscv/*.cpp")
 
 if env["platform"] == "macos":
     library = env.SharedLibrary(
-        "bin/libgdexample.{}.{}.framework/libgdexample.{}.{}".format(
+        "build-output/bin/libgdexample.{}.{}.framework/libgdexample.{}.{}".format(
             env["platform"], env["target"], env["platform"], env["target"]
         ),
         source=sources,
@@ -27,17 +27,17 @@ if env["platform"] == "macos":
 elif env["platform"] == "ios":
     if env["ios_simulator"]:
         library = env.StaticLibrary(
-            "bin/libgdexample.{}.{}.simulator.a".format(env["platform"], env["target"]),
+            "build-output/bin/libgdexample.{}.{}.simulator.a".format(env["platform"], env["target"]),
             source=sources,
         )
     else:
         library = env.StaticLibrary(
-            "bin/libgdexample.{}.{}.a".format(env["platform"], env["target"]),
+            "build-output/bin/libgdexample.{}.{}.a".format(env["platform"], env["target"]),
             source=sources,
         )
 else:
     library = env.SharedLibrary(
-        "bin/libgdexample{}{}".format(env["suffix"], env["SHLIBSUFFIX"]),
+        "build-output/bin/libgdexample{}{}".format(env["suffix"], env["SHLIBSUFFIX"]),
         source=sources,
     )
 

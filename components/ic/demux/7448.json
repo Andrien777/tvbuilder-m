@@ -1,5 +1,5 @@
 {
-	"name":"7448",
+	"name":"К555ИД18",
 	"num_pins": 16,
 	"height": 25,
 	"width": 25,
@@ -38,11 +38,11 @@
 		}
 		,{
 			"index": 4,
-			"direction": "DIRECTION_OUTPUT",
+			"direction": "DIRECTION_INPUT",
 			"position": "BOTTOM",
 			"readable_name": "BI/RBO",
 			"description": "Сигнал стирания",
-			"dependencies": [-1]
+			"dependencies": []
 		},{
 			"index": 5,
 			"direction": "DIRECTION_INPUT",

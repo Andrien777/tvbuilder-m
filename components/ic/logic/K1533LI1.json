@@ -55,7 +55,7 @@
 			"direction": "DIRECTION_OUTPUT",
 			"position": "BOTTOM",
 			"readable_name": "Y2",
-			"description": "Y1 = A1 & B1",
+			"description": "Y2 = A1 & B1",
 			"dependencies": [-1]
 		}
 		,{

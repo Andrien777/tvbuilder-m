@@ -1,12 +1,13 @@
 ;--------------------------------
 ; Custom defines
-  !define NAME "TVBuilder"
-  !define APPFILE "tvbuilder_beta_1.0.exe"
-  !define VERSION "beta-1.0"
-  !define SLUG "${NAME} v${VERSION}"
+  !define NAME "TVBuilder-M"
 
 !include "MUI2.nsh"
 !include "logiclib.nsh"
+!define APPFILE "tvbuilder-m.exe"
+!define VERSION "1.3.0"
+!define SLUG "${NAME} v${VERSION}"
+
 
 ;--------------------------------
 ; General
@@ -19,13 +20,14 @@
 
 !define MUI_ICON "ui\tvb_logo.ico"
 !define MUI_HEADERIMAGE
-!define MUI_WELCOMEPAGE_TITLE "${SLUG} Setup"
+!define MUI_WELCOMEPAGE_TITLE "${NAME} Setup"
 
 ;--------------------------------
 ; Pages
   
   ; Installer pages
   !insertmacro MUI_PAGE_WELCOME
+  !insertmacro MUI_PAGE_LICENSE ".\LICENSE"
   !insertmacro MUI_PAGE_DIRECTORY
   !insertmacro MUI_PAGE_INSTFILES
   !insertmacro MUI_PAGE_FINISH
@@ -35,7 +37,7 @@
   !insertmacro MUI_UNPAGE_INSTFILES
   
   ; Set UI language
-  !insertmacro MUI_LANGUAGE "English"
+  !insertmacro MUI_LANGUAGE "Russian"
 
 ;--------------------------------
 ; Section - Install App
@@ -44,7 +46,15 @@
     SectionIn RO
     SetOutPath "$INSTDIR"
     File ${APPFILE}
+
+    SetOutPath "$INSTDIR\bin" ; Include libraries
     File ".\bin\*.*" 
+
+    SetOutPath "$INSTDIR\doc"
+    File /r ".\doc\*.*"  ; Include docs
+
+    SetOutPath "$INSTDIR"
+
     WriteUninstaller "$INSTDIR\Uninstall.exe"
   SectionEnd
 

@@ -12,4 +12,7 @@ func _on_save_as_button_pressed() -> void:
 	save_file_dialog.visible = true
 
 func _on_file_selected(path: String) -> void:
+	if path.get_extension() != "json":
+		path = path + ".json"
+	GlobalSettings.add_recent_path(path)
 	SaveManager.save(path)

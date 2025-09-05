@@ -1,0 +1,76 @@
+{
+	"name":"Группа светодиодов",
+	"num_pins": 1,
+	"height": 25,
+	"width": 25,
+	"texture": "res://graphics/legacy/ic/sw_group_background.png",
+	"textures": [
+		{
+			"name":"LEGACY", 
+			"path":"res://graphics/legacy/ic/sw_group_background.png"
+		},
+		{
+			"name":"DEFAULT", 
+			"path":"res://graphics/legacy/ic/sw_group_background.png"
+		}
+		],
+	"pinSpecifications": [
+		{
+			"index": 1,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "LED1",
+			"description": "Вход светодиода 1",
+			"dependencies": []
+		},{
+			"index": 2,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "LED2",
+			"description": "Вход светодиода 2",
+			"dependencies": []
+		},{
+			"index": 3,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "LED3",
+			"description": "Вход светодиода 3",
+			"dependencies": []
+		},{
+			"index": 4,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "LED4",
+			"description": "Вход светодиода 4",
+			"dependencies": []
+		},{
+			"index": 5,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "LED5",
+			"description": "Вход светодиода 5",
+			"dependencies": []
+		},{
+			"index": 6,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "LED6",
+			"description": "Вход светодиода 6",
+			"dependencies": []
+		},{
+			"index": 7,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "LED7",
+			"description": "Вход светодиода 7",
+			"dependencies": []
+		},{
+			"index": 8,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "LED8",
+			"description": "Вход светодиода 8",
+			"dependencies": []
+		}
+	]
+}

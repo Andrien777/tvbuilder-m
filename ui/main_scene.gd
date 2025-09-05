@@ -18,12 +18,14 @@ func _ready() -> void:
 	get_node("./GridSprite").modulate = GlobalSettings.bg_color
 	selection_area = get_node("SelectionArea")
 	get_window().title = "TVBuilder - New Project"
+	if OS.has_feature("web"):
+		Engine.physics_ticks_per_second = 100
 
 func _process(delta: float) -> void:
 	if GlobalSettings.is_selecting() and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and not GlobalSettings.disableGlobalInput:
 		if not selection_area.is_tracking:
 			selection_area.start_tracking()
-	if not GlobalSettings.is_connectivity_mode():
+	if not GlobalSettings.is_connectivity_mode() and not GlobalSettings.is_snippet_mode():
 		Input.set_default_cursor_shape(Input.CURSOR_ARROW)
 	if GlobalSettings.is_bus_mode() and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and not GlobalSettings.disableGlobalInput:
 		WireManager.register_bus_point(get_global_mouse_position())
@@ -34,10 +36,15 @@ func _physics_process(delta: float) -> void:
 		NetlistClass.process_scheme()
 		NetlistClass.process_scheme()
 
+func _exit_tree() -> void:
+	GlobalSettings.save()
+	if SaveManager.last_path != "":
+		SaveManager._on_autosave()
+
 func _input(event):
 	if (GlobalSettings.disableGlobalInput):
 		return
-	if event.is_action_pressed("add_new_ic_element") and not GlobalSettings.disableGlobalInput:
+	if event.is_action_pressed("add_new_ic_element") and not GlobalSettings.disableGlobalInput and GlobalSettings.is_normal_mode():
 		create_selected_element()
 	elif event.is_action_pressed("save_scheme") and not GlobalSettings.disableGlobalInput:
 		if SaveManager.last_path == "":
@@ -54,10 +61,9 @@ func _input(event):
 		WireManager.stop_wire_creation()
 		if GlobalSettings.is_bus_mode():
 			WireManager.finish_current_bus()
-
 	elif event.is_action_pressed("copy") and not GlobalSettings.disableGlobalInput:
-		CopyBuffer.copy(get_global_mouse_position())
-		selection_area.remember_copy_offset(get_global_mouse_position())
+		var centre = CopyBuffer.copy(get_global_mouse_position())
+		selection_area.remember_copy_offset(centre)
 	elif event.is_action_pressed("paste") and not GlobalSettings.disableGlobalInput:
 		CopyBuffer.paste(get_global_mouse_position())
 		selection_area.paste_copy_offset(get_global_mouse_position())
@@ -69,6 +75,21 @@ func _input(event):
 		to_connectivity_mode()
 	elif event.is_action_pressed("open_history_viewer") and not GlobalSettings.disableGlobalInput:
 		$HistoryViewerWindow.visible = not $HistoryViewerWindow.visible
+	elif event.is_action_pressed("new_project") and not GlobalSettings.disableGlobalInput:
+		get_node("UiCanvasLayer/VBoxContainer2/MenuContainer/FilePopupMenu")._on_clear_button_pressed()
+	elif event.is_action_pressed("start_stop") and not GlobalSettings.disableGlobalInput:
+		if NetlistClass.ui_paused:
+			NetlistClass.ui_unpause()
+		else:
+			NetlistClass.ui_pause()
+	elif event.is_action_pressed("step") and not GlobalSettings.disableGlobalInput:
+		if NetlistClass.ui_paused:
+			NetlistClass.step()
+	#elif event.is_action_pressed("debug_key") and not GlobalSettings.disableGlobalInput:
+		#if Input.is_key_label_pressed(KEY_CTRL):
+			#SaveManager.load_snippet(get_global_mouse_position(), get_tree().current_scene)
+		#else:
+			#SaveManager.save_snippet()
 	
 	
 	# Has to be in a separate if
@@ -80,6 +101,8 @@ func _input(event):
 		WireManager.register_bus_point(get_global_mouse_position())
 	elif event.is_action_pressed("bus_mode") and not GlobalSettings.disableGlobalInput:
 		to_bus_mode()
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and GlobalSettings.is_snippet_mode():
+		$UiCanvasLayer/SnippetPicker.place_snippet(get_global_mouse_position())
 
 
 func toggle_graphics_mode():
@@ -111,13 +134,12 @@ func create_selected_element():
 	spec.initialize_from_json( ICsTreeManager.get_config_path(element_name) )
 	var element: CircuitComponent = load( ICsTreeManager.get_class_path(element_name) ).new()
 	element.initialize(spec)
-	element.position = get_global_mouse_position()
+	element.position = get_global_mouse_position()-element.hitbox.shape.size / 2
 	element.drag_offset = -element.hitbox.shape.size / 2
 	add_child(element)
 	element.is_dragged = true
 	element.is_mouse_over = true
 	get_node("./Camera2D").lock_pan = true
-	# TODO: Why do we even register IC`s in their constructor and not there?
 	var event = ComponentCreationEvent.new()
 	event.initialize(element)
 	HistoryBuffer.register_event(event)
@@ -140,3 +162,4 @@ func to_bus_mode():
 	GlobalSettings.CursorMode = GlobalSettings.CURSOR_MODES.BUS
 	get_node("./Camera2D").lock_pan = false
 	get_node("./Camera2D").pressed_mmb = false
+	

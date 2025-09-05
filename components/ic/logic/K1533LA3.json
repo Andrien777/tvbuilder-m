@@ -36,7 +36,7 @@
 	  "description": "Выходной сигнал первого элемента И-НЕ",
 	  "direction": "DIRECTION_OUTPUT",
 			"position": "BOTTOM",
-	  "dependencies": [-1]
+	  "dependencies": [1, 2]
 	},
 	{
 	  "index": 4,
@@ -60,7 +60,7 @@
 	  "description": "Выходной сигнал второго элемента И-НЕ",
 	  "direction": "DIRECTION_OUTPUT",
 			"position": "BOTTOM",
-	  "dependencies": [-1]
+	  "dependencies": [4, 5]
 	},
 	{
 	  "index": 7,

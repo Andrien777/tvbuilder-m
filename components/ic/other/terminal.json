@@ -1,0 +1,34 @@
+{
+	"name":"Терминал USART",
+	"num_pins": 2,
+	"height": 25,
+	"width": 25,
+	"textures": [
+		{
+			"name":"LEGACY", 
+			"path":"res://graphics/legacy/terminal_bg.png"
+		},
+		{
+			"name":"DEFAULT", 
+			"path":"res://graphics/legacy/terminal_bg.png"
+		}
+		],
+	"pinSpecifications": [
+		{
+			"index": 1,
+			"direction": "DIRECTION_INPUT",
+			"position": "LEFT",
+			"readable_name": "RX",
+			"description": "Вход USART",
+			"dependencies": []
+		},
+		{
+			"index": 2,
+			"direction": "DIRECTION_INPUT",
+			"position": "LEFT",
+			"readable_name": "RC",
+			"description": "Тактовый сигнал входа",
+			"dependencies": []
+		}
+	]
+}

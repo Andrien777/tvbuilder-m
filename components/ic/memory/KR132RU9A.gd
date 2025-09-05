@@ -13,7 +13,7 @@ func _ready():
 
 func _rmb_action():
 	mem_viewer.set_memory(self)
-
+	
 
 func _process_signal():
 	pin(9).set_low()

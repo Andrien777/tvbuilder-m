@@ -1,6 +1,7 @@
 #include "register_types.h"
 
 #include "IProc_8088.h"
+#include "riscv/mini-rv32-module.h"
 
 #include <gdextension_interface.h>
 #include <godot_cpp/core/defs.hpp>
@@ -14,6 +15,7 @@ void initialize_example_module(ModuleInitializationLevel p_level) {
     }
 
     GDREGISTER_CLASS(IProc_8088);
+	GDREGISTER_CLASS(RVProc);
 }
 
 void uninitialize_example_module(ModuleInitializationLevel p_level) {

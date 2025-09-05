@@ -27,9 +27,25 @@
 		"config_path": "res://components/ic/other/button.json",
 		"logic_class_path": "res://components/ic/other/button.gd"
 	},
+	"Клавиатура": {
+		"config_path": "res://components/ic/other/keyboard.json",
+		"logic_class_path": "res://components/ic/other/keyboard.gd"
+	},
 	"Светодиод": {
 		"config_path": "res://components/ic/other/led.json",
 		"logic_class_path": "res://components/ic/other/led.gd"
+	},
+	"Группа светодиодов": {
+		"config_path": "res://components/ic/other/led_group.json",
+		"logic_class_path": "res://components/ic/other/led_group.gd"
+	},
+	"Матрица светодиодов": {
+		"config_path": "res://components/ic/indicators/led_matrix.json",
+		"logic_class_path": "res://components/ic/indicators/led_matrix.gd"
+	},
+	"Группа переключателей": {
+		"config_path": "res://components/ic/other/switch_group.json",
+		"logic_class_path": "res://components/ic/other/switch_group.gd"
 	},
 	"Светодиод (кр.)": {
 		"config_path": "res://components/ic/other/led.json",
@@ -51,27 +67,35 @@
 		"config_path": "res://components/ic/other/memory.json",
 		"logic_class_path": "res://components/ic/other/memory.gd"
 	},
-	"74485":{
+	"74485": {
 		"config_path": "res://components/ic/demux/74485.json",
 		"logic_class_path": "res://components/ic/demux/74485.gd"
 	},
-	"7448":{
+	"7448": {
 		"config_path": "res://components/ic/demux/7448.json",
 		"logic_class_path": "res://components/ic/demux/7448.gd"
 	},
-	"531ИП3":{
+	"К555ИД18": {
+		"config_path": "res://components/ic/demux/7448.json",
+		"logic_class_path": "res://components/ic/demux/7448.gd"
+	},
+	"531ИП3": {
 		"config_path": "res://components/ic/alu/531IP3.json",
 		"logic_class_path": "res://components/ic/alu/K531IP3.gd"
 	},
-	"АЛС324А":{
+	"АЛС324А": {
 		"config_path": "res://components/ic/indicators/ALS324A.json",
 		"logic_class_path": "res://components/ic/indicators/ALS324A.gd"
 	},
-	"2НЕ":{
+	"2НЕ": {
 		"config_path": "res://components/ic/logic/not2.json",
 		"logic_class_path": "res://components/ic/logic/Not2.gd"
 	},
-	"К155ИР13":{
+	"К155ИР13": {
+		"config_path": "res://components/ic/registers/K155IR13.json",
+		"logic_class_path": "res://components/ic/registers/K155IR13.gd"
+	},
+	"К1533ИР13":{
 		"config_path": "res://components/ic/registers/K155IR13.json",
 		"logic_class_path": "res://components/ic/registers/K155IR13.gd"
 	},
@@ -79,7 +103,7 @@
 		"config_path": "res://components/ic/flipflops/K1533TM2.json",
 		"logic_class_path": "res://components/ic/flipflops/K1533TM2.gd"
 	},
-	"К1533ЛИ1":{
+	"К1533ЛИ1": {
 		"config_path": "res://components/ic/logic/K1533LI1.json",
 		"logic_class_path": "res://components/ic/logic/K1533LI1.gd"
 	},
@@ -87,11 +111,11 @@
 		"config_path": "res://components/ic/counters/K1533IE7.json",
 		"logic_class_path": "res://components/ic/counters/K1533IE7.gd"
 	},
-	"Генератор частоты" :{
+	"Генератор частоты": {
 		"config_path": "res://components/ic/other/frequency_generator.json",
 		"logic_class_path": "res://components/ic/other/frequency_generator.gd"
 	},
-	"Метка":{
+	"Метка": {
 		"config_path": "res://components/misc/Labels/TextLabel.json",
 		"logic_class_path": "res://components/misc/Labels/TextLabel.gd"
 	},
@@ -134,34 +158,56 @@
 	"К155ИЕ5": {
 		"config_path": "res://components/ic/counters/K155IE5.json",
 		"logic_class_path": "res://components/ic/counters/K155IE5.gd"
-	},"К1810ВА86": {
+	},
+	"К1810ВА86": {
 		"config_path": "res://components/ic/buffer/K1810VA86.json",
 		"logic_class_path": "res://components/ic/buffer/K1810VA86.gd"
-	},"К1531ТВ9":{
+	},
+	"DS1007": {
+		"config_path": "res://components/ic/buffer/DS1007.json",
+		"logic_class_path": "res://components/ic/buffer/DS1007.gd"
+	},
+	"К1531ТВ9": {
 		"config_path": "res://components/ic/flipflops/K1531TV9.json",
 		"logic_class_path": "res://components/ic/flipflops/K1531TV9.gd"
-	},"КР1533ИД3":{
+	},
+	"КР1533ИД3": {
 		"config_path": "res://components/ic/demux/KR1533ID3.json",
 		"logic_class_path": "res://components/ic/demux/KR1533ID3.gd"
-	},"КР1533СП1":{
+	},
+	"КР1533СП1": {
 		"config_path": "res://components/ic/comparators/KR1533SP1.json",
 		"logic_class_path": "res://components/ic/comparators/KR1533SP1.gd"
-	},"VCC":{
+	},
+	"VCC": {
 		"config_path": "res://components/ic/other/constant1.json",
 		"logic_class_path": "res://components/ic/other/constant1.gd"
-	},"GND":{
+	},
+	"GND": {
 		"config_path": "res://components/ic/other/constant0.json",
 		"logic_class_path": "res://components/ic/other/constant0.gd"
-	},"8284A":{
+	},
+	"8284A": {
 		"config_path": "res://components/ic/other/8284A.json",
 		"logic_class_path": "res://components/ic/other/8284A.gd"
-	},"8088":{
+	},
+	"8088": {
 		"config_path": "res://components/ic/proc/I8088.json",
 		"logic_class_path": "res://components/ic/proc/I8088.gd"
-	},"Кварцевый резонатор": {
+	},
+	"RV32-IMA": {
+		"config_path": "res://components/ic/proc/rv32.json",
+		"logic_class_path": "res://components/ic/proc/rv32.gd"
+	},
+	"Кварцевый резонатор": {
 		"config_path": "res://components/ic/other/quartz.json",
 		"logic_class_path": "res://components/ic/other/quartz.gd"
-	},"Резистор": {
+	},
+	"Терминал USART": {
+		"config_path": "res://components/ic/other/terminal.json",
+		"logic_class_path": "res://components/ic/other/terminal.gd"
+	},
+	"Резистор": {
 		"config_path": "res://components/misc/resistor.json",
 		"logic_class_path": "res://components/misc/resistor.gd"
 	}
