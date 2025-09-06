@@ -1,4 +1,4 @@
-[gd_scene load_steps=81 format=3 uid="uid://cd0acvbjpyg0w"]
+[gd_scene load_steps=83 format=3 uid="uid://cd0acvbjpyg0w"]
 
 [ext_resource type="Script" uid="uid://dlsn6lmgynqb0" path="res://ui/main_scene.gd" id="1_8vqs3"]
 [ext_resource type="Shader" uid="uid://bbm5aifcn1lfm" path="res://shaders/grid.gdshader" id="2_7ckc8"]
@@ -61,6 +61,8 @@
 [ext_resource type="Texture2D" uid="uid://dftjdo5x81vef" path="res://ui/tvb_logo_small.png" id="38_x8br3"]
 [ext_resource type="Script" uid="uid://1swxmsmr86d1" path="res://ui/selection_area.gd" id="46_0mty4"]
 [ext_resource type="PackedScene" uid="uid://b53xt8k1d1n5f" path="res://ui/logic_analyzer/logic_analyzer.tscn" id="46_khyqg"]
+[ext_resource type="Texture2D" uid="uid://bo1s6gj2bgscr" path="res://ui/github.png" id="50_fs2eg"]
+[ext_resource type="Script" uid="uid://bwkan5jxxqeda" path="res://ui/github_button.gd" id="51_t4xi8"]
 [ext_resource type="Script" uid="uid://cb8ygfedw5u0e" path="res://ui/history_viewer.gd" id="59_1u0lp"]
 [ext_resource type="Texture2D" uid="uid://bxctkpjxqbsxt" path="res://ui/menu_icons/Edit/undo.png" id="60_afg32"]
 [ext_resource type="Texture2D" uid="uid://bcwd3wfryima0" path="res://ui/menu_icons/Edit/redo.png" id="61_0xmdj"]
@@ -648,7 +650,7 @@ auto_height = true
 [node name="AboutWindow" type="Window" parent="."]
 title = "О программе"
 initial_position = 2
-size = Vector2i(250, 650)
+size = Vector2i(300, 650)
 visible = false
 transient = true
 exclusive = true
@@ -674,7 +676,7 @@ texture = ExtResource("38_x8br3")
 [node name="Label" type="Label" parent="AboutWindow/VBoxContainer"]
 layout_mode = 2
 text = "Technical Virtual Builder
-version 1.2.3
+
 Разработано в СПбПУ Петра Великого
 "
 horizontal_alignment = 1
@@ -682,22 +684,31 @@ autowrap_mode = 3
 
 [node name="Label2" type="Label" parent="AboutWindow/VBoxContainer"]
 layout_mode = 2
-text = "
-Руководство проектом и схемотехнические решения: 
+text = "Руководство проектом и схемотехнические решения: 
 Тарасов О.М.
 
 Разработка ПО: 
 Гогоберидзе А.Г.
 Горьков Н.Я.
 Плеханов А.Е.
-Соколов Д. С."
+Соколов Д. С.
+"
 horizontal_alignment = 1
 autowrap_mode = 3
+
+[node name="Button" type="Button" parent="AboutWindow/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 15
+text = "Исходный код проекта на GitHub"
+icon = ExtResource("50_fs2eg")
+script = ExtResource("51_t4xi8")
 
 [node name="Label3" type="Label" parent="AboutWindow/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 10
-text = "Attribution:
+text = "
+Attribution:
 RISC-V Emulator by https://github.com/cnlohr
 Icons from:
 - www.flaticon.com
@@ -1256,6 +1267,7 @@ cancel_button_text = "Нет"
 [connection signal="mouse_entered" from="UiCanvasLayer/SnippetPicker/VBoxContainer/ScrollContainer/VBoxContainer/ItemList" to="UiCanvasLayer/SnippetPicker" method="_on_item_list_mouse_entered"]
 [connection signal="mouse_exited" from="UiCanvasLayer/SnippetPicker/VBoxContainer/ScrollContainer/VBoxContainer/ItemList" to="UiCanvasLayer/SnippetPicker" method="_on_item_list_mouse_exited"]
 [connection signal="close_requested" from="AboutWindow" to="AboutWindow" method="_on_close_requested"]
+[connection signal="pressed" from="AboutWindow/VBoxContainer/Button" to="AboutWindow/VBoxContainer/Button" method="_on_pressed"]
 [connection signal="file_selected" from="SaveAsFileDialog" to="SaveAsFileDialog" method="_on_file_selected"]
 [connection signal="file_selected" from="LoadFileDialog" to="LoadFileDialog" method="_on_file_selected"]
 [connection signal="pressed" from="MemoryViewer/VBoxContainer/HBoxContainer2/ContinuousUpdate" to="MemoryViewer/VBoxContainer/HBoxContainer" method="_on_continuous_update_pressed"]
