@@ -62,5 +62,5 @@ func display_error(heading:String, description:String, position:Vector2):
 		if position!=last_error_position:
 			InfoManager.write_error(heading +' :: '+ description)
 		error_popup.visible=true
-		error_popup.display(heading, description, position, Color(1,0.8,0.8,0.9))
+		error_popup.display(heading, description, position, Color(1,0.8,0.8,0.9), null)
 		last_error_position = position

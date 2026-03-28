@@ -14,13 +14,17 @@ func _process(delta: float) -> void:
 
 func copy(mouse_pos: Vector2) -> Vector2:
 	buffer.clear()
+	id_change_lut.clear()
 	var centre = Vector2.ZERO
 	var counter = 0
 	for obj: CircuitComponent in ComponentManager.obj_list.values():
 		if obj.is_selected:
 			centre += obj.position + obj.hitbox.shape.size/2
 			counter += 1
-	centre /= counter
+	if counter > 0:
+		centre /= counter
+	else:
+		centre = mouse_pos
 	for obj in ComponentManager.obj_list.values():
 		if obj.is_selected:
 			var item = CopiedItem.new()
@@ -38,24 +42,44 @@ func copy(mouse_pos: Vector2) -> Vector2:
 	return centre
 
 func paste(mouse_pos: Vector2):
+	var pasted_count = 0
+	var wire_count = 0
 	for item in buffer:
-		id_change_lut[item.old_id] = item.paste(mouse_pos)
+		var new_id = item.paste(mouse_pos)
+		if new_id == -1:
+			continue
+		id_change_lut[item.old_id] = new_id
+		pasted_count += 1
 	for item in buffer:
+		if not id_change_lut.has(item.old_id):
+			continue
 		var element = ComponentManager.get_by_id(id_change_lut[item.old_id])
+		if element == null:
+			continue
 		for key in item.connections_with_old_ids:
 			for conn in item.connections_with_old_ids[key]:
+				if not id_change_lut.has(conn["id"]):
+					continue
 				var other = ComponentManager.get_by_id(id_change_lut[conn["id"]])
+				if other == null:
+					continue
 				var control_points = conn["control_points"].duplicate(true)
 				for i in range(control_points.size()):
 					control_points[i] += mouse_pos
-				WireManager._create_wire(element.pin(key), other.pin(conn["index"]), control_points)
-	var event = NEventsBuffer.new()
-	event.initialize(buffer.size(), [ComponentCreationEvent])
-	HistoryBuffer.register_event(event)
+				var wire = WireManager._create_wire(element.pin(key), other.pin(conn["index"]), control_points)
+				if wire != null:
+					var wire_event = WireCreationEvent.new()
+					wire_event.initialize(wire)
+					HistoryBuffer.register_event(wire_event)
+					wire_count += 1
+	if pasted_count + wire_count > 0:
+		var event = NEventsBuffer.new()
+		event.initialize(pasted_count + wire_count, [ComponentCreationEvent, WireCreationEvent])
+		HistoryBuffer.register_event(event)
 
 func copied_to_json():
-	var json_list_ic: Array
-	var netlist: Array
+	var json_list_ic: Array = []
+	var netlist: Array = []
 	var id_map = {}
 	var ic_counter = 1
 	for ic in buffer:

@@ -130,10 +130,16 @@ func toggle_graphics_mode():
 func create_selected_element():
 	var element_name = ICsTreeManager.get_selected_element_name()
 	if element_name == null: return
-	var spec = ComponentSpecification.new()
-	spec.initialize_from_json( ICsTreeManager.get_config_path(element_name) )
-	var element: CircuitComponent = load( ICsTreeManager.get_class_path(element_name) ).new()
-	element.initialize(spec)
+	var element: CircuitComponent
+	if element_name == "Группа светодиодов" or element_name == "Группа переключателей" or element_name == "Группа светодиодов X" or element_name == "Группа светодиодов Х":
+		element = ComponentManager.create_component_from_state({"name": element_name})
+		if element == null:
+			return
+	else:
+		var spec = ComponentSpecification.new()
+		spec.initialize_from_json(ICsTreeManager.get_config_path(element_name))
+		element = load(ICsTreeManager.get_class_path(element_name)).new()
+		element.initialize(spec)
 	element.position = get_global_mouse_position()-element.hitbox.shape.size / 2
 	element.drag_offset = -element.hitbox.shape.size / 2
 	add_child(element)

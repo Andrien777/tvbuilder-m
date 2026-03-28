@@ -1,6 +1,6 @@
 {
 	"name":"Группа светодиодов",
-	"num_pins": 8,
+	"num_pins": 1,
 	"height": 25,
 	"width": 25,
 	"texture": "res://graphics/legacy/ic/sw_group_background.png",

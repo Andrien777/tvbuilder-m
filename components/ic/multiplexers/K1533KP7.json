@@ -1,0 +1,146 @@
+{
+	"name": "К1533КП7",
+	"num_pins": 16,
+	"height": 25,
+	"width": 25,
+	"textures": [
+		{
+			"name": "LEGACY", 
+			"path": "res://graphics/legacy/ic/16leg_2x.png"
+		},
+		{
+			"name": "DEFAULT", 
+			"path": "res://components/ic/ic.png"
+		}
+	],
+	"pinSpecifications": [
+		{
+			"index": 16,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "VCC",
+			"description": "Питание (+5В)",
+			"dependencies": []
+		},
+		{
+			"index": 15,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "D4",
+			"description": "Вход D4",
+			"dependencies": []
+		},
+		{
+			"index": 14,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "D5",
+			"description": "Вход D5",
+			"dependencies": []
+		},
+		{
+			"index": 13,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "D6",
+			"description": "Вход D6",
+			"dependencies": []
+		},
+		{
+			"index": 12,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "D7",
+			"description": "Вход D7",
+			"dependencies": []
+		},
+		{
+			"index": 11,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "A0",
+			"description": "Вход A0",
+			"dependencies": []
+		},
+		{
+			"index": 10,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "A1",
+			"description": "Вход A1",
+			"dependencies": []
+		},
+		{
+			"index": 9,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "A2",
+			"description": "Вход A2",
+			"dependencies": []
+		},
+		{
+			"index": 8,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "GND",
+			"description": "Земля",
+			"dependencies": []
+		},
+		{
+			"index": 7,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "~G",
+			"description": "~Строб",
+			"dependencies": []
+		},
+		{
+			"index": 6,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "W",
+			"description": "Инверсный выход",
+			"dependencies": [-1]
+		},
+		{
+			"index": 5,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "Y",
+			"description": "Выход",
+			"dependencies": [-1]
+		},
+		{
+			"index": 4,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "D0",
+			"description": "Вход D0",
+			"dependencies": []
+		},
+		{
+			"index": 3,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "D1",
+			"description": "Вход D1",
+			"dependencies": []
+		},
+		{
+			"index": 2,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "D2",
+			"description": "Вход D2",
+			"dependencies": []
+		},
+		{
+			"index": 1,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "D3",
+			"description": "Вход D3",
+			"dependencies": []
+		}
+	]
+}

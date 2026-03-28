@@ -140,10 +140,10 @@ func _process(delta: float, force_update = false) -> void:
 		second_object.modulate=Color(1,1,1,1)
 		first_object.toggle_output_highlight()
 		second_object.toggle_output_highlight()
-		WireManager._delete_wire(self)
 		var event = WireDeletionEvent.new() # We are doing it there (and not in WireManager)
 		# to prevent events creating from the HistoryEvent.undo() call 
 		event.initialize(self.first_object, self.second_object, self.control_points)
+		WireManager._delete_wire(self)
 		HistoryBuffer.register_event(event)
 	if(is_dragged) and control_points.size() > 0:
 		control_points[-1] = snap_to_grid(get_global_mouse_position() + control_point_drag_offset) if GlobalSettings.WireSnap else get_global_mouse_position() + control_point_drag_offset

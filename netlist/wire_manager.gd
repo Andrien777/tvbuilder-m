@@ -142,7 +142,7 @@ func _delete_wire(wire):
 		wire.queue_free()
 		
 func find_wire_by_ends(from, to):
-	var res_wire
+	var res_wire = null
 	for wire in wires:
 		if wire.first_object == from and wire.second_object == to or \
 		wire.second_object == from and wire.first_object == to:
@@ -150,7 +150,12 @@ func find_wire_by_ends(from, to):
 	return res_wire
 	
 func _delete_wire_by_ends(from, to): #Slow and questionable, but should work fine
+	if not is_instance_valid(from) or not is_instance_valid(to):
+		InfoManager.write_error("Attempted to delete wire with invalid endpoints")
+		return
 	var wire_to_delete = find_wire_by_ends(from, to)
+	if wire_to_delete == null:
+		return
 	#for wire in wires:
 		#if wire.first_object == from and wire.second_object == to or \
 		#wire.second_object == from and wire.first_object == to:

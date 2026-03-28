@@ -7,6 +7,7 @@ var now_disabled_drag = false
 
 var drag_offset = Vector2(0,0)
 var readable_name:String
+var details : Dictionary
 
 var display_name_label = true
 var id: int
@@ -25,6 +26,7 @@ var prev_modulate = Color(1, 1, 1)
 
 func initialize(spec: ComponentSpecification, ic = null)->void: # Ic field holds saved state and is component-specific
 	self.readable_name = spec.name
+	self.details = spec.details
 	self.input_pickable = true
 	sprite = Sprite2D.new()
 	sprite.centered = false
@@ -120,7 +122,7 @@ func snap_to_grid():
 
 func fully_delete():
 	ComponentManager.remove_object(self)
-	for wire: Wire in WireManager.wires:
+	for wire: Wire in WireManager.wires.duplicate():
 		if wire.first_object in pins or wire.second_object in pins:
 			WireManager._delete_wire(wire)
 	queue_free()
@@ -128,13 +130,13 @@ func fully_delete():
 
 func delete_self():
 	Input.action_release("delete_component")
-	ComponentManager.add_to_deletion_queue(self)
-	ComponentManager.remove_object(self)
-	for wire: Wire in WireManager.wires:
-		if wire.first_object in pins or wire.second_object in pins:
-			WireManager._delete_wire(wire)
 	var event = ComponentDeletionEvent.new()
 	event.initialize(self)
+	ComponentManager.add_to_deletion_queue(self)
+	ComponentManager.remove_object(self)
+	for wire: Wire in WireManager.wires.duplicate():
+		if wire.first_object in pins or wire.second_object in pins:
+			WireManager._delete_wire(wire)
 	HistoryBuffer.register_event(event)
 
 func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void:
@@ -191,6 +193,7 @@ func to_json_object() -> Dictionary:
 	return {
 		"id": id,
 		"name": readable_name,
+		"details": details,
 		"position": position
 	}
 func pin(i:int):
@@ -275,6 +278,16 @@ func update_pins(pins:Array, ic_shape:Vector2):
 					side_padding+
 					side_margin[_pin.ic_position]*(side_count[_pin.ic_position] - side_index[_pin.ic_position]-1))
 					side_index[_pin.ic_position]+=1
+
+func rebuild_pins(new_pin_specs: Array) -> void:
+	for p in pins:
+		if is_instance_valid(p):
+			p.queue_free()
+
+	pins.clear()
+	initialize_pins(new_pin_specs, hitbox.shape.size)
+	update_pins(pins, hitbox.shape.size)
+	toggle_output_highlight()
 
 func toggle_output_highlight():
 	for pin in pins:

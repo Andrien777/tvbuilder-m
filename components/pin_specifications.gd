@@ -16,3 +16,8 @@ func initialize(index: int, direction: NetConstants.DIRECTION, position: String,
 	self.readable_name = readable_name
 	self.description = description
 	self.dependencies = dependencies
+
+func copy() -> PinSpecification:
+	var new_spec = PinSpecification.new()
+	new_spec.initialize(index, direction, position, readable_name, description, dependencies.duplicate(true))
+	return new_spec

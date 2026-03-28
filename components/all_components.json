@@ -39,9 +39,17 @@
 		"config_path": "res://components/ic/other/led_group.json",
 		"logic_class_path": "res://components/ic/other/led_group.gd"
 	},
+	"Группа светодиодов": {
+		"config_path": "res://components/ic/other/led_group_legacy.json",
+		"logic_class_path": "res://components/ic/other/led_group_legacy.gd"
+	},
 	"Матрица светодиодов": {
 		"config_path": "res://components/ic/indicators/led_matrix.json",
 		"logic_class_path": "res://components/ic/indicators/led_matrix.gd"
+	},
+	"Группа переключателей": {
+		"config_path": "res://components/ic/other/switch_group_legacy.json",
+		"logic_class_path": "res://components/ic/other/switch_group_legacy.gd"
 	},
 	"Группа переключателей": {
 		"config_path": "res://components/ic/other/switch_group.json",
@@ -218,5 +226,13 @@
 	"Резистор": {
 		"config_path": "res://components/misc/resistor.json",
 		"logic_class_path": "res://components/misc/resistor.gd"
+	},
+	"К1533КП11А": {
+		"config_path": "res://components/ic/multiplexers/K1533KP11A.json",
+		"logic_class_path": "res://components/ic/multiplexers/K1533KP11A.gd"
+	},
+	"К1533КП7": {
+		"config_path": "res://components/ic/multiplexers/K1533KP7.json",
+		"logic_class_path": "res://components/ic/multiplexers/K1533KP7.gd"
 	}
 }

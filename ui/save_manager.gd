@@ -69,18 +69,20 @@ func parse_save_str(scene: Node2D, file: String, path="LoadedProject.json"):
 			continue
 		else:
 			parsed_ids.append(ic.id)
-		var component: CircuitComponent
-		component = load(ComponentManager.ALL_COMPONENTS_LIST[ic.name].logic_class_path).new()
-		var spec = ComponentSpecification.new()
-		spec.initialize_from_json(ComponentManager.ALL_COMPONENTS_LIST[ic.name].config_path)
-		component.initialize(spec, ic)
-		ComponentManager.change_id(component, ic.id)
-		ComponentManager.last_id = max(ComponentManager.last_id, ic.id) + 1
+		var component = ComponentManager.create_component_from_state(ic)
+		if component == null:
+			continue
+		var component_id = int(ic.id)
+		ComponentManager.change_id(component, component_id)
+		ComponentManager.last_id = max(ComponentManager.last_id, component_id) + 1
 		scene.add_child(component)
-		var pos = ic.position.split(",")
-		var x = float(pos[0].replace("(", ""))
-		var y = float(pos[1].replace(")", ""))
-		component.position = Vector2(x, y)
+		if ic.position is String:
+			var pos = ic.position.split(",")
+			var x = float(pos[0].replace("(", ""))
+			var y = float(pos[1].replace(")", ""))
+			component.position = Vector2(x, y)
+		elif ic.position is Vector2:
+			component.position = ic.position
 		#ic_list.append(component) # Component already appends itself during initialization
 	if parsed.has("buses"):
 		load_buses(parsed.buses, scene)
@@ -198,11 +200,9 @@ func load_snippet(mouse_pos, scene, path = "test_snippet.json"):
 			continue
 		else:
 			parsed_ids.append(ic.id)
-		var component: CircuitComponent
-		component = load(ComponentManager.ALL_COMPONENTS_LIST[ic.name].logic_class_path).new()
-		var spec = ComponentSpecification.new()
-		spec.initialize_from_json(ComponentManager.ALL_COMPONENTS_LIST[ic.name].config_path)
-		component.initialize(spec, ic)
+		var component = ComponentManager.create_component_from_state(ic)
+		if component == null:
+			continue
 		id_map[ic.id] = ComponentManager.last_id + ic.id
 		ComponentManager.change_id(component, ComponentManager.last_id + ic.id)
 		ComponentManager.last_id = max(ComponentManager.last_id, component.id) + 1

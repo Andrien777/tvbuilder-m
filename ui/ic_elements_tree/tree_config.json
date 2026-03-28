@@ -189,6 +189,21 @@
 					]
 				},
 				{
+					"group_name": "Мультиплексоры",
+					"subelements": [
+						{
+							"ic_name": "К1533КП11А",
+							"config_path": "res://components/ic/multiplexers/K1533KP11A.json",
+							"logic_class_path": "res://components/ic/multiplexers/K1533KP11A.gd"
+						},
+						{
+							"ic_name": "К1533КП7",
+							"config_path": "res://components/ic/multiplexers/K1533KP7.json",
+							"logic_class_path": "res://components/ic/multiplexers/K1533KP7.gd"
+						}
+					]
+				},
+				{
 					"group_name": "Микропроцессоры",
 					"subelements": [
 						{

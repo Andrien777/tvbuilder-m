@@ -1,0 +1,132 @@
+{
+	"name":"К1533КП11А",
+	"num_pins": 16,
+	"height": 25,
+	"width": 25,
+	"textures": [
+		{
+			"name":"LEGACY", 
+			"path":"res://graphics/legacy/ic/16leg_2x.png"
+		},
+		{
+			"name":"DEFAULT", 
+			"path":"res://components/ic/ic.png"
+		}
+		],
+	"pinSpecifications": [
+		{
+			"index": 16,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "VCC",
+			"description": "Питание",
+			"dependencies": []
+		},{
+			"index": 15,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "~CS",
+			"description": "Разрешение",
+			"dependencies": []
+		},{
+			"index": 14,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "4A",
+			"description": "Вход 4A",
+			"dependencies": []
+		},{
+			"index": 13,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "4B",
+			"description": "Вход 4B",
+			"dependencies": []
+		},{
+			"index": 12,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "4Q",
+			"description": "Выход 4Q",
+			"dependencies": [-1]
+		},{
+			"index": 11,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "3A",
+			"description": "Вход 3A",
+			"dependencies": []
+		},{
+			"index": 10,
+			"direction": "DIRECTION_INPUT",
+			"position": "TOP",
+			"readable_name": "3B",
+			"description": "Вход 3B",
+			"dependencies": []
+		},{
+			"index": 9,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "TOP",
+			"readable_name": "3Q",
+			"description": "Выход 3Q",
+			"dependencies": [-1]
+		},
+		{
+			"index": 8,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "GND",
+			"description": "Земля",
+			"dependencies": []
+		},{
+			"index": 7,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "2Q",
+			"description": "Выход 2Q",
+			"dependencies": [-1]
+		},{
+			"index": 6,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "2B",
+			"description": "Вход 2B",
+			"dependencies": []
+		},{
+			"index": 5,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "2A",
+			"description": "Вход 2A",
+			"dependencies": []
+		},{
+			"index": 4,
+			"direction": "DIRECTION_OUTPUT",
+			"position": "BOTTOM",
+			"readable_name": "1Q",
+			"description": "Выход 1Q",
+			"dependencies": [-1]
+		},{
+			"index": 3,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "1B",
+			"description": "Вход 1B",
+			"dependencies": []
+		},{
+			"index": 2,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "1A",
+			"description": "Вход 1A",
+			"dependencies": []
+		},{
+			"index": 1,
+			"direction": "DIRECTION_INPUT",
+			"position": "BOTTOM",
+			"readable_name": "S",
+			"description": "Select",
+			"dependencies": []
+		}
+	]
+}

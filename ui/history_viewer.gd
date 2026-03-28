@@ -51,6 +51,8 @@ func display_buffer(buffer):
 			label.text = "%d. Удаление шины id=%d" % [i,event.id ]
 		elif event is LabelTextChangeEvent:
 			label.text = "%d. Изменение текста метки id=%d с '%s' на '%s'" % [i,event.id, event.old_content, event.new_content ]
+		elif event is ComponentStateChangeEvent:
+			label.text = "%d. Изменение состояния компонента %s:%d" % [i, event.name, event.id]
 		elif event is NEventsBuffer:
 			label.text = "%d. Буфер для %d предыдущих событий" % [i,event.n ]
 		else:
